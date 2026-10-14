@@ -5,6 +5,7 @@ import { planLine } from "@/lib/quota";
 import type { Network, Scenario } from "@/lib/types";
 import PanelHeader from "./PanelHeader";
 import QuotaChart from "./QuotaChart";
+import SensitivitySection from "./SensitivitySection";
 
 const MAX_AFFECTED = 5;
 
@@ -104,6 +105,8 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
           {plan.sentence}
         </div>
       </section>
+
+      <SensitivitySection scenario={scenario} />
 
       {children}
     </>
