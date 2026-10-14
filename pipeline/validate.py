@@ -15,6 +15,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 KINDS = {"mine", "refinery", "supplier_major", "supplier_minor", "assembly", "port", "airport", "canal", "border", "apple_store", "carrier", "retailer", "repair", "hq"}
+BACKBONE_KINDS = {"chokepoint", "sales_region", "event_anchor"}  # User-approved October 14, 2026.
 PRECISIONS = {"exact", "city", "province", "country"}
 MODES = {"sea", "air", "road", "rail"}
 TYPES = {"sea", "sky", "land", "policy", "demand"}
@@ -98,7 +99,11 @@ class Validator:
             if isinstance(identifier, str):
                 ids.add(identifier)
             self.text(node.get("name"), name + ".name")
-            self.check(node.get("kind") in KINDS, name + ": invalid kind")
+            self.check(node.get("kind") in KINDS or (self.proposed and node.get("kind") in BACKBONE_KINDS), name + ": invalid kind")
+            if node.get("kind") in BACKBONE_KINDS:
+                self.check(node.get("layer") == "backbone", name + ": reference kind requires backbone layer")
+            if node.get("layer") == "backbone":
+                self.check(not node.get("companyId"), name + ": backbone cannot claim a historical supplier identity")
             if node.get("tier") is not None or not self.proposed:
                 self.check(type(node.get("tier")) is int and 1 <= node["tier"] <= 7, name + ": tier must be 1 through 7 (null requires a contract decision)")
             for key in ["tier", "ticker", "partType", "appleRevenueShare"]:
@@ -135,9 +140,15 @@ class Validator:
                 edge_ids.add(identifier)
             self.check(edge.get("from") in ids and edge.get("to") in ids, name + ": dangling edge endpoint")
             self.check(edge.get("mode") in MODES, name + ": invalid mode")
-            self.check(type(edge.get("carriesTier")) is int and 1 <= edge["carriesTier"] <= 7, name + ": invalid carriesTier")
+            self.check((self.proposed and "carriesTier" in edge and edge["carriesTier"] is None) or (type(edge.get("carriesTier")) is int and 1 <= edge["carriesTier"] <= 7), name + ": invalid carriesTier")
             self.check(edge.get("status") in {"known", "inferred"}, name + ": invalid link status")
             self.sources(edge.get("sources"), name, document.get("sampleData") is True)
+            if edge.get("layer") in {"backbone", "supplier_access"}:
+                self.check(edge.get("status") == "inferred" and edge.get("routingVerified") is False, name + ": unverified backbone route must be inferred")
+                self.text(edge.get("basis"), name + ".basis")
+                self.check(all(n in ids for n in edge.get("viaNodeIds", [])), name + ": dangling route transit node")
+                if edge.get("alternativeTo"):
+                    self.check(any(e.get("id") == edge["alternativeTo"] for e in edges), name + ": dangling alternative route")
             if "via" in edge:
                 self.check(isinstance(edge["via"], list), name + ": via must be an array")
                 for pair in edge["via"] if isinstance(edge["via"], list) else []:
@@ -164,7 +175,8 @@ class Validator:
             if cohort.get("snapshotYear") != cohort.get("eventYear"):
                 self.check(cohort.get("assumption") is True and cohort.get("proxyApproved") is True, label + ": nearby-year cohort needs explicit approval and assumption flag")
         if "companyPredictions" in scenario:
-            self.company_predictions(scenario, node_ids, label)
+            supplier_ids = {n["id"] for n in network.get("nodes", []) if n.get("layer") != "backbone"}
+            self.company_predictions(scenario, supplier_ids, label)
         shock = scenario.get("shock", {})
         if not self.check(isinstance(shock, dict), label + ": shock object required"):
             shock = {}
@@ -186,6 +198,7 @@ class Validator:
             node = prediction.get("nodeId")
             self.check(node in node_ids and node not in predicted, label + ": invalid/duplicate prediction reference")
             predicted.add(node)
+            self.check(not any(n.get("id") == node and n.get("layer") == "backbone" for n in network.get("nodes", [])), label + ": supplier prediction cannot attach to backbone context")
             valid = all(self.number(prediction.get(key), f"{label}/{node}.{key}", 0, 1) for key in ["pHit", "ciLow", "ciHigh"])
             if valid:
                 self.check(prediction["ciLow"] <= prediction["pHit"] <= prediction["ciHigh"], label + ": invalid prediction interval")
@@ -235,6 +248,12 @@ class Validator:
         routes = scenario.get("affectedRoutes", {})
         for key in ["blocked", "detour", "expedited"]:
             self.check(isinstance(routes.get(key), list) and all(e in edge_ids for e in routes.get(key, [])), label + ": invalid affected-route reference")
+        if "backbone" in network:
+            self.check(network["backbone"].get("approval", {}).get("approved") is True, label + ": backbone format needs explicit approval")
+            self.check(scenario.get("affectedRoutesStatus") == "inferred", label + ": inferred exposure status required")
+            self.text(scenario.get("affectedRoutesBasis"), label + ".affectedRoutesBasis")
+            blocked = set(routes.get("blocked", []))
+            self.check(not blocked & (set(routes.get("detour", [])) | set(routes.get("expedited", []))), label + ": blocked route cannot be an available alternative")
         sensitivity = scenario.get("sensitivity", [])
         self.check(isinstance(sensitivity, list), label + ": sensitivity array required")
         for item in sensitivity:

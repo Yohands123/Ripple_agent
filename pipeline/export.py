@@ -20,6 +20,7 @@ if __package__ in {None, ""}:
 from pipeline.validate import validate_folder
 from pipeline.tiers import inferred_tier
 from pipeline.company_registry import registry
+from pipeline.backbone import attach_backbone
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "data/review/export_preview"
@@ -64,6 +65,7 @@ def build_bundle(root=ROOT):
     documents, index = {}, []
     plans_path = root / "data/processed/optimizer_plans.json"
     optimization_plans = read_json(plans_path) if plans_path.exists() else None
+    backbone = read_json(root / "data/processed/backbone.json")
     if optimization_plans is not None and optimization_plans.get("reviewOnly") is not False:
         raise ValueError("Review-only optimizer output cannot be published")
     for event in events:
@@ -140,6 +142,7 @@ def build_bundle(root=ROOT):
             if plan["optimization"]["inputRanges"].get("approved") is not True:
                 raise ValueError("Unapproved optimizer assumptions cannot be published")
             documents[f"scenarios/{identifier}.json"].update(plan)
+        attach_backbone(documents[network_path], documents[f"scenarios/{identifier}.json"], event, backbone)
         index.append({key: event[key] for key in ["id", "title", "type", "start"]})
     default = "suez-2021" if "networks/suez-2021.json" in documents else events[0]["id"]
     documents["network.json"] = documents[f"networks/{default}.json"]

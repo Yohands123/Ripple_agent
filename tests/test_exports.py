@@ -80,14 +80,14 @@ def test_malformed_wire_types_report_errors_instead_of_crashing(candidate, tmp_p
     assert any("Malformed export structure" in e for e in validate_folder(tmp_path))
 
 
-def test_site_outcomes_preserve_company_scope_and_use_no_invented_routes(candidate):
+def test_site_outcomes_preserve_company_scope_and_label_inferred_routes(candidate):
     for path, network in candidate.items():
         if not path.startswith("networks/"):
             continue
         event_id = network["eventId"]
         scenario = candidate[f"scenarios/{event_id}.json"]
         assert network["snapshotYear"] == scenario["snapshotYear"]
-        assert network["edges"] == []
+        assert all(e["status"] == "inferred" and e["routingVerified"] is False for e in network["edges"])
         if scenario["quota"] is not None:
             assert scenario["quota"]["assumption"] is True
             assert scenario["optimization"]["inputRanges"]["approved"] is True
@@ -114,7 +114,8 @@ def test_expansion_keeps_company_only_scenarios_and_reports_only_selected_metric
     for identifier in omitted:
         scenario = candidate[f"scenarios/{identifier}.json"]
         network = candidate[scenario["networkPath"]]
-        assert network["nodes"] == network["edges"] == []
+        assert not any(n["layer"] == "supplier" for n in network["nodes"])
+        assert all(n["layer"] == "backbone" and "companyId" not in n for n in network["nodes"])
         assert scenario["predictions"] == scenario["actual"] == []
         companies = scenario["companyPredictions"]
         assert len(companies) == network["coverage"]["unlocatedCompanies"] == 156

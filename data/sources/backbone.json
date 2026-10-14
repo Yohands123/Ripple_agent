@@ -1,0 +1,87 @@
+{
+  "checkedOn": "2026-10-14",
+  "approval": {
+    "approved": true,
+    "decision": "Approve backbone extensions",
+    "nodeKinds": ["chokepoint", "sales_region", "event_anchor"],
+    "nullableCarriesTier": true,
+    "proposal": "data/review/backbone_format_proposal.md"
+  },
+  "scope": "Contemporary geographic reference, not an own-year supplier roster or evidence of historical Apple shipments. No backbone node or route enters model features or outcome labels.",
+  "datasets": {
+    "airports": {
+      "file": "airports.csv",
+      "title": "OurAirports public-domain airport coordinates, revision a5a1ab8",
+      "url": "https://raw.githubusercontent.com/davidmegginson/ourairports-data/a5a1ab8c3d9d57568c4bf9a7d398a23a60623830/airports.csv",
+      "sha256": "f219659218d1f27e7907c284b87778047b84102435d3483c7ee0ce6990b95e77"
+    },
+    "ports": {
+      "file": "ports.json",
+      "title": "NGA World Port Index public records, retrieved October 14, 2026",
+      "url": "https://msi.nga.mil/api/publications/world-port-index?output=json",
+      "sha256": "f8896f0b634e014de721f2b19288bf03181a2674ad435182a8664b0b829d3910"
+    }
+  },
+  "sources": {
+    "hq": {"title": "Apple Park opens to employees in April 2017", "url": "https://www.apple.com/newsroom/2017/02/apple-park-opens-to-employees-in-april.html"},
+    "hqPoint": {"title": "Apple Maps: Apple Park place reference", "url": "https://maps.apple.com/place?q=Apple%20Park&ll=37.3349%2C-122.00902&auid=559098170073364042&lsp=9902"},
+    "zhengzhou": {"title": "Apple: Zhengzhou iPhone assembly restrictions, November 6, 2022", "url": "https://www.apple.com/newsroom/2022/11/update-on-supply-of-iphone-14-pro-and-iphone-14-pro-max/"},
+    "foxconn": {"title": "Foxconn Industrial Internet: Bac Giang, Guanlan and other lighthouse factories, October 2024", "url": "https://www.fii-foxconn.com/en/NewsDetail?id=4004"},
+    "india": {"title": "Invest India: electronics manufacturing clusters, December 2023", "url": "https://static.investindia.gov.in/s3fs-public/2023-12/Electronic%20Sector%20Latest%20Release.pdf"},
+    "bengaluru": {"title": "Government of India parliamentary answer: contracted iPhone manufacturing in Bengaluru", "url": "https://sansad.in/getFile/loksabhaquestions/annex/15/AU918.pdf?source=pqals"},
+    "sriperumbudur": {"title": "Apple Supplier List: disclosed manufacturing addresses including Sriperumbudur", "url": "https://www.apple.com/euro/supplier-responsibility/h/generic/pdf/Apple-Supplier-List.pdf"},
+    "vietnam": {"title": "Apple UK supply-chain statement 2024: assembly in Vietnam", "url": "https://www.apple.com/legal/more-resources/docs/uk-Apple-Combat-Human-Trafficking-and-Slavery-in-Supply-Chain-2024.pdf"},
+    "sales": {"title": "Apple FY2025 Form 10-K: Note 13 segment information", "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm"},
+    "sea": {"title": "MSC: standalone Asia-Europe and Asia-Americas shipping network, September 2024", "url": "https://www.msc.com/en/newsroom/news/2024/september/msc-unveils-future-standalone-east-west-network"},
+    "straits": {"title": "OECD: maritime chokepoints and trade resilience, 2024", "url": "https://www.oecd.org/en/publications/risks-and-resilience-in-global-trade_1c66c439-en/full-report/component-6.html"},
+    "cape": {"title": "Port of Rotterdam: Singapore-Europe Suez corridor and Cape diversion, January 3, 2024", "url": "https://www.portofrotterdam.com/en/news-and-press-releases/impact-of-red-sea-unrest-on-rotterdam-throughput-expected-to-be-slight"},
+    "cargo": {"title": "Lufthansa Cargo: public cargo station network", "url": "https://www.lufthansa-cargo.com/en/network/maps/stations"},
+    "airCorridors": {"title": "Lufthansa Cargo public freighter connections, week 37 of 2020", "url": "https://www.lufthansa-cargo.com/documents/20184/18373210/CW37_2020%2B-%2BFreighter%2BConnections.pdf/511f97f8-9333-73aa-7607-5e51f0af7a6c?t=1599051659297"},
+    "cgo": {"title": "Zhengzhou government: international air cargo gateway, July 2026", "url": "https://www.zhengzhou.gov.cn/news1/10153545.jhtml"},
+    "maa": {"title": "Airports Authority of India: Chennai air cargo complex", "url": "https://www.aai.aero/en/node/2495"},
+    "hkg": {"title": "Hong Kong Customs: Pearl River Delta sea-air transshipment gateway", "url": "https://www.customs.gov.hk/en/customs-announcement/press-release/index_id_110.html"},
+    "haiphong": {"title": "Port of Hai Phong: northern Vietnam multimodal gateway", "url": "https://haiphongport.com.vn/en/geographical-location-/geographical-location.html"},
+    "chennai": {"title": "Chennai Port Authority master plan 2022: port position 13 degrees 06 N, 80 degrees 18 E", "url": "https://www.chennaiport.gov.in/api/static/default/inner_content/mp2022.pdf"},
+    "panama": {"title": "Panama Canal Authority: Atlantic and Pacific entrances", "url": "https://pancanal.com/en/tide-tables/"},
+    "rotterdam": {"title": "Port of Rotterdam: deep-sea, feeder and inland connections", "url": "https://www.portofrotterdam.com/en/logistics/connections/deep-sea-and-feeder"}
+  },
+  "airports": ["CGO", "SZX", "MAA", "BLR", "HAN", "HPH", "PVG", "WUH", "KMJ", "SDJ", "NRT", "TPE", "BKK", "DMK", "FRA", "AMS", "LAX", "SFO", "JFK", "SIN", "SVO", "HKG"],
+  "ports": [
+    {"key": "yantian", "number": 57857},
+    {"key": "shekou", "number": 57777},
+    {"key": "shanghai", "number": 59970},
+    {"key": "singapore", "number": 50000},
+    {"key": "haiphong", "number": 57680},
+    {"key": "kaohsiung", "number": 57920},
+    {"key": "rotterdam", "number": 31140},
+    {"key": "los-angeles", "number": 16080},
+    {"key": "new-york", "number": 7640},
+    {"key": "tokyo", "number": 61380},
+    {"key": "busan", "number": 60390},
+    {"key": "hamburg", "number": 30780},
+    {"key": "suez-south", "number": 48040},
+    {"key": "said", "number": 45140},
+    {"key": "balboa", "number": 15410}
+  ],
+  "chokepoints": [
+    {"key": "malacca", "name": "Strait of Malacca", "lon": 99.19387593, "lat": 4.99047865, "region": "Southeast Asia", "mrgid": 4275, "precisionMeters": 640247},
+    {"key": "suez", "name": "Suez Canal", "lon": 32.49194444, "lat": 30.57277778, "region": "Egypt", "mrgid": 4277, "precisionMeters": 75000},
+    {"key": "bab-el-mandeb", "name": "Bab-el-Mandeb", "lon": 43.41667, "lat": 12.58333, "region": "Red Sea entrance", "mrgid": 9080},
+    {"key": "panama", "name": "Panama Canal", "lon": -79.85722222, "lat": 9.10111111, "region": "Panama", "mrgid": 4298, "precisionMeters": 20000},
+    {"key": "taiwan-strait", "name": "Taiwan Strait", "lon": 119.4325, "lat": 24.19166667, "region": "East Asia", "mrgid": 4301, "precisionMeters": 192000}
+  ],
+  "assemblies": [
+    {"key": "zhengzhou", "name": "Zhengzhou assembly hub", "city": "Zhengzhou", "iso": "CN", "sources": ["zhengzhou"], "gateways": ["airport-cgo", "port-shanghai"]},
+    {"key": "shenzhen", "name": "Shenzhen assembly hub (Longhua / Guanlan)", "city": "Shenzhen", "iso": "CN", "sources": ["foxconn"], "gateways": ["airport-szx", "airport-hkg", "port-yantian", "port-shekou"]},
+    {"key": "chennai", "name": "Chennai / Sriperumbudur assembly hub", "city": "Chennai", "iso": "IN", "sources": ["india", "sriperumbudur"], "gateways": ["airport-maa", "port-chennai"], "placementNote": "Chennai regional reference point; not an exact Sriperumbudur plant pin"},
+    {"key": "bengaluru", "name": "Bengaluru assembly hub", "city": "Bengaluru", "iso": "IN", "sources": ["bengaluru", "india"], "gateways": ["airport-blr", "port-chennai"]},
+    {"key": "northern-vietnam", "name": "Northern Vietnam assembly hub (Bac Giang / Bac Ninh)", "province": "Bắc Giang", "iso": "VN", "sources": ["foxconn", "vietnam"], "gateways": ["airport-han", "airport-hph", "port-haiphong"], "placementNote": "Published Bac Giang province reference; products and locations aggregate multiple public manufacturing sites"}
+  ],
+  "salesRegions": [
+    {"key": "americas", "name": "Americas", "city": "Los Angeles", "iso": "US", "definition": "North and South America", "gateways": ["airport-lax", "airport-jfk", "port-los-angeles", "port-new-york"]},
+    {"key": "europe", "name": "Europe", "city": "Frankfurt", "iso": "DE", "definition": "Europe, India, Middle East and Africa", "gateways": ["airport-fra", "airport-ams", "port-rotterdam", "port-hamburg"]},
+    {"key": "greater-china", "name": "Greater China", "city": "Shanghai", "iso": "CN", "definition": "Mainland China, Hong Kong and Taiwan", "gateways": ["airport-pvg", "airport-hkg", "airport-tpe", "port-shanghai", "port-kaohsiung"]},
+    {"key": "japan", "name": "Japan", "city": "Tokyo", "iso": "JP", "definition": "Japan", "gateways": ["airport-nrt", "port-tokyo"]},
+    {"key": "rest-apac", "name": "Rest of Asia Pacific", "city": "Singapore", "iso": "SG", "definition": "Australia and other Asian countries outside Apple's other reportable segments; excludes India", "gateways": ["airport-sin", "port-singapore"]}
+  ]
+}
