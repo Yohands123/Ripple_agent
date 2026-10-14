@@ -1,0 +1,32 @@
+{
+  "asOf": "2026-10-14",
+  "benchmarks": {
+    "NASDAQ": {"symbol":"^IXIC","name":"NASDAQ Composite"},
+    "NYSE": {"symbol":"^NYA","name":"NYSE Composite"},
+    "TAI": {"symbol":"^TWII","name":"Taiwan Weighted Index"},
+    "TWO": {"symbol":"TPEXINDEX","name":"Taipei Exchange Index","provider":"Taipei Exchange","source":{"title":"Taipei Exchange: Historical Data of TPEx Index","url":"https://www.tpex.org.tw/en-us/indices/stock-index/industrial/inxh.html"}},
+    "JPX": {"symbol":"^N225","name":"Nikkei 225"},
+    "HKG": {"symbol":"^HSI","name":"Hang Seng Index"},
+    "SHZ": {"symbol":"399001.SZ","name":"Shenzhen Component Index"},
+    "SHH": {"symbol":"000001.SS","name":"Shanghai Composite Index"},
+    "KSC": {"symbol":"^KS11","name":"KOSPI"},
+    "KOE": {"symbol":"^KQ11","name":"KOSDAQ"},
+    "GER": {"symbol":"^GDAXI","name":"DAX"},
+    "PAR": {"symbol":"^FCHI","name":"CAC 40"},
+    "BRU": {"symbol":"^BFX","name":"BEL 20"},
+    "AMS": {"symbol":"^AEX","name":"AEX"},
+    "HEL": {"symbol":"^OMXH25","name":"OMX Helsinki 25"},
+    "STO": {"symbol":"^OMXSPI","name":"OMX Stockholm"},
+    "OSL": {"symbol":"OSEBX.OL","name":"Oslo Bors Benchmark Gross Return"},
+    "EBS": {"symbol":"^SSMI","name":"Swiss Market Index"},
+    "VIE": {"symbol":"^ATX","name":"Austrian Traded Index"},
+    "SES": {"symbol":"^STI","name":"Straits Times Index"},
+    "SAU": {"symbol":"^TASI.SR","name":"Tadawul All Share Index"}
+  },
+  "exchangeAliases": {"Nasdaq":"NASDAQ","NMS":"NASDAQ","NGM":"NASDAQ","NCM":"NASDAQ","NAS":"NASDAQ","NYQ":"NYSE","NYS":"NYSE","TPE":"TAI"},
+  "privateCompanies": [
+    {"match":"^Molex", "title":"Molex Compliance & Ethics: privately held company", "url":"https://www.molex.com/en-us/about/compliance-ethics"},
+    {"match":"^Coilcraft", "title":"Coilcraft FY2025 Modern Slavery Statement: privately held company", "url":"https://www.coilcraft.com/en-us/quality/transparency-in-supply-chain/"},
+    {"match":"^Robert Bosch GmbH$", "title":"Bosch ownership: foundation, family corporation and treasury shares", "url":"https://www.bosch.com/company/"}
+  ]
+}

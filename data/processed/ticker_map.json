@@ -1,0 +1,3576 @@
+{
+  "sampleData": false,
+  "asOf": "2026-10-14",
+  "mapped": [
+    {
+      "supplier": "3M",
+      "status": "listed",
+      "ticker": "MMM",
+      "exchange": "NYSE",
+      "listedName": "3M CO",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 66740,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "3M Company",
+      "status": "listed",
+      "ticker": "MMM",
+      "exchange": "NYSE",
+      "listedName": "3M CO",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 66740,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "AAC Technologies Holdings Incorporated",
+      "status": "listed",
+      "ticker": "2018.HK",
+      "exchange": "HKG",
+      "listedName": "AAC Technologies Holdings Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2018.HK",
+          "url": "https://finance.yahoo.com/quote/2018.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "AT & S Austria Technologie & Systemtechnik Aktiengesellschaft",
+      "status": "listed",
+      "ticker": "ATS.VI",
+      "exchange": "VIE",
+      "listedName": "AT & S Austria Technologie & Systemtechnik Aktiengesellschaft",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ATS.VI",
+          "url": "https://finance.yahoo.com/quote/ATS.VI/"
+        }
+      ],
+      "benchmark": "^ATX"
+    },
+    {
+      "supplier": "Advanced Micro Devices Incorporated",
+      "status": "listed",
+      "ticker": "AMD",
+      "exchange": "NASDAQ",
+      "listedName": "ADVANCED MICRO DEVICES INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 2488,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "status": "listed",
+      "ticker": "AOSL",
+      "exchange": "NASDAQ",
+      "listedName": "ALPHA & OMEGA SEMICONDUCTOR Ltd",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1387467,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Alps Alpine Company Limited",
+      "status": "listed",
+      "ticker": "6770.T",
+      "exchange": "JPX",
+      "listedName": "Alps Alpine Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6770.T",
+          "url": "https://finance.yahoo.com/quote/6770.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Amkor Technology Incorporated",
+      "status": "listed",
+      "ticker": "AMKR",
+      "exchange": "NASDAQ",
+      "listedName": "AMKOR TECHNOLOGY, INC.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1047127,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Amphenol Corporation",
+      "status": "listed",
+      "ticker": "APH",
+      "exchange": "NYSE",
+      "listedName": "AMPHENOL CORP /DE/",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 820313,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Analog Devices Incorporated",
+      "status": "listed",
+      "ticker": "ADI",
+      "exchange": "NASDAQ",
+      "listedName": "ANALOG DEVICES INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 6281,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Asia Vital Components Company Limited",
+      "status": "listed",
+      "ticker": "3017.TW",
+      "exchange": "TAI",
+      "listedName": "Asia Vital Components Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3017.TW",
+          "url": "https://finance.yahoo.com/quote/3017.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Auras Technology Company Limited",
+      "status": "listed",
+      "ticker": "3324.TWO",
+      "exchange": "TWO",
+      "listedName": "Auras Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3324.TWO",
+          "url": "https://finance.yahoo.com/quote/3324.TWO/"
+        }
+      ],
+      "benchmark": "TPEXINDEX"
+    },
+    {
+      "supplier": "BOE Technology Group Company Limited",
+      "status": "listed",
+      "ticker": "000725.SZ",
+      "exchange": "SHZ",
+      "listedName": "BOE Technology Group Company Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000725.SZ",
+          "url": "https://finance.yahoo.com/quote/000725.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "BYD Company Limited",
+      "status": "listed",
+      "ticker": "1211.HK",
+      "exchange": "HKG",
+      "listedName": "BYD Company Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1211.HK",
+          "url": "https://finance.yahoo.com/quote/1211.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "BYD Electronic (International) Company Limited",
+      "status": "listed",
+      "ticker": "0285.HK",
+      "exchange": "HKG",
+      "listedName": "BYD Electronic (International) Company Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 0285.HK",
+          "url": "https://finance.yahoo.com/quote/0285.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Baoji Titanium Industry Co., Ltd.",
+      "status": "listed",
+      "ticker": "600456.SS",
+      "exchange": "SHH",
+      "listedName": "Baoji Titanium Industry Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600456.SS",
+          "url": "https://finance.yahoo.com/quote/600456.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "Baotou Inst Magnetic New Materials Co., Limited",
+      "status": "listed",
+      "ticker": "301622.SZ",
+      "exchange": "SHZ",
+      "listedName": "Baotou INST Magnetic New Materials Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 301622.SZ",
+          "url": "https://finance.yahoo.com/quote/301622.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Baotou Inst Magnetic New Materials Co., Ltd.",
+      "status": "listed",
+      "ticker": "301622.SZ",
+      "exchange": "SHZ",
+      "listedName": "Baotou INST Magnetic New Materials Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 301622.SZ",
+          "url": "https://finance.yahoo.com/quote/301622.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Beijing Zhong Ke San Huan High-Tech Co., Limited",
+      "status": "listed",
+      "ticker": "000970.SZ",
+      "exchange": "SHZ",
+      "listedName": "Beijing Zhong Ke San Huan High-Tech Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000970.SZ",
+          "url": "https://finance.yahoo.com/quote/000970.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Beijing Zhong Ke San Huan High-Tech Co., Ltd.",
+      "status": "listed",
+      "ticker": "000970.SZ",
+      "exchange": "SHZ",
+      "listedName": "Beijing Zhong Ke San Huan High-Tech Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000970.SZ",
+          "url": "https://finance.yahoo.com/quote/000970.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Bichamp Cutting Technology (Hunan) Co., Ltd",
+      "status": "listed",
+      "ticker": "002843.SZ",
+      "exchange": "SHZ",
+      "listedName": "Bichamp Cutting Technology (Hunan) Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002843.SZ",
+          "url": "https://finance.yahoo.com/quote/002843.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Broadcom Limited",
+      "status": "listed",
+      "ticker": "AVGO",
+      "exchange": "NASDAQ",
+      "listedName": "Broadcom Inc.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1730168,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Career Technology (Mfg) Company Limited",
+      "status": "listed",
+      "ticker": "6153.TW",
+      "exchange": "TAI",
+      "listedName": "Career Technology (Mfg.) Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6153.TW",
+          "url": "https://finance.yahoo.com/quote/6153.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Career Technology (Mfg.) Company Limited",
+      "status": "listed",
+      "ticker": "6153.TW",
+      "exchange": "TAI",
+      "listedName": "Career Technology (Mfg.) Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6153.TW",
+          "url": "https://finance.yahoo.com/quote/6153.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Catcher Technology Company Limited",
+      "status": "listed",
+      "ticker": "2474.TW",
+      "exchange": "TAI",
+      "listedName": "Catcher Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2474.TW",
+          "url": "https://finance.yahoo.com/quote/2474.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Cheng Loong Corporation",
+      "status": "listed",
+      "ticker": "1904.TW",
+      "exchange": "TAI",
+      "listedName": "Cheng Loong Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1904.TW",
+          "url": "https://finance.yahoo.com/quote/1904.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Cheng Uei Precision Industry Company Limited (Foxlink)",
+      "status": "listed",
+      "ticker": "2392.TW",
+      "exchange": "TAI",
+      "listedName": "Cheng Uei Precision Industry Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2392.TW",
+          "url": "https://finance.yahoo.com/quote/2392.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Cirrus Logic Incorporated",
+      "status": "listed",
+      "ticker": "CRUS",
+      "exchange": "NASDAQ",
+      "listedName": "CIRRUS LOGIC, INC.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 772406,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Coherent Corporation",
+      "status": "listed",
+      "ticker": "COHR",
+      "exchange": "NYSE",
+      "listedName": "COHERENT CORP.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 820318,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Compal Electronics Incorporated",
+      "status": "listed",
+      "ticker": "2324.TW",
+      "exchange": "TAI",
+      "listedName": "Compal Electronics, Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2324.TW",
+          "url": "https://finance.yahoo.com/quote/2324.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Compeq Manufacturing Company Limited",
+      "status": "listed",
+      "ticker": "2313.TW",
+      "exchange": "TAI",
+      "listedName": "Compeq Manufacturing Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2313.TW",
+          "url": "https://finance.yahoo.com/quote/2313.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Concraft Holding Company Limited",
+      "status": "listed",
+      "ticker": "4943.TW",
+      "exchange": "TAI",
+      "listedName": "Concraft Holding Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4943.TW",
+          "url": "https://finance.yahoo.com/quote/4943.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Corning Incorporated",
+      "status": "listed",
+      "ticker": "GLW",
+      "exchange": "NYSE",
+      "listedName": "CORNING INC /NY",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 24741,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Cowell E Holdings Incorporated",
+      "status": "listed",
+      "ticker": "1415.HK",
+      "exchange": "HKG",
+      "listedName": "Cowell e Holdings Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1415.HK",
+          "url": "https://finance.yahoo.com/quote/1415.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Darfon Electronics Corporation",
+      "status": "listed",
+      "ticker": "8163.TW",
+      "exchange": "TAI",
+      "listedName": "Darfon Electronics Corp.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 8163.TW",
+          "url": "https://finance.yahoo.com/quote/8163.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Delta Electronics Incorporated",
+      "status": "listed",
+      "ticker": "2308.TW",
+      "exchange": "TAI",
+      "listedName": "Delta Electronics, Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2308.TW",
+          "url": "https://finance.yahoo.com/quote/2308.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Derkwoo Electronics Company Limited",
+      "status": "listed",
+      "ticker": "263600.KQ",
+      "exchange": "KOE",
+      "listedName": "Derkwoo Electronics Co., Ltd",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 263600.KQ",
+          "url": "https://finance.yahoo.com/quote/263600.KQ/"
+        }
+      ],
+      "benchmark": "^KQ11"
+    },
+    {
+      "supplier": "Dexerials Corporation",
+      "status": "listed",
+      "ticker": "4980.T",
+      "exchange": "JPX",
+      "listedName": "Dexerials Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4980.T",
+          "url": "https://finance.yahoo.com/quote/4980.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Diodes Incorporated",
+      "status": "listed",
+      "ticker": "DIOD",
+      "exchange": "NASDAQ",
+      "listedName": "DIODES INC /DEL/",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 29002,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Dynapack International Technology Corporation",
+      "status": "listed",
+      "ticker": "3211.TWO",
+      "exchange": "TWO",
+      "listedName": "Dynapack International Technology Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3211.TWO",
+          "url": "https://finance.yahoo.com/quote/3211.TWO/"
+        }
+      ],
+      "benchmark": "TPEXINDEX"
+    },
+    {
+      "supplier": "ENEOS Holdings Incorporated",
+      "status": "listed",
+      "ticker": "5020.T",
+      "exchange": "JPX",
+      "listedName": "ENEOS Holdings, Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5020.T",
+          "url": "https://finance.yahoo.com/quote/5020.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Flex Limited",
+      "status": "listed",
+      "ticker": "FLEX",
+      "exchange": "NASDAQ",
+      "listedName": "FLEX LTD.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 866374,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Flexium Interconnect Incorporated",
+      "status": "listed",
+      "ticker": "6269.TW",
+      "exchange": "TAI",
+      "listedName": "Flexium Interconnect, Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6269.TW",
+          "url": "https://finance.yahoo.com/quote/6269.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Foster Electric Company Limited",
+      "status": "listed",
+      "ticker": "6794.T",
+      "exchange": "JPX",
+      "listedName": "Foster Electric Company, Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6794.T",
+          "url": "https://finance.yahoo.com/quote/6794.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Fujikura Limited",
+      "status": "listed",
+      "ticker": "5803.T",
+      "exchange": "JPX",
+      "listedName": "Fujikura Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5803.T",
+          "url": "https://finance.yahoo.com/quote/5803.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Genius Electronic Optical Company Limited",
+      "status": "listed",
+      "ticker": "3406.TW",
+      "exchange": "TAI",
+      "listedName": "Genius Electronic Optical Co.,Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3406.TW",
+          "url": "https://finance.yahoo.com/quote/3406.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "GigaDevice Semiconductor Incorporated",
+      "status": "listed",
+      "ticker": "3986.HK",
+      "exchange": "HKG",
+      "listedName": "GigaDevice Semiconductor Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3986.HK",
+          "url": "https://finance.yahoo.com/quote/3986.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Global Lighting Technologies",
+      "status": "listed",
+      "ticker": "4935.TW",
+      "exchange": "TAI",
+      "listedName": "Global Lighting Technologies Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4935.TW",
+          "url": "https://finance.yahoo.com/quote/4935.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "GoerTek Incorporated",
+      "status": "listed",
+      "ticker": "002241.SZ",
+      "exchange": "SHZ",
+      "listedName": "Goertek Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002241.SZ",
+          "url": "https://finance.yahoo.com/quote/002241.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Guangdong Ellington Electronics Technology Company Limited",
+      "status": "listed",
+      "ticker": "603328.SS",
+      "exchange": "SHH",
+      "listedName": "Guangdong Ellington Electronics Technology Co.,Ltd",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 603328.SS",
+          "url": "https://finance.yahoo.com/quote/603328.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "Hirose Electric Company Limited",
+      "status": "listed",
+      "ticker": "6806.T",
+      "exchange": "JPX",
+      "listedName": "Hirose Electric Co.,Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6806.T",
+          "url": "https://finance.yahoo.com/quote/6806.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Hitachi Limited",
+      "status": "listed",
+      "ticker": "6501.T",
+      "exchange": "JPX",
+      "listedName": "Hitachi, Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6501.T",
+          "url": "https://finance.yahoo.com/quote/6501.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Hon Hai Precision Industry Company Limited (Foxconn)",
+      "status": "listed",
+      "ticker": "2317.TW",
+      "exchange": "TAI",
+      "listedName": "Hon Hai Precision Industry Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2317.TW",
+          "url": "https://finance.yahoo.com/quote/2317.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "II-VI Incorporated",
+      "status": "listed",
+      "ticker": "COHR",
+      "exchange": "NYSE",
+      "listedName": "COHERENT CORP.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 820318,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Ibiden Company Limited",
+      "status": "listed",
+      "ticker": "4062.T",
+      "exchange": "JPX",
+      "listedName": "Ibiden Co.,Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4062.T",
+          "url": "https://finance.yahoo.com/quote/4062.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Infineon Technologies AG",
+      "status": "listed",
+      "ticker": "IFX.DE",
+      "exchange": "GER",
+      "listedName": "Infineon Technologies AG",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: IFX.DE",
+          "url": "https://finance.yahoo.com/quote/IFX.DE/"
+        }
+      ],
+      "benchmark": "^GDAXI"
+    },
+    {
+      "supplier": "Intel Corporation",
+      "status": "listed",
+      "ticker": "INTC",
+      "exchange": "NASDAQ",
+      "listedName": "INTEL CORP",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 50863,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Interflex Company Limited",
+      "status": "listed",
+      "ticker": "051370.KQ",
+      "exchange": "KOE",
+      "listedName": "Interflex Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 051370.KQ",
+          "url": "https://finance.yahoo.com/quote/051370.KQ/"
+        }
+      ],
+      "benchmark": "^KQ11"
+    },
+    {
+      "supplier": "Inventec Corporation",
+      "status": "listed",
+      "ticker": "2356.TW",
+      "exchange": "TAI",
+      "listedName": "Inventec Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2356.TW",
+          "url": "https://finance.yahoo.com/quote/2356.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "JCET Group Company Limited",
+      "status": "listed",
+      "ticker": "600584.SS",
+      "exchange": "SHH",
+      "listedName": "JCET Group Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600584.SS",
+          "url": "https://finance.yahoo.com/quote/600584.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "Jabil Incorporated",
+      "status": "listed",
+      "ticker": "JBL",
+      "exchange": "NYSE",
+      "listedName": "JABIL INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 898293,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Japan Aviation Electronics Industry Limited",
+      "status": "listed",
+      "ticker": "6807.T",
+      "exchange": "JPX",
+      "listedName": "Japan Aviation Electronics Industry, Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6807.T",
+          "url": "https://finance.yahoo.com/quote/6807.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Japan Display Incorporated",
+      "status": "listed",
+      "ticker": "6740.T",
+      "exchange": "JPX",
+      "listedName": "Japan Display Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6740.T",
+          "url": "https://finance.yahoo.com/quote/6740.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Jiangsu Gian Technology Company Limited",
+      "status": "listed",
+      "ticker": "300709.SZ",
+      "exchange": "SHZ",
+      "listedName": "Jiangsu Gian Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300709.SZ",
+          "url": "https://finance.yahoo.com/quote/300709.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Jilin Liyuan Precision Manufacturing Company Limited",
+      "status": "listed",
+      "ticker": "002501.SZ",
+      "exchange": "SHZ",
+      "listedName": "Jilin Liyuan Precision Manufacturing Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002501.SZ",
+          "url": "https://finance.yahoo.com/quote/002501.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Jones Tech PLC",
+      "status": "listed",
+      "ticker": "300684.SZ",
+      "exchange": "SHZ",
+      "listedName": "Jones Tech PLC",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300684.SZ",
+          "url": "https://finance.yahoo.com/quote/300684.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Keiwa Inc.",
+      "status": "listed",
+      "ticker": "4251.T",
+      "exchange": "JPX",
+      "listedName": "KEIWA Incorporated",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4251.T",
+          "url": "https://finance.yahoo.com/quote/4251.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Kinsus Interconnect Technology Corporation",
+      "status": "listed",
+      "ticker": "3189.TW",
+      "exchange": "TAI",
+      "listedName": "Kinsus Interconnect Technology Corp.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3189.TW",
+          "url": "https://finance.yahoo.com/quote/3189.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Kioxia Holdings Corporation",
+      "status": "listed",
+      "ticker": "285A.T",
+      "exchange": "JPX",
+      "listedName": "Kioxia Holdings Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 285A.T",
+          "url": "https://finance.yahoo.com/quote/285A.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Knowles Corporation",
+      "status": "listed",
+      "ticker": "KN",
+      "exchange": "NYSE",
+      "listedName": "Knowles Corp",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1587523,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Ko Ja (Cayman) Co., Limited",
+      "status": "listed",
+      "ticker": "5215.TW",
+      "exchange": "TAI",
+      "listedName": "Ko Ja (Cayman) Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5215.TW",
+          "url": "https://finance.yahoo.com/quote/5215.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Kyocera Corporation",
+      "status": "listed",
+      "ticker": "6971.T",
+      "exchange": "JPX",
+      "listedName": "Kyocera Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6971.T",
+          "url": "https://finance.yahoo.com/quote/6971.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "LG Chem Limited",
+      "status": "listed",
+      "ticker": "051910.KS",
+      "exchange": "KSC",
+      "listedName": "LG Chem, Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 051910.KS",
+          "url": "https://finance.yahoo.com/quote/051910.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "LG Display Company Limited",
+      "status": "listed",
+      "ticker": "LPL",
+      "exchange": "NYSE",
+      "listedName": "LG Display Co., Ltd.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1290109,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "LG Energy Solution",
+      "status": "listed",
+      "ticker": "373220.KS",
+      "exchange": "KSC",
+      "listedName": "LG Energy Solution, Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 373220.KS",
+          "url": "https://finance.yahoo.com/quote/373220.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "LG Innotek Company Limited",
+      "status": "listed",
+      "ticker": "011070.KS",
+      "exchange": "KSC",
+      "listedName": "LG Innotek Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 011070.KS",
+          "url": "https://finance.yahoo.com/quote/011070.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "LOTES Company Limited",
+      "status": "listed",
+      "ticker": "3533.TW",
+      "exchange": "TAI",
+      "listedName": "Lotes Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3533.TW",
+          "url": "https://finance.yahoo.com/quote/3533.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "LX Semicon",
+      "status": "listed",
+      "ticker": "108320.KS",
+      "exchange": "KSC",
+      "listedName": "LX Semicon Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 108320.KS",
+          "url": "https://finance.yahoo.com/quote/108320.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "LX Semicon Co., Ltd.",
+      "status": "listed",
+      "ticker": "108320.KS",
+      "exchange": "KSC",
+      "listedName": "LX Semicon Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 108320.KS",
+          "url": "https://finance.yahoo.com/quote/108320.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Largan Precision Company Limited",
+      "status": "listed",
+      "ticker": "3008.TW",
+      "exchange": "TAI",
+      "listedName": "Largan Precision Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3008.TW",
+          "url": "https://finance.yahoo.com/quote/3008.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corp.",
+      "status": "listed",
+      "ticker": "LSCC",
+      "exchange": "NASDAQ",
+      "listedName": "LATTICE SEMICONDUCTOR CORP",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 855658,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corporation",
+      "status": "listed",
+      "ticker": "LSCC",
+      "exchange": "NASDAQ",
+      "listedName": "LATTICE SEMICONDUCTOR CORP",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 855658,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Lens Technology Company Limited",
+      "status": "listed",
+      "ticker": "6613.HK",
+      "exchange": "HKG",
+      "listedName": "Lens Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6613.HK",
+          "url": "https://finance.yahoo.com/quote/6613.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Lingyi iTech (Guangdong) Company",
+      "status": "listed",
+      "ticker": "1688.HK",
+      "exchange": "HKG",
+      "listedName": "Lingyi iTech (Guangdong) Company",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1688.HK",
+          "url": "https://finance.yahoo.com/quote/1688.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Lite-On Technology Corporation",
+      "status": "listed",
+      "ticker": "2301.TW",
+      "exchange": "TAI",
+      "listedName": "Lite-On Technology Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2301.TW",
+          "url": "https://finance.yahoo.com/quote/2301.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Longwell Company",
+      "status": "listed",
+      "ticker": "6290.TWO",
+      "exchange": "TWO",
+      "listedName": "Longwell Company",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6290.TWO",
+          "url": "https://finance.yahoo.com/quote/6290.TWO/"
+        }
+      ],
+      "benchmark": "TPEXINDEX"
+    },
+    {
+      "supplier": "Lumentum Holdings Incorporated",
+      "status": "listed",
+      "ticker": "LITE",
+      "exchange": "NASDAQ",
+      "listedName": "Lumentum Holdings Inc.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1633978,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Luxshare Precision Industry Company Limited",
+      "status": "listed",
+      "ticker": "002475.SZ",
+      "exchange": "SHZ",
+      "listedName": "Luxshare Precision Industry Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002475.SZ",
+          "url": "https://finance.yahoo.com/quote/002475.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "MYS Group Company Limited",
+      "status": "listed",
+      "ticker": "002303.SZ",
+      "exchange": "SHZ",
+      "listedName": "MYS Group Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002303.SZ",
+          "url": "https://finance.yahoo.com/quote/002303.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "MegaChips Corporation",
+      "status": "listed",
+      "ticker": "6875.T",
+      "exchange": "JPX",
+      "listedName": "MegaChips Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6875.T",
+          "url": "https://finance.yahoo.com/quote/6875.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Merry Electronics Company Limited",
+      "status": "listed",
+      "ticker": "2439.TW",
+      "exchange": "TAI",
+      "listedName": "Merry Electronics Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2439.TW",
+          "url": "https://finance.yahoo.com/quote/2439.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "MicroChip Technology Incorporated",
+      "status": "listed",
+      "ticker": "MCHP",
+      "exchange": "NASDAQ",
+      "listedName": "Microchip Technology Incorporated",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MCHP",
+          "url": "https://finance.yahoo.com/quote/MCHP/"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Microchip Technology Incorporated",
+      "status": "listed",
+      "ticker": "MCHP",
+      "exchange": "NASDAQ",
+      "listedName": "Microchip Technology Incorporated",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MCHP",
+          "url": "https://finance.yahoo.com/quote/MCHP/"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Micron Technology Incorporated",
+      "status": "listed",
+      "ticker": "MU",
+      "exchange": "NASDAQ",
+      "listedName": "MICRON TECHNOLOGY INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 723125,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Murata Manufacturing Company Limited",
+      "status": "listed",
+      "ticker": "6981.T",
+      "exchange": "JPX",
+      "listedName": "Murata Manufacturing Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6981.T",
+          "url": "https://finance.yahoo.com/quote/6981.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "NXP Semiconductors N.V.",
+      "status": "listed",
+      "ticker": "NXPI",
+      "exchange": "NASDAQ",
+      "listedName": "NXP Semiconductors N.V.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1413447,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Nanya Technology Corporation",
+      "status": "listed",
+      "ticker": "2408.TW",
+      "exchange": "TAI",
+      "listedName": "Nanya Technology Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2408.TW",
+          "url": "https://finance.yahoo.com/quote/2408.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Nidec Corporation",
+      "status": "listed",
+      "ticker": "6594.T",
+      "exchange": "JPX",
+      "listedName": "Nidec Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6594.T",
+          "url": "https://finance.yahoo.com/quote/6594.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Nippon Light Metal Holdings Company, Limited",
+      "status": "listed",
+      "ticker": "5703.T",
+      "exchange": "JPX",
+      "listedName": "Nippon Light Metal Holdings Company, Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5703.T",
+          "url": "https://finance.yahoo.com/quote/5703.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Nissha Company Limited",
+      "status": "listed",
+      "ticker": "7915.T",
+      "exchange": "JPX",
+      "listedName": "Nissha Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 7915.T",
+          "url": "https://finance.yahoo.com/quote/7915.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Nitto Denko Corporation",
+      "status": "listed",
+      "ticker": "6988.T",
+      "exchange": "JPX",
+      "listedName": "Nitto Denko Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6988.T",
+          "url": "https://finance.yahoo.com/quote/6988.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Nordic Semiconductor ASA",
+      "status": "listed",
+      "ticker": "NOD.OL",
+      "exchange": "OSL",
+      "listedName": "Nordic Semiconductor ASA",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: NOD.OL",
+          "url": "https://finance.yahoo.com/quote/NOD.OL/"
+        }
+      ],
+      "benchmark": "OSEBX.OL"
+    },
+    {
+      "supplier": "Novatek Microelectronics Corp.",
+      "status": "listed",
+      "ticker": "3034.TW",
+      "exchange": "TAI",
+      "listedName": "Novatek Microelectronics Corp.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3034.TW",
+          "url": "https://finance.yahoo.com/quote/3034.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "OFILM Group Company Limited",
+      "status": "listed",
+      "ticker": "002456.SZ",
+      "exchange": "SHZ",
+      "listedName": "OFILM Group Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002456.SZ",
+          "url": "https://finance.yahoo.com/quote/002456.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "ON Semiconductor Corporation",
+      "status": "listed",
+      "ticker": "ON",
+      "exchange": "NASDAQ",
+      "listedName": "ON SEMICONDUCTOR CORP",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1097864,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "POSCO International",
+      "status": "listed",
+      "ticker": "047050.KS",
+      "exchange": "KSC",
+      "listedName": "Posco International Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 047050.KS",
+          "url": "https://finance.yahoo.com/quote/047050.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Parade Technologies Limited",
+      "status": "listed",
+      "ticker": "4966.TWO",
+      "exchange": "TWO",
+      "listedName": "Parade Technologies, Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4966.TWO",
+          "url": "https://finance.yahoo.com/quote/4966.TWO/"
+        }
+      ],
+      "benchmark": "TPEXINDEX"
+    },
+    {
+      "supplier": "Pegatron Corporation",
+      "status": "listed",
+      "ticker": "4938.TW",
+      "exchange": "TAI",
+      "listedName": "Pegatron Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4938.TW",
+          "url": "https://finance.yahoo.com/quote/4938.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Power Integrations Incorporated",
+      "status": "listed",
+      "ticker": "POWI",
+      "exchange": "NASDAQ",
+      "listedName": "POWER INTEGRATIONS INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 833640,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Primax Electronics Limited",
+      "status": "listed",
+      "ticker": "4915.TW",
+      "exchange": "TAI",
+      "listedName": "Primax Electronics Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4915.TW",
+          "url": "https://finance.yahoo.com/quote/4915.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "QUALCOMM Incorporated",
+      "status": "listed",
+      "ticker": "QCOM",
+      "exchange": "NASDAQ",
+      "listedName": "QUALCOMM INC/DE",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 804328,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Qorvo Incorporated",
+      "status": "listed",
+      "ticker": "QRVO",
+      "exchange": "NASDAQ",
+      "listedName": "Qorvo, Inc.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1604778,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Qualcomm Incorporated",
+      "status": "listed",
+      "ticker": "QCOM",
+      "exchange": "NASDAQ",
+      "listedName": "QUALCOMM INC/DE",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 804328,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Quanta Computer Incorporated",
+      "status": "listed",
+      "ticker": "2382.TW",
+      "exchange": "TAI",
+      "listedName": "Quanta Computer Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2382.TW",
+          "url": "https://finance.yahoo.com/quote/2382.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Radiant Opto-Electronics Corporation",
+      "status": "listed",
+      "ticker": "6176.TW",
+      "exchange": "TAI",
+      "listedName": "Radiant Opto-Electronics Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6176.TW",
+          "url": "https://finance.yahoo.com/quote/6176.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Renesas Electronics Corporation",
+      "status": "listed",
+      "ticker": "6723.T",
+      "exchange": "JPX",
+      "listedName": "Renesas Electronics Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6723.T",
+          "url": "https://finance.yahoo.com/quote/6723.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Risuntek Incorporated",
+      "status": "listed",
+      "ticker": "002981.SZ",
+      "exchange": "SHZ",
+      "listedName": "Risuntek Inc.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002981.SZ",
+          "url": "https://finance.yahoo.com/quote/002981.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Rohm Company Limited",
+      "status": "listed",
+      "ticker": "6963.T",
+      "exchange": "JPX",
+      "listedName": "ROHM Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6963.T",
+          "url": "https://finance.yahoo.com/quote/6963.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "SFS Group AG",
+      "status": "listed",
+      "ticker": "SFSN.SW",
+      "exchange": "EBS",
+      "listedName": "SFS Group AG",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SFSN.SW",
+          "url": "https://finance.yahoo.com/quote/SFSN.SW/"
+        }
+      ],
+      "benchmark": "^SSMI"
+    },
+    {
+      "supplier": "SK hynix Incorporated",
+      "status": "listed",
+      "ticker": "SKHY",
+      "exchange": "NASDAQ",
+      "listedName": "SK hynix Inc.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 2120882,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "SMK Corporation",
+      "status": "listed",
+      "ticker": "6798.T",
+      "exchange": "JPX",
+      "listedName": "SMK Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6798.T",
+          "url": "https://finance.yahoo.com/quote/6798.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "STMicroelectronics N.V.",
+      "status": "listed",
+      "ticker": "STM",
+      "exchange": "NYSE",
+      "listedName": "STMicroelectronics N.V.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 932787,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Samsung Electro-Mechanics Company Limited",
+      "status": "listed",
+      "ticker": "009150.KS",
+      "exchange": "KSC",
+      "listedName": "Samsung Electro-Mechanics Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 009150.KS",
+          "url": "https://finance.yahoo.com/quote/009150.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Samsung Electronics Company Limited",
+      "status": "listed",
+      "ticker": "005930.KS",
+      "exchange": "KSC",
+      "listedName": "Samsung Electronics Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 005930.KS",
+          "url": "https://finance.yahoo.com/quote/005930.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Samsung SDI Company Limited",
+      "status": "listed",
+      "ticker": "006400.KS",
+      "exchange": "KSC",
+      "listedName": "Samsung SDI Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 006400.KS",
+          "url": "https://finance.yahoo.com/quote/006400.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Samsung SDI. Company Limited",
+      "status": "listed",
+      "ticker": "006400.KS",
+      "exchange": "KSC",
+      "listedName": "Samsung SDI Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 006400.KS",
+          "url": "https://finance.yahoo.com/quote/006400.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Sekisui Chemical Company Limited",
+      "status": "listed",
+      "ticker": "4204.T",
+      "exchange": "JPX",
+      "listedName": "Sekisui Chemical Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4204.T",
+          "url": "https://finance.yahoo.com/quote/4204.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Seoul Semiconductor Company Limited",
+      "status": "listed",
+      "ticker": "046890.KQ",
+      "exchange": "KOE",
+      "listedName": "Seoul Semiconductor Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 046890.KQ",
+          "url": "https://finance.yahoo.com/quote/046890.KQ/"
+        }
+      ],
+      "benchmark": "^KQ11"
+    },
+    {
+      "supplier": "Shanghai Industrial Holdings Limited",
+      "status": "listed",
+      "ticker": "0363.HK",
+      "exchange": "HKG",
+      "listedName": "Shanghai Industrial Holdings Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 0363.HK",
+          "url": "https://finance.yahoo.com/quote/0363.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Sharp Corporation",
+      "status": "listed",
+      "ticker": "6753.T",
+      "exchange": "JPX",
+      "listedName": "Sharp Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6753.T",
+          "url": "https://finance.yahoo.com/quote/6753.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Shenzhen BSC technology Co., Ltd.",
+      "status": "listed",
+      "ticker": "300951.SZ",
+      "exchange": "SHZ",
+      "listedName": "Shenzhen Bsc Technology Co.,Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300951.SZ",
+          "url": "https://finance.yahoo.com/quote/300951.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Shenzhen Deren Electronic Company Limited",
+      "status": "listed",
+      "ticker": "002055.SZ",
+      "exchange": "SHZ",
+      "listedName": "Shenzhen Deren Electronic Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002055.SZ",
+          "url": "https://finance.yahoo.com/quote/002055.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Shenzhen Desay Battery Technology Company Limited",
+      "status": "listed",
+      "ticker": "000049.SZ",
+      "exchange": "SHZ",
+      "listedName": "Shenzhen Desay Battery Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000049.SZ",
+          "url": "https://finance.yahoo.com/quote/000049.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Shenzhen Everwin Precision Technology Company Limited",
+      "status": "listed",
+      "ticker": "300115.SZ",
+      "exchange": "SHZ",
+      "listedName": "Shenzhen Everwin Precision Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300115.SZ",
+          "url": "https://finance.yahoo.com/quote/300115.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Shenzhen Sunway Communication Company Limited",
+      "status": "listed",
+      "ticker": "300136.SZ",
+      "exchange": "SHZ",
+      "listedName": "Shenzhen Sunway Communication Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300136.SZ",
+          "url": "https://finance.yahoo.com/quote/300136.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Shenzhen YUTO Packaging Technology Company Limited",
+      "status": "listed",
+      "ticker": "002831.SZ",
+      "exchange": "SHZ",
+      "listedName": "ShenZhen YUTO Packaging Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002831.SZ",
+          "url": "https://finance.yahoo.com/quote/002831.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Shin Zu Shing Company Limited",
+      "status": "listed",
+      "ticker": "3376.TW",
+      "exchange": "TAI",
+      "listedName": "Shin Zu Shing Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3376.TW",
+          "url": "https://finance.yahoo.com/quote/3376.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "SiTime Corporation",
+      "status": "listed",
+      "ticker": "SITM",
+      "exchange": "NASDAQ",
+      "listedName": "SITIME Corp",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1451809,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Simplo Technology Company Limited",
+      "status": "listed",
+      "ticker": "6121.TWO",
+      "exchange": "TWO",
+      "listedName": "Simplo Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6121.TWO",
+          "url": "https://finance.yahoo.com/quote/6121.TWO/"
+        }
+      ],
+      "benchmark": "TPEXINDEX"
+    },
+    {
+      "supplier": "Skyworks Solutions Incorporated",
+      "status": "listed",
+      "ticker": "SWKS",
+      "exchange": "NASDAQ",
+      "listedName": "SKYWORKS SOLUTIONS, INC.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 4127,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Solvay S.A.",
+      "status": "listed",
+      "ticker": "SOLB.BR",
+      "exchange": "BRU",
+      "listedName": "Solvay SA",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SOLB.BR",
+          "url": "https://finance.yahoo.com/quote/SOLB.BR/"
+        }
+      ],
+      "benchmark": "^BFX"
+    },
+    {
+      "supplier": "Solvay SA",
+      "status": "listed",
+      "ticker": "SOLB.BR",
+      "exchange": "BRU",
+      "listedName": "Solvay SA",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SOLB.BR",
+          "url": "https://finance.yahoo.com/quote/SOLB.BR/"
+        }
+      ],
+      "benchmark": "^BFX"
+    },
+    {
+      "supplier": "Sony Corporation",
+      "status": "listed",
+      "ticker": "SONY",
+      "exchange": "NYSE",
+      "listedName": "Sony Group Corp",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 313838,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Stora Enso Oyj",
+      "status": "listed",
+      "ticker": "STERV.HE",
+      "exchange": "HEL",
+      "listedName": "Stora Enso Oyj",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: STERV.HE",
+          "url": "https://finance.yahoo.com/quote/STERV.HE/"
+        }
+      ],
+      "benchmark": "^OMXH25"
+    },
+    {
+      "supplier": "Sumida Corporation",
+      "status": "listed",
+      "ticker": "6817.T",
+      "exchange": "JPX",
+      "listedName": "Sumida Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6817.T",
+          "url": "https://finance.yahoo.com/quote/6817.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Sumitomo Chemical Company Limited",
+      "status": "listed",
+      "ticker": "4005.T",
+      "exchange": "JPX",
+      "listedName": "Sumitomo Chemical Company, Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4005.T",
+          "url": "https://finance.yahoo.com/quote/4005.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Sumitomo Electric Industries Limited",
+      "status": "listed",
+      "ticker": "5802.T",
+      "exchange": "JPX",
+      "listedName": "Sumitomo Electric Industries, Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5802.T",
+          "url": "https://finance.yahoo.com/quote/5802.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Sunrex Technology Corporation",
+      "status": "listed",
+      "ticker": "2387.TW",
+      "exchange": "TAI",
+      "listedName": "Sunrex Technology Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2387.TW",
+          "url": "https://finance.yahoo.com/quote/2387.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Sunwoda Electronic Company Limited",
+      "status": "listed",
+      "ticker": "300207.SZ",
+      "exchange": "SHZ",
+      "listedName": "Sunwoda Electronic Co.,Ltd",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300207.SZ",
+          "url": "https://finance.yahoo.com/quote/300207.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Suzhou Anjie Technology Company Limited",
+      "status": "listed",
+      "ticker": "002635.SZ",
+      "exchange": "SHZ",
+      "listedName": "Suzhou Anjie Technology Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002635.SZ",
+          "url": "https://finance.yahoo.com/quote/002635.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Suzhou Dongshan Precision Manufacturing Company Limited",
+      "status": "listed",
+      "ticker": "002384.SZ",
+      "exchange": "SHZ",
+      "listedName": "Suzhou Dongshan Precision Manufacturing Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002384.SZ",
+          "url": "https://finance.yahoo.com/quote/002384.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Suzhou Victory Precision Manufacture Company Limited",
+      "status": "listed",
+      "ticker": "002426.SZ",
+      "exchange": "SHZ",
+      "listedName": "Suzhou Victory Precision Manufacture Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002426.SZ",
+          "url": "https://finance.yahoo.com/quote/002426.SZ/"
+        }
+      ],
+      "benchmark": "399001.SZ"
+    },
+    {
+      "supplier": "Synaptics Incorporated",
+      "status": "listed",
+      "ticker": "SYNA",
+      "exchange": "NASDAQ",
+      "listedName": "SYNAPTICS Inc",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 817720,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "TDK Corporation",
+      "status": "listed",
+      "ticker": "6762.T",
+      "exchange": "JPX",
+      "listedName": "TDK Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6762.T",
+          "url": "https://finance.yahoo.com/quote/6762.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "TK Group (Holdings) Limited",
+      "status": "listed",
+      "ticker": "2283.HK",
+      "exchange": "HKG",
+      "listedName": "TK Group (Holdings) Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2283.HK",
+          "url": "https://finance.yahoo.com/quote/2283.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "TPK Holding Company Limited",
+      "status": "listed",
+      "ticker": "3673.TW",
+      "exchange": "TAI",
+      "listedName": "TPK Holding Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3673.TW",
+          "url": "https://finance.yahoo.com/quote/3673.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "TTM Technologies Incorporated",
+      "status": "listed",
+      "ticker": "TTMI",
+      "exchange": "NASDAQ",
+      "listedName": "TTM TECHNOLOGIES INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1116942,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "TXC Corporation",
+      "status": "listed",
+      "ticker": "3042.TW",
+      "exchange": "TAI",
+      "listedName": "TXC Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3042.TW",
+          "url": "https://finance.yahoo.com/quote/3042.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Taiwan Semiconductor Manufacturing Company Limited",
+      "status": "listed",
+      "ticker": "TSM",
+      "exchange": "NYSE",
+      "listedName": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 1046179,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Taiwan Surface Mounting Technology Corporation",
+      "status": "listed",
+      "ticker": "6278.TW",
+      "exchange": "TAI",
+      "listedName": "Taiwan Surface Mounting Technology Corp.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6278.TW",
+          "url": "https://finance.yahoo.com/quote/6278.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Taiyo Yuden Company Limited",
+      "status": "listed",
+      "ticker": "6976.T",
+      "exchange": "JPX",
+      "listedName": "Taiyo Yuden Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6976.T",
+          "url": "https://finance.yahoo.com/quote/6976.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Texas Instruments Incorporated",
+      "status": "listed",
+      "ticker": "TXN",
+      "exchange": "NASDAQ",
+      "listedName": "TEXAS INSTRUMENTS INC",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 97476,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "The Chemours Company",
+      "status": "listed",
+      "ticker": "CC",
+      "exchange": "NYSE",
+      "listedName": "The Chemours Company",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CC",
+          "url": "https://finance.yahoo.com/quote/CC/"
+        }
+      ],
+      "benchmark": "^NYA"
+    },
+    {
+      "supplier": "Tongda Group Holdings Limited",
+      "status": "listed",
+      "ticker": "0698.HK",
+      "exchange": "HKG",
+      "listedName": "Tongda Group Holdings Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 0698.HK",
+          "url": "https://finance.yahoo.com/quote/0698.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Toyoda Gosei Co., Limited",
+      "status": "listed",
+      "ticker": "7282.T",
+      "exchange": "JPX",
+      "listedName": "Toyoda Gosei Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 7282.T",
+          "url": "https://finance.yahoo.com/quote/7282.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Tripod Technology Corporation",
+      "status": "listed",
+      "ticker": "3044.TW",
+      "exchange": "TAI",
+      "listedName": "Tripod Technology Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3044.TW",
+          "url": "https://finance.yahoo.com/quote/3044.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "UACJ Corporation",
+      "status": "listed",
+      "ticker": "5741.T",
+      "exchange": "JPX",
+      "listedName": "UACJ Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5741.T",
+          "url": "https://finance.yahoo.com/quote/5741.T/"
+        }
+      ],
+      "benchmark": "^N225"
+    },
+    {
+      "supplier": "Unimicron Technology Corporation",
+      "status": "listed",
+      "ticker": "3037.TW",
+      "exchange": "TAI",
+      "listedName": "Unimicron Technology Corp.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3037.TW",
+          "url": "https://finance.yahoo.com/quote/3037.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Unitech Printed Circuit Board Corporation",
+      "status": "listed",
+      "ticker": "2367.TW",
+      "exchange": "TAI",
+      "listedName": "Unitech Printed Circuit Board Corp.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2367.TW",
+          "url": "https://finance.yahoo.com/quote/2367.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Viavi Solutions Incorporated",
+      "status": "listed",
+      "ticker": "VIAV",
+      "exchange": "NASDAQ",
+      "listedName": "VIAVI SOLUTIONS INC.",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 912093,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Western Digital Corporation",
+      "status": "listed",
+      "ticker": "WDC",
+      "exchange": "NASDAQ",
+      "listedName": "WESTERN DIGITAL CORP",
+      "mappingMethod": "SEC registry with reported issuer names",
+      "cik": 106040,
+      "sources": [
+        {
+          "title": "SEC company tickers and exchanges",
+          "url": "https://www.sec.gov/files/company_tickers_exchange.json"
+        }
+      ],
+      "benchmark": "^IXIC"
+    },
+    {
+      "supplier": "Winbond Electronics Corporation",
+      "status": "listed",
+      "ticker": "2344.TW",
+      "exchange": "TAI",
+      "listedName": "Winbond Electronics Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2344.TW",
+          "url": "https://finance.yahoo.com/quote/2344.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Wingtech Technology Co., Limited",
+      "status": "listed",
+      "ticker": "600745.SS",
+      "exchange": "SHH",
+      "listedName": "Wingtech Technology Co.,Ltd",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600745.SS",
+          "url": "https://finance.yahoo.com/quote/600745.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "Wingtech Technology Co., Ltd.",
+      "status": "listed",
+      "ticker": "600745.SS",
+      "exchange": "SHH",
+      "listedName": "Wingtech Technology Co.,Ltd",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600745.SS",
+          "url": "https://finance.yahoo.com/quote/600745.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "Winox Holdings Limited",
+      "status": "listed",
+      "ticker": "6838.HK",
+      "exchange": "HKG",
+      "listedName": "Winox Holdings Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6838.HK",
+          "url": "https://finance.yahoo.com/quote/6838.HK/"
+        }
+      ],
+      "benchmark": "^HSI"
+    },
+    {
+      "supplier": "Wistron Corporation",
+      "status": "listed",
+      "ticker": "3231.TW",
+      "exchange": "TAI",
+      "listedName": "Wistron Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3231.TW",
+          "url": "https://finance.yahoo.com/quote/3231.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Yageo Corporation",
+      "status": "listed",
+      "ticker": "2327.TW",
+      "exchange": "TAI",
+      "listedName": "Yageo Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2327.TW",
+          "url": "https://finance.yahoo.com/quote/2327.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Young Poong Corporation",
+      "status": "listed",
+      "ticker": "000670.KS",
+      "exchange": "KSC",
+      "listedName": "Young Poong Corporation",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000670.KS",
+          "url": "https://finance.yahoo.com/quote/000670.KS/"
+        }
+      ],
+      "benchmark": "^KS11"
+    },
+    {
+      "supplier": "Zhejiang Tony Electronic Co., Ltd.",
+      "status": "listed",
+      "ticker": "603595.SS",
+      "exchange": "SHH",
+      "listedName": "Zhejiang Tony Electronic Co., Ltd",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 603595.SS",
+          "url": "https://finance.yahoo.com/quote/603595.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "Zhen Ding Technology Holding Limited",
+      "status": "listed",
+      "ticker": "4958.TW",
+      "exchange": "TAI",
+      "listedName": "Zhen Ding Technology Holding Limited",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4958.TW",
+          "url": "https://finance.yahoo.com/quote/4958.TW/"
+        }
+      ],
+      "benchmark": "^TWII"
+    },
+    {
+      "supplier": "Zhuhai CosMX Battery Co., Ltd.",
+      "status": "listed",
+      "ticker": "688772.SS",
+      "exchange": "SHH",
+      "listedName": "Zhuhai CosMX Battery Co., Ltd.",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 688772.SS",
+          "url": "https://finance.yahoo.com/quote/688772.SS/"
+        }
+      ],
+      "benchmark": "000001.SS"
+    },
+    {
+      "supplier": "ams-OSRAM AG",
+      "status": "listed",
+      "ticker": "AMS.SW",
+      "exchange": "EBS",
+      "listedName": "ams-OSRAM AG",
+      "mappingMethod": "Yahoo Finance exact normalized issuer name",
+      "cik": null,
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: AMS.SW",
+          "url": "https://finance.yahoo.com/quote/AMS.SW/"
+        }
+      ],
+      "benchmark": "^SSMI"
+    }
+  ],
+  "unlisted": [
+    {
+      "supplier": "Coilcraft Incorporated",
+      "status": "unlisted",
+      "reason": "Company explicitly reports private ownership",
+      "sources": [
+        {
+          "title": "Coilcraft FY2025 Modern Slavery Statement: privately held company",
+          "url": "https://www.coilcraft.com/en-us/quality/transparency-in-supply-chain/"
+        }
+      ]
+    },
+    {
+      "supplier": "Molex Incorporated",
+      "status": "unlisted",
+      "reason": "Company explicitly reports private ownership",
+      "sources": [
+        {
+          "title": "Molex Compliance & Ethics: privately held company",
+          "url": "https://www.molex.com/en-us/about/compliance-ethics"
+        }
+      ]
+    },
+    {
+      "supplier": "Robert Bosch GmbH",
+      "status": "unlisted",
+      "reason": "Company explicitly reports private ownership",
+      "sources": [
+        {
+          "title": "Bosch ownership: foundation, family corporation and treasury shares",
+          "url": "https://www.bosch.com/company/"
+        }
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "supplier": "AAC Acoustic Technologies Holdings Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "AGC Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "AKM Meadville Electronics (Xiamen) Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "AT & S Austria Technologie & Systemtechnik AG",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Advanced Semiconductor Engineering Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Advanced Semiconductor Engineering Technology Holding Co., Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Alps Electric Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Artesyn Embedded Technologies Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Asahi Glass Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Biel Crystal Manufactory Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Boyd Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Bumchun Precision Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "CCL Design (Suzhou) Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "CN Innovations Holdings Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "CTM Holdings Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Cathay Tat Ming (HK) Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Cathay Tat Ming Precision Metal Products Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Chengdu Homin Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "China Circuit Technology (Shantou) Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Consumer HK Holdco II Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Cosmosupplylab Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Crealand Technology Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Crystal-Optech Co., Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Crystal-Optech Co., Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "CymMetrik Enterprise Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Cypress Semiconductor Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "DSM Engineering Plastics Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Dialog Semiconductor GmbH",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Dialog Semiconductor PLC",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "ECCO Leather B.V.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Fujian Nanping Aluminium Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Future Hi Tech Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Fuyang Technology Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "General Interface Solution Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Golden Arrow Printing Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Hama Naka Shoukin Industry Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Henkel AG & Company KGaA",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Henkel AG & Company, KGaA",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Hi-P International Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "IDEMIA Group",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "INB Electronics Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Interplex Holdings Pte. Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Intramedia Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "J.Pond Industry (Dongguan) Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "JX Nippon Mining & Metals Corporation (Eneos Holding)",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "JXTG Holdings Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Jiangsu Changjiang Electronics Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Jiangsu Kangrui New Material Technology Co.,Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Jiangyin Kangrui Molding Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Jinlong Machinery & Electronic Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Jinlong Machinery and Electronics Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Jiuquan Iron & Steel (Group) Co., Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "KEMET Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Kam Kiu Aluminium Products Group Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Kantatsu Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Kunshan Kersen Science & Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Kunshan Kersen Science and Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "LY Investment (HK) Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Laird PLC",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Luen Fung Group",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Lumileds Holding B.V.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Marian Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Maxim Integrated Products Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "MinebeaMitsumi Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "NGK Spark Plug Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "NOK Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Nan Ya PCB Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Nanofilm Technologies International Private Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Nexperia B.V.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Nichia Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Nippon Steel & Sumitomo Metal Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "O-film Tech Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "OmniVision Technologies Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "POSCO",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Pai Shing International Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Paishing Technology Company",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Panasonic Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Phone In Mag-Electronics Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Pioneer Material Precision Tech Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Plansee Group",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Platinum Optics Technology Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Quadrant Solutions",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "R.R. Donnelley & Sons Company",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "R.R. Donnelley and Sons Company",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Royal DSM",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "SABIC - Saudi Arabian Oil Company",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "SABIC Innovative Plastics",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Salcomp Plc",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "San'an Optoelectronics Co., Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Seiko Advance Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Selen Science & Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Shandong Innovation Group",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Shenzhen Forceblack Technology Co., Ltd",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Shenzhen Fortunta Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Shenzhen Linkconn Electronics Co., Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Shenzhen Linkconn Electronics Co., Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Silicon Works Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Sunny Optical Technology Co., Ltd.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Suzhou Xinjieshun Hardware Machine Electricity Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Suzhou Zhongjiemai Panel Industry Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Swiftronic Holding Pte. Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Taishan City Kam Kiu Aluminium Extrusion Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Taiwan Hodaka Technology Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Taiwan Powder Technologies Co., Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Tata Electronics",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Teikoku Printing Inks Manufacturing Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Tianma Micro-Electronics (Hong Kong) Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Toshiba Corporation",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Toyo Rikagaku Kenkyusho Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Trinseo S.A.",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Trio Metal Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Triotek Technology Incorporated",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Tsujiden Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Unisteel Technology Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Unisteel Technology Limited (SFS Group)",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "United Test and Assembly Center Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "VARTA Microbattery GmbH",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Wickeder Group",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Winox Enterprise Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Xiamen Jan Jia Optoelectronics Company Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Zeniya Aluminum Engineering Limited",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "Zhenghe Group",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    },
+    {
+      "supplier": "ams AG",
+      "status": "unresolved",
+      "reason": "No unique supported listing verified; this does not establish private ownership"
+    }
+  ],
+  "counts": {
+    "mappedSupplierNames": 182,
+    "mappedTickers": 170,
+    "unlisted": 3,
+    "unresolved": 123
+  }
+}

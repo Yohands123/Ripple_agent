@@ -96,3 +96,43 @@ The user supplied the SEC request-header identity for direct EDGAR retrieval.
 Calendar report dates and the issuer's fiscal-year focus are separate fields;
 source titles use the issuer's fiscal-year focus when present. Publication
 dates must be checked before using attributes in a historical prediction.
+
+## M4: Listings and prices
+
+```bash
+python -m pipeline.sec_filings --exchange-registry  # SEC_USER_AGENT required
+python -m pipeline.tpex_index                     # exchange's public reports
+.venv/bin/python -m pipeline.prices
+.venv/bin/python -m pipeline.prices --offline
+```
+
+The listing resolver uses the SEC issuer/exchange registry and Yahoo Finance
+equity search. It removes legal suffixes for name matching while preserving
+holding-company and subsidiary names. Unsupported OTC results, fuzzy matches,
+and related public parents do not establish a supplier listing. Accepted
+tickers carry their listing source. Search responses and yfinance's own caches
+stay under `data/raw/`. Listings are checked as of the date in
+`data/sources/markets.json`; this is not a reconstruction of delisted firms.
+
+`data/processed/ticker_map.json` records mapped, verified unlisted, and unresolved
+names separately, with counts. `data/review/unlisted_suppliers.csv` contains only
+companies with public evidence of private ownership. Failed searches remain in
+`unresolved_tickers.csv`, and must not be interpreted as evidence of being
+unlisted. Supplier-name variants can map to the same unique ticker.
+
+Daily unadjusted and adjusted prices from 2010 onward, where available, are in
+`data/raw/prices/`. Each exchange uses the explicitly named broad market index
+in the source registry. No missing prices are interpolated; IPO dates and gaps
+are retained. `price_manifest.json` records the actual coverage, source URLs,
+SHA-256 hashes, and any failures. A missing ticker or benchmark download makes
+the command fail. Historical analysis must require sufficient pre-event
+observations rather than treating a new listing as a long price history.
+
+The provider does not supply usable `^TWOII` history, so the TPEx index comes
+directly from the exchange's public monthly reports, which contain daily OHLC
+observations from April 2012. Each monthly response is cached. Index closes are
+published price-index levels; the shared price reader's adjusted-close column
+contains that same observed level, without any synthetic adjustment. Oslo uses
+`OSEBX.OL` and Helsinki uses `^OMXH25`; their available histories begin in 2013.
+The TPEx downloader keeps TLS chain and hostname verification enabled while
+allowing its trusted legacy CA certificate's missing Subject Key Identifier.

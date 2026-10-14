@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
@@ -50,7 +51,14 @@ def filing_rows(columns: dict) -> list[dict]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--exchange-registry", action="store_true", help="Cache the public ticker/exchange registry only")
+    args = parser.parse_args()
     client = SecClient(os.environ.get("SEC_USER_AGENT", ""))
+    if args.exchange_registry:
+        document = client.cached_json("https://www.sec.gov/files/company_tickers_exchange.json", ROOT / "data/raw/listings/SEC.json")
+        print(f"Cached SEC ticker/exchange registry: {len(document['data'])} records")
+        return 0
     registry = json.loads((ROOT / "data/sources/filings.json").read_text(encoding="utf-8"))
     raw = ROOT / "data/raw/filings"
     sec_raw = ROOT / "data/raw/sec"

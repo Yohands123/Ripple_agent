@@ -1,0 +1,2992 @@
+{
+  "sampleData": false,
+  "provider": "yfinance",
+  "providerVersion": "1.7.0",
+  "requestedStart": "2010-01-01",
+  "requestedEndExclusive": "2026-10-14",
+  "prices": [
+    {
+      "ticker": "000001.SS",
+      "kind": "index",
+      "file": "data/raw/prices/000001.SS.csv",
+      "rows": 4067,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c954a35578d6950d9c0d25f7d7b9cee0b8047ec9eaf3b5df6a60fdcd361195d3",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000001.SS",
+          "url": "https://finance.yahoo.com/quote/000001.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "000049.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/000049.SZ.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "e95974f98445bcbaec58dab45ec6156c0d2883d5853ffe6a3bb16e9136f3926f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000049.SZ",
+          "url": "https://finance.yahoo.com/quote/000049.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "000670.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/000670.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "1167ed4562bbd5a035a73cf9ab041ac70de73ccd47044851f65c888c20bb8038",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000670.KS",
+          "url": "https://finance.yahoo.com/quote/000670.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "000725.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/000725.SZ.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "b9016032570b8f3b00a2472db5d15429b9ef160c0c66250739770bfd9931344c",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000725.SZ",
+          "url": "https://finance.yahoo.com/quote/000725.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "000970.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/000970.SZ.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "af529154ebd594ff175640aac2c28d9d3da7103dd546f318f49c7882204545db",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 000970.SZ",
+          "url": "https://finance.yahoo.com/quote/000970.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002055.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002055.SZ.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "878f2845a86e52386cd81496857b7368ddee775b6b33e9905cdea77959e8c45e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002055.SZ",
+          "url": "https://finance.yahoo.com/quote/002055.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002241.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002241.SZ.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "41b937f7f03006132ad0420d467cbe6ea266b034a0364813fafe11a0669299a1",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002241.SZ",
+          "url": "https://finance.yahoo.com/quote/002241.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002303.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002303.SZ.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "e969306568a1f8af069a0ebe675c91c6c336a61ba8b1572d6b5e6257b63c5980",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002303.SZ",
+          "url": "https://finance.yahoo.com/quote/002303.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002384.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002384.SZ.csv",
+      "rows": 4007,
+      "firstDate": "2010-04-09",
+      "lastDate": "2026-10-13",
+      "sha256": "2b60fa4dfee0a00dcd016ba50c2d65700fd064beb69a5883410fc716105ea150",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002384.SZ",
+          "url": "https://finance.yahoo.com/quote/002384.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002426.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002426.SZ.csv",
+      "rows": 3966,
+      "firstDate": "2010-06-08",
+      "lastDate": "2026-10-13",
+      "sha256": "09647e38872c6e6c3af928e0a8d218f3cd265cd5b49222d9c1974a486c19adca",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002426.SZ",
+          "url": "https://finance.yahoo.com/quote/002426.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002456.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002456.SZ.csv",
+      "rows": 3928,
+      "firstDate": "2010-08-03",
+      "lastDate": "2026-10-13",
+      "sha256": "d50c8a2c28b211ce5c6f7803580d2735f56aef0b1ab9845e379606cfb49fb88f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002456.SZ",
+          "url": "https://finance.yahoo.com/quote/002456.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002475.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002475.SZ.csv",
+      "rows": 3897,
+      "firstDate": "2010-09-15",
+      "lastDate": "2026-10-13",
+      "sha256": "5a0b3b61339882ecf06dfe2f6a240f4e68fb30fbba69c7719952d47778abc58b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002475.SZ",
+          "url": "https://finance.yahoo.com/quote/002475.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002501.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002501.SZ.csv",
+      "rows": 3860,
+      "firstDate": "2010-11-17",
+      "lastDate": "2026-10-13",
+      "sha256": "7aca319b9c4be38ad6e2f11e7a24f48a821ed2dd3f36944303649bf60ab07281",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002501.SZ",
+          "url": "https://finance.yahoo.com/quote/002501.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002635.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002635.SZ.csv",
+      "rows": 3609,
+      "firstDate": "2011-11-25",
+      "lastDate": "2026-10-13",
+      "sha256": "1cfceecc4671ccba3ab122f1a0f2413426c9a33a5db84b9d04d3f2373df58186",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002635.SZ",
+          "url": "https://finance.yahoo.com/quote/002635.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002831.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002831.SZ.csv",
+      "rows": 2379,
+      "firstDate": "2016-12-19",
+      "lastDate": "2026-10-13",
+      "sha256": "9c42441db6720dae6ab43646ea80c0a9b4cd25d82d8ceb338073b343ce4c17a0",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002831.SZ",
+          "url": "https://finance.yahoo.com/quote/002831.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002843.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002843.SZ.csv",
+      "rows": 2355,
+      "firstDate": "2017-01-23",
+      "lastDate": "2026-10-13",
+      "sha256": "4fcce47d5f093ead27078f86efcabe63845fc7970455622b57ddde0ea57060ee",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002843.SZ",
+          "url": "https://finance.yahoo.com/quote/002843.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "002981.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/002981.SZ.csv",
+      "rows": 1571,
+      "firstDate": "2020-04-17",
+      "lastDate": "2026-10-13",
+      "sha256": "a145b295df8c2c846a39e05083d5ba36b58fa4bce5c58e12e0fda57e5b68a143",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 002981.SZ",
+          "url": "https://finance.yahoo.com/quote/002981.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "005930.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/005930.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7eafaaf9b58f5be7d1c6685f58781fb85e30c8cde9217f171ac968b361032f86",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 005930.KS",
+          "url": "https://finance.yahoo.com/quote/005930.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "006400.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/006400.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "d56dbb95922e37b6e63d080a496b4c5f68b08298b8bfe27e57ad1ebeed89e9d3",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 006400.KS",
+          "url": "https://finance.yahoo.com/quote/006400.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "009150.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/009150.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2fd2c9eb7cb2e6284a846e64fc07be8f1def09c65170f4299375acfaae763ae3",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 009150.KS",
+          "url": "https://finance.yahoo.com/quote/009150.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "011070.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/011070.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "09e9a9f23cd1498edb48b1c2c13d0b812ad8b171b2dc7e8ba8057d98565869b8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 011070.KS",
+          "url": "https://finance.yahoo.com/quote/011070.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "0285.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/0285.HK.csv",
+      "rows": 4134,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "599a09ce3ca307434428bece014bd9cca22ec68a23ed1fb96215b1d690671edd",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 0285.HK",
+          "url": "https://finance.yahoo.com/quote/0285.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "0363.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/0363.HK.csv",
+      "rows": 4134,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "4ce1996af91cd842db19d9214f5b90dcc5abcf7c1d7586272656468e64adc6b0",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 0363.HK",
+          "url": "https://finance.yahoo.com/quote/0363.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "046890.KQ",
+      "kind": "equity",
+      "file": "data/raw/prices/046890.KQ.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "f484b8b883dac4ef4bb166f7bbc946f8cf7a04c8d913a6f5616156801fadee3f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 046890.KQ",
+          "url": "https://finance.yahoo.com/quote/046890.KQ/"
+        }
+      ]
+    },
+    {
+      "ticker": "047050.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/047050.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2bd019a799dadc8a8379e2e516158cfffc8b2c77e7fb5c143da7e3043c3729b0",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 047050.KS",
+          "url": "https://finance.yahoo.com/quote/047050.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "051370.KQ",
+      "kind": "equity",
+      "file": "data/raw/prices/051370.KQ.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "07f4d06ed2406fc0111e0c3bd53062e8f11e6ec8d692fe95afe61e6d7c0b7f14",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 051370.KQ",
+          "url": "https://finance.yahoo.com/quote/051370.KQ/"
+        }
+      ]
+    },
+    {
+      "ticker": "051910.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/051910.KS.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "92fe31640ad5d791fbd0dcaa0d9765e922fc37f278206f48f15eeb105480942d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 051910.KS",
+          "url": "https://finance.yahoo.com/quote/051910.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "0698.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/0698.HK.csv",
+      "rows": 4134,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "19cb373344fe11ee3193131a8a5f2c4c6f6f8aeb4cbc30af236ba2efc2b5003e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 0698.HK",
+          "url": "https://finance.yahoo.com/quote/0698.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "108320.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/108320.KS.csv",
+      "rows": 4018,
+      "firstDate": "2010-06-08",
+      "lastDate": "2026-10-13",
+      "sha256": "f77e371e70dcee443d31d5865e9bc70bdba383a492b4052263bad88dc862c6f6",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 108320.KS",
+          "url": "https://finance.yahoo.com/quote/108320.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "1211.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/1211.HK.csv",
+      "rows": 4134,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "715ee979a3d9ecb9572d6cf09b784d4f97fc0d1ba41ea7878ecda333ba1812b5",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1211.HK",
+          "url": "https://finance.yahoo.com/quote/1211.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "1415.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/1415.HK.csv",
+      "rows": 2841,
+      "firstDate": "2015-03-31",
+      "lastDate": "2026-10-13",
+      "sha256": "b5c806948dd539b203c18c9fce136570cf4166b911c579b663c51bec2ce818af",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1415.HK",
+          "url": "https://finance.yahoo.com/quote/1415.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "1688.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/1688.HK.csv",
+      "rows": 76,
+      "firstDate": "2026-06-26",
+      "lastDate": "2026-10-13",
+      "sha256": "5fd597d80bb5a9e8daa34594faea112bd659161a1b63cc05ee0d384c55b036c5",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1688.HK",
+          "url": "https://finance.yahoo.com/quote/1688.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "1904.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/1904.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "ed6965f2d526f0f4daaca0468c0619292d45d0c6ab5398ba79a15efaddfde19f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 1904.TW",
+          "url": "https://finance.yahoo.com/quote/1904.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2018.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/2018.HK.csv",
+      "rows": 4134,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a16af48c67bead3f13448d90df003af0cd46a840054f9b175fc317a293e0469a",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2018.HK",
+          "url": "https://finance.yahoo.com/quote/2018.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "2283.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/2283.HK.csv",
+      "rows": 3154,
+      "firstDate": "2013-12-20",
+      "lastDate": "2026-10-13",
+      "sha256": "207d7866302f8147461e93e4b6d6cbcd6b75128f7c30bd5aa0cbda16b1465b30",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2283.HK",
+          "url": "https://finance.yahoo.com/quote/2283.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "2301.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2301.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a7102010335d01606ef95ee08e28ecc0f1855ca4055b875f2b484f35cf6e2152",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2301.TW",
+          "url": "https://finance.yahoo.com/quote/2301.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2308.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2308.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "5154de1dee8abebb86e769ef2e4b082c609572732524043814dd7ea8c895dcc6",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2308.TW",
+          "url": "https://finance.yahoo.com/quote/2308.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2313.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2313.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "edbfe8012839fcb1bf0f5db481d57c72ad6023f52ff6e2dbe64b8fbb0a036b59",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2313.TW",
+          "url": "https://finance.yahoo.com/quote/2313.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2317.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2317.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c44706b605bb71b20f304122c9d9789d2ea946cb80740e2d004bc1a90e8c7193",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2317.TW",
+          "url": "https://finance.yahoo.com/quote/2317.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2324.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2324.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "ed54a7100ddf39c24433afcf16b6f80644ab4a9883ed1cd82e8e1175fa8fce58",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2324.TW",
+          "url": "https://finance.yahoo.com/quote/2324.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2327.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2327.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "58270142dbf8b0179097aa9617e20083bde1703fdc5a49c17c7a22e2685a7475",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2327.TW",
+          "url": "https://finance.yahoo.com/quote/2327.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2344.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2344.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "ed0b3e038b3ca88eec489946350c50f49cf8853afe391f69c7c67b92e59cb57c",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2344.TW",
+          "url": "https://finance.yahoo.com/quote/2344.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2356.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2356.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "0cd51488d93a7754e82d6c564f250c168231694b6b06f947c05ab0e523406581",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2356.TW",
+          "url": "https://finance.yahoo.com/quote/2356.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2367.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2367.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "6a2ff297f0855d131e12bee54e725b2eeb720b53a8a892cf8405b06b61897529",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2367.TW",
+          "url": "https://finance.yahoo.com/quote/2367.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2382.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2382.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9600ebd1d02741e1a1f0db43eef8193295a6836964f1d5c6ffb998d3a0ced559",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2382.TW",
+          "url": "https://finance.yahoo.com/quote/2382.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2387.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2387.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "0cd4f06ef59a3599bbbe361a989d855d1e63098b29349cd047d6f38eda378dad",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2387.TW",
+          "url": "https://finance.yahoo.com/quote/2387.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2392.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2392.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7be2daa0679fe13d5271d7b2b1e7a4b5af522b12e01a0ca80d2aca85069e71bc",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2392.TW",
+          "url": "https://finance.yahoo.com/quote/2392.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2408.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2408.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7b1a7074cfa05148985bc50c832f77f6c379e97b9a66ddb8e264537bda408b8e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2408.TW",
+          "url": "https://finance.yahoo.com/quote/2408.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2439.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2439.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "cc381a1bb34b22c036deaaabbf7f5dce33e3622c12f4e989886bf2e515bec5ac",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2439.TW",
+          "url": "https://finance.yahoo.com/quote/2439.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "2474.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/2474.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c2ee96ca3a99d8b68e66c11ced67d3284be4c4d8383313d328441c17ef2796cf",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 2474.TW",
+          "url": "https://finance.yahoo.com/quote/2474.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "263600.KQ",
+      "kind": "equity",
+      "file": "data/raw/prices/263600.KQ.csv",
+      "rows": 2229,
+      "firstDate": "2017-08-28",
+      "lastDate": "2026-10-13",
+      "sha256": "60a749323d3a62b550dc0dece81013b0680cc2fe19d53353f2521eeb8c237e7d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 263600.KQ",
+          "url": "https://finance.yahoo.com/quote/263600.KQ/"
+        }
+      ]
+    },
+    {
+      "ticker": "285A.T",
+      "kind": "equity",
+      "file": "data/raw/prices/285A.T.csv",
+      "rows": 440,
+      "firstDate": "2024-12-18",
+      "lastDate": "2026-10-13",
+      "sha256": "29903b0a80faeb782611081be487ddb1e8b750a2da1c9e66e80464df83614661",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 285A.T",
+          "url": "https://finance.yahoo.com/quote/285A.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "300115.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/300115.SZ.csv",
+      "rows": 3906,
+      "firstDate": "2010-09-02",
+      "lastDate": "2026-10-13",
+      "sha256": "f026fd877f40abd683e28f2cf5d5447f2c6eac772ea025c20ab0430b252584a8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300115.SZ",
+          "url": "https://finance.yahoo.com/quote/300115.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "300136.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/300136.SZ.csv",
+      "rows": 3866,
+      "firstDate": "2010-11-05",
+      "lastDate": "2026-10-13",
+      "sha256": "f92380f6151f5023663a7c0ad00152d15fe242757ab47277c4e494a76e7d06bb",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300136.SZ",
+          "url": "https://finance.yahoo.com/quote/300136.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "300207.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/300207.SZ.csv",
+      "rows": 3757,
+      "firstDate": "2011-04-21",
+      "lastDate": "2026-10-13",
+      "sha256": "a878ae6596333cc56fa3003031ae13b81805cc7d1ef7cbe6750a172f5990cab2",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300207.SZ",
+          "url": "https://finance.yahoo.com/quote/300207.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "300684.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/300684.SZ.csv",
+      "rows": 2128,
+      "firstDate": "2017-12-27",
+      "lastDate": "2026-10-13",
+      "sha256": "314a4e23b731499234b1e0b0d83f5bf2302cc8bc77395fc8ed056a0546bbe63e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300684.SZ",
+          "url": "https://finance.yahoo.com/quote/300684.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "300709.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/300709.SZ.csv",
+      "rows": 2177,
+      "firstDate": "2017-10-19",
+      "lastDate": "2026-10-13",
+      "sha256": "da4b46babbd8e6c802969cb5e9fffa195588dea16ee4c599b68fe373258892de",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300709.SZ",
+          "url": "https://finance.yahoo.com/quote/300709.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "3008.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3008.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "3708e799178002e40cbcf8c565073a6408c66fbff926cfa204b81e444a5d585b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3008.TW",
+          "url": "https://finance.yahoo.com/quote/3008.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "300951.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/300951.SZ.csv",
+      "rows": 1363,
+      "firstDate": "2021-02-26",
+      "lastDate": "2026-10-13",
+      "sha256": "6a284b6d3ea58b8d5bc6188dedf1b799f964254485d1c5a9350469a1e5cb5adc",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 300951.SZ",
+          "url": "https://finance.yahoo.com/quote/300951.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "301622.SZ",
+      "kind": "equity",
+      "file": "data/raw/prices/301622.SZ.csv",
+      "rows": 448,
+      "firstDate": "2024-12-04",
+      "lastDate": "2026-10-13",
+      "sha256": "aedb3f877a0ac541da5f3e45cb1078e25b5285744c7505a4569f7d2c08d48de8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 301622.SZ",
+          "url": "https://finance.yahoo.com/quote/301622.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "3017.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3017.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "4650949f775afd142e7800c8b500a589c0c01c4da82f8e4de99a982b04120d8d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3017.TW",
+          "url": "https://finance.yahoo.com/quote/3017.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3034.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3034.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "18741e9250543ef9c743c6917683e49bb19bdb075ae98ffc9d3ceb98755374df",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3034.TW",
+          "url": "https://finance.yahoo.com/quote/3034.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3037.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3037.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "0626af8133300d26aab2fbacc85852caa77f55f93625fdaf21fb6eae486e1a5b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3037.TW",
+          "url": "https://finance.yahoo.com/quote/3037.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3042.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3042.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "79a59d834c8251f6e96de39d17d9dc4b9efdfcc246c8c2eaf0c436f301384a35",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3042.TW",
+          "url": "https://finance.yahoo.com/quote/3042.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3044.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3044.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "18d9ff981cce93a03b6df51a252fd60d0d3ccf3f5b770895de464ba25aa0fa7e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3044.TW",
+          "url": "https://finance.yahoo.com/quote/3044.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3189.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3189.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2a2cb28b16c5ed3cb11da9fb643dca42313b0c512b1fada5f60ec6682c407980",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3189.TW",
+          "url": "https://finance.yahoo.com/quote/3189.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3211.TWO",
+      "kind": "equity",
+      "file": "data/raw/prices/3211.TWO.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "6b1765f79718345b7663582bfbc210730ca030e3d5e31abf86fb973a5120ed7e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3211.TWO",
+          "url": "https://finance.yahoo.com/quote/3211.TWO/"
+        }
+      ]
+    },
+    {
+      "ticker": "3231.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3231.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9879683f9bcc06736dfead0ff0e8d30144b303459a4a08d18030a38d5b941dea",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3231.TW",
+          "url": "https://finance.yahoo.com/quote/3231.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3324.TWO",
+      "kind": "equity",
+      "file": "data/raw/prices/3324.TWO.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "4e50c3c1cf7b854170a441f479ba640cadf996eb578c22ffa552c7e0772792ee",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3324.TWO",
+          "url": "https://finance.yahoo.com/quote/3324.TWO/"
+        }
+      ]
+    },
+    {
+      "ticker": "3376.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3376.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7286a7fa3ed8250cdb5f61b3dfb2807c12429863165c39a7292fd00329e4c204",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3376.TW",
+          "url": "https://finance.yahoo.com/quote/3376.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3406.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3406.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "3d19ce0fc7f2f39f4bea976f62f32a029ea3ccc6b193611e91d8073a21b87c2c",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3406.TW",
+          "url": "https://finance.yahoo.com/quote/3406.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3533.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3533.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "ab1d065e36cd28522fc8e5f7221b30d59302bc70a6d0adf4561298c54725abaa",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3533.TW",
+          "url": "https://finance.yahoo.com/quote/3533.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "3673.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/3673.TW.csv",
+      "rows": 3796,
+      "firstDate": "2011-03-29",
+      "lastDate": "2026-10-13",
+      "sha256": "9bd204540a7df20007111ffa2609ec7d2907416e3a15c9870994ac56595ebce7",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3673.TW",
+          "url": "https://finance.yahoo.com/quote/3673.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "373220.KS",
+      "kind": "equity",
+      "file": "data/raw/prices/373220.KS.csv",
+      "rows": 1146,
+      "firstDate": "2022-01-27",
+      "lastDate": "2026-10-13",
+      "sha256": "b841616fc4539faa9d02e8113823e24ddf3fd1bbae961d505c62a04e1f42cfae",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 373220.KS",
+          "url": "https://finance.yahoo.com/quote/373220.KS/"
+        }
+      ]
+    },
+    {
+      "ticker": "3986.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/3986.HK.csv",
+      "rows": 185,
+      "firstDate": "2026-01-13",
+      "lastDate": "2026-10-13",
+      "sha256": "37c55e9bb823161269ef8553546dae513a5042cd67b71517e6cdfd8d14c0d268",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 3986.HK",
+          "url": "https://finance.yahoo.com/quote/3986.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "399001.SZ",
+      "kind": "index",
+      "file": "data/raw/prices/399001.SZ.csv",
+      "rows": 4067,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "8dedfa2fa809cc79424344b1df801048d546e1fdf5fa9f64af2cf68776f24883",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 399001.SZ",
+          "url": "https://finance.yahoo.com/quote/399001.SZ/"
+        }
+      ]
+    },
+    {
+      "ticker": "4005.T",
+      "kind": "equity",
+      "file": "data/raw/prices/4005.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "79f7c4b111bf0d5f7a96ae7400fd573641e43b84c4281fdc05c53dd66881c92b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4005.T",
+          "url": "https://finance.yahoo.com/quote/4005.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "4062.T",
+      "kind": "equity",
+      "file": "data/raw/prices/4062.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2be351a2066b3c55a6e5fe8f58ceb16ebeb2e68ad6bf1074dc8459e479520a8f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4062.T",
+          "url": "https://finance.yahoo.com/quote/4062.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "4204.T",
+      "kind": "equity",
+      "file": "data/raw/prices/4204.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "0bcfb90db7946025e7863b396a80d78ccb90c829f8ea3df1da7c00e8aad15ca9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4204.T",
+          "url": "https://finance.yahoo.com/quote/4204.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "4251.T",
+      "kind": "equity",
+      "file": "data/raw/prices/4251.T.csv",
+      "rows": 1696,
+      "firstDate": "2019-10-30",
+      "lastDate": "2026-10-13",
+      "sha256": "83d85989a320130dd46b9d1a5e857e4b24048b7f21fa294150914fcdc947b18b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4251.T",
+          "url": "https://finance.yahoo.com/quote/4251.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "4915.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/4915.TW.csv",
+      "rows": 3417,
+      "firstDate": "2012-10-03",
+      "lastDate": "2026-10-13",
+      "sha256": "9712038119413ec92d2cf7fce85aed0d602a469506e34f749250749289d7a0d2",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4915.TW",
+          "url": "https://finance.yahoo.com/quote/4915.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "4935.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/4935.TW.csv",
+      "rows": 3713,
+      "firstDate": "2011-07-28",
+      "lastDate": "2026-10-13",
+      "sha256": "c8e37d47d23e7aa94d3e557c3c5e95a4427d74e4dc21d81a9a812b853c688e53",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4935.TW",
+          "url": "https://finance.yahoo.com/quote/4935.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "4938.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/4938.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c62018ee3bb5467cc689aa87ad881a499c89540a3c843954a65a6811ce643ce8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4938.TW",
+          "url": "https://finance.yahoo.com/quote/4938.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "4943.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/4943.TW.csv",
+      "rows": 3464,
+      "firstDate": "2012-07-27",
+      "lastDate": "2026-10-13",
+      "sha256": "5be3f692f2338fa6c0a92a341f393111193837f312ef42ab0df3a47b2f13d9b3",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4943.TW",
+          "url": "https://finance.yahoo.com/quote/4943.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "4958.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/4958.TW.csv",
+      "rows": 3608,
+      "firstDate": "2011-12-26",
+      "lastDate": "2026-10-13",
+      "sha256": "f7db2ec863aa3f02f699ac192ad17559be51354341c894a38cf4a8cf55492ca4",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4958.TW",
+          "url": "https://finance.yahoo.com/quote/4958.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "4966.TWO",
+      "kind": "equity",
+      "file": "data/raw/prices/4966.TWO.csv",
+      "rows": 3681,
+      "firstDate": "2011-09-13",
+      "lastDate": "2026-10-13",
+      "sha256": "de56a1032b65b52c7eb307f152c2ba5d5993df1b18f420cb139140e60cf7d99b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4966.TWO",
+          "url": "https://finance.yahoo.com/quote/4966.TWO/"
+        }
+      ]
+    },
+    {
+      "ticker": "4980.T",
+      "kind": "equity",
+      "file": "data/raw/prices/4980.T.csv",
+      "rows": 2757,
+      "firstDate": "2015-07-29",
+      "lastDate": "2026-10-13",
+      "sha256": "69f2f1ccc97a617781785dd95de567a4ac03bc9df8d107062d64b5e712cb1ef8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 4980.T",
+          "url": "https://finance.yahoo.com/quote/4980.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "5020.T",
+      "kind": "equity",
+      "file": "data/raw/prices/5020.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "b3320d477b24fd8fa64a733f7e897d2c08d67ba599027380fed846374c64c379",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5020.T",
+          "url": "https://finance.yahoo.com/quote/5020.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "5215.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/5215.TW.csv",
+      "rows": 3608,
+      "firstDate": "2011-12-26",
+      "lastDate": "2026-10-13",
+      "sha256": "799fc77b2276781a44d4805f8fe57b9233e7ffdaebc222af0a26c6371ce61e2d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5215.TW",
+          "url": "https://finance.yahoo.com/quote/5215.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "5703.T",
+      "kind": "equity",
+      "file": "data/raw/prices/5703.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "b80b2cf0f11cb7472c12adb04a182732ed41341690948ee3daaa6a85d1355143",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5703.T",
+          "url": "https://finance.yahoo.com/quote/5703.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "5741.T",
+      "kind": "equity",
+      "file": "data/raw/prices/5741.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "afd9a64d93c9f627455a73bdc98d0773acef2e2817e32300f7ea5f40d7381374",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5741.T",
+          "url": "https://finance.yahoo.com/quote/5741.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "5802.T",
+      "kind": "equity",
+      "file": "data/raw/prices/5802.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "72e70ef0b6dcaf828c9ece70fcacabdc255aa89f042346469bb8109b2442bd95",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5802.T",
+          "url": "https://finance.yahoo.com/quote/5802.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "5803.T",
+      "kind": "equity",
+      "file": "data/raw/prices/5803.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "63f81a16cd03b1fc0fde3014a04ef2fc8c12592ee373a77cd70c8a602a6ae56a",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 5803.T",
+          "url": "https://finance.yahoo.com/quote/5803.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "600456.SS",
+      "kind": "equity",
+      "file": "data/raw/prices/600456.SS.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9ef1704b1a6d1cfe9b3e248fa3e6ec79346a46252a148f096e756d0d4bdf5341",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600456.SS",
+          "url": "https://finance.yahoo.com/quote/600456.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "600584.SS",
+      "kind": "equity",
+      "file": "data/raw/prices/600584.SS.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "346fce25b055726e570e454b7a43d5eab2513a579c82c2fa67b2efe7e643e37a",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600584.SS",
+          "url": "https://finance.yahoo.com/quote/600584.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "600745.SS",
+      "kind": "equity",
+      "file": "data/raw/prices/600745.SS.csv",
+      "rows": 4070,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "42d11655cfd527f9813421eb546f6100992ba79eed20c33a358653995fccfe28",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 600745.SS",
+          "url": "https://finance.yahoo.com/quote/600745.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "603328.SS",
+      "kind": "equity",
+      "file": "data/raw/prices/603328.SS.csv",
+      "rows": 2906,
+      "firstDate": "2014-07-01",
+      "lastDate": "2026-10-13",
+      "sha256": "68bd8fe0067e0754d30c880d89369b92150039468197b09e3303a776edc54882",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 603328.SS",
+          "url": "https://finance.yahoo.com/quote/603328.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "603595.SS",
+      "kind": "equity",
+      "file": "data/raw/prices/603595.SS.csv",
+      "rows": 2242,
+      "firstDate": "2017-07-13",
+      "lastDate": "2026-10-13",
+      "sha256": "e78cc15113211ab5508e08369592c88ccf7d041e1e8618821f6060b2ff6827ef",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 603595.SS",
+          "url": "https://finance.yahoo.com/quote/603595.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "6121.TWO",
+      "kind": "equity",
+      "file": "data/raw/prices/6121.TWO.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a9cc428266cfbf93e639760027cd9dae3a4ac64392fa5fd83c33301cbb9bf62a",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6121.TWO",
+          "url": "https://finance.yahoo.com/quote/6121.TWO/"
+        }
+      ]
+    },
+    {
+      "ticker": "6153.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/6153.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "ef5d3c89c03977a7169e4294aa68caf623a5e31d1aa63a431d790001c7cca5ea",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6153.TW",
+          "url": "https://finance.yahoo.com/quote/6153.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "6176.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/6176.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "cfe1b3a99a23c81190b79fc62008be2c8d9ded0cc03a58c6c3e8e4439194d995",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6176.TW",
+          "url": "https://finance.yahoo.com/quote/6176.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "6269.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/6269.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c0f74c919a051e4b801be1eb6d7683e5631f796e4d99e9135692a6283dcf9390",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6269.TW",
+          "url": "https://finance.yahoo.com/quote/6269.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "6278.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/6278.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2a17dd2c3913b9aa71575729206461af277b41eca5be3a37fd5494c5ff3760f4",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6278.TW",
+          "url": "https://finance.yahoo.com/quote/6278.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "6290.TWO",
+      "kind": "equity",
+      "file": "data/raw/prices/6290.TWO.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "aa48331d395dfd70bbca00e5a623be98f39f6248d47d44b2fbfb708a73cdbc3e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6290.TWO",
+          "url": "https://finance.yahoo.com/quote/6290.TWO/"
+        }
+      ]
+    },
+    {
+      "ticker": "6501.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6501.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a9ee55554ca814477d4981dd4698adcdd70eaccec42fccde67ee391272d99a6d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6501.T",
+          "url": "https://finance.yahoo.com/quote/6501.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6594.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6594.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9de96588c003a968c5c395068e237454db206309964ca615c8a629fa98b32197",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6594.T",
+          "url": "https://finance.yahoo.com/quote/6594.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6613.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/6613.HK.csv",
+      "rows": 313,
+      "firstDate": "2025-07-09",
+      "lastDate": "2026-10-13",
+      "sha256": "f8f18538a5fdb2b066ea46dc715dbf1b3fa8e9eb515fac2355b5f84e3a9a977c",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6613.HK",
+          "url": "https://finance.yahoo.com/quote/6613.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "6723.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6723.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "5e47364718035d34f7278d278181fdf37147859895dd7b5b1dc7f61792c881a4",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6723.T",
+          "url": "https://finance.yahoo.com/quote/6723.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6740.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6740.T.csv",
+      "rows": 3091,
+      "firstDate": "2014-03-19",
+      "lastDate": "2026-10-13",
+      "sha256": "28efc60d2daee226212f44a9b4bca7149a79bf122c8d1cce09ae64a8b1756438",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6740.T",
+          "url": "https://finance.yahoo.com/quote/6740.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6753.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6753.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2a8e68a04caf7e331743ae8997b4a7663a094f4b29edacf097e319063b25ac0e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6753.T",
+          "url": "https://finance.yahoo.com/quote/6753.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6762.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6762.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "e57fc46f282f0204b7fe3313d57add58319cfe90d85a84860659b2fd3c004d28",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6762.T",
+          "url": "https://finance.yahoo.com/quote/6762.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6770.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6770.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "596d2351a206351b874b900c7c8a7dfa25b3f28d827a137b5fe8b2a3180cc6e2",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6770.T",
+          "url": "https://finance.yahoo.com/quote/6770.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6794.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6794.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "3a2143dda05a4238f526d11d581b31183006d4346ea6501d13a20e2e0bbb9b47",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6794.T",
+          "url": "https://finance.yahoo.com/quote/6794.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6798.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6798.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "71c7edb3c226c974d051899cfc629e2e966bcbdb3fa7cd4d7ffe8c7bdda5d7c8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6798.T",
+          "url": "https://finance.yahoo.com/quote/6798.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6806.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6806.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2b3d839d5e7566f983a8d04579b37d46ffe5702f8e938579c7e9f07cb5da82c8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6806.T",
+          "url": "https://finance.yahoo.com/quote/6806.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6807.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6807.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "039af2ccb75a8aaddde236fa1ef667af36d36b2d7496e48a9e5bb05f106b41d1",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6807.T",
+          "url": "https://finance.yahoo.com/quote/6807.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6817.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6817.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a4b21241b5ad0282f466c6fcb7f21aa83d75bde88b065c2508e63794694c67ed",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6817.T",
+          "url": "https://finance.yahoo.com/quote/6817.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6838.HK",
+      "kind": "equity",
+      "file": "data/raw/prices/6838.HK.csv",
+      "rows": 3752,
+      "firstDate": "2011-07-20",
+      "lastDate": "2026-10-13",
+      "sha256": "c82311f39eca8025b749c0aa7487ce659b3b3f82f4d6da9acf6f6f469e7a4265",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6838.HK",
+          "url": "https://finance.yahoo.com/quote/6838.HK/"
+        }
+      ]
+    },
+    {
+      "ticker": "6875.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6875.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "cd4422d9e636cb46f45c25c595c22ac45a26cfd4ccd504706eab5f68e76e5147",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6875.T",
+          "url": "https://finance.yahoo.com/quote/6875.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "688772.SS",
+      "kind": "equity",
+      "file": "data/raw/prices/688772.SS.csv",
+      "rows": 1210,
+      "firstDate": "2021-10-15",
+      "lastDate": "2026-10-13",
+      "sha256": "8f53b9c6e900364f5eec466aafa18fa04fc4336ea8acc19929707f2866486b40",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 688772.SS",
+          "url": "https://finance.yahoo.com/quote/688772.SS/"
+        }
+      ]
+    },
+    {
+      "ticker": "6963.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6963.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "3fd9af6ccb82245878fc87a68ce9c4247461d6cc3210889fd3209f529c8912ef",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6963.T",
+          "url": "https://finance.yahoo.com/quote/6963.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6971.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6971.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a1570d77b897a7659e727640c5046ee5de9d25e4f3e501ecfb422bd0058ab2be",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6971.T",
+          "url": "https://finance.yahoo.com/quote/6971.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6976.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6976.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7405b5226a91bac8788c8a13218e2782fb3322197df41f6da9f6c7281f0923df",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6976.T",
+          "url": "https://finance.yahoo.com/quote/6976.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6981.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6981.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "23962abfa8a387691e3341527304d888d191738c69889c0d3cc73060ae0da6e8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6981.T",
+          "url": "https://finance.yahoo.com/quote/6981.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "6988.T",
+      "kind": "equity",
+      "file": "data/raw/prices/6988.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "3e3b505e8600bbc15dcc2e56d0aa812a07b1eb76ea22ef84dc074dfc7f8a350f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 6988.T",
+          "url": "https://finance.yahoo.com/quote/6988.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "7282.T",
+      "kind": "equity",
+      "file": "data/raw/prices/7282.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "99728e8f4b31b7456d991a0e1855e0a4bd0a2f691d86036c7bae9b0f1367a007",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 7282.T",
+          "url": "https://finance.yahoo.com/quote/7282.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "7915.T",
+      "kind": "equity",
+      "file": "data/raw/prices/7915.T.csv",
+      "rows": 4122,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "96dfbffc9d861a83a566333da57910ea9b41c75a219d7fcfac642b930e01f473",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 7915.T",
+          "url": "https://finance.yahoo.com/quote/7915.T/"
+        }
+      ]
+    },
+    {
+      "ticker": "8163.TW",
+      "kind": "equity",
+      "file": "data/raw/prices/8163.TW.csv",
+      "rows": 4100,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "0c56e19803e6099141714f84d1cee7a701e27d7db2314d670af942a7745a0612",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: 8163.TW",
+          "url": "https://finance.yahoo.com/quote/8163.TW/"
+        }
+      ]
+    },
+    {
+      "ticker": "ADI",
+      "kind": "equity",
+      "file": "data/raw/prices/ADI.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "71330e9f9e1cc1cd0c13ba5df173c96095a591cfb4c514973d49c3c03a17a304",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ADI",
+          "url": "https://finance.yahoo.com/quote/ADI/"
+        }
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "kind": "equity",
+      "file": "data/raw/prices/AMD.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "19c78995998c6cc55efcaa8a760b16826d3c341aa10a0aa68cc9239bf82bf5a8",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: AMD",
+          "url": "https://finance.yahoo.com/quote/AMD/"
+        }
+      ]
+    },
+    {
+      "ticker": "AMKR",
+      "kind": "equity",
+      "file": "data/raw/prices/AMKR.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9f35cffd95e94cc5056740b7c706fc586344275f5c26c9ba09fa12292e16bfa6",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: AMKR",
+          "url": "https://finance.yahoo.com/quote/AMKR/"
+        }
+      ]
+    },
+    {
+      "ticker": "AMS.SW",
+      "kind": "equity",
+      "file": "data/raw/prices/AMS.SW.csv",
+      "rows": 4217,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "f2acd4f97f16a92b575ba1ddafa14463547179f3c541b22f8b3d896a0025e84e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: AMS.SW",
+          "url": "https://finance.yahoo.com/quote/AMS.SW/"
+        }
+      ]
+    },
+    {
+      "ticker": "AOSL",
+      "kind": "equity",
+      "file": "data/raw/prices/AOSL.csv",
+      "rows": 4140,
+      "firstDate": "2010-04-29",
+      "lastDate": "2026-10-13",
+      "sha256": "1d4d094910b67c9da8471aba78fedf3ddfbc4e64ed8aa7414c64ee311c0d8b63",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: AOSL",
+          "url": "https://finance.yahoo.com/quote/AOSL/"
+        }
+      ]
+    },
+    {
+      "ticker": "APH",
+      "kind": "equity",
+      "file": "data/raw/prices/APH.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "4160535d8cb0281a61c3a299f7b4f1f19c7c3835548223974d33201075eafd6c",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: APH",
+          "url": "https://finance.yahoo.com/quote/APH/"
+        }
+      ]
+    },
+    {
+      "ticker": "ATS.VI",
+      "kind": "equity",
+      "file": "data/raw/prices/ATS.VI.csv",
+      "rows": 4205,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "1760ca660715cc93b865b9a8e672156cef480477c7e82bb54e256ed370c54372",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ATS.VI",
+          "url": "https://finance.yahoo.com/quote/ATS.VI/"
+        }
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "kind": "equity",
+      "file": "data/raw/prices/AVGO.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "dcbaee2f580cd745cbcfd5808c7e307043e5abbf9b0a824983a2fa61c1acec4f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: AVGO",
+          "url": "https://finance.yahoo.com/quote/AVGO/"
+        }
+      ]
+    },
+    {
+      "ticker": "CC",
+      "kind": "equity",
+      "file": "data/raw/prices/CC.csv",
+      "rows": 2846,
+      "firstDate": "2015-06-19",
+      "lastDate": "2026-10-13",
+      "sha256": "c9de3276a5536ced737c6ba56d56ae86e11c21b04d6e5f99cf381bcbdef22c50",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CC",
+          "url": "https://finance.yahoo.com/quote/CC/"
+        }
+      ]
+    },
+    {
+      "ticker": "COHR",
+      "kind": "equity",
+      "file": "data/raw/prices/COHR.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "1d48bccc00191a252451b93f04350d83d39ffa8c06c5fa20805cccbfbd019a9b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: COHR",
+          "url": "https://finance.yahoo.com/quote/COHR/"
+        }
+      ]
+    },
+    {
+      "ticker": "CRUS",
+      "kind": "equity",
+      "file": "data/raw/prices/CRUS.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "ab3e444446281dd94720ab64b3479f7fc4642158978d358588188937ace5996b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CRUS",
+          "url": "https://finance.yahoo.com/quote/CRUS/"
+        }
+      ]
+    },
+    {
+      "ticker": "DIOD",
+      "kind": "equity",
+      "file": "data/raw/prices/DIOD.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7960fa29dfd952ee0e600d42fd1c1f2b225a28ed4e4504995cb3b54d8cad4aad",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: DIOD",
+          "url": "https://finance.yahoo.com/quote/DIOD/"
+        }
+      ]
+    },
+    {
+      "ticker": "FLEX",
+      "kind": "equity",
+      "file": "data/raw/prices/FLEX.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "d2a247b4ef8803a5892198cacbe557949a31bfac2767faa707eb066b34987078",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: FLEX",
+          "url": "https://finance.yahoo.com/quote/FLEX/"
+        }
+      ]
+    },
+    {
+      "ticker": "GLW",
+      "kind": "equity",
+      "file": "data/raw/prices/GLW.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "8936fe245366a371f342434fa1c3320fd4b836c38c2f5dbe0c65aee570f5b5a0",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: GLW",
+          "url": "https://finance.yahoo.com/quote/GLW/"
+        }
+      ]
+    },
+    {
+      "ticker": "IFX.DE",
+      "kind": "equity",
+      "file": "data/raw/prices/IFX.DE.csv",
+      "rows": 4264,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "e2c78a927978b548cb1d4d6bf90cf6b7b577797e2dfe32b9d5ef15fc2321727a",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: IFX.DE",
+          "url": "https://finance.yahoo.com/quote/IFX.DE/"
+        }
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "kind": "equity",
+      "file": "data/raw/prices/INTC.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "8cb1b214497142dfbbe1a59726d58c1f8871723c20b90219cde05b6a18a7671b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: INTC",
+          "url": "https://finance.yahoo.com/quote/INTC/"
+        }
+      ]
+    },
+    {
+      "ticker": "JBL",
+      "kind": "equity",
+      "file": "data/raw/prices/JBL.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "97606edcd2443184a3c60557914cde3ef3cddc512f55d08faf63b9678c58f920",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: JBL",
+          "url": "https://finance.yahoo.com/quote/JBL/"
+        }
+      ]
+    },
+    {
+      "ticker": "KN",
+      "kind": "equity",
+      "file": "data/raw/prices/KN.csv",
+      "rows": 3184,
+      "firstDate": "2014-02-14",
+      "lastDate": "2026-10-13",
+      "sha256": "d88dfab0dfb772bb16e3f38372612d0cfa2476731fd174df4140b256c2bd041a",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: KN",
+          "url": "https://finance.yahoo.com/quote/KN/"
+        }
+      ]
+    },
+    {
+      "ticker": "LITE",
+      "kind": "equity",
+      "file": "data/raw/prices/LITE.csv",
+      "rows": 2823,
+      "firstDate": "2015-07-23",
+      "lastDate": "2026-10-13",
+      "sha256": "bcbbb21c8b0a7fefe57b1d3cecddd751c03bcb272231ee2054c7ccffe2a8d817",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: LITE",
+          "url": "https://finance.yahoo.com/quote/LITE/"
+        }
+      ]
+    },
+    {
+      "ticker": "LPL",
+      "kind": "equity",
+      "file": "data/raw/prices/LPL.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "38b055a5815b9575aec42aa0124bc1360099a38f1e76655804c76e09ed373a26",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: LPL",
+          "url": "https://finance.yahoo.com/quote/LPL/"
+        }
+      ]
+    },
+    {
+      "ticker": "LSCC",
+      "kind": "equity",
+      "file": "data/raw/prices/LSCC.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "5409cf6db31a06ac789078d016a06038a85b89112429ff0a537cff4c2c22f427",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: LSCC",
+          "url": "https://finance.yahoo.com/quote/LSCC/"
+        }
+      ]
+    },
+    {
+      "ticker": "MCHP",
+      "kind": "equity",
+      "file": "data/raw/prices/MCHP.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "bbc7e05e0f43d72806dc34f0a385367360e9a5f2fded55b80834439626593bbd",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MCHP",
+          "url": "https://finance.yahoo.com/quote/MCHP/"
+        }
+      ]
+    },
+    {
+      "ticker": "MMM",
+      "kind": "equity",
+      "file": "data/raw/prices/MMM.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "4da6db5e2dfa80cc4e9477843323ab1af9997250ddac9fb08d529c13bce1a5f9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MMM",
+          "url": "https://finance.yahoo.com/quote/MMM/"
+        }
+      ]
+    },
+    {
+      "ticker": "MU",
+      "kind": "equity",
+      "file": "data/raw/prices/MU.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "f683a7acbeccc84823728ad07a7e785775c5d52bd828e1cffc58620ce907a6ac",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MU",
+          "url": "https://finance.yahoo.com/quote/MU/"
+        }
+      ]
+    },
+    {
+      "ticker": "NOD.OL",
+      "kind": "equity",
+      "file": "data/raw/prices/NOD.OL.csv",
+      "rows": 4214,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9d7638bb175a1ee5241cac8bf5bae9aad8308e875184541d7787e8227d8c892d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: NOD.OL",
+          "url": "https://finance.yahoo.com/quote/NOD.OL/"
+        }
+      ]
+    },
+    {
+      "ticker": "NXPI",
+      "kind": "equity",
+      "file": "data/raw/prices/NXPI.csv",
+      "rows": 4071,
+      "firstDate": "2010-08-06",
+      "lastDate": "2026-10-13",
+      "sha256": "4367bfdbd66ce23c111e75f4c87b8329b2d0d2ef45c605943aa36dbd7ddfdd19",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: NXPI",
+          "url": "https://finance.yahoo.com/quote/NXPI/"
+        }
+      ]
+    },
+    {
+      "ticker": "ON",
+      "kind": "equity",
+      "file": "data/raw/prices/ON.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "db4b2931ed807e6a28469a770a17447a1a690b6e1a20f1841da5be0606d22653",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ON",
+          "url": "https://finance.yahoo.com/quote/ON/"
+        }
+      ]
+    },
+    {
+      "ticker": "OSEBX.OL",
+      "kind": "index",
+      "file": "data/raw/prices/OSEBX.OL.csv",
+      "rows": 3393,
+      "firstDate": "2013-03-05",
+      "lastDate": "2026-10-13",
+      "sha256": "947c42296e23c2162fbd5e2eeafd9afaf92440c415a6c1da37cf4babac4418a3",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: OSEBX.OL",
+          "url": "https://finance.yahoo.com/quote/OSEBX.OL/"
+        }
+      ]
+    },
+    {
+      "ticker": "POWI",
+      "kind": "equity",
+      "file": "data/raw/prices/POWI.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2100c11007ba8b08685af12dd3ecd1bbb27e3ba4c6157dc63f4f10d2f806ce9e",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: POWI",
+          "url": "https://finance.yahoo.com/quote/POWI/"
+        }
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "kind": "equity",
+      "file": "data/raw/prices/QCOM.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "6e2ddda20ed0d06e6f21c86875073ffcc6b15ad8fc4c14ac19b52ce1a03fc830",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: QCOM",
+          "url": "https://finance.yahoo.com/quote/QCOM/"
+        }
+      ]
+    },
+    {
+      "ticker": "QRVO",
+      "kind": "equity",
+      "file": "data/raw/prices/QRVO.csv",
+      "rows": 5,
+      "firstDate": "2026-07-29",
+      "lastDate": "2026-09-14",
+      "sha256": "e08c5c51ef31a3b5ef4d72e3314ece9ccb7fea45a6801b69678d54d469d53dc9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: QRVO",
+          "url": "https://finance.yahoo.com/quote/QRVO/"
+        }
+      ]
+    },
+    {
+      "ticker": "SFSN.SW",
+      "kind": "equity",
+      "file": "data/raw/prices/SFSN.SW.csv",
+      "rows": 3125,
+      "firstDate": "2014-05-07",
+      "lastDate": "2026-10-13",
+      "sha256": "6f9c80ed67244a21bca5b1fe373b4d1c5a6a417ff6c8e750757444cbbc450844",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SFSN.SW",
+          "url": "https://finance.yahoo.com/quote/SFSN.SW/"
+        }
+      ]
+    },
+    {
+      "ticker": "SITM",
+      "kind": "equity",
+      "file": "data/raw/prices/SITM.csv",
+      "rows": 1732,
+      "firstDate": "2019-11-20",
+      "lastDate": "2026-10-13",
+      "sha256": "6ce356c960605de98b39ad2f5a18abc8ac173cfcc37585797e1a25f1ac5619bb",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SITM",
+          "url": "https://finance.yahoo.com/quote/SITM/"
+        }
+      ]
+    },
+    {
+      "ticker": "SKHY",
+      "kind": "equity",
+      "file": "data/raw/prices/SKHY.csv",
+      "rows": 67,
+      "firstDate": "2026-07-10",
+      "lastDate": "2026-10-13",
+      "sha256": "c5b1cf620609f576cdde02beabb8c84fba596e7906d75a61364147feefd4def1",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SKHY",
+          "url": "https://finance.yahoo.com/quote/SKHY/"
+        }
+      ]
+    },
+    {
+      "ticker": "SOLB.BR",
+      "kind": "equity",
+      "file": "data/raw/prices/SOLB.BR.csv",
+      "rows": 4293,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "640a2b5e5ee50db2c9149c276d84df8dc5c61f140a3b37fca7010727a6366ef9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SOLB.BR",
+          "url": "https://finance.yahoo.com/quote/SOLB.BR/"
+        }
+      ]
+    },
+    {
+      "ticker": "SONY",
+      "kind": "equity",
+      "file": "data/raw/prices/SONY.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "526f44f941e7c2e268ed040929f2238302fa65b3fdbfb31a1698f10125236c48",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SONY",
+          "url": "https://finance.yahoo.com/quote/SONY/"
+        }
+      ]
+    },
+    {
+      "ticker": "STERV.HE",
+      "kind": "equity",
+      "file": "data/raw/prices/STERV.HE.csv",
+      "rows": 4218,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "b55028fc197ab6d02ecd5c168f2d4a17db81e0bfa35328425e81f931eae4f218",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: STERV.HE",
+          "url": "https://finance.yahoo.com/quote/STERV.HE/"
+        }
+      ]
+    },
+    {
+      "ticker": "STM",
+      "kind": "equity",
+      "file": "data/raw/prices/STM.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "00234e68a4007e59fca4263acbf90e02f3e2263fadaf8574f86608373f2bc25f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: STM",
+          "url": "https://finance.yahoo.com/quote/STM/"
+        }
+      ]
+    },
+    {
+      "ticker": "SWKS",
+      "kind": "equity",
+      "file": "data/raw/prices/SWKS.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "46af508fd6bee390184102d332e9039367d116283befff67c2e88507efdbdb40",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SWKS",
+          "url": "https://finance.yahoo.com/quote/SWKS/"
+        }
+      ]
+    },
+    {
+      "ticker": "SYNA",
+      "kind": "equity",
+      "file": "data/raw/prices/SYNA.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "7b86552a3398fdbec70f21c0f8189fa399c4a0210c7cdd9814d1edc9564cf5c2",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: SYNA",
+          "url": "https://finance.yahoo.com/quote/SYNA/"
+        }
+      ]
+    },
+    {
+      "ticker": "TPEXINDEX",
+      "kind": "index",
+      "file": "data/raw/prices/TPEXINDEX.csv",
+      "rows": 3555,
+      "firstDate": "2012-04-02",
+      "lastDate": "2026-10-13",
+      "sha256": "ea1aca1a9548dfe82996949263630235e73556d6dda35b44b9584a84cc80057e",
+      "provider": "Taipei Exchange",
+      "sources": [
+        {
+          "title": "Taipei Exchange: Historical Data of TPEx Index",
+          "url": "https://www.tpex.org.tw/en-us/indices/stock-index/industrial/inxh.html"
+        }
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "kind": "equity",
+      "file": "data/raw/prices/TSM.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "5b39faf3a9c61a8d937b9fe5cdb715eac0596fab30095a12c212ffc47f6f3f4f",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: TSM",
+          "url": "https://finance.yahoo.com/quote/TSM/"
+        }
+      ]
+    },
+    {
+      "ticker": "TTMI",
+      "kind": "equity",
+      "file": "data/raw/prices/TTMI.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "af4a815c8afbade4f4ac4f60fb04496ac10150e334704e0e5b3422685238e8ab",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: TTMI",
+          "url": "https://finance.yahoo.com/quote/TTMI/"
+        }
+      ]
+    },
+    {
+      "ticker": "TXN",
+      "kind": "equity",
+      "file": "data/raw/prices/TXN.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9da8fb1cd82d8d34b04b1d840bbd742aece7b75ce9804e1722c93b3fff938910",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: TXN",
+          "url": "https://finance.yahoo.com/quote/TXN/"
+        }
+      ]
+    },
+    {
+      "ticker": "VIAV",
+      "kind": "equity",
+      "file": "data/raw/prices/VIAV.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "a92c4153d276c422e1ed084262eae222454184760add287e00a058877dd223cc",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: VIAV",
+          "url": "https://finance.yahoo.com/quote/VIAV/"
+        }
+      ]
+    },
+    {
+      "ticker": "WDC",
+      "kind": "equity",
+      "file": "data/raw/prices/WDC.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "2b737e3c75a843f8e5d05c524e93755299f89cf6b0bfa4212019f5770736b9fd",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: WDC",
+          "url": "https://finance.yahoo.com/quote/WDC/"
+        }
+      ]
+    },
+    {
+      "ticker": "^ATX",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_ATX.csv",
+      "rows": 4190,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "fcc1a110ab539917ce35f67d0f2b00bd9274a70fcfb22022307d4ff64b4b0e94",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^ATX",
+          "url": "https://finance.yahoo.com/quote/%5EATX/"
+        }
+      ]
+    },
+    {
+      "ticker": "^BFX",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_BFX.csv",
+      "rows": 4293,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c62523e9cc63440dc01736ae89bcd0776106ebf59e52f2f9b3b350c744421bad",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^BFX",
+          "url": "https://finance.yahoo.com/quote/%5EBFX/"
+        }
+      ]
+    },
+    {
+      "ticker": "^GDAXI",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_GDAXI.csv",
+      "rows": 4259,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "c5bcd27731abc94ba5cb604665777952c2ac6d4e3d5ed5763b29603d1a11b90d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^GDAXI",
+          "url": "https://finance.yahoo.com/quote/%5EGDAXI/"
+        }
+      ]
+    },
+    {
+      "ticker": "^HSI",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_HSI.csv",
+      "rows": 4130,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "127c373573f49bef42856039df6d0f38db755308a567ec2b76cdda88ccf871c4",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^HSI",
+          "url": "https://finance.yahoo.com/quote/%5EHSI/"
+        }
+      ]
+    },
+    {
+      "ticker": "^IXIC",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_IXIC.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "1665cb3bf552aa7af6ed7a711bdec94b21140d879eca343c3c9693b38de9af9d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^IXIC",
+          "url": "https://finance.yahoo.com/quote/%5EIXIC/"
+        }
+      ]
+    },
+    {
+      "ticker": "^KQ11",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_KQ11.csv",
+      "rows": 4124,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "87970bec4599e312e2fcccb0551ec2fcc5b20a66d678bef3054877a8fa716b65",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^KQ11",
+          "url": "https://finance.yahoo.com/quote/%5EKQ11/"
+        }
+      ]
+    },
+    {
+      "ticker": "^KS11",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_KS11.csv",
+      "rows": 4123,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "d7f44408a894d5051aabbc35b1decbcf6474616be6bcbe6549f166210c3a2f02",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^KS11",
+          "url": "https://finance.yahoo.com/quote/%5EKS11/"
+        }
+      ]
+    },
+    {
+      "ticker": "^N225",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_N225.csv",
+      "rows": 4101,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "cc6825a01eae1041b70c1786db3d7204088255020e7c338aae079c98ad3f6601",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^N225",
+          "url": "https://finance.yahoo.com/quote/%5EN225/"
+        }
+      ]
+    },
+    {
+      "ticker": "^NYA",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_NYA.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9f4bfe94f46b030c3ad7d4e92fd55691874cde984d6656e1a68efbdf2b8899f7",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^NYA",
+          "url": "https://finance.yahoo.com/quote/%5ENYA/"
+        }
+      ]
+    },
+    {
+      "ticker": "^OMXH25",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_OMXH25.csv",
+      "rows": 3403,
+      "firstDate": "2013-03-05",
+      "lastDate": "2026-10-13",
+      "sha256": "79e5a33bf91c9f4dcf3fbec9385eb6bf6489907672741afc9ab1968963f1a7d9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^OMXH25",
+          "url": "https://finance.yahoo.com/quote/%5EOMXH25/"
+        }
+      ]
+    },
+    {
+      "ticker": "^SSMI",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_SSMI.csv",
+      "rows": 4205,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "e0beaa8c283f387871d6306178257504d7d1d13685260c6eb35d19380b56aef4",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^SSMI",
+          "url": "https://finance.yahoo.com/quote/%5ESSMI/"
+        }
+      ]
+    },
+    {
+      "ticker": "^TWII",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_TWII.csv",
+      "rows": 4095,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "13524cfd90823b76a6697d616d33d76b4be61225281f8c038f80571df4662623",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^TWII",
+          "url": "https://finance.yahoo.com/quote/%5ETWII/"
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "mappingCounts": {
+    "mappedSupplierNames": 182,
+    "mappedTickers": 170,
+    "unlisted": 3,
+    "unresolved": 123
+  }
+}
