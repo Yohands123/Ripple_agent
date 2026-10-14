@@ -1,0 +1,130 @@
+/* Design tokens: every value from docs/design-spec.md. Do not hard-code these elsewhere. */
+:root {
+  /* Layout */
+  --frame-map-w: 1440px;
+  --frame-map-h: 810px;
+  --frame-panel-w: 400px;
+  --frame-total-w: 1840px;
+  --bottom-sheet-breakpoint: 900px;
+
+  /* Map and panel */
+  --ocean: #132423;
+  --land: #1f3936;
+  --land-stroke: #2c4c47;
+  --land-stroke-w: 1px;
+  --land-highlight: #28524b;
+  --panel-bg: #0e1a19;
+  --panel-border: #27443f;
+  --panel-border-w: 1px;
+  --text-primary: #f1f5f2;
+  --text-body: #d5dfdc;
+  --text-secondary: #b9c7c3;
+  --text-heading: #8fa6a1;
+  --pill-light-bg: #e9eeea;
+  --pill-light-text: #132423;
+
+  /* Tier colors */
+  --tier-1: #c79a6b; /* Rocks and mining */
+  --tier-2: #e8662f; /* Base materials */
+  --tier-3: #a98be8; /* Components */
+  --tier-4: #46c6d8; /* Assembly, finished devices in transit */
+  --tier-5: #e9eeea; /* Shipping nodes */
+  --tier-5-dot: #f1f5f2; /* Shipping node dots */
+  --tier-6: #7ccb9a; /* Sales */
+  --tier-7: #f08cc0; /* Support and repair, returns */
+
+  /* Reserved coin colors (never used for tiers) */
+  --coin-gold: #f2b92b;
+  --coin-gold-rim: #9a6a06;
+  --coin-gold-text: #6b4704;
+  --coin-blue: #5aa0e6;
+  --coin-blue-rim: #1f5e9e;
+  --coin-blue-text: #0e2f52;
+  --coin-red: #d6453d;
+  --coin-red-rim: #8e1f19;
+  --coin-red-text: #ffffff;
+  --coin-grey: #8a9694;
+  --coin-grey-rim: #4e5958;
+  --coin-grey-text: #1d2524;
+
+  /* Disruption zone */
+  --zone-fill: rgba(214, 69, 61, 0.22);
+  --zone-border: 2px dashed #d6453d;
+
+  /* Type */
+  --font-ui: var(--font-archivo), Archivo, system-ui, sans-serif;
+  --font-arcade: var(--font-pixelify), "Pixelify Sans", monospace;
+  --pill-sm-size: 12px;
+  --pill-sm-weight: 700;
+  --pill-sm-stretch: 85%;
+  --pill-sm-tracking: 0.04em;
+  --pill-sm-pad: 4px 9px;
+  --pill-sm-radius: 7px;
+  --pill-lg-size: 19px;
+  --pill-lg-weight: 800;
+  --pill-lg-stretch: 80%;
+  --pill-lg-tracking: 0.05em;
+  --pill-lg-pad: 8px 16px;
+  --pill-lg-radius: 12px;
+  --year-size: 46px;
+  --year-x: 24px;
+  --year-y: 712px;
+  --year-slash: #46c6d8;
+  --year-sub-size: 13px;
+  --year-sub-weight: 600;
+  --year-sub-color: #b9c7c3;
+  --panel-title-size: 30px;
+  --panel-title-weight: 800;
+  --panel-title-stretch: 90%;
+  --panel-heading-size: 12px;
+  --panel-heading-weight: 700;
+  --panel-heading-tracking: 0.06em;
+
+  /* Node symbols */
+  --node-assembly: 26px;
+  --node-assembly-outline: 2px;
+  --node-major: 24px;
+  --node-minor: 16px;
+  --node-minor-stroke: 2px;
+  --node-port: 14px;
+  --node-port-border: 3px;
+  --node-store: 18px;
+  --node-store-radius: 3px;
+  --node-retailer: 18px;
+  --node-retailer-border: 3px;
+  --node-carrier: 24px;
+  --hq-card-w: 112px;
+  --hq-card-border: 2px solid #e9eeea;
+  --hq-card-radius: 10px;
+
+  /* Routes */
+  --route-sea-w: 7px;
+  --route-sea-tick-w: 2px;
+  --route-sea-tick-dash: 3 15;
+  --route-air-dash: 2 7;
+  --route-air-w: 1.6px;
+  --route-air-w-expedited: 3px;
+  --route-detour-w: 5px;
+  --route-detour-dash: 14 9;
+  --route-blocked: #7e8c89;
+  --route-blocked-opacity: 0.35;
+  --route-money-in: #f2b92b;
+  --route-money-in-w: 2.5px;
+  --route-money-out: #5aa0e6;
+  --route-money-out-w: 3px;
+
+  /* Coins and ships */
+  --coin: 24px;
+  --coin-legend: 20px;
+  --coin-rim-w: 2px;
+  --coin-inset: 0 -3px 0;
+  --coin-delayed-offset: 7px;
+  --ship-w: 30px;
+  --ship-h: 16px;
+
+  /* Side panel */
+  --quota-blocks: 20;
+  --button-bg: #e9eeea;
+  --button-h: 48px;
+  --option-accent: #46c6d8;
+}

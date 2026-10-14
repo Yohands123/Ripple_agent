@@ -1,0 +1,31 @@
+{
+  "snapshotYear": 2021,
+  "sampleData": true,
+  "nodes": [
+    {"id":"apple-park","name":"Apple Park","kind":"hq","tier":6,"lon":-122.01,"lat":37.33,"precision":"exact","region":"California, USA","ticker":"AAPL","partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"assembly-zhengzhou","name":"Zhengzhou assembly","kind":"assembly","tier":4,"lon":113.6,"lat":34.7,"precision":"city","region":"Henan, China","ticker":null,"partType":"final assembly","appleRevenueShare":null,"sources":[]},
+    {"id":"assembly-shenzhen","name":"Shenzhen assembly","kind":"assembly","tier":4,"lon":113.9,"lat":22.7,"precision":"city","region":"Guangdong, China","ticker":null,"partType":"final assembly","appleRevenueShare":null,"sources":[]},
+    {"id":"assembly-chennai","name":"Chennai assembly","kind":"assembly","tier":4,"lon":79.9,"lat":12.9,"precision":"city","region":"Tamil Nadu, India","ticker":null,"partType":"final assembly","appleRevenueShare":null,"sources":[]},
+    {"id":"supplier-taiwan","name":"Sample chip supplier","kind":"supplier_major","tier":3,"lon":121.0,"lat":24.2,"precision":"province","region":"Taiwan","ticker":null,"partType":"chips","appleRevenueShare":null,"sources":[]},
+    {"id":"supplier-japan","name":"Sample sensor supplier","kind":"supplier_major","tier":3,"lon":136.0,"lat":35.3,"precision":"province","region":"Japan","ticker":null,"partType":"camera sensors","appleRevenueShare":null,"sources":[]},
+    {"id":"supplier-small-shandong","name":"Sample small supplier","kind":"supplier_minor","tier":3,"lon":117.0,"lat":36.6,"precision":"province","region":"Shandong, China","ticker":null,"partType":"connectors","appleRevenueShare":null,"sources":[]},
+    {"id":"port-shenzhen","name":"Shenzhen port","kind":"port","tier":5,"lon":114.2,"lat":22.0,"precision":"city","region":"Guangdong, China","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"port-singapore","name":"Singapore","kind":"port","tier":5,"lon":104.0,"lat":1.2,"precision":"city","region":"Singapore","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"bab-el-mandeb","name":"Bab-el-Mandeb","kind":"canal","tier":5,"lon":43.4,"lat":12.6,"precision":"exact","region":"Red Sea","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"suez-canal","name":"Suez Canal","kind":"canal","tier":5,"lon":32.5,"lat":30.0,"precision":"exact","region":"Egypt","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"gibraltar","name":"Strait of Gibraltar","kind":"canal","tier":5,"lon":-5.6,"lat":36.0,"precision":"exact","region":"Gibraltar","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"port-rotterdam","name":"Rotterdam","kind":"port","tier":5,"lon":4.0,"lat":51.9,"precision":"city","region":"Netherlands","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"store-london","name":"Apple Store, London","kind":"apple_store","tier":6,"lon":-0.1,"lat":51.5,"precision":"city","region":"UK","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"store-paris","name":"Apple Store, Paris","kind":"apple_store","tier":6,"lon":2.3,"lat":48.9,"precision":"city","region":"France","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"carrier-berlin","name":"Sample carrier, Germany","kind":"carrier","tier":6,"lon":13.4,"lat":52.5,"precision":"city","region":"Germany","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]},
+    {"id":"retailer-madrid","name":"Sample retailer, Spain","kind":"retailer","tier":6,"lon":-3.7,"lat":40.4,"precision":"city","region":"Spain","ticker":null,"partType":null,"appleRevenueShare":null,"sources":[]}
+  ],
+  "edges": [
+    {"id":"e-sea-asia","from":"port-shenzhen","to":"suez-canal","mode":"sea","carriesTier":4,"status":"inferred","sources":[],"via":[[112,12],[104,1.2],[99,4.5],[93,6],[81,5],[60,12],[48,12.5],[43.4,12.6],[38,20],[34,27.5]]},
+    {"id":"e-sea-europe","from":"suez-canal","to":"port-rotterdam","mode":"sea","carriesTier":4,"status":"inferred","sources":[],"via":[[32.3,31.6],[25,34],[15,36],[5,37.5],[-5.6,36],[-11,38],[-9,45],[-3,49.5]]},
+    {"id":"e-sea-cape","from":"port-singapore","to":"port-rotterdam","mode":"sea","carriesTier":4,"status":"inferred","sources":[],"via":[[81,5],[70,-5],[55,-20],[52,-30],[35,-36],[18.5,-36],[5,-25],[-10,-5],[-22,15],[-18,30],[-12,40],[-9,45],[-3,49.5]]},
+    {"id":"e-air-zhengzhou","from":"assembly-zhengzhou","to":"port-rotterdam","mode":"air","carriesTier":4,"status":"inferred","sources":[]},
+    {"id":"e-air-chennai","from":"assembly-chennai","to":"port-rotterdam","mode":"air","carriesTier":4,"status":"inferred","sources":[]},
+    {"id":"e-parts-taiwan","from":"supplier-taiwan","to":"assembly-shenzhen","mode":"sea","carriesTier":3,"status":"inferred","sources":[]}
+  ]
+}

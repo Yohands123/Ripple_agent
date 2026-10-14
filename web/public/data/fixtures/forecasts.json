@@ -1,0 +1,85 @@
+{
+  "sampleData": true,
+  "series": [
+    {
+      "id": "copper",
+      "label": "Copper",
+      "unit": "USD per tonne",
+      "source": {
+        "title": "Sample data",
+        "url": ""
+      },
+      "history": [
+        {
+          "date": "2026-01-01",
+          "value": 100
+        },
+        {
+          "date": "2026-02-01",
+          "value": 102
+        },
+        {
+          "date": "2026-03-01",
+          "value": 101
+        },
+        {
+          "date": "2026-04-01",
+          "value": 104
+        },
+        {
+          "date": "2026-05-01",
+          "value": 107
+        },
+        {
+          "date": "2026-06-01",
+          "value": 106
+        },
+        {
+          "date": "2026-07-01",
+          "value": 109
+        },
+        {
+          "date": "2026-08-01",
+          "value": 111
+        },
+        {
+          "date": "2026-09-01",
+          "value": 110
+        },
+        {
+          "date": "2026-10-01",
+          "value": 113
+        }
+      ],
+      "forecast": [
+        {
+          "date": "2026-11-01",
+          "q10": 108,
+          "q50": 114,
+          "q90": 120
+        },
+        {
+          "date": "2026-12-01",
+          "q10": 107,
+          "q50": 115,
+          "q90": 124
+        }
+      ],
+      "baseline": [
+        {
+          "date": "2026-11-01",
+          "value": 110
+        },
+        {
+          "date": "2026-12-01",
+          "value": 110
+        }
+      ],
+      "metrics": {
+        "mase": 0.82,
+        "baselineMase": 1.0,
+        "coverage80": 0.78
+      }
+    }
+  ]
+}
