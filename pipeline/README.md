@@ -210,3 +210,34 @@ are documented in `listing_history.json`; legacy Coherent Inc. is not assigned
 its acquirer's historical stock series. Supplier membership comes from each
 event's own-year list, which was published retrospectively, so the cohorts are
 not described as information that was available in real time.
+
+## Export and validation (M7)
+
+Run `.venv/bin/python pipeline/export.py`, then
+`.venv/bin/python pipeline/validate.py contracts/fixtures` and
+`.venv/bin/python pipeline/validate.py web/public/data/real`.
+The exporter uses processed inputs without downloads, validates a complete
+candidate before writing app files, and emits deterministic compact JSON.
+Only this exporter writes `web/public/data/real/`.
+
+The user approved the extensions recorded in
+`data/review/export_contract_proposal.md`: per-event `networkPath`, unknown
+tiers and operational quantities represented by null, sourced event anchors,
+and explanatory scope/provenance. Human-owned contracts remain untouched.
+The validator includes these extensions by default; `--frozen` can audit
+against the original contract. Fixtures still pass. A sample forecast may
+have an empty citation URL; real nodes, edges, and forecasts require sources.
+
+Each of the six events has its own dated network. The default `network.json`
+is Suez 2021. Geocoded supplier locations are shown with their declared
+precision and location role; unmatched locations remain in the review CSV.
+Product categories describe the company rather than an Apple-specific part.
+Unknown production tiers are null. The current evidence establishes no
+physical transport links, so route arrays are empty. Predictions and CAR
+observations describe company stock responses and are shared across that
+company's disclosed locations. Production loss, quota, and revenue loss stay
+unknown; neither zero values nor invented internal operations are exported.
+The app consumer must load the scenario's network and handle these nulls.
+
+`pipeline/export.py --review` writes an ignored local review copy in
+`data/review/export_preview/` instead of the app folder.
