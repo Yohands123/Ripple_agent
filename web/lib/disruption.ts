@@ -71,10 +71,11 @@ export function atRiskCoins(scenario: Scenario): { delayed: number; lost: number
 }
 
 /**
- * `progress` (0..1] is how far through the event the replay is: the queue builds
- * and revenue coins turn delayed or lost as it advances.
+ * `progress` (0..1] is how far the disruption has built up: the queue grows and
+ * revenue coins turn delayed or lost as it advances. `showActual` adds actual
+ * outcomes (known only once the event is over).
  */
-export function buildDisruptionScene(network: Network, layout: MapLayout, scenario: Scenario, progress = 0.5): Scene {
+export function buildDisruptionScene(network: Network, layout: MapLayout, scenario: Scenario, progress = 1, showActual = false): Scene {
   const p = Math.min(1, Math.max(0, progress));
   const nodes = nodeIndex(network);
   const shockIds = new Set(scenario.shock.nodeIds);
@@ -220,7 +221,7 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     const path = new Polyline(sampleSmooth(mg.spend.pts));
     money.push({ id: "spend", kind: "out", d: smoothPath(mg.spend.pts), path });
     for (let k = 0; k < 3; k++) {
-      movers.push({ id: `blue-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: (k / 3) * path.length * 0.9, speed: COIN_SPEED });
+      movers.push({ id: `blue-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: ((k + 0.5) / 3) * path.length, speed: COIN_SPEED });
     }
   }
 
@@ -269,7 +270,7 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     if (!at || !n || pr.pHit < 0.5) continue;
     markers.push({ key: `pred-${pr.nodeId}`, kind: "predicted", x: at[0], y: at[1], r: symbolSize(n.kind) / 2 + 6, low: pr.lowConfidence });
   }
-  if (p >= 1) {
+  if (showActual) {
     for (const a of scenario.actual) {
       const at = layout.points.get(a.nodeId);
       const n = nodes.get(a.nodeId);

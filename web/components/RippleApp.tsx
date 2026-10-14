@@ -66,7 +66,9 @@ export default function RippleApp() {
   const disrupted = dropped && scenario !== null;
   const totalDays = scenario ? Math.max(1, daysBetween(scenario.start, scenario.end)) : 1;
   const day = scenario && dayChoice?.id === scenario.id ? dayChoice.day : Math.ceil(totalDays / 2);
-  const progress = day / totalDays;
+  // Effects build over the first half of the event (the concept art shows day 3 of 6 at full effect).
+  const progress = Math.min(1, day / Math.ceil(totalDays / 2));
+  const eventOver = day >= totalDays;
 
   // Highlighted land: assembly countries, plus the shock country during a disruption.
   const highlight = useMemo(() => {
@@ -79,11 +81,11 @@ export default function RippleApp() {
     if (!network) return null;
     if (disrupted) {
       const layout = computeLayout(network, network.edges);
-      return { layout, ...buildDisruptionScene(network, layout, scenario!, progress) };
+      return { layout, ...buildDisruptionScene(network, layout, scenario!, progress, eventOver) };
     }
     const layout = computeLayout(network, freeFlowEdges(network, scenario));
     return { layout, ...buildFreeFlowScene(network, layout, scenario) };
-  }, [network, scenario, disrupted, progress]);
+  }, [network, scenario, disrupted, progress, eventOver]);
 
 
   const clear = () => {
@@ -151,7 +153,7 @@ export default function RippleApp() {
       </div>
       <aside className="panel" aria-label="Ripple panel">
         {disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={day >= totalDays}>
+          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver}>
             <ReplaySection
               scenario={scenario!}
               metrics={metrics}

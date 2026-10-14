@@ -231,7 +231,7 @@ export function buildFreeFlowScene(network: Network, layout: MapLayout, scenario
     const path = new Polyline(sampleSmooth(mg.spend.pts));
     money.push({ id: "spend", kind: "out", d: smoothPath(mg.spend.pts), path });
     for (let k = 0; k < MONEY_COINS; k++) {
-      movers.push({ id: `blue-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: (k / MONEY_COINS) * path.length * 0.9, speed: COIN_SPEED });
+      movers.push({ id: `blue-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: ((k + 0.5) / MONEY_COINS) * path.length, speed: COIN_SPEED });
     }
   }
 
