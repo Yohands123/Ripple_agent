@@ -6,6 +6,7 @@ import { computeLayout } from "@/lib/layout";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
 import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
+import { buildStack } from "@/lib/stack";
 import { tierColor, size } from "@/lib/tokens";
 import type { Forecasts, Metrics, Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
 import DisruptionPanel from "./DisruptionPanel";
@@ -18,6 +19,7 @@ import MoverLayer from "./MoverLayer";
 import NodeLayer from "./NodeLayer";
 import ReplaySection from "./ReplaySection";
 import RouteLayer from "./RouteLayer";
+import StackOverlay from "./StackOverlay";
 import WorldMap from "./WorldMap";
 import YearTag from "./YearTag";
 
@@ -36,6 +38,7 @@ export default function RippleApp() {
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [forecasts, setForecasts] = useState<Forecasts | null>(null);
+  const [stackId, setStackId] = useState<string | null>(null);
   const [dayChoice, setDayChoice] = useState<{ id: string; day: number } | null>(null);
   const [worldReady, setWorldReady] = useState(false);
   const onWorld = useCallback(() => setWorldReady(true), []);
@@ -43,7 +46,11 @@ export default function RippleApp() {
   useEffect(() => {
     loadNetwork().then((res) => {
       const nodeParam = readParam("node");
-      if (res && nodeParam && res.data.nodes.some((n) => n.id === nodeParam)) setSelectedId(nodeParam);
+      const fromUrl = res && nodeParam ? res.data.nodes.find((n) => n.id === nodeParam) : undefined;
+      if (fromUrl) {
+        setSelectedId(fromUrl.id);
+        if (fromUrl.kind === "assembly" && readParam("stack") !== "0") setStackId(fromUrl.id);
+      }
       if (res) setNetwork(res.data);
       else setNetworkMissing(true);
     });
@@ -97,13 +104,27 @@ export default function RippleApp() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedId(null);
+      if (e.key === "Escape") {
+        setStackId(null);
+        setSelectedId(null);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   const selectedNode = network?.nodes.find((n) => n.id === selectedId) ?? null;
+  const stack = useMemo(() => (network && stackId ? buildStack(network, stackId, scenario, disrupted) : null), [network, stackId, scenario, disrupted]);
+
+  // Clicking an assembly factory opens its supplier stack as well as its details.
+  const selectNode = useCallback(
+    (id: string | null) => {
+      setSelectedId(id);
+      const n = network?.nodes.find((x) => x.id === id);
+      if (n?.kind === "assembly") setStackId(n.id);
+    },
+    [network],
+  );
 
   const clear = () => {
     setDropped(false);
@@ -134,7 +155,7 @@ export default function RippleApp() {
             {scene?.zones?.map((z) => (
               <div key={z.key} className="shock-zone" style={{ left: z.x - z.d / 2, top: z.y - z.d / 2, width: z.d, height: z.d }} />
             ))}
-            {network && scene && <NodeLayer network={network} layout={scene.layout} groupText={scene.groupText} selectedId={selectedId} onSelect={setSelectedId} />}
+            {network && scene && <NodeLayer network={network} layout={scene.layout} groupText={scene.groupText} selectedId={selectedId} onSelect={selectNode} />}
             {scene?.captions.map((c) => (
               <div key={c.key} className="map-caption" style={{ left: c.x, top: c.y, width: c.w, color: c.color }}>
                 {c.text}
@@ -167,6 +188,7 @@ export default function RippleApp() {
           </div>
         </MapStage>
         {networkMissing && <div className="empty-note">Network data is not available yet.</div>}
+        {stack && <StackOverlay stack={stack} onClose={() => setStackId(null)} onSelectNode={(id) => setSelectedId(id)} />}
       </div>
       <aside className="panel" aria-label="Ripple panel">
         {selectedNode ? (
@@ -174,7 +196,7 @@ export default function RippleApp() {
             <ForecastSection forecasts={forecasts} />
           </NodeDetailPanel>
         ) : disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={setSelectedId}>
+          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={selectNode}>
             <ReplaySection
               scenario={scenario!}
               metrics={metrics}
