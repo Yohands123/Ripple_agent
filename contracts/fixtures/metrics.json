@@ -1,0 +1,9 @@
+{
+  "model": "lightgbm",
+  "events": 8,
+  "rows": 950,
+  "sampleData": true,
+  "loeo": [{"eventId": "suez-2021", "auc": 0.71, "brier": 0.19, "baselineAuc": 0.62}],
+  "overall": {"auc": [0.66, 0.76], "brier": [0.17, 0.22], "baselineAuc": [0.57, 0.66]},
+  "calibration": [{"binMid": 0.1, "observed": 0.12, "n": 210}, {"binMid": 0.5, "observed": 0.46, "n": 140}, {"binMid": 0.9, "observed": 0.83, "n": 60}]
+}
