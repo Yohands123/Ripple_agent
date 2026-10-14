@@ -17,6 +17,8 @@ export const color = {
   blocked: "#7E8C89",
   moneyIn: "#F2B92B",
   moneyOut: "#5AA0E6",
+  /** Red: lost sales and all disruptions. */
+  alert: "#D6453D",
 } as const;
 
 export const tierColor: Record<number, string> = {

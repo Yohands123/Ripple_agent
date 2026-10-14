@@ -11,13 +11,15 @@ interface Props {
   layout: MapLayout;
   onSelect?: (nodeId: string) => void;
   selectedId?: string | null;
+  /** Replacement text for regional group pills, keyed by continent. */
+  groupText?: Record<string, string>;
 }
 
 // Shipping dots sit under everything else, assembly hexagons on top.
 const Z: Partial<Record<string, number>> = { port: 0, airport: 0, canal: 0, border: 0, assembly: 2 };
 
 /** Node symbols, label pills, regional group pills, and the Apple Park card. */
-export default function NodeLayer({ network, layout, onSelect, selectedId }: Props) {
+export default function NodeLayer({ network, layout, onSelect, selectedId, groupText }: Props) {
   const ordered = [...network.nodes].sort((a, b) => (Z[a.kind] ?? 1) - (Z[b.kind] ?? 1));
   return (
     <>
@@ -52,7 +54,7 @@ export default function NodeLayer({ network, layout, onSelect, selectedId }: Pro
 
       {layout.groups.map((g) => (
         <Pill key={`group-${g.key}`} bg={tierColor[6]} style={{ left: g.x, top: g.y }}>
-          {g.text}
+          {groupText?.[g.key] ?? g.text}
         </Pill>
       ))}
 

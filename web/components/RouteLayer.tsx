@@ -13,7 +13,7 @@ function Route({ r }: { r: RouteDraw }) {
 
   if (r.state === "blocked") {
     return (
-      <g data-route={r.id} data-state="blocked" opacity={R.blockedOpacity}>
+      <g data-route={r.id} data-state="blocked" opacity={R.blockedOpacity} className="enter-grey">
         <path {...common} stroke={color.blocked} strokeWidth={edge.mode === "air" ? R.airWidth : 6} strokeDasharray={edge.mode === "air" ? R.airDash : undefined} />
         {edge.mode === "sea" && <path d={d} fill="none" stroke={color.ocean} strokeWidth={R.seaTickWidth} strokeDasharray={R.seaTickDash} />}
       </g>
@@ -21,7 +21,7 @@ function Route({ r }: { r: RouteDraw }) {
   }
 
   if (r.state === "detour") {
-    return <path data-route={r.id} data-state="detour" {...common} stroke={r.color} strokeWidth={R.detourWidth} strokeDasharray={R.detourDash} />;
+    return <path data-route={r.id} data-state="detour" className="enter-grey" {...common} stroke={r.color} strokeWidth={R.detourWidth} strokeDasharray={R.detourDash} />;
   }
 
   switch (edge.mode) {

@@ -42,7 +42,7 @@ for (const p of pairs) {
   await page.goto(p.app);
   await page.waitForSelector("[data-ready='true']", { timeout: 20000 }).catch(() => {});
   await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(2200);
   await page.screenshot({ path: resolve(out, `${p.name}.app.png`) });
 
   const img = (f) => `data:image/png;base64,${readFileSync(resolve(out, f)).toString("base64")}`;

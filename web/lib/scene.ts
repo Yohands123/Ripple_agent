@@ -39,6 +39,10 @@ export interface Mover {
   span?: [number, number];
   opacity?: number;
   rotate?: number;
+  /** Falling coin: fades and turns (by `rotate` degrees in total) as it travels. */
+  fall?: boolean;
+  /** CSS class for the orchestrated entrance (e.g. "enter-coins"). */
+  enter?: string;
 }
 
 export interface MapPill {
@@ -60,7 +64,17 @@ export interface Caption {
   color: string;
 }
 
+export interface ShockZone {
+  key: string;
+  x: number;
+  y: number;
+  d: number;
+}
+
 export interface Scene {
+  zones?: ShockZone[];
+  /** Replacement text for regional group pills, keyed by continent. */
+  groupText?: Record<string, string>;
   routes: RouteDraw[];
   money: MoneyLine[];
   movers: Mover[];
@@ -73,7 +87,7 @@ export interface Scene {
 export const SHIP_SPACING = 240;
 export const SHIP_SPEED = 14;
 export const COIN_SPEED = 22;
-const MONEY_COINS = 3;
+export const MONEY_COINS = 3;
 
 /** Edges drawn in free flow: everything except routes that only exist as a scenario's detour. */
 export function freeFlowEdges(network: Network, scenario: Scenario | null): NetworkEdge[] {
@@ -159,7 +173,7 @@ function seaLaneChains(routes: RouteDraw[]): RouteDraw[][] {
 }
 
 /** Distance along a westward path where it first reaches x <= `edgeX`. */
-function cardEdgeDistance(path: Polyline, edgeX: number): number {
+export function cardEdgeDistance(path: Polyline, edgeX: number): number {
   const i = path.pts.findIndex((p) => p[0] <= edgeX);
   return i > 0 ? path.cum[i] : path.length;
 }
@@ -220,8 +234,9 @@ export function buildFreeFlowScene(network: Network, layout: MapLayout, scenario
   return { routes, money, movers, pills, captions, visibleEdges };
 }
 
-/** Pills naming the sea lane, air freight, and the revenue line. */
-/** `airDetail` is null in free flow, else the air option's detail (e.g. "higher cost") during a disruption. */
+/** Pills naming the sea lane, air freight, and the revenue line.
+ * `airDetail` is null in free flow, else the air option's detail (e.g. "higher cost") during a disruption.
+ */
 export function routePills(network: Network, layout: MapLayout, routes: RouteDraw[], mg: MoneyGeometry, airDetail: string | null): MapPill[] {
   const disrupted = airDetail !== null;
   const nodes = nodeIndex(network);
