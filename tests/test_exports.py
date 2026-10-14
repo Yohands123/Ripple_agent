@@ -25,7 +25,7 @@ def test_approved_candidate_validates_and_original_contract_still_detects_change
     errors = validate_folder(tmp_path, extensions=False)
     assert any("original frozen contract" in e for e in errors)
     assert any("tier must be" in e for e in errors)
-    assert any("quota object required" in e for e in errors)
+    assert any("shock.capacityLoss" in e for e in errors)
 
 
 @pytest.mark.parametrize("change,expected", [
@@ -88,7 +88,9 @@ def test_site_outcomes_preserve_company_scope_and_use_no_invented_routes(candida
         scenario = candidate[f"scenarios/{event_id}.json"]
         assert network["snapshotYear"] == scenario["snapshotYear"]
         assert network["edges"] == []
-        assert scenario["quota"] is None
+        if scenario["quota"] is not None:
+            assert scenario["quota"]["assumption"] is True
+            assert scenario["optimization"]["inputRanges"]["approved"] is True
         assert scenario["money"]["revenueAtRisk"] is None
         assert all(n["sources"] and n["tier"] is None for n in network["nodes"])
         assert all("Company" in p["predictionScope"] for p in scenario["predictions"])

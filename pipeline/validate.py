@@ -219,6 +219,40 @@ class Validator:
             self.number(item.get("spearman"), label + ".sensitivity.spearman", -1, 1)
         if all(type(v.get("spearman")) in {int, float} for v in sensitivity):
             self.check([abs(v["spearman"]) for v in sensitivity] == sorted((abs(v["spearman"]) for v in sensitivity), reverse=True), label + ": sensitivity must be ranked by absolute correlation")
+        if "optimization" in scenario:
+            optimization = scenario["optimization"]
+            self.check(optimization.get("assumption") is True and optimization.get("inputRanges", {}).get("approved") is True, label + ": optimizer needs approved, explicit assumptions")
+            self.check(isinstance(quota, dict) and quota.get("assumption") is True, label + ": modeled quota must be marked as assumed")
+            if not isinstance(quota, dict):
+                return
+            self.text(quota.get("unit"), label + ".quota.unit")
+            self.text(quota.get("scope"), label + ".quota.scope")
+            self.check(type(optimization.get("draws")) is int and optimization["draws"] > 0, label + ": positive Monte Carlo draw count required")
+            ids = {o["id"] for o in scenario["options"]}
+            for key in ["noActionRange", "withPlanRange"]:
+                bands = quota.get(key)
+                if self.check(isinstance(bands, list) and len(bands) == len(quota["weeks"]), label + ": weekly uncertainty bands required"):
+                    for point, band in zip(quota[key.removesuffix("Range")], bands):
+                        self.interval(band, label + ".quota." + key, 0)
+                        if isinstance(band, list) and len(band) == 2:
+                            self.check(band[0] <= point <= band[1], label + ": weekly median outside band")
+            plans = quota.get("optionPlans", [])
+            seen = set()
+            for plan in plans:
+                selected = plan.get("optionIds", [])
+                mask = frozenset(selected)
+                self.check(mask <= ids and len(selected) == len(mask) and mask not in seen, label + ": invalid option combination")
+                seen.add(mask)
+                values = plan.get("withPlan")
+                if self.check(isinstance(values, list) and len(values) == len(quota["weeks"]), label + ": option plan must match weeks"):
+                    for value in values:
+                        self.number(value, label + ".quota.optionPlans.withPlan", 0)
+                self.interval(plan.get("extraCostUsd"), label + ".quota.optionPlans.extraCostUsd", 0)
+            self.check(len(seen) == 2 ** len(ids), label + ": every option combination must have a paired plan")
+            default_ids = frozenset(o["id"] for o in scenario["options"] if o["defaultOn"])
+            for plan in plans:
+                if frozenset(plan["optionIds"]) == default_ids:
+                    self.check(plan["withPlan"] == quota["withPlan"], label + ": default combination disagrees with quota.withPlan")
 
     def metrics(self, document):
         self.text(document.get("model"), "metrics.model")

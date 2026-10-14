@@ -15,3 +15,4 @@ chronos-forecasting==2.3.2
 transformers==4.57.6
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.14.1+cpu
+ortools==9.15.6755

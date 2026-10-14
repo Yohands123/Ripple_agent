@@ -108,3 +108,29 @@ the full history, source, units, six future steps, baseline, model revision,
 scores, and limitations. Run `.venv/bin/python pipeline/export.py` to publish
 it through the owned exporter and validate the result with
 `.venv/bin/python pipeline/validate.py web/public/data/real`.
+
+## Indexed planning model (M9; approved)
+
+The kit has no referenced methods document or operational capacity/cost
+inputs. `data/review/optimizer_method_proposal.md` and its proposed input JSON
+record the method and exact ranges explicitly approved by the user on
+2026-10-14. Approved inputs are in `data/sources/optimizer_assumptions.json`.
+`ml.optimize` implements a parameterized OR-Tools GLOP LP, tested on small
+examples. `.venv/bin/python -m ml.optimize --review` runs 1,000 paired Monte
+Carlo draws per event for all eight switch combinations and writes only
+`data/review/optimizer_preview.json`. Draws stay in ignored `data/raw/optimizer/`.
+
+The objective minimizes unmet indexed demand plus an incremental cost penalty,
+subject to weekly capacity, lead time, and linear ramp bounds. All operational
+inputs are explicit assumption ranges. Quota curves are pointwise medians,
+bands are 2.5th/97.5th percentiles, and sensitivity correlates inputs with
+default-plan unmet demand. Individual option recoveries overlap and must not
+be added; exact paired combination plans are supplied. Illustrative planning
+outputs use `sampleData: true` in addition to assumption and unit labels.
+
+Normal runs require `data/sources/optimizer_assumptions.json` with explicit
+approval, save `data/processed/optimizer_plans.json`, and publish only through
+`pipeline/export.py`. The exporter refuses review-only or unapproved plans;
+the validator checks the approval, scope, weekly bands, complete option
+combinations, and default-plan consistency. Actual Apple output and revenue
+losses remain unknown. No inferred physical routes are created from this LP.

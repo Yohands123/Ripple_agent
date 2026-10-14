@@ -47,6 +47,10 @@ def build_bundle(root=ROOT):
     for site in sites:
         by_event[site["eventId"]].append(site)
     documents, index = {}, []
+    plans_path = root / "data/processed/optimizer_plans.json"
+    optimization_plans = read_json(plans_path) if plans_path.exists() else None
+    if optimization_plans is not None and optimization_plans.get("reviewOnly") is not False:
+        raise ValueError("Review-only optimizer output cannot be published")
     for event in events:
         identifier, year = event["id"], int(event["snapshotYear"])
         nodes, predictions, actual = [], [], []
@@ -101,6 +105,13 @@ def build_bundle(root=ROOT):
             "dateBasis": event["dateBasis"], "endBasis": event["endBasis"],
             "sources": json.loads(event["sources"]),
         }
+        if optimization_plans is not None:
+            if identifier not in optimization_plans["scenarios"]:
+                raise ValueError(f"{identifier}: optimizer plan missing; rerun for the full event set")
+            plan = optimization_plans["scenarios"][identifier]
+            if plan["optimization"]["inputRanges"].get("approved") is not True:
+                raise ValueError("Unapproved optimizer assumptions cannot be published")
+            documents[f"scenarios/{identifier}.json"].update(plan)
         index.append({key: event[key] for key in ["id", "title", "type", "start"]})
     default = "suez-2021" if "networks/suez-2021.json" in documents else events[0]["id"]
     documents["network.json"] = documents[f"networks/{default}.json"]
