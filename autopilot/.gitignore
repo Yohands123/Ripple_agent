@@ -1,0 +1,6 @@
+# Autopilot runtime output (rewritten every run; keep out of git so main stays clean)
+logs/
+reviews/
+state.json
+REPORT.md
+STOP
