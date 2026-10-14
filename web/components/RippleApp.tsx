@@ -18,6 +18,7 @@ import MapStage from "./MapStage";
 import MoverLayer from "./MoverLayer";
 import NodeLayer from "./NodeLayer";
 import ReplaySection from "./ReplaySection";
+import ScenarioPicker from "./ScenarioPicker";
 import RouteLayer from "./RouteLayer";
 import StackOverlay from "./StackOverlay";
 import WorldMap from "./WorldMap";
@@ -133,6 +134,19 @@ export default function RippleApp() {
     window.history.pushState(null, "", url);
   };
 
+  const pickScenario = (id: string) => {
+    setScenarioId(id);
+    setStackId(null);
+    if (dropped) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("scenario", id);
+      window.history.replaceState(null, "", url);
+    }
+  };
+
+  // With a single scenario there is nothing to pick, and the panels match the concept art.
+  const picker = index.length > 1 ? <ScenarioPicker index={index} selectedId={scenarioId} onSelect={pickScenario} /> : null;
+
   const drop = () => {
     if (!scenario) return;
     setDropped(true);
@@ -196,7 +210,7 @@ export default function RippleApp() {
             <ForecastSection forecasts={forecasts} />
           </NodeDetailPanel>
         ) : disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={selectNode}>
+          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={selectNode} picker={picker}>
             <ReplaySection
               scenario={scenario!}
               metrics={metrics}
@@ -206,7 +220,9 @@ export default function RippleApp() {
             />
           </DisruptionPanel>
         ) : (
-          <FreeFlowPanel sample={sample} scenario={scenario} onDrop={drop} />
+          <FreeFlowPanel sample={sample} scenario={scenario} onDrop={drop}>
+            {picker}
+          </FreeFlowPanel>
         )}
       </aside>
     </div>

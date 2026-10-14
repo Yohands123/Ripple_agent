@@ -1020,3 +1020,49 @@ button {
     animation: none;
   }
 }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.chip {
+  border: 1px solid var(--panel-border);
+  background: none;
+  color: var(--text-body);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip.on {
+  background: var(--tier-4);
+  border-color: var(--tier-4);
+  color: var(--ocean);
+}
+
+.chip:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.chip:focus-visible,
+.scenario-select:focus-visible {
+  outline: 2px solid var(--tier-4);
+  outline-offset: 2px;
+}
+
+.scenario-select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--ocean);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 14px;
+}

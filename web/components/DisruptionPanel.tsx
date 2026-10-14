@@ -17,10 +17,12 @@ interface Props {
   network: Network | null;
   onClear: () => void;
   onSelectNode?: (nodeId: string) => void;
+  /** Scenario picker, shown first so another event can be chosen. */
+  picker?: React.ReactNode;
   children?: React.ReactNode;
 }
 
-export default function DisruptionPanel({ sample, scenario, showActual = false, network, onClear, onSelectNode, children }: Props) {
+export default function DisruptionPanel({ sample, scenario, showActual = false, network, onClear, onSelectNode, picker, children }: Props) {
   // Remount-free reset: options start from the file's defaults whenever the scenario changes.
   const [choice, setChoice] = useState<{ id: string; chosen: Set<string> }>(() => defaults(scenario));
   const chosen = choice.id === scenario.id ? choice.chosen : defaults(scenario).chosen;
@@ -42,6 +44,7 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
   return (
     <>
       <PanelHeader sample={sample} />
+      {picker}
 
       <section>
         <div className="heading-row">
