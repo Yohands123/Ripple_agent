@@ -61,3 +61,38 @@ The CSV keeps every original row, its location role, explicit match status,
 and both Apple and geographic sources. Supplier CSV hashes are checked before
 matching. The same version of contemporary geography is used for every
 snapshot; changing historical administrative boundaries are not reconstructed.
+
+## M3: Supplier attributes from filings
+
+```bash
+.venv/bin/python -m pipeline.extract_profiles
+.venv/bin/python -m pipeline.extract_profiles --offline
+python -m pipeline.download_filings --direct-only
+python -m pipeline.sec_filings
+```
+
+The rule-based registry is `data/sources/filings.json`. Company-authored annual
+reports are downloaded from public archives into `data/raw/filings/`, with
+source URLs and SHA-256 hashes. PDFs and extracted full text are not committed.
+Direct issuer URLs are in `data/sources/filing_urls.json`. The standard-library
+downloaders also run on Windows. EDGAR downloads require `SEC_USER_AGENT`
+and run sequentially at no more than five requests per second. They retain
+publication and report dates without saving the request-header identity.
+Document issuer and year are checked before extracting values. PDFium text
+extraction runs sequentially because its native library is not thread-safe.
+
+`data/processed/supplier_profiles.json` includes every supplier/year, sourced
+company product categories, and explicitly named Apple revenue percentages.
+The latter must identify matching, ordered fiscal years and percentages. An
+anonymous large customer, a receivable percentage, a bound, a combined-customer
+share, or conflicting evidence leaves the scalar share null. Product categories
+describe the company's business; Apple-specific part assignments remain
+inferred. Unavailable reports and missing values stay null.
+
+`data/review/hand_check.csv` contains exactly 30 reproducibly sampled links for
+the human's I1 review. `filing_download_gaps.json` lists unavailable or
+unverifiable reports. No LLM key was available, so extraction uses rules.
+The user supplied the SEC request-header identity for direct EDGAR retrieval.
+Calendar report dates and the issuer's fiscal-year focus are separate fields;
+source titles use the issuer's fiscal-year focus when present. Publication
+dates must be checked before using attributes in a historical prediction.

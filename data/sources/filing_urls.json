@@ -1,0 +1,14 @@
+{
+  "tsmc": {
+    "2023": "https://investor.tsmc.com/sites/ir/annual-report/2023/2023_Annual_Report_E.pdf",
+    "2022": "https://investor.tsmc.com/sites/ir/annual-report/2022/2022%20Annual%20Report-E.pdf",
+    "2021": "https://investor.tsmc.com/sites/ir/annual-report/2021/2021_Annual%20Report%20_E.pdf",
+    "2020": "https://investor.tsmc.com/sites/ir/annual-report/2020/2020Annual%20Report_E_%20.pdf"
+  },
+  "cirrus": {
+    "2023": "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000772406/95e691eb-8605-41ab-a179-e1c3e4453b31.pdf"
+  },
+  "jabil": {
+    "2023": "https://d18rn0p25nwr6d.cloudfront.net/CIK-0000898293/c07389cf-5bd1-49c4-baa6-f64acfa93ea2.pdf"
+  }
+}

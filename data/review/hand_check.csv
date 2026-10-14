@@ -1,0 +1,31 @@
+snapshotYear,supplier,field,value,sourceTitle,sourceUrl,sourcePage,verificationStatus
+2022,Sony Corporation,partType,image sensors,Sony annual report FY2022,https://www.sec.gov/Archives/edgar/data/313838/000119312522183263/d207380d20f.htm,,pending
+2020,Corning Incorporated,partType,glass and optical materials,Corning annual report FY2020,https://www.sec.gov/Archives/edgar/data/24741/000156276221000023/glw-20201231x10k.htm,,pending
+2023,Skyworks Solutions Incorporated,partType,RF and analog semiconductors,Skyworks annual report FY2023,https://www.annualreports.com/HostedData/AnnualReportArchive/s/NASDAQ_SWKS_2023.pdf,136,pending
+2020,Amphenol Corporation,partType,connectors and interconnects,Amphenol annual report FY2020,https://www.sec.gov/Archives/edgar/data/820313/000155837021000881/aph-20201231x10k.htm,,pending
+2022,Jabil Incorporated,appleRevenueShare,0.19,Jabil annual report FY2022,https://www.sec.gov/Archives/edgar/data/898293/000119312522268383/d389587d10k.htm,,pending
+2023,Broadcom Limited,appleRevenueShare,0.2,Broadcom annual report FY2023,https://www.sec.gov/Archives/edgar/data/1730168/000173016823000096/avgo-20231029.htm,,pending
+2022,NXP Semiconductors N.V.,partType,mixed-signal semiconductors,NXP annual report FY2022,https://www.sec.gov/Archives/edgar/data/1413447/000141344723000006/nxpi-20221231.htm,,pending
+2021,Intel Corporation,partType,processors and semiconductors,Intel annual report FY2021,https://www.sec.gov/Archives/edgar/data/50863/000005086322000007/intc-20211225.htm,,pending
+2023,LG Display Company Limited,partType,display panels,LG Display annual report FY2023,https://www.sec.gov/Archives/edgar/data/1290109/000095017024049414/lpl-20231231.htm,,pending
+2021,MicroChip Technology Incorporated,partType,microcontrollers and semiconductors,Microchip annual report FY2021,https://www.sec.gov/Archives/edgar/data/827054/000082705421000106/mchp-20210331.htm,,pending
+2021,Diodes Incorporated,partType,discrete and analog semiconductors,Diodes annual report FY2021,https://www.sec.gov/Archives/edgar/data/29002/000095017022001438/diod-20211231.htm,,pending
+2022,Qorvo Incorporated,partType,RF semiconductors,Qorvo annual report FY2022,https://www.sec.gov/Archives/edgar/data/1604778/000160477822000029/rfmd-20220402.htm,,pending
+2021,Lumentum Holdings Incorporated,partType,optical and photonic components,Lumentum annual report FY2021,https://www.sec.gov/Archives/edgar/data/1633978/000162828021017799/lite-20210703.htm,,pending
+2023,Taiwan Semiconductor Manufacturing Company Limited,partType,semiconductor foundry,TSMC annual report FY2023,https://investor.tsmc.com/sites/ir/annual-report/2023/2023_Annual_Report_E.pdf,2,pending
+2023,Western Digital Corporation,partType,storage devices and memory,Western Digital annual report FY2023,https://www.sec.gov/Archives/edgar/data/106040/000010604023000024/wdc-20230630.htm,,pending
+2022,Amphenol Corporation,partType,connectors and interconnects,Amphenol annual report FY2022,https://www.sec.gov/Archives/edgar/data/820313/000155837023001036/aph-20221231x10k.htm,,pending
+2021,Cirrus Logic Incorporated,appleRevenueShare,0.83,Cirrus Logic annual report FY2021,https://www.sec.gov/Archives/edgar/data/772406/000077240621000013/crus-20210327.htm,,pending
+2022,Broadcom Limited,partType,semiconductors,Broadcom annual report FY2022,https://www.sec.gov/Archives/edgar/data/1730168/000173016822000118/avgo-20221030.htm,,pending
+2022,Amkor Technology Incorporated,partType,semiconductor packaging and testing,Amkor annual report FY2022,https://www.sec.gov/Archives/edgar/data/1047127/000104712723000009/amkr-20221231.htm,,pending
+2020,Western Digital Corporation,partType,storage devices and memory,Western Digital annual report FY2020,https://www.sec.gov/Archives/edgar/data/106040/000010604020000049/wdc-20200703.htm,,pending
+2020,Qorvo Incorporated,appleRevenueShare,0.33,Qorvo annual report FY2020,https://www.sec.gov/Archives/edgar/data/1604778/000160477820000030/qorvo2020032810-k.htm,,pending
+2018,Jabil Incorporated,appleRevenueShare,0.28,Jabil annual report FY2018,https://www.sec.gov/Archives/edgar/data/898293/000119312518303041/d636018d10k.htm,,pending
+2022,Broadcom Limited,appleRevenueShare,0.2,Broadcom annual report FY2022,https://www.sec.gov/Archives/edgar/data/1730168/000173016822000118/avgo-20221030.htm,,pending
+2021,Corning Incorporated,partType,glass and optical materials,Corning annual report FY2021,https://www.sec.gov/Archives/edgar/data/24741/000143774922003247/glw20211231_10k.htm,,pending
+2022,MicroChip Technology Incorporated,partType,microcontrollers and semiconductors,Microchip annual report FY2022,https://www.sec.gov/Archives/edgar/data/827054/000082705422000094/mchp-20220331.htm,,pending
+2023,Analog Devices Incorporated,partType,analog and mixed-signal semiconductors,Analog Devices annual report FY2023,https://www.sec.gov/Archives/edgar/data/6281/000000628123000203/adi-20231028.htm,,pending
+2021,Synaptics Incorporated,partType,interface semiconductors,Synaptics annual report FY2021,https://www.sec.gov/Archives/edgar/data/817720/000156459021045326/syna-10k_20210626.htm,,pending
+2023,Flex Limited,partType,electronics manufacturing services,Flex annual report FY2023,https://www.sec.gov/Archives/edgar/data/866374/000086637423000028/flex-20230331.htm,,pending
+2020,Texas Instruments Incorporated,partType,analog and embedded semiconductors,Texas Instruments annual report FY2020,https://www.sec.gov/Archives/edgar/data/97476/000009747621000006/txn-20201231.htm,,pending
+2022,3M,partType,materials and adhesives,3M annual report FY2022,https://www.annualreports.com/HostedData/AnnualReportArchive/3/NYSE_MMM_2022.pdf,7,pending
