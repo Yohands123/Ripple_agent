@@ -6,9 +6,13 @@ import argparse
 import json
 import math
 import re
+import sys
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit
+
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 KINDS = {"mine", "refinery", "supplier_major", "supplier_minor", "assembly", "port", "airport", "canal", "border", "apple_store", "carrier", "retailer", "repair", "hq"}
 PRECISIONS = {"exact", "city", "province", "country"}
@@ -105,6 +109,10 @@ class Validator:
             self.text(node.get("region"), name + ".region")
             self.check(node.get("ticker") is None or isinstance(node["ticker"], str), name + ": ticker must be text or null")
             self.check(node.get("partType") is None or isinstance(node["partType"], str), name + ": partType must be text or null")
+            if "tierStatus" in node:
+                from pipeline.tiers import inferred_tier
+                expected = inferred_tier(node.get("partType"))
+                self.check(all(node.get(k) == v for k, v in expected.items()), name + ": inferred tier must follow the approved part-type mapping")
             if node.get("appleRevenueShare") is not None:
                 self.number(node["appleRevenueShare"], name + ".appleRevenueShare", 0, 1)
             self.sources(node.get("sources"), name, document.get("sampleData") is True)

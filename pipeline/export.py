@@ -18,6 +18,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from pipeline.validate import validate_folder
+from pipeline.tiers import inferred_tier
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "data/review/export_preview"
@@ -76,19 +77,19 @@ def build_bundle(root=ROOT):
                 raise ValueError(f"{identifier}: prediction uses another Supplier List year")
             key = (identifier, site["companyId"])
             attributes, evidence = features[key], provenance[key]
+            part_type = None if attributes["part_type"] == "unknown" else attributes["part_type"]
             financial_sources = [v["source"] for v in evidence.values() if "source" in v]
             nodes.append({
                 "id": site["nodeId"], "name": f"{site['supplier']} — {site['location']}",
-                "kind": "supplier_major", "tier": None,
+                "kind": "supplier_major", **inferred_tier(part_type),
                 "lon": site["lon"], "lat": site["lat"], "precision": site["precision"],
                 "region": site["location"], "ticker": attributes["ticker"] or None,
-                "partType": None if attributes["part_type"] == "unknown" else attributes["part_type"],
+                "partType": part_type,
                 "appleRevenueShare": float(attributes["apple_revenue_share"]) if attributes["apple_revenue_share"] else None,
                 "sources": citations(site["sources"], financial_sources, tickers[attributes["ticker"]]),
                 "companyId": site["companyId"], "locationRole": site["locationRole"],
                 "attributeSources": evidence,
                 "partTypeScope": "Company product category, not an Apple-specific bill of materials",
-                "tierBasis": "Production tier is not disclosed in the Supplier List",
             })
             prediction = {k: site[k] for k in ["nodeId", "pHit", "ciLow", "ciHigh", "lowConfidence", "shap", "shapBaseValue", "shapMeanRawScore", "predictionScope", "outcomeObservable"]}
             predictions.append(prediction)

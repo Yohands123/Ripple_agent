@@ -92,7 +92,9 @@ def test_site_outcomes_preserve_company_scope_and_use_no_invented_routes(candida
             assert scenario["quota"]["assumption"] is True
             assert scenario["optimization"]["inputRanges"]["approved"] is True
         assert scenario["money"]["revenueAtRisk"] is None
-        assert all(n["sources"] and n["tier"] is None for n in network["nodes"])
+        assert all(n["sources"] for n in network["nodes"])
+        assert all(n["tier"] is None for n in network["nodes"] if n["partType"] is None)
+        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] == "mapped from part type" for n in network["nodes"] if n["partType"] is not None)
         assert all("Company" in p["predictionScope"] for p in scenario["predictions"])
         ids = {n["id"] for n in network["nodes"]}
         assert {a["nodeId"] for a in scenario["actual"]} <= ids
