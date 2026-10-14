@@ -101,15 +101,19 @@ export function Pill({
   bg = color.pillLight,
   fg = color.pillLightText,
   style,
+  className,
+  ...data
 }: {
   children: ReactNode;
   big?: boolean;
   bg?: string;
   fg?: string;
   style?: CSSProperties;
+  className?: string;
+  [data: `data-${string}`]: string;
 }) {
   return (
-    <div className={big ? "pill pill-lg" : "pill pill-sm"} style={{ background: bg, color: fg, ...style }}>
+    <div className={`${big ? "pill pill-lg" : "pill pill-sm"}${className ? ` ${className}` : ""}`} style={{ background: bg, color: fg, ...style }} {...data}>
       {children}
     </div>
   );

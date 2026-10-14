@@ -1,10 +1,35 @@
 "use client";
 
-import type { MapLayout } from "@/lib/layout";
-import { symbolSize } from "@/lib/layout";
+import type { MapLayout, NodeLabel } from "@/lib/layout";
+import { labelLevel, symbolSize } from "@/lib/layout";
 import { tierColor } from "@/lib/tokens";
 import type { Network } from "@/lib/types";
 import { NodeSymbol, Pill } from "./Glyphs";
+import { useZoom } from "./MapStage";
+
+/**
+ * Node labels keep their screen size while the map zooms, so only the labels that fit at
+ * the current zoom show: the biggest clusters when zoomed out, more as you zoom in.
+ */
+function NodeLabels({ labels }: { labels: NodeLabel[] }) {
+  const level = labelLevel(useZoom());
+  return (
+    <>
+      {labels
+        .filter((l) => l.minK <= level)
+        .map((l) => (
+          <Pill
+            key={`label-${l.nodeId}`}
+            className="node-label"
+            data-label={l.text}
+            style={{ left: l.x, top: l.y, transformOrigin: `${l.origin[0]}px ${l.origin[1]}px` }}
+          >
+            {l.text}
+          </Pill>
+        ))}
+    </>
+  );
+}
 
 interface Props {
   network: Network;
@@ -45,11 +70,7 @@ export default function NodeLayer({ network, layout, onSelect, selectedId, group
         );
       })}
 
-      {layout.labels.map((l) => (
-        <Pill key={`label-${l.nodeId}`} style={{ left: l.x, top: l.y }}>
-          {l.text}
-        </Pill>
-      ))}
+      <NodeLabels labels={layout.labels} />
 
       {layout.groups.map((g) => (
         <Pill key={`group-${g.key}`} bg={tierColor[6]} style={{ left: g.x, top: g.y }}>

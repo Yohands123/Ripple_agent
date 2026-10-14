@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { WORLD_BOUNDS, type Pt } from "@/lib/geo";
 import { size } from "@/lib/tokens";
 
@@ -30,6 +30,10 @@ export interface StageInfo {
   /** Centre the view on a content point. */
   goTo: (p: Pt, k?: number) => void;
 }
+
+/** The current zoom, for layers whose content keeps its screen size (node labels). */
+const ZoomContext = createContext(1);
+export const useZoom = () => useContext(ZoomContext);
 
 const DEFAULT_VIEW: View = { cx: size.mapW / 2, cy: size.mapH / 2, k: 1 };
 const K_MAX = 4;
@@ -213,9 +217,10 @@ export default function MapStage({ children, hud }: Props) {
           width: size.mapW,
           height: size.mapH,
           transform: `translate(${box.w / 2}px, ${box.h / 2}px) scale(${scale}) translate(${-v.cx}px, ${-v.cy}px)`,
-        }}
+          "--zoom-k": v.k,
+        } as CSSProperties}
       >
-        {children}
+        <ZoomContext.Provider value={v.k}>{children}</ZoomContext.Provider>
       </div>
       <div className="map-hud" style={{ width: box.w / s, height: box.h / s, transform: `scale(${s})` }}>
         {hud?.(info)}

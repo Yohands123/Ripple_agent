@@ -183,6 +183,8 @@ button {
   background: none;
   cursor: pointer;
   line-height: 0;
+  /* Zoomed in, symbols keep their concept-art screen size; zoomed out, they shrink with the map. */
+  transform: scale(calc(1 / max(1, var(--zoom-k, 1))));
 }
 
 .node:focus-visible {
@@ -201,6 +203,11 @@ button {
   position: absolute;
   white-space: nowrap;
   text-transform: uppercase;
+}
+
+/* Node labels keep their screen size while the map zooms (MapStage sets --zoom-k). */
+.node-label {
+  transform: scale(calc(1 / var(--zoom-k, 1)));
 }
 
 .pill-sm {

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { loadForecasts, loadMetrics, loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
-import { computeLayout } from "@/lib/layout";
+import { computeLayout, withZoomLabels } from "@/lib/layout";
 import { needsIllustrativeLanes, withIllustrativeEffects, withIllustrativeLanes } from "@/lib/lanes";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
@@ -108,12 +108,15 @@ export default function RippleApp() {
 
   const scene = useMemo(() => {
     if (!network) return null;
+    // Zoom labels are added once every scene pill has its place.
     if (disrupted) {
       const layout = computeLayout(network, network.edges);
-      return { layout, ...buildDisruptionScene(network, layout, scenario!, progress, eventOver) };
+      const built = buildDisruptionScene(network, layout, scenario!, progress, eventOver);
+      return { layout: { ...layout, labels: withZoomLabels(layout) }, ...built };
     }
     const layout = computeLayout(network, freeFlowEdges(network, scenario));
-    return { layout, ...buildFreeFlowScene(network, layout, scenario) };
+    const built = buildFreeFlowScene(network, layout, scenario);
+    return { layout: { ...layout, labels: withZoomLabels(layout) }, ...built };
   }, [network, scenario, disrupted, progress, eventOver]);
 
 

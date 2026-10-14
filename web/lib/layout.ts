@@ -66,7 +66,29 @@ export interface NodeLabel {
   text: string;
   x: number;
   y: number;
+  /** Lowest zoom at which the label shows. Labels keep their screen size, so zooming in makes room for more. */
+  minK: number;
+  /** The point the pill shrinks toward when counter-scaled, relative to its top-left, in px. */
+  origin: Pt;
+  /** Number of sites the label stands for. */
+  weight: number;
 }
+
+/** Zoom levels at which labels are thinned or added (1 is the concept-art view). */
+export const LABEL_LEVELS = [0.25, 0.35, 0.5, 0.7, 1, 1.5, 2, 3, 4];
+
+/** The level in effect at zoom k: the highest one not above it. */
+export function labelLevel(k: number): number {
+  let level = LABEL_LEVELS[0];
+  for (const l of LABEL_LEVELS) if (l <= k + 1e-6) level = l;
+  return level;
+}
+
+/** A box scaled by f about a point. */
+const scaleAbout = (b: Box, o: Pt, f: number): Box => ({ x: o[0] + (b.x - o[0]) * f, y: o[1] + (b.y - o[1]) * f, w: b.w * f, h: b.h * f });
+
+/** The point of a box closest to p. */
+const nearestOn = (b: Box, p: Pt): Pt => [Math.min(b.x + b.w, Math.max(b.x, p[0])), Math.min(b.y + b.h, Math.max(b.y, p[1]))];
 
 export interface GroupLabel {
   key: string;
@@ -108,6 +130,26 @@ export interface MapLayout {
   taken: Box[];
   /** Node symbol boxes and sampled route points to keep pills off. */
   obstacles: { boxes: Box[]; pts: Pt[] };
+  /** Label candidates in priority order, for adding labels at other zoom levels. */
+  labelCandidates: LabelCandidate[];
+}
+
+interface LabelCandidate {
+  text: string;
+  /** Sites sharing the label, nearest the cluster's centre first. */
+  members: NetworkNode[];
+}
+
+/** Box options for a pill of size w x h beside a symbol of radius r at (cx, cy), at zoom level L. */
+function pillOptions(cx: number, cy: number, r: number, w: number, h: number, L = 1): Box[] {
+  const pw = w / L;
+  const ph = h / L;
+  return [
+    { x: cx - r - 4 / L - pw, y: cy - ph / 2, w: pw, h: ph },
+    { x: cx + r + 4 / L, y: cy - ph / 2, w: pw, h: ph },
+    { x: cx - pw / 2, y: cy + r + 13 / L, w: pw, h: ph },
+    { x: cx - pw / 2, y: cy - r - 8 / L - ph, w: pw, h: ph },
+  ];
 }
 
 /** Candidate boxes spiralling out from a preferred top-left corner, nearest first. */
@@ -213,39 +255,110 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   const nearSalesGroup = (n: NetworkNode) =>
     network.nodes.some((s) => isSales(s) && Math.hypot(s.lon - n.lon, s.lat - n.lat) < 12);
 
-  // Individual pills: try left, right, below, above; skip duplicates and collisions.
-  const labels: NodeLabel[] = [];
-  const used = new Set<string>();
+  // Label candidates: one per label text (a region can hold many sites), assembly first,
+  // then the biggest clusters, so the biggest clusters keep their labels when space runs out.
   const order: NodeKind[] = ["assembly", "supplier_major", "port"];
-  const candidates = [...network.nodes]
-    .filter((n) => onWorld(n) && order.includes(n.kind))
-    .sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind));
-  for (const n of candidates) {
+  const byText = new Map<string, NetworkNode[]>();
+  for (const n of network.nodes) {
+    if (!onWorld(n) || !order.includes(n.kind)) continue;
     const text = labelText(n);
-    if (!text || used.has(text)) continue;
-    if (isShippingKind(n.kind) && nearSalesGroup(n)) continue;
-    const [cx, cy] = points.get(n.id)!;
-    const r = symbolSize(n.kind) / 2;
-    const { w, h } = smallPillBox(text);
-    const options: Box[] = [
-      { x: cx - r - 4 - w, y: cy - h / 2, w, h },
-      { x: cx + r + 4, y: cy - h / 2, w, h },
-      { x: cx - w / 2, y: cy + r + 13, w, h },
-      { x: cx - w / 2, y: cy - r - 8 - h, w, h },
-    ];
-    const ownBox: Box = { x: cx - r, y: cy - r, w: 2 * r, h: 2 * r };
-    const frame = frameFor([cx, cy]);
-    const fits = (b: Box) =>
-      within(b, frame) &&
-      !nodeBoxes.some((o) => o !== ownBox && !(o.x === ownBox.x && o.y === ownBox.y) && overlaps(b, o)) &&
-      !taken.some((o) => overlaps(b, o)) &&
-      !routePts.some((p) => inside(p, b));
-    const pick = options.find(fits);
-    if (!pick) continue;
-    used.add(text);
-    taken.push(pick);
-    labels.push({ nodeId: n.id, text, x: Math.round(pick.x), y: Math.round(pick.y) });
+    if (!text || (isShippingKind(n.kind) && nearSalesGroup(n))) continue;
+    byText.set(text, [...(byText.get(text) ?? []), n]);
   }
+  const labelCandidates: LabelCandidate[] = [...byText.entries()]
+    .map(([text, members]) => {
+      const pts = members.map((m) => points.get(m.id)!);
+      const mx = pts.reduce((s, p) => s + p[0], 0) / pts.length;
+      const my = pts.reduce((s, p) => s + p[1], 0) / pts.length;
+      const d = (m: NetworkNode) => Math.hypot(points.get(m.id)![0] - mx, points.get(m.id)![1] - my);
+      return { text, members: [...members].sort((a, b) => d(a) - d(b)) };
+    })
+    .sort((a, b) => {
+      const ka = Math.min(...a.members.map((m) => order.indexOf(m.kind)));
+      const kb = Math.min(...b.members.map((m) => order.indexOf(m.kind)));
+      return ka - kb || b.members.length - a.members.length;
+    });
 
-  return { points, labels, groups, hq, taken, obstacles: { boxes: nodeBoxes, pts: routePts } };
+  const layout: MapLayout = { points, labels: [], groups, hq, taken, obstacles: { boxes: nodeBoxes, pts: routePts }, labelCandidates };
+  // Individual pills at the concept-art zoom: try left, right, below, above; skip collisions.
+  layout.labels = placeLabels(layout, 1, []);
+  for (const l of layout.labels) taken.push(labelBox(l));
+  return layout;
+}
+
+/** Zoom-1 box of a label. */
+const labelBox = (l: NodeLabel): Box => ({ x: l.x, y: l.y, ...smallPillBox(l.text) });
+
+/** Box a label covers at zoom level L. */
+const labelBoxAt = (l: NodeLabel, L: number): Box => scaleAbout(labelBox(l), [l.x + l.origin[0], l.y + l.origin[1]], 1 / L);
+
+/** Place labels not yet in `placed` at zoom level L, clear of `fixed` boxes and of `placed` as seen at L. */
+function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: Box[] = layout.taken): NodeLabel[] {
+  const { points, obstacles } = layout;
+  const done = new Set(placed.map((l) => l.text));
+  const seen = placed.filter((l) => l.minK <= L).map((l) => labelBoxAt(l, L));
+  const out: NodeLabel[] = [];
+  for (const c of layout.labelCandidates) {
+    if (done.has(c.text)) continue;
+    for (const n of c.members) {
+      const [cx, cy] = points.get(n.id)!;
+      // Symbols keep their screen size when zoomed in, so they shrink in map units.
+      const symScale = 1 / Math.max(1, L);
+      const r0 = symbolSize(n.kind) / 2;
+      const r = r0 * symScale;
+      const { w, h } = smallPillBox(c.text);
+      const frame = frameFor([cx, cy]);
+      const pad = 2 / L;
+      const own = (o: Box) => Math.abs(o.x + o.w / 2 - cx) < 0.01 && Math.abs(o.y + o.h / 2 - cy) < 0.01 && Math.abs(o.w - 2 * r0) < 0.01;
+      const symbols = obstacles.boxes.filter((o) => !own(o)).map((o) => scaleAbout(o, [o.x + o.w / 2, o.y + o.h / 2], symScale));
+      const fits = (b: Box) =>
+        within(b, frame) &&
+        !symbols.some((o) => overlaps(b, o, pad)) &&
+        !fixed.some((o) => overlaps(b, o, pad)) &&
+        !seen.some((o) => overlaps(b, o, pad)) &&
+        !obstacles.pts.some((p) => inside(p, b));
+      const pick = pillOptions(cx, cy, r, w, h, L).find(fits);
+      if (!pick) continue;
+      // Keep the zoom-1 box: the pill is counter-scaled about the point nearest its symbol.
+      const o = nearestOn(pick, [cx, cy]);
+      const base = scaleAbout(pick, o, L);
+      const x = L === 1 ? Math.round(base.x) : base.x;
+      const y = L === 1 ? Math.round(base.y) : base.y;
+      out.push({ nodeId: n.id, text: c.text, x, y, minK: L, origin: [o[0] - x, o[1] - y], weight: c.members.length });
+      seen.push(pick);
+      break;
+    }
+  }
+  return out;
+}
+
+/**
+ * Labels for every zoom level. Zooming out keeps only the biggest clusters whose pills
+ * (which keep their screen size) still fit; zooming in adds clusters as room appears.
+ * Call after all other pills are in `layout.taken`; the concept-art labels are unchanged.
+ */
+export function withZoomLabels(layout: MapLayout): NodeLabel[] {
+  const base = layout.labels;
+  const labelKeys = new Set(base.map((l) => `${l.x},${l.y}`));
+  const fixed = layout.taken.filter((b) => !labelKeys.has(`${b.x},${b.y}`));
+  const order = new Map(layout.labelCandidates.map((c, i) => [c.text, i]));
+
+  // Zooming out: walk down the levels; a label survives while it fits beside higher-priority survivors.
+  let survivors = [...base].sort((a, b) => order.get(a.text)! - order.get(b.text)!);
+  const minK = new Map(base.map((l) => [l.text, 1]));
+  for (const L of LABEL_LEVELS.filter((l) => l < 1).reverse()) {
+    const kept: { l: NodeLabel; b: Box }[] = [];
+    for (const l of survivors) {
+      const b = labelBoxAt(l, L);
+      if (kept.some((o) => overlaps(b, o.b, 2 / L)) || fixed.some((o) => overlaps(b, o, 2 / L))) continue;
+      kept.push({ l, b });
+      minK.set(l.text, L);
+    }
+    survivors = kept.map((x) => x.l);
+  }
+  const all = base.map((l) => ({ ...l, minK: minK.get(l.text)! }));
+
+  // Zooming in: add labels that fit at each higher level.
+  for (const L of LABEL_LEVELS.filter((l) => l > 1)) all.push(...placeLabels(layout, L, all, fixed));
+  return all;
 }
