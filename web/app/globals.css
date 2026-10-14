@@ -775,3 +775,51 @@ button {
 .sources li + li {
   margin-top: 4px;
 }
+
+.fan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fan-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.fan-unit {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.fan-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.fan-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fan-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.fan-swatch.band {
+  height: 10px;
+  background: rgba(241, 245, 242, 0.16);
+}
+
+.fan-swatch.dashed {
+  background: repeating-linear-gradient(90deg, var(--text-heading) 0 4px, transparent 4px 7px);
+}

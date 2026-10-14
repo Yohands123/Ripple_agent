@@ -1,15 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { loadMetrics, loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
+import { loadForecasts, loadMetrics, loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout } from "@/lib/layout";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
 import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
 import { tierColor, size } from "@/lib/tokens";
-import type { Metrics, Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
+import type { Forecasts, Metrics, Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
 import DisruptionPanel from "./DisruptionPanel";
 import NodeDetailPanel from "./NodeDetailPanel";
+import ForecastSection from "./ForecastSection";
 import FreeFlowPanel from "./FreeFlowPanel";
 import { Pill } from "./Glyphs";
 import MapStage from "./MapStage";
@@ -34,6 +35,7 @@ export default function RippleApp() {
   const [dropped, setDropped] = useState(false);
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [forecasts, setForecasts] = useState<Forecasts | null>(null);
   const [dayChoice, setDayChoice] = useState<{ id: string; day: number } | null>(null);
   const [worldReady, setWorldReady] = useState(false);
   const onWorld = useCallback(() => setWorldReady(true), []);
@@ -46,6 +48,7 @@ export default function RippleApp() {
       else setNetworkMissing(true);
     });
     loadMetrics().then((res) => setMetrics(res?.data ?? null));
+    loadForecasts().then((res) => setForecasts(res?.data ?? null));
     loadScenarioIndex().then((res) => {
       const list = res?.data ?? [];
       setIndex(list);
@@ -167,7 +170,9 @@ export default function RippleApp() {
       </div>
       <aside className="panel" aria-label="Ripple panel">
         {selectedNode ? (
-          <NodeDetailPanel sample={sample} node={selectedNode} scenario={scenario} onClose={() => setSelectedId(null)} />
+          <NodeDetailPanel sample={sample || Boolean(forecasts?.sampleData)} node={selectedNode} scenario={scenario} onClose={() => setSelectedId(null)}>
+            <ForecastSection forecasts={forecasts} />
+          </NodeDetailPanel>
         ) : disrupted ? (
           <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={setSelectedId}>
             <ReplaySection
