@@ -65,3 +65,46 @@ is unavailable. Intervals describe conditional model variability, without
 claiming to cover unreported routing or geographic measurement error. Supplier
 membership is retrospective and the current listing universe has survivorship
 limits. Model results must be reported even when a baseline performs better.
+# Monthly cost forecasts (M8)
+
+`pipeline/costs.py --download` verifies the pinned World Bank October 2026
+workbook and the openly published Chen, Feng and Tang (2026) research
+supplement. It preserves complete monthly metal prices in USD per tonne.
+The freight series averages the supplement's weekly SCFI Shanghai–Europe
+rates in USD per TEU; it is not the global composite index. Incomplete boundary
+months are discarded and missing months are rejected. Source URLs and hashes
+are recorded in `data/sources/costs.json`.
+
+The metal history runs through September 2026. Public freight history ends
+April 2025, and its clearly labeled archived forecast starts May 2025.
+`data/review/cost_gaps.json` records the gap. No current rates or Apple
+contract prices are inferred from this regional archive.
+
+Download the pinned 48M-parameter Amazon Chronos-Bolt small model with
+`python pipeline/download_forecast_model.py`, then run
+`.venv/bin/python -m ml.forecast`. Weights stay in ignored `data/raw/` and are
+checksum-verified before CPU inference. No fine-tuning or API key is used.
+The pinned CPU PyTorch wheel comes from the official PyTorch wheel index;
+all Python packages are installed in the project `.venv`.
+
+The rolling evaluation uses 24 expanding-window origins and a six-month
+horizon. Each forecast, seasonal baseline, and MASE denominator uses only its
+origin's history. Seasonal naive repeats the last 12 months; its reference
+band uses training seasonal residual quantiles. Metrics include mean absolute
+scaled error, mean pinball loss at 0.1/0.5/0.9, and empirical central 80% coverage
+for both methods. Pinball loss retains each series' units. Quantiles are
+rearranged monotonically per step before scoring and export. Overlapping
+targets are dependent; scores do not claim independent-sample intervals.
+
+The backtest uses the downloaded data vintage rather than historical release
+vintages. Unknown overlap with foundation-model training data limits older
+scores. A separate one-month rolling check starts after the reported November
+2024 model release; the freight check has only five targets and remains weak
+evidence. No model or hyperparameter was chosen using these test outcomes.
+
+`data/processed/forecast_backtest.csv` retains every scored target and its
+origin, training-only scale, baseline, and quantiles. `forecasts.json` retains
+the full history, source, units, six future steps, baseline, model revision,
+scores, and limitations. Run `.venv/bin/python pipeline/export.py` to publish
+it through the owned exporter and validate the result with
+`.venv/bin/python pipeline/validate.py web/public/data/real`.

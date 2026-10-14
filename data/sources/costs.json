@@ -1,0 +1,36 @@
+{
+  "sampleData": false,
+  "asOf": "2026-10-14",
+  "lastCompleteMonth": "2026-09-01",
+  "downloads": [
+    {
+      "file": "metals-current.xlsx",
+      "title": "World Bank Pink Sheet monthly prices, October 2026 workbook",
+      "url": "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx",
+      "sha256": "ea1c350827878ea3bbe30e3cda16a13fd3bd5b409b8458940dc94a36b5a33154"
+    },
+    {
+      "file": "scfi.csv",
+      "title": "Chen, Feng and Tang (2026), PLOS One, S1 Data: SCFI Shanghai-Europe freight rates",
+      "url": "https://journals.plos.org/plosone/article/file?type=supplementary&id=10.1371/journal.pone.0344386.s001",
+      "sha256": "3c92b272ad5c17a5b9722017a448eeb06da87a8763ceb9e05667181b1e352c42",
+      "articleUrl": "https://doi.org/10.1371/journal.pone.0344386",
+      "license": "CC BY 4.0, authors' open research supplement",
+      "coverageEnd": "2025-04-25"
+    }
+  ],
+  "freightDefinition": {
+    "title": "Shanghai Shipping Exchange: SCFI Europe 20ft rates, USD/TEU",
+    "url": "https://en.sse.net.cn/indices/scfinew.jsp",
+    "basis": "SCFI_EU column; Shanghai-Europe spot container freight, not the global composite index. Monthly mean of the supplement's weekly observations."
+  },
+  "model": {
+    "id": "amazon/chronos-bolt-small",
+    "revision": "772f3d25d38aec6d914c8949dab4462e2d46f5d8",
+    "weightsSha256": "06a6a19bbe74bc10a9cd193bd4bf2bf638ae07f7e0d51653ae7ab8ea968a21dd",
+    "releasedOn": "2024-11-26",
+    "title": "Amazon Chronos-Bolt small pretrained forecasting model",
+    "url": "https://huggingface.co/amazon/chronos-bolt-small",
+    "device": "cpu"
+  }
+}

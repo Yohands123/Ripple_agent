@@ -1,0 +1,12 @@
+{
+  "sampleData": false,
+  "seriesId": "container-freight",
+  "lastObservedMonth": "2025-04-01",
+  "latestCompleteMonth": "2026-09-01",
+  "reason": "Verified open research supplement ends April 2025; no current history was substituted",
+  "handling": "Explicit archived forecast from May 2025, not current freight pricing or a filled history",
+  "source": {
+    "title": "Chen, Feng and Tang (2026), PLOS One, S1 Data: SCFI Shanghai-Europe freight rates",
+    "url": "https://journals.plos.org/plosone/article/file?type=supplementary&id=10.1371/journal.pone.0344386.s001"
+  }
+}

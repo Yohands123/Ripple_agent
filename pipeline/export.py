@@ -106,6 +106,9 @@ def build_bundle(root=ROOT):
     documents["network.json"] = documents[f"networks/{default}.json"]
     documents["scenarios/index.json"] = index
     documents["metrics.json"] = read_json(root / "data/processed/metrics.json")
+    forecasts = root / "data/processed/forecasts.json"
+    if forecasts.exists():
+        documents["forecasts.json"] = read_json(forecasts)
     return documents
 
 
