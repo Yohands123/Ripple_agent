@@ -1,0 +1,14 @@
+{
+  "policy": "Use verified editions and record gaps (user instruction); do not substitute another year's list",
+  "events": [
+    {
+      "eventId": "taiwan-2024",
+      "snapshotYear": 2024,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "USGS: M7.4 earthquake south of Hualien",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m9g4"
+      }
+    }
+  ]
+}

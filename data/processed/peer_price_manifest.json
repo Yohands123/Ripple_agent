@@ -1,0 +1,237 @@
+{
+  "sampleData": false,
+  "provider": "yfinance",
+  "providerVersion": "1.7.0",
+  "requestedStart": "2010-01-01",
+  "requestedEndExclusive": "2026-10-14",
+  "prices": [
+    {
+      "ticker": "BHE",
+      "kind": "equity",
+      "file": "data/raw/prices/BHE.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "f1fe7bb2c4add50be63fc71a05d0ac927b55c742293428eeec8a7531bbcdbde6",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: BHE",
+          "url": "https://finance.yahoo.com/quote/BHE/"
+        }
+      ]
+    },
+    {
+      "ticker": "CAMT",
+      "kind": "equity",
+      "file": "data/raw/prices/CAMT.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "d2c5304d1c422e2650ba9d92087ec4c97519453b4477110537947e8e28b6992d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CAMT",
+          "url": "https://finance.yahoo.com/quote/CAMT/"
+        }
+      ]
+    },
+    {
+      "ticker": "CEVA",
+      "kind": "equity",
+      "file": "data/raw/prices/CEVA.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "b0699e212af57601138cbd5068e954f615dc3673a28b591c55fc678c7ff0b609",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CEVA",
+          "url": "https://finance.yahoo.com/quote/CEVA/"
+        }
+      ]
+    },
+    {
+      "ticker": "CLS",
+      "kind": "equity",
+      "file": "data/raw/prices/CLS.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "98ca51e90182dc0da12f910d75eb573ca3ed6d3b379ed05458fa13859aadd5e7",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CLS",
+          "url": "https://finance.yahoo.com/quote/CLS/"
+        }
+      ]
+    },
+    {
+      "ticker": "CTS",
+      "kind": "equity",
+      "file": "data/raw/prices/CTS.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "73cfeb687f869ecef4e5307a4efe7cb78000b4e411a1475e4d9dc20d81c1f6dc",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: CTS",
+          "url": "https://finance.yahoo.com/quote/CTS/"
+        }
+      ]
+    },
+    {
+      "ticker": "FORM",
+      "kind": "equity",
+      "file": "data/raw/prices/FORM.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "48df1582442d9d850ec142ce6e7e6021a58a78b4369407cb1ef48e6a9e499aa9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: FORM",
+          "url": "https://finance.yahoo.com/quote/FORM/"
+        }
+      ]
+    },
+    {
+      "ticker": "HIMX",
+      "kind": "equity",
+      "file": "data/raw/prices/HIMX.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "4b53382fed5373a06aae859ccb13afcb0934edcbbb60065ed61c287fd226e53b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: HIMX",
+          "url": "https://finance.yahoo.com/quote/HIMX/"
+        }
+      ]
+    },
+    {
+      "ticker": "IMOS",
+      "kind": "equity",
+      "file": "data/raw/prices/IMOS.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "78ba082dff16dcb2d0bb666bc5689d9bd6aab61c3f3190ba31fc32f354c5e189",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: IMOS",
+          "url": "https://finance.yahoo.com/quote/IMOS/"
+        }
+      ]
+    },
+    {
+      "ticker": "MPWR",
+      "kind": "equity",
+      "file": "data/raw/prices/MPWR.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "61693f45e2cffaca726809328f677460abbd0c4f282dc52963a39849abe59b19",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MPWR",
+          "url": "https://finance.yahoo.com/quote/MPWR/"
+        }
+      ]
+    },
+    {
+      "ticker": "MTSI",
+      "kind": "equity",
+      "file": "data/raw/prices/MTSI.csv",
+      "rows": 3666,
+      "firstDate": "2012-03-15",
+      "lastDate": "2026-10-13",
+      "sha256": "1452d54bbb3da1485cdd72ca5c7a9f8c28a75452423603fa37bdcd0c361bd14b",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MTSI",
+          "url": "https://finance.yahoo.com/quote/MTSI/"
+        }
+      ]
+    },
+    {
+      "ticker": "MX",
+      "kind": "equity",
+      "file": "data/raw/prices/MX.csv",
+      "rows": 3921,
+      "firstDate": "2011-03-11",
+      "lastDate": "2026-10-13",
+      "sha256": "d9a7f36a0c176c36a90e1bffe94babb90013387f04d8afb722e6558f8f94dfea",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: MX",
+          "url": "https://finance.yahoo.com/quote/MX/"
+        }
+      ]
+    },
+    {
+      "ticker": "PLXS",
+      "kind": "equity",
+      "file": "data/raw/prices/PLXS.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "46f17a8351f8cc53c0c93ba3983bc83e2abd72936a418d53e720412ff7eb82f9",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: PLXS",
+          "url": "https://finance.yahoo.com/quote/PLXS/"
+        }
+      ]
+    },
+    {
+      "ticker": "^IXIC",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_IXIC.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "1665cb3bf552aa7af6ed7a711bdec94b21140d879eca343c3c9693b38de9af9d",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^IXIC",
+          "url": "https://finance.yahoo.com/quote/%5EIXIC/"
+        }
+      ]
+    },
+    {
+      "ticker": "^NYA",
+      "kind": "index",
+      "file": "data/raw/prices/INDEX_NYA.csv",
+      "rows": 4220,
+      "firstDate": "2010-01-04",
+      "lastDate": "2026-10-13",
+      "sha256": "9f4bfe94f46b030c3ad7d4e92fd55691874cde984d6656e1a68efbdf2b8899f7",
+      "provider": "yfinance",
+      "sources": [
+        {
+          "title": "Yahoo Finance listing: ^NYA",
+          "url": "https://finance.yahoo.com/quote/%5ENYA/"
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "mappingCounts": {
+    "peerTickers": 12
+  }
+}

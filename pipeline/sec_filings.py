@@ -23,7 +23,7 @@ class SecClient:
         self.user_agent = user_agent
         self.last_request = 0.0
 
-    def get(self, url: str) -> bytes:
+    def get(self, url: str, limit_bytes: int | None = None) -> bytes:
         # Sequential requests at at most five per second, below the SEC limit.
         delay = 0.2 - (time.monotonic() - self.last_request)
         if delay > 0:
@@ -31,7 +31,7 @@ class SecClient:
         self.last_request = time.monotonic()
         request = Request(url, headers={"User-Agent": self.user_agent, "Accept-Encoding": "identity"})
         with urlopen(request, timeout=20) as response:
-            return response.read()
+            return response.read() if limit_bytes is None else response.read(limit_bytes)
 
     def cached_json(self, url: str, path: Path) -> dict:
         if path.exists():

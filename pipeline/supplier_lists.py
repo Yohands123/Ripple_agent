@@ -47,6 +47,10 @@ def clean(text: str) -> str:
 
 def fiscal_year(text: str) -> int:
     matches = set(re.findall(r"fiscal\s+year\s+(20\d{2})", text, re.I))
+    if not matches:
+        # The 2017 publication explicitly identifies its procurement coverage
+        # as "our products worldwide in 2016", without calling it a fiscal year.
+        matches = set(re.findall(r"our\s+products\s+worldwide\s+in\s+(20\d{2})", text, re.I))
     if len(matches) != 1:
         raise ParseError("Cover must identify exactly one fiscal year")
     return int(matches.pop())
@@ -113,12 +117,14 @@ def headers(words: list[dict], edges: list[dict] | None = None) -> list[dict]:
             if texts[i:i+2] != ["supplier", "name"]:
                 continue
             following = line[i+2:]
-            location = next((w for w in following if w["text"].casefold() in {"primary", "manufacturing", "location"}), None)
+            location = next((w for w in following if w["text"].casefold() in {"primary", "manufacturing", "location", "address"}), None)
             if location:
+                legacy_headquarters = location["text"].casefold() == "address" and any(w["text"].casefold().startswith("headquarters") for w in words if w["top"] < line[i]["top"])
                 result.append({"top": line[i]["top"], "bottom": max(w["bottom"] for w in line),
                                "nameX": line[i]["x0"], "locationX": location["x0"],
-                               "address": location["text"].casefold() == "manufacturing",
-                               "role": "headquarters" if location["text"].casefold() == "location" else "manufacturing"})
+                               "address": location["text"].casefold() in {"manufacturing", "address"},
+                               "legacyAddress": location["text"].casefold() == "address",
+                               "role": "headquarters" if legacy_headquarters or location["text"].casefold() == "location" else "manufacturing"})
     return result
 
 
@@ -133,11 +139,20 @@ def parse_page(page, previous: str | None = None) -> tuple[list[dict], str | Non
                  if header["bottom"] < line[0]["top"] < end
                  and word_text(line).startswith(("Because the suppliers below", "The suppliers below"))]
         end = min(notes, default=end)
+        if header.get("legacyAddress"):
+            footer = [line[0]["top"] for line in lines(words) if line[0]["top"] > header["bottom"] and word_text(line).casefold().startswith(("apple supplier responsibility", "for more information", "©"))]
+            end = min(end, min(footer, default=end) - 5)
         edges = [e for e in page.horizontal_edges if header["bottom"] - 1 <= e["top"] < end]
         # Rules crossing the supplier column delimit whole supplier cells. In
         # FY2020 supplier names are vertically centered over many country rows.
         cuts = sorted({round(e["top"], 1) for e in edges
                        if e["x0"] <= name_x + 2 and e["x1"] >= location_x - 10})
+        if header.get("legacyAddress"):
+            # The 2017 list prints separated header underlines and no final
+            # row border. Include both first and last address cells explicitly.
+            cuts.insert(0, header["bottom"] + 1)
+            if any(w["top"] >= cuts[-1] and w["top"] < end and w["x0"] >= location_x - 2 for w in words):
+                cuts.append(end)
         if len(cuts) < 2:
             raise ParseError("Supplier table has no usable row boundaries")
         body = [w for w in words if cuts[0] <= w["top"] < end and w["x0"] >= name_x - 2]
@@ -196,7 +211,7 @@ def parse_pdf(path: Path, expected_year: int) -> list[dict]:
         year = fiscal_year(document.pages[0].extract_text() or "")
         if year != expected_year:
             raise ParseError(f"Expected FY{expected_year}, document covers FY{year}")
-        for number, page in enumerate(document.pages[1:], start=2):
+        for number, page in enumerate(document.pages, start=1):
             try:
                 page_rows, previous = parse_page(page, previous)
             except ParseError as exc:
@@ -283,6 +298,7 @@ def ingest(source_file: Path, raw_dir: Path, output_dir: Path, offline: bool = F
                 writer.writeheader()
                 writer.writerows(rows)
             record = {"snapshotYear": year, "publicationYear": edition["publicationYear"], "sources": [{"title": edition["title"], "url": edition["url"]}],
+                      "yearBasis": edition.get("yearBasis", "explicit fiscal year"),
                       "pdfSha256": hashlib.sha256(path.read_bytes()).hexdigest(), "csvSha256": hashlib.sha256(output.read_bytes().replace(b"\r\n", b"\n")).hexdigest(), "csvHashNormalization": "LF",
                       "rows": len(rows), "suppliers": len({row["supplier"] for row in rows}),
                       "headquartersRows": sum(row["locationRole"] == "headquarters" for row in rows)}

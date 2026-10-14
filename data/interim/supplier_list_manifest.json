@@ -1,8 +1,25 @@
 {
   "sampleData": false,
   "checkedOn": "2026-10-14",
-  "yearPolicy": "Filenames and snapshotYear use the fiscal year stated in the PDF, never its publication year. Only verified editions are included; missing years are not substituted.",
+  "yearPolicy": "Filenames and snapshotYear use the procurement coverage year stated in the PDF, never its publication year. Contemporary lists explicitly identify fiscal years; the 2017 publication identifies 2016 procurement without explicitly naming a fiscal year. Only verified editions are included; missing years are not substituted.",
   "editions": [
+    {
+      "snapshotYear": 2016,
+      "publicationYear": 2017,
+      "sources": [
+        {
+          "title": "Apple Supplier Responsibility 2017 Supplier List (2016 procurement coverage)",
+          "url": "https://xqdoc.imedao.com/15b1a8212e443283fc7dc7e2.pdf"
+        }
+      ],
+      "yearBasis": "Explicit 2016 procurement coverage; fiscal-year basis is not stated",
+      "pdfSha256": "ba2d6f28a2ecfc1ef6c6dde2a77837d74f247431fc4e69109b64aff4fdb1f581",
+      "csvSha256": "1382abfd6ad3e5a2b3538dfcb7bd88f0f72f30182e868eb5f866682f726b6e57",
+      "csvHashNormalization": "LF",
+      "rows": 769,
+      "suppliers": 201,
+      "headquartersRows": 8
+    },
     {
       "snapshotYear": 2018,
       "publicationYear": 2019,
@@ -12,6 +29,7 @@
           "url": "https://www.keywalker.co.jp/wp-content/uploads/2019/09/Apple-Supplier-List.pdf"
         }
       ],
+      "yearBasis": "explicit fiscal year",
       "pdfSha256": "e317e22be816d5f103e5f3fc5960138a6406a1462cd981e8101c103d22f6caf5",
       "csvSha256": "53007fdddfde4e6b5f0606d064cee4f27cb6bebfdebaacc620757521506ece6b",
       "csvHashNormalization": "LF",
@@ -28,6 +46,7 @@
           "url": "https://ekitait.com/wp-content/uploads/2021/10/2021-apple-supplier-list.pdf"
         }
       ],
+      "yearBasis": "explicit fiscal year",
       "pdfSha256": "c7d6ba933383857df24da6a472380699be5710d68fd607a979d68d055e4528c9",
       "csvSha256": "ac703dac883d38f200b4c7897b0b8ea96fbd1a09ba7c50c64988185d35b4aa01",
       "csvHashNormalization": "LF",
@@ -44,6 +63,7 @@
           "url": "https://ninja7.tistory.com/233"
         }
       ],
+      "yearBasis": "explicit fiscal year",
       "pdfSha256": "6ad5bd66297c08806544f71840311ddbfbec09dd0867487979c7627982f6a186",
       "csvSha256": "9032bc94f02d9e0691d41e786f3a832289008822af0b6f16022269954efbfc8e",
       "csvHashNormalization": "LF",
@@ -60,6 +80,7 @@
           "url": "https://web.archive.org/web/20230601000000id_/https://www.apple.com/supplier-responsibility/pdf/Apple-Supplier-List.pdf"
         }
       ],
+      "yearBasis": "explicit fiscal year",
       "pdfSha256": "90b0c7b5d1e9bf4c6d5e8ed96fc720b87196858b239c868e27198b17543c59fc",
       "csvSha256": "7a9dfd8b6b5e3e5221b901d79595f3dcdd8f6131299baf6eb4dee943497771b5",
       "csvHashNormalization": "LF",
@@ -76,6 +97,7 @@
           "url": "https://www.supplychainreports.apple/files/doc_downloads/2024/04/Apple-Supplier-List.pdf"
         }
       ],
+      "yearBasis": "explicit fiscal year",
       "pdfSha256": "19006bc0d77ed26eba99fa8c59e8bf0fc5dd8b06e2cf91dd904f93681959cf42",
       "csvSha256": "c02f072f5ae200bdf6d67dde070ba013a31799e77c5837ee9958a7157bbe68c3",
       "csvHashNormalization": "LF",

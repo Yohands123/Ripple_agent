@@ -32,6 +32,18 @@ def test_fiscal_year_uses_reporting_year_not_publication_year():
         fiscal_year("Supplier List published 2019")
     with pytest.raises(ParseError):
         fiscal_year("fiscal year 2020 and fiscal year 2021")
+    assert fiscal_year("February 2017: procurement for our products worldwide in 2016.") == 2016
+
+
+def test_legacy_address_table_retains_first_last_rows_and_skips_footer():
+    page = Page([
+        word("Supplier", 10, 80), word("Name", 50, 80), word("Address", 200, 80),
+        word("First", 10, 100), word("Shanghai,", 200, 100), word("China", 280, 100),
+        word("Last", 10, 140), word("Tokyo,", 200, 140), word("Japan", 280, 140),
+        word("For More Information", 10, 250), word("not a supplier address", 200, 270),
+    ], [(10, 180, 90), (200, 400, 90), (10, 400, 120)])
+    rows, _ = parse_page(page)
+    assert [(r["supplier"], r["country"]) for r in rows] == [("First", "China"), ("Last", "Japan")]
 
 
 def test_regions_expand_without_splitting_parenthesized_names():

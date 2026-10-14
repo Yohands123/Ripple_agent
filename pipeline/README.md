@@ -136,3 +136,72 @@ contains that same observed level, without any synthetic adjustment. Oslo uses
 `OSEBX.OL` and Helsinki uses `^OMXH25`; their available histories begin in 2013.
 The TPEx downloader keeps TLS chain and hostname verification enabled while
 allowing its trusted legacy CA certificate's missing Subject Key Identifier.
+
+## M5: Events and market-model labels
+
+```bash
+.venv/bin/python -m pipeline.supplier_lists --offline
+.venv/bin/python -m pipeline.geocode --offline
+.venv/bin/python -m pipeline.events
+python -m pipeline.peer_controls --download-metadata  # SEC_USER_AGENT required
+python -m pipeline.industry_history                  # SEC_USER_AGENT required
+.venv/bin/python -m pipeline.peer_controls --prices
+.venv/bin/python -m pipeline.event_study
+```
+
+The 2017 Apple publication explicitly covers procurement in 2016, without
+calling that a fiscal year. It adds 769 address rows and 201 distinct printed
+supplier names, with 8 headquarters-only rows. The legacy parser retains
+address cells on the cover, separated header underlines, and unbordered final
+rows, and excludes the final publication notes. This provides Kumamoto's own
+coverage-year cohort; no newer supplier population is substituted for it.
+
+`data/sources/events.json` records verified dates, their interpretation, and
+geographic sources. Earthquakes use local calendar dates and published USGS
+epicenters. City anchors use Natural Earth; the Red Sea anchor is the published
+Marine Regions area reference point, rather than an invented ship position.
+An onset/announcement observation or a report cutoff is distinguished from
+the end of a disruption. `data/events.csv` preserves those distinctions.
+
+The event study uses adjusted equity closes and matching exchange benchmarks.
+Day zero is the first exchange session on or after the local event date.
+Estimation days -250 through -30 contain exactly 221 returns; event days 0
+through +10 contain 11. The market model has an OLS intercept and slope.
+For L event returns, CAR variance is the fitted residual variance multiplied
+by `L + g' (X'X)^-1 g`, where g sums event-window design rows. This includes
+uncertainty in the fitted parameters and assumes independent, constant-variance
+residuals. A hit means `t < -1.96`. It is a stock-market label, without a causal
+claim about disruption damage or a measurement of factory output.
+
+Stock closes are reindexed to the benchmark calendar before returns are
+calculated; missing sessions are never filled or treated as a single-day
+multiday return. Unavailable histories, incomplete windows, and singular fits
+receive explicit statuses and empty outcomes. `labels.csv` has one row for
+each normalized supplier identity in each available cohort, including these
+unavailable rows, plus comparison companies. `label_summary.json` reports
+coverage and missing event-year snapshots. A missing own-year cohort makes
+the event-study command return nonzero, even when other events were computed.
+FY2024 remains unavailable. Under the user's verified-editions-and-explicit-gaps
+instruction, the six events with own-year snapshots are included; Taiwan 2024
+is retained in the source registry and `data/review/event_gaps.json`. This meets
+M5's six-to-eight-event range. Substituting FY2023 for it requires a further
+explicit decision; the current pipeline never makes that substitution.
+
+Pre-event SEC annual filings provide SIC and exchange evidence for comparison
+companies. Public filing prefixes stay in `data/raw/industry_headers/` and are
+not complete filing archives. A match requires the same verified pre-event
+exchange and four-digit SIC. The first three alphabetical eligible candidates
+are selected without using event returns. Historical issuer aliases prevent a
+renamed supplier from becoming its own comparison company. Not-listed controls
+have no observed link in that event-year top Supplier List; absence does not
+prove the absence of all Apple relationships. The current candidate universe
+also introduces a survivorship limitation. Unverified matches remain in the
+review fields of `peer_matches.json`.
+
+The contemporaneous cover's exchange overrides the current listing when it
+can be verified. Other supplier rows explicitly mark historical exchange
+verification as unavailable. Known II-VI/Coherent ticker and exchange changes
+are documented in `listing_history.json`; legacy Coherent Inc. is not assigned
+its acquirer's historical stock series. Supplier membership comes from each
+event's own-year list, which was published retrospectively, so the cohorts are
+not described as information that was available in real time.

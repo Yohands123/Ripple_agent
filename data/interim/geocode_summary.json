@@ -3,6 +3,15 @@
   "naturalEarthVersion": "5.1.2",
   "years": [
     {
+      "snapshotYear": 2016,
+      "rows": 769,
+      "counts": {
+        "city": 526,
+        "province": 208,
+        "unmatched": 35
+      }
+    },
+    {
       "snapshotYear": 2018,
       "rows": 808,
       "counts": {

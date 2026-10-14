@@ -188,7 +188,7 @@ def clean_prices(frame):
     return result
 
 
-def download_prices(mapping: dict, config: dict, start: str, end: str, offline: bool = False) -> dict:
+def download_prices(mapping: dict, config: dict, start: str, end: str, offline: bool = False, manifest_path: Path | None = None) -> dict:
     import pandas as pd
     yf = setup_yfinance()
     raw = ROOT / "data/raw/prices"
@@ -233,7 +233,7 @@ def download_prices(mapping: dict, config: dict, start: str, end: str, offline: 
         except Exception as exc:
             manifest["failures"].append({"ticker": symbol, "reason": type(exc).__name__ + ": " + str(exc)[:180]})
             LOGGER.error("%s: price download failed (%s)", symbol, type(exc).__name__)
-    (ROOT / "data/processed/price_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (manifest_path or ROOT / "data/processed/price_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     return manifest
 
 

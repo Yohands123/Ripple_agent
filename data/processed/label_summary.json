@@ -1,0 +1,86 @@
+{
+  "sampleData": false,
+  "estimationTradingDays": [
+    -250,
+    -30
+  ],
+  "eventTradingDays": [
+    0,
+    10
+  ],
+  "hitThreshold": -1.96,
+  "carVariance": "OLS residual variance times [L + g' (X'X)^-1 g], g = sum of event design rows",
+  "dayZeroPolicy": "First exchange session on or after local event date; global session timing is not intraday synchronized",
+  "interpretation": "Statistically negative stock-market abnormal return; not a causal impact estimate or factory-output observation",
+  "snapshotPolicy": "Own-year procurement list, published retrospectively; not evidence that supplier membership was publicly known at the event date",
+  "exchangePolicy": "Pre-event registered-securities cover where verified; otherwise currently reported listing, flagged as not historically verified",
+  "rows": 1190,
+  "statusCounts": {
+    "mapping_unavailable": 400,
+    "ok": 733,
+    "missing_estimation_observations": 54,
+    "missing_event_observations": 3
+  },
+  "events": [
+    {
+      "eventId": "kumamoto-2016",
+      "snapshotYear": 2016,
+      "rows": 209,
+      "validSupplierLabels": 86,
+      "validPeerLabels": 8,
+      "hits": 3
+    },
+    {
+      "eventId": "covid-china-2020",
+      "snapshotYear": 2020,
+      "rows": 208,
+      "validSupplierLabels": 121,
+      "validPeerLabels": 8,
+      "hits": 9
+    },
+    {
+      "eventId": "suez-2021",
+      "snapshotYear": 2021,
+      "rows": 196,
+      "validSupplierLabels": 124,
+      "validPeerLabels": 5,
+      "hits": 3
+    },
+    {
+      "eventId": "shanghai-2022",
+      "snapshotYear": 2022,
+      "rows": 193,
+      "validSupplierLabels": 122,
+      "validPeerLabels": 5,
+      "hits": 15
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "snapshotYear": 2022,
+      "rows": 192,
+      "validSupplierLabels": 126,
+      "validPeerLabels": 4,
+      "hits": 6
+    },
+    {
+      "eventId": "red-sea-2023",
+      "snapshotYear": 2023,
+      "rows": 192,
+      "validSupplierLabels": 119,
+      "validPeerLabels": 5,
+      "hits": 3
+    }
+  ],
+  "gaps": [],
+  "excludedEvents": [
+    {
+      "eventId": "taiwan-2024",
+      "snapshotYear": 2024,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "USGS: M7.4 earthquake south of Hualien",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m9g4"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "COHR": {
+    "exchangeBefore": "NASDAQ",
+    "benchmarkBefore": "^IXIC",
+    "exchangeChangeDate": "2023-02-23",
+    "predecessorTicker": "IIVI",
+    "tickerChangeDate": "2022-09-08",
+    "legacyCoherentAcquisitionDate": "2022-07-01",
+    "sources": [
+      {"title":"II-VI renamed Coherent; predecessor and acquired company are distinct issuers", "url":"https://ir.coherent.com/news-releases/news-release-details/ii-vi-changes-name-coherent-and-launches-new-brand-identity"},
+      {"title":"Coherent began NYSE trading on February 23, 2023", "url":"https://ir.coherent.com/news-releases/news-release-details/coherent-corp-began-trading-nyse"}
+    ]
+  }
+}

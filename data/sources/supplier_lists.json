@@ -1,7 +1,15 @@
 {
   "checkedOn": "2026-10-14",
-  "yearPolicy": "Filenames and snapshotYear use the fiscal year stated in the PDF, never its publication year. Only verified editions are included; missing years are not substituted.",
+  "yearPolicy": "Filenames and snapshotYear use the procurement coverage year stated in the PDF, never its publication year. Contemporary lists explicitly identify fiscal years; the 2017 publication identifies 2016 procurement without explicitly naming a fiscal year. Only verified editions are included; missing years are not substituted.",
   "editions": [
+    {
+      "snapshotYear": 2016,
+      "publicationYear": 2017,
+      "yearBasis": "Explicit 2016 procurement coverage; fiscal-year basis is not stated",
+      "title": "Apple Supplier Responsibility 2017 Supplier List (2016 procurement coverage)",
+      "url": "https://xqdoc.imedao.com/15b1a8212e443283fc7dc7e2.pdf",
+      "downloads": ["https://xqdoc.imedao.com/15b1a8212e443283fc7dc7e2.pdf"]
+    },
     {
       "snapshotYear": 2018,
       "publicationYear": 2019,
