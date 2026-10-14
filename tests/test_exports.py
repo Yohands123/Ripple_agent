@@ -96,3 +96,27 @@ def test_site_outcomes_preserve_company_scope_and_use_no_invented_routes(candida
         assert all("Company" in p["predictionScope"] for p in scenario["predictions"])
         ids = {n["id"] for n in network["nodes"]}
         assert {a["nodeId"] for a in scenario["actual"]} <= ids
+
+
+def test_expansion_keeps_company_only_scenarios_and_reports_only_selected_metric_events(candidate):
+    metrics = candidate["metrics.json"]
+    index = candidate["scenarios/index.json"]
+    assert len(index) == metrics["predictionEvents"] == 9
+    assert len(metrics["loeo"]) == metrics["events"] == 7
+    assert sum(r["rows"] for r in metrics["loeo"]) == metrics["rows"] == 820
+    assert sum(r["n"] for r in metrics["calibration"]) == metrics["rows"]
+    omitted = {r["eventId"] for r in metrics["excludedFromMetrics"]}
+    assert omitted == {"japan-2011", "thailand-2011"}
+    assert not omitted & {r["eventId"] for r in metrics["loeo"]}
+    assert {r["eventId"] for r in metrics["excludedEvents"]} == {"japan-korea-2019", "taiwan-2024", "helene-2024"}
+    for identifier in omitted:
+        scenario = candidate[f"scenarios/{identifier}.json"]
+        network = candidate[scenario["networkPath"]]
+        assert network["nodes"] == network["edges"] == []
+        assert scenario["predictions"] == scenario["actual"] == []
+        companies = scenario["companyPredictions"]
+        assert len(companies) == network["coverage"]["unlocatedCompanies"] == 156
+        assert sum(r["outcomeObservable"] for r in companies) == 54
+        assert all(not {"nodeId", "lon", "lat"} & r.keys() for r in companies)
+        assert scenario["cohort"]["assumption"] is True
+        assert scenario["cohort"]["publicationYear"] == 2012

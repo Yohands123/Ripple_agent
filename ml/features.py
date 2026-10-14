@@ -12,7 +12,7 @@ from pathlib import Path
 
 from shapely.geometry import Point, shape
 
-from pipeline.event_study import supplier_mapping_index
+from pipeline.event_study import supplier_mapping_index, listing_for_event
 from pipeline.prices import company_key
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -138,6 +138,8 @@ def build() -> dict:
             graph_nodes.append({"id": identifier, "kind": "supplier_company", "sources": manifests[year]["sources"]})
             connect(identifier, "apple-company", "listed procurement relationship", "known", manifests[year]["sources"])
             for location in company_locations:
+                if not location["location"]:
+                    continue  # A company roster does not disclose a physical site.
                 site = node_id(location)
                 source = json.loads(location["sources"])
                 graph_nodes.append({"id": site, "kind": "disclosed_location", "sources": source})
@@ -160,9 +162,10 @@ def build() -> dict:
             lower = sum(v is True for v in classifications) / len(classifications) if classifications else None
             upper = sum(v is not False for v in classifications) / len(classifications) if classifications else None
             fraction = lower if lower == upper else None
-            profile = latest_profile(profiles, name, cutoff, mappings)
             ticker_records = {r["ticker"]: r for r in mappings.get(company_key(name), [])}
             listing = next(iter(ticker_records.values())) if len(ticker_records) == 1 else {}
+            listing = listing_for_event(listing, name, event["start"])
+            profile = None if listing.get("mappingUnavailableReason") == "legacy_issuer_price_series_unverified" else latest_profile(profiles, name, cutoff, mappings)
             cik = listing.get("cik")
             asset_fact = None
             if cik:
@@ -214,7 +217,7 @@ def build() -> dict:
                                 "sourcing_hhi": "Country HHI of disclosed manufacturing-location row counts, not actual production/procurement shares; list granularity differs across years",
                                 "chokepoint_dependence": "Unavailable without verified transport-route evidence; never silently assumed zero",
                                 "size": "Natural log of reported total assets in USD, most recent period filed before event; unavailable currencies are not converted with invented rates"},
-                "retrospectiveScope": "Own-year supplier lists were published retrospectively. Financial attributes are publication-filtered; this is a retrospective backtest, not a real-time reconstruction.",
+                "retrospectiveScope": "Supplier lists were published retrospectively. The two 2011 events use the approved January 2012 names-only roster approximation, with missing manufacturing geography. Financial attributes are publication-filtered; this is a retrospective backtest, not a real-time reconstruction.",
                 "provenance": provenance}
     (ROOT / "data/processed/feature_metadata.json").write_text(json.dumps(metadata, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Features: {len(rows)} company/event rows, {len(sites)} matched location/event records")

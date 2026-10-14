@@ -55,12 +55,14 @@ def listing_for_event(record: dict, supplier: str, event_date: str) -> dict:
     era = history.get(record.get("ticker"))
     if era:
         result["sources"] = list(record.get("sources", [])) + era["sources"]
-        if supplier.casefold().startswith("coherent") and "corporation" not in supplier.casefold() and event_date < era["legacyCoherentAcquisitionDate"]:
-            # Legacy Coherent Inc. was acquired by II-VI. It is not the same
-            # historical issuer as today's Coherent Corp./former II-VI.
+        invalid_legacy = (record.get("ticker") == "AVGO" and supplier.casefold().startswith("broadcom") and event_date < era["broadcomAcquisitionDate"]) or (record.get("ticker") == "COHR" and supplier.casefold().startswith("coherent") and "corporation" not in supplier.casefold() and event_date < era["legacyCoherentAcquisitionDate"])
+        if invalid_legacy:
+            # An acquired company's earlier stock/financial history cannot
+            # be replaced by its acquirer's predecessor history.
             result["ticker"] = ""
+            result["cik"] = None
             result["mappingUnavailableReason"] = "legacy_issuer_price_series_unverified"
-        elif event_date < era["exchangeChangeDate"]:
+        elif record.get("ticker") == "COHR" and event_date < era["exchangeChangeDate"]:
             result["exchange"] = era["exchangeBefore"]
             result["benchmark"] = era["benchmarkBefore"]
     return result
@@ -215,7 +217,7 @@ def analyze() -> dict:
                "carVariance": "OLS residual variance times [L + g' (X'X)^-1 g], g = sum of event design rows",
                "dayZeroPolicy": "Exact USGS timestamps aligned to US regular-session close for NYSE/NASDAQ; otherwise first benchmark session on/after local event date. Current exact-timestamp events avoid US early-close sessions.",
                "interpretation": "Statistically negative stock-market abnormal return; not a causal impact estimate or factory-output observation",
-               "snapshotPolicy": "Own-year procurement list, published retrospectively; not evidence that supplier membership was publicly known at the event date",
+               "snapshotPolicy": "Verified own-year lists, published retrospectively; 2011 uses the explicitly approved January 2012 company roster approximation. No FY2019/FY2024 substitution. Membership was not necessarily publicly known at the event date.",
                "exchangePolicy": "Pre-event registered-securities cover where verified; otherwise currently reported listing, flagged as not historically verified",
                "rows": len(output), "statusCounts": dict(Counter(r["status"] for r in output)), "events": [], "gaps": gaps}
     excluded = ROOT / "data/review/event_gaps.json"
@@ -223,7 +225,7 @@ def analyze() -> dict:
     for event in events:
         rows = [r for r in output if r["eventId"] == event["id"]]
         valid = [r for r in rows if r["status"] == "ok"]
-        summary["events"].append({"eventId": event["id"], "snapshotYear": int(event["snapshotYear"]), "rows": len(rows), "validSupplierLabels": sum(r["role"] == "supplier" for r in valid),
+        summary["events"].append({"eventId": event["id"], "snapshotYear": int(event["snapshotYear"]), "cohort": json.loads(event["cohort"]) if event.get("cohort") else {}, "rows": len(rows), "validSupplierLabels": sum(r["role"] == "supplier" for r in valid),
                                   "validPeerLabels": sum(r["role"] == "peer" for r in valid), "hits": sum(r["hit"] for r in valid)})
     (ROOT / "data/processed/label_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(summary["events"], indent=2))

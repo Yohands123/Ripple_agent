@@ -14,21 +14,41 @@ from pipeline.geocode import Gazetteer, load_datasets
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def expanded_events(base, additional, decision):
+    events = [dict(e) for e in base]
+    if decision.get("approved") is not True:
+        return events
+    events.extend(dict(e) for e in additional)
+    if len({e["id"] for e in events}) != len(events):
+        raise ValueError("Duplicate event definition")
+    for event in events:
+        if event["id"] in decision.get("snapshotProxies", {}):
+            event["snapshotYear"] = decision["snapshotProxies"][event["id"]]
+    return events
+
+
 def main() -> int:
     config = json.loads((ROOT / "data/sources/events.json").read_text(encoding="utf-8"))
     geography = json.loads((ROOT / "data/sources/natural_earth.json").read_text(encoding="utf-8"))
     gazetteer = Gazetteer(**load_datasets(geography, ROOT / "data/raw/natural_earth", True))
-    city = next(d for d in geography["datasets"] if d["id"] == "cities")
-    city_source = {"title": city["title"], "url": geography["baseUrl"] + city["file"]}
     manifest = json.loads((ROOT / "data/interim/supplier_list_manifest.json").read_text(encoding="utf-8"))
-    available = {r["snapshotYear"] for r in manifest["editions"]}
+    available = {r["snapshotYear"]: r for r in manifest["editions"]}
+    decision_path = ROOT / "data/sources/event_expansion.json"
+    decision = json.loads(decision_path.read_text(encoding="utf-8")) if decision_path.exists() else {}
+    additions_path = ROOT / "data/sources/additional_events.json"
+    additions = json.loads(additions_path.read_text(encoding="utf-8"))["events"] if additions_path.exists() else []
     output, gaps = [], []
-    for event in config["events"]:
+    for event in expanded_events(config["events"], additions, decision):
         if event["snapshotYear"] not in available:
             gaps.append({"eventId": event["id"], "snapshotYear": event["snapshotYear"], "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
                          "source": {"title": event["sourceTitle"], "url": event["sourceUrl"]}})
             continue
-        row = {k: v for k, v in event.items() if k not in {"earthquakeId", "referencePoint", "endSource", "zone"}}
+        edition = available[event["snapshotYear"]]
+        company_only = edition.get("locationCoverage") == "company-only"
+        proxy = event["snapshotYear"] != event["eventYear"]
+        if (company_only or proxy) and decision.get("approved") is not True:
+            raise ValueError("M10 roster/proxy decision required")
+        row = {k: v for k, v in event.items() if k not in {"earthquakeId", "referencePoint", "endSource", "zone", "anchorPrecision", "anchorBasis"}}
         sources = [{"title": event["sourceTitle"], "url": event["sourceUrl"]}]
         row["eventUtc"] = ""
         row["knowledgeCutoffDate"] = event["start"]
@@ -57,19 +77,29 @@ def main() -> int:
             sources.append(point["source"])
         else:
             match, reason = gazetteer.match(event["location"], event["country"])
-            if not match or match["precision"] != "city":
-                raise ValueError(f"Event city anchor unavailable: {event['id']} ({reason})")
-            row.update(lon=match["lon"], lat=match["lat"], locationPrecision="city", locationBasis="Natural Earth city point; not an exact disrupted-facility coordinate")
-            sources.append(city_source)
+            precision = event.get("anchorPrecision", "city")
+            if not match or match["precision"] != precision:
+                raise ValueError(f"Event {precision} anchor unavailable: {event['id']} ({reason})")
+            row.update(lon=match["lon"], lat=match["lat"], locationPrecision=precision, locationBasis=event.get("anchorBasis", "Natural Earth city point; not an exact disrupted-facility coordinate"))
+            dataset_id = {"city": "cities", "province": "admin1", "country": "countries"}[precision]
+            dataset = next(d for d in geography["datasets"] if d["id"] == dataset_id)
+            sources.append({"title": dataset["title"], "url": geography["baseUrl"] + dataset["file"]})
         row["zone"] = json.dumps(event["zone"])
         row["sources"] = json.dumps(sources, ensure_ascii=False)
+        row["cohort"] = json.dumps({"snapshotYear": event["snapshotYear"], "eventYear": event["eventYear"],
+                                    "publicationYear": edition["publicationYear"], "yearBasis": edition["yearBasis"],
+                                    "locationCoverage": edition.get("locationCoverage", "disclosed locations"),
+                                    "assumption": company_only or proxy,
+                                    "basis": "Explicitly approved nearby-year cohort proxy" if proxy else "January 2012 company roster, retrospectively applied under M10" if company_only else "Own-year procurement coverage, published retrospectively",
+                                    "companyOnlyExportApproved": company_only and decision.get("companyOnlyExportApproved") is True,
+                                    "proxyApproved": proxy and decision.get("snapshotProxies", {}).get(event["id"]) == event["snapshotYear"]})
         output.append(row)
     with (ROOT / "data/events.csv").open("w", encoding="utf-8", newline="") as handle:
-        fields = ["id", "title", "type", "start", "end", "eventYear", "snapshotYear", "eventUtc", "knowledgeCutoffDate", "location", "country", "lon", "lat", "locationPrecision", "locationBasis", "dateBasis", "endBasis", "zone", "sourceTitle", "sourceUrl", "sources"]
+        fields = ["id", "title", "type", "start", "end", "eventYear", "snapshotYear", "eventUtc", "knowledgeCutoffDate", "location", "country", "lon", "lat", "locationPrecision", "locationBasis", "dateBasis", "endBasis", "zone", "sourceTitle", "sourceUrl", "sources", "cohort"]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         writer.writerows(output)
-    (ROOT / "data/review/event_gaps.json").write_text(json.dumps({"policy": "Use verified editions and record gaps (user instruction); do not substitute another year's list", "events": gaps}, indent=2) + "\n", encoding="utf-8")
+    (ROOT / "data/review/event_gaps.json").write_text(json.dumps({"policy": "Verified editions; nearby-year proxies only when explicitly recorded in the user's M10 decision", "events": gaps}, indent=2) + "\n", encoding="utf-8")
     print(f"Wrote {len(output)} sourced events; {len(gaps)} event-year snapshot gaps")
     return 0
 

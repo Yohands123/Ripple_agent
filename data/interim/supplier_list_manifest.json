@@ -4,6 +4,24 @@
   "yearPolicy": "Filenames and snapshotYear use the procurement coverage year stated in the PDF, never its publication year. Contemporary lists explicitly identify fiscal years; the 2017 publication identifies 2016 procurement without explicitly naming a fiscal year. Only verified editions are included; missing years are not substituted.",
   "editions": [
     {
+      "snapshotYear": 2011,
+      "publicationYear": 2012,
+      "sources": [
+        {
+          "title": "Apple Suppliers 2011 (January 2012 publication; company roster only)",
+          "url": "https://web.archive.org/web/20120120000000id_/http://images.apple.com/supplierresponsibility/pdf/Apple_Supplier_List_2011.pdf"
+        }
+      ],
+      "yearBasis": "Document title Apple Suppliers 2011; published January 2012; fiscal-year basis is not stated; company membership only",
+      "locationCoverage": "company-only",
+      "pdfSha256": "9cdee1f8f8375604c48ce292dce1753c020b94c96c1d7127ba311d3ee963349c",
+      "csvSha256": "5ae5514e827ecba6b26d6abf82256bb0b21b45e9a474cb197d245be830b5c08b",
+      "csvHashNormalization": "LF",
+      "rows": 156,
+      "suppliers": 156,
+      "headquartersRows": 0
+    },
+    {
       "snapshotYear": 2016,
       "publicationYear": 2017,
       "sources": [
@@ -13,6 +31,7 @@
         }
       ],
       "yearBasis": "Explicit 2016 procurement coverage; fiscal-year basis is not stated",
+      "locationCoverage": "disclosed locations",
       "pdfSha256": "ba2d6f28a2ecfc1ef6c6dde2a77837d74f247431fc4e69109b64aff4fdb1f581",
       "csvSha256": "1382abfd6ad3e5a2b3538dfcb7bd88f0f72f30182e868eb5f866682f726b6e57",
       "csvHashNormalization": "LF",
@@ -30,6 +49,7 @@
         }
       ],
       "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
       "pdfSha256": "e317e22be816d5f103e5f3fc5960138a6406a1462cd981e8101c103d22f6caf5",
       "csvSha256": "53007fdddfde4e6b5f0606d064cee4f27cb6bebfdebaacc620757521506ece6b",
       "csvHashNormalization": "LF",
@@ -47,6 +67,7 @@
         }
       ],
       "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
       "pdfSha256": "c7d6ba933383857df24da6a472380699be5710d68fd607a979d68d055e4528c9",
       "csvSha256": "ac703dac883d38f200b4c7897b0b8ea96fbd1a09ba7c50c64988185d35b4aa01",
       "csvHashNormalization": "LF",
@@ -64,6 +85,7 @@
         }
       ],
       "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
       "pdfSha256": "6ad5bd66297c08806544f71840311ddbfbec09dd0867487979c7627982f6a186",
       "csvSha256": "9032bc94f02d9e0691d41e786f3a832289008822af0b6f16022269954efbfc8e",
       "csvHashNormalization": "LF",
@@ -81,6 +103,7 @@
         }
       ],
       "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
       "pdfSha256": "90b0c7b5d1e9bf4c6d5e8ed96fc720b87196858b239c868e27198b17543c59fc",
       "csvSha256": "7a9dfd8b6b5e3e5221b901d79595f3dcdd8f6131299baf6eb4dee943497771b5",
       "csvHashNormalization": "LF",
@@ -98,6 +121,7 @@
         }
       ],
       "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
       "pdfSha256": "19006bc0d77ed26eba99fa8c59e8bf0fc5dd8b06e2cf91dd904f93681959cf42",
       "csvSha256": "c02f072f5ae200bdf6d67dde070ba013a31799e77c5837ee9958a7157bbe68c3",
       "csvHashNormalization": "LF",

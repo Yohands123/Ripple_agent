@@ -37,8 +37,8 @@ discussion published after an event do not establish pre-event route dependence.
 Leave-one-event-out fitting excludes the entire target event. An additional
 training event supplies early stopping for shallow LightGBM trees; the selected
 tree count is fixed while 200 models refit bootstrap samples of the remaining
-training events. There are 200 models per outer fold, so the six-event run fits
-1,200 bootstrap models. Neither categorical encoding nor logistic imputation
+training events. There are 200 models per outer fold, so the approved nine-event
+run fits 1,800 bootstrap models. Neither categorical encoding nor logistic imputation
 and scaling uses the held-out event. The logistic baseline uses all features;
 the distance-only rule uses an exponential distance score calibrated on the
 training sample and a training-prevalence fallback for unavailable distances.
@@ -134,3 +134,45 @@ approval, save `data/processed/optimizer_plans.json`, and publish only through
 the validator checks the approval, scope, weekly bands, complete option
 combinations, and default-plan consistency. Actual Apple output and revenue
 losses remain unknown. No inferred physical routes are created from this LP.
+
+## Event expansion (M10; approved nine-event set)
+
+The user approved nine events and preservation of the missing-year gaps on
+2026-10-14, recorded in `data/sources/event_expansion.json`. Japan's 2011
+earthquake, Thailand's 2011 industrial floods, and Russia's 2022 export
+restrictions join the original six. Japan–Korea 2019, Taiwan 2024, and Helene
+2024 remain sourced but excluded because verified FY2019/FY2024 lists are
+unavailable. No nearby-year proxies are authorized.
+
+Both 2011 cohorts use the January 2012 Apple publication headed "Apple
+Suppliers 2011", as explicitly authorized by M10. Its 156 company names
+contain no manufacturing locations or countries. Those geographic predictors
+stay missing. The two scenario exports have empty physical networks and
+`companyPredictions` with company probabilities, intervals, SHAP, citations,
+and observable company CARs. Consumer support for this approved field belongs
+to Claude. The earthquake uses the USGS epicenter and timestamp; Thailand uses
+the Rojana first-inundation date and an explicitly coarse province centroid.
+Russia's policy reference point is a country centroid, without inferred
+factory exposure. These are event anchors, not invented supplier locations.
+
+Historical identity guards keep legacy Broadcom Corporation from borrowing
+Avago's pre-acquisition stock or financial history, and legacy Coherent Inc.
+from borrowing II-VI's. Unverified legacy series remain unavailable. The
+pre-event SIC, exchange, annual-report, and price caches include earlier years;
+current-universe survivorship limits remain explicit. Extraction is rule based.
+
+Both 2011 supplier samples contain 54 valid labels and zero hits. Under the
+user's recorded `evaluation_policy.json` decision, single-class events are
+excluded from every reported metric, including pooled scores, calibration,
+and metric-bootstrap resampling. Nine prediction folds still use the full
+training cohorts, and all company predictions, CAR labels, and nine scenario
+exports remain available. `metrics.events` counts seven evaluated events;
+`predictionEvents` counts nine. `excludedFromMetrics` documents the omitted
+events. Metrics condition on observed classes and do not summarize all nine
+scenarios. Numeric AUC requirements remain unchanged.
+
+Rebuild with `pipeline.supplier_lists --offline`, `pipeline.geocode --offline`,
+`pipeline.events`, `pipeline.peer_controls --prices`, `pipeline.event_study`,
+`ml.features`, `ml.train`, `ml.optimize`, and `pipeline.export` as Python
+modules, then run the required ML checks. Metrics and model manifests retain
+the per-event cohort qualifications and excluded-year gaps.

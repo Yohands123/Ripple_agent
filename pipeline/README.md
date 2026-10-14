@@ -228,7 +228,7 @@ The validator includes these extensions by default; `--frozen` can audit
 against the original contract. Fixtures still pass. A sample forecast may
 have an empty citation URL; real nodes, edges, and forecasts require sources.
 
-Each of the six events has its own dated network. The default `network.json`
+Each exported event has its own dated network. The default `network.json`
 is Suez 2021. Geocoded supplier locations are shown with their declared
 precision and location role; unmatched locations remain in the review CSV.
 Product categories describe the company rather than an Apple-specific part.
@@ -241,3 +241,12 @@ The app consumer must load the scenario's network and handle these nulls.
 
 `pipeline/export.py --review` writes an ignored local review copy in
 `data/review/export_preview/` instead of the app folder.
+
+M10 adds the user-approved Japan/Thailand 2011 and Russia 2022 scenarios for
+nine exports. The January 2012 names-only Apple Suppliers 2011 roster is the
+approved approximation for 2011; those networks have no factory nodes and use
+scenario `companyPredictions` instead. FY2019/FY2024 gaps remain explicit.
+The user chose to exclude the two single-class 2011 events from all reported
+metrics. Seven metric events and nine prediction events are separately
+counted; `excludedFromMetrics` records the reasons without nullable AUCs.
+See `data/review/m10_integration_notes.md` for the consumer handoff.

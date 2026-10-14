@@ -1,0 +1,61 @@
+{
+  "sampleData": false,
+  "activation": "M10 decision in data/sources/event_expansion.json must be explicitly approved",
+  "events": [
+    {
+      "id": "japan-2011", "title": "Tohoku earthquake and tsunami", "type": "land",
+      "start": "2011-03-11", "end": "2011-03-11", "eventYear": 2011, "snapshotYear": 2011,
+      "location": "Tohoku, Japan", "country": "Japan", "earthquakeId": "official20110311054624120_30",
+      "dateBasis": "USGS mainshock timestamp; local Japan date March 11, 2011",
+      "endBasis": "Mainshock observation, not the end of reconstruction or supply disruption",
+      "zone": {"country": "Japan", "names": ["Iwate", "Miyagi", "Fukushima"]},
+      "sourceTitle": "USGS: M9.1 Great Tohoku Earthquake, March 11, 2011",
+      "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/official20110311054624120_30/executive"
+    },
+    {
+      "id": "thailand-2011", "title": "Thailand industrial floods", "type": "land",
+      "start": "2011-10-08", "end": "2011-10-08", "eventYear": 2011, "snapshotYear": 2011,
+      "location": "Ayutthaya", "country": "Thailand", "anchorPrecision": "province",
+      "anchorBasis": "Natural Earth Ayutthaya province centroid, not a factory or industrial-estate coordinate",
+      "dateBasis": "Rojana reports first inundation of the industrial park on October 8; report published October 10. Not the national flood onset.",
+      "endBasis": "Industrial inundation observation, not the end of the flood season",
+      "zone": {"country": "Thailand", "names": ["Ayutthaya", "Phra Nakhon Si Ayutthaya"]},
+      "sourceTitle": "Rojana Industrial Park: October 10, 2011 progress report on flooding since October 8",
+      "sourceUrl": "https://rojna.listedcompany.com/flood_situation.html"
+    },
+    {
+      "id": "japan-korea-2019", "title": "Japan–Korea export licensing changes", "type": "policy",
+      "start": "2019-07-01", "end": "2019-07-01", "eventYear": 2019, "snapshotYear": 2019,
+      "location": "South Korea", "country": "South Korea", "anchorPrecision": "country",
+      "anchorBasis": "Natural Earth South Korea jurisdiction centroid; policy reference point, not a damaged facility",
+      "dateBasis": "July 1 announcement; the three-material licensing changes took effect July 4",
+      "endBasis": "Announcement observation, not the end of the licensing restrictions",
+      "zone": {"country": "South Korea", "names": []},
+      "sourceTitle": "METI: update of licensing policies and procedures toward the Republic of Korea, July 1, 2019",
+      "sourceUrl": "https://www.meti.go.jp/policy/external_economy/export_control_korea/index-en.html"
+    },
+    {
+      "id": "russia-2022", "title": "Russia technology export restrictions", "type": "policy",
+      "start": "2022-02-24", "end": "2022-02-24", "eventYear": 2022, "snapshotYear": 2022,
+      "location": "Russia", "country": "Russia", "anchorPrecision": "country",
+      "anchorBasis": "Natural Earth Russia jurisdiction centroid; not a factory coordinate or a measure of export exposure",
+      "dateBasis": "BIS announcement of broad technology export restrictions on February 24, coincident with the invasion",
+      "endBasis": "Policy announcement observation, not the end of the sanctions or war",
+      "zone": {"country": "Russia", "names": []},
+      "sourceTitle": "BIS: Commerce implements sweeping restrictions on exports to Russia, February 24, 2022",
+      "sourceUrl": "https://www.bis.gov/press-release/commerce-implements-sweeping-restrictions-exports-russia-response-further-invasion-ukraine"
+    },
+    {
+      "id": "helene-2024", "title": "Helene near Spruce Pine quartz operations", "type": "land",
+      "start": "2024-09-27", "end": "2024-09-27", "eventYear": 2024, "snapshotYear": 2024,
+      "location": "Spruce Pine, North Carolina", "country": "United States", "anchorPrecision": "province",
+      "anchorBasis": "Natural Earth North Carolina province centroid; Spruce Pine is absent from the gazetteer and no mine coordinate is inferred",
+      "dateBasis": "September 27 storm impact in western North Carolina; company timeline confirms this date. This is not a claim of downstream Apple supply loss.",
+      "endBasis": "Storm-impact observation, not reopening or full recovery",
+      "zone": {"country": "United States", "names": ["North Carolina"]},
+      "sourceTitle": "The Quartz Corp: Spruce Pine Hurricane Helene timeline, September 27, 2024",
+      "sourceUrl": "https://www.thequartzcorp.com/articles/bringing-our-community-back-to-life-after-hurricane-helene",
+      "endSource": {"title": "The Quartz Corp: October 2, 2024 update; operations suspended but no critical downstream shortage anticipated", "url": "https://www.thequartzcorp.com/articles/update-on-hurricane-helene-impact-over-the-quartz-corp"}
+    }
+  ]
+}

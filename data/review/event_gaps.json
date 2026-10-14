@@ -1,5 +1,5 @@
 {
-  "policy": "Use verified editions and record gaps (user instruction); do not substitute another year's list",
+  "policy": "Verified editions; nearby-year proxies only when explicitly recorded in the user's M10 decision",
   "events": [
     {
       "eventId": "taiwan-2024",
@@ -8,6 +8,24 @@
       "source": {
         "title": "USGS: M7.4 earthquake south of Hualien",
         "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m9g4"
+      }
+    },
+    {
+      "eventId": "japan-korea-2019",
+      "snapshotYear": 2019,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "METI: update of licensing policies and procedures toward the Republic of Korea, July 1, 2019",
+        "url": "https://www.meti.go.jp/policy/external_economy/export_control_korea/index-en.html"
+      }
+    },
+    {
+      "eventId": "helene-2024",
+      "snapshotYear": 2024,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "The Quartz Corp: Spruce Pine Hurricane Helene timeline, September 27, 2024",
+        "url": "https://www.thequartzcorp.com/articles/bringing-our-community-back-to-life-after-hurricane-helene"
       }
     }
   ]

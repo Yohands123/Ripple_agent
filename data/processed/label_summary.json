@@ -12,19 +12,32 @@
   "carVariance": "OLS residual variance times [L + g' (X'X)^-1 g], g = sum of event design rows",
   "dayZeroPolicy": "Exact USGS timestamps aligned to US regular-session close for NYSE/NASDAQ; otherwise first benchmark session on/after local event date. Current exact-timestamp events avoid US early-close sessions.",
   "interpretation": "Statistically negative stock-market abnormal return; not a causal impact estimate or factory-output observation",
-  "snapshotPolicy": "Own-year procurement list, published retrospectively; not evidence that supplier membership was publicly known at the event date",
+  "snapshotPolicy": "Verified own-year lists, published retrospectively; 2011 uses the explicitly approved January 2012 company roster approximation. No FY2019/FY2024 substitution. Membership was not necessarily publicly known at the event date.",
   "exchangePolicy": "Pre-event registered-securities cover where verified; otherwise currently reported listing, flagged as not historically verified",
-  "rows": 1190,
+  "rows": 1708,
   "statusCounts": {
-    "mapping_unavailable": 400,
-    "ok": 733,
-    "missing_estimation_observations": 54,
-    "missing_event_observations": 3
+    "mapping_unavailable": 646,
+    "ok": 980,
+    "missing_estimation_observations": 71,
+    "missing_event_observations": 3,
+    "insufficient_market_calendar": 6,
+    "legacy_issuer_price_series_unverified": 2
   },
   "events": [
     {
       "eventId": "kumamoto-2016",
       "snapshotYear": 2016,
+      "cohort": {
+        "snapshotYear": 2016,
+        "eventYear": 2016,
+        "publicationYear": 2017,
+        "yearBasis": "Explicit 2016 procurement coverage; fiscal-year basis is not stated",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
       "rows": 209,
       "validSupplierLabels": 86,
       "validPeerLabels": 8,
@@ -33,6 +46,17 @@
     {
       "eventId": "covid-china-2020",
       "snapshotYear": 2020,
+      "cohort": {
+        "snapshotYear": 2020,
+        "eventYear": 2020,
+        "publicationYear": 2021,
+        "yearBasis": "explicit fiscal year",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
       "rows": 208,
       "validSupplierLabels": 121,
       "validPeerLabels": 8,
@@ -41,6 +65,17 @@
     {
       "eventId": "suez-2021",
       "snapshotYear": 2021,
+      "cohort": {
+        "snapshotYear": 2021,
+        "eventYear": 2021,
+        "publicationYear": 2022,
+        "yearBasis": "explicit fiscal year",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
       "rows": 196,
       "validSupplierLabels": 124,
       "validPeerLabels": 5,
@@ -49,6 +84,17 @@
     {
       "eventId": "shanghai-2022",
       "snapshotYear": 2022,
+      "cohort": {
+        "snapshotYear": 2022,
+        "eventYear": 2022,
+        "publicationYear": 2023,
+        "yearBasis": "explicit fiscal year",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
       "rows": 193,
       "validSupplierLabels": 122,
       "validPeerLabels": 5,
@@ -57,6 +103,17 @@
     {
       "eventId": "zhengzhou-2022",
       "snapshotYear": 2022,
+      "cohort": {
+        "snapshotYear": 2022,
+        "eventYear": 2022,
+        "publicationYear": 2023,
+        "yearBasis": "explicit fiscal year",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
       "rows": 192,
       "validSupplierLabels": 126,
       "validPeerLabels": 4,
@@ -65,10 +122,78 @@
     {
       "eventId": "red-sea-2023",
       "snapshotYear": 2023,
+      "cohort": {
+        "snapshotYear": 2023,
+        "eventYear": 2023,
+        "publicationYear": 2024,
+        "yearBasis": "explicit fiscal year",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
       "rows": 192,
       "validSupplierLabels": 119,
       "validPeerLabels": 5,
       "hits": 3
+    },
+    {
+      "eventId": "japan-2011",
+      "snapshotYear": 2011,
+      "cohort": {
+        "snapshotYear": 2011,
+        "eventYear": 2011,
+        "publicationYear": 2012,
+        "yearBasis": "Document title Apple Suppliers 2011; published January 2012; fiscal-year basis is not stated; company membership only",
+        "locationCoverage": "company-only",
+        "assumption": true,
+        "basis": "January 2012 company roster, retrospectively applied under M10",
+        "companyOnlyExportApproved": true,
+        "proxyApproved": false
+      },
+      "rows": 162,
+      "validSupplierLabels": 54,
+      "validPeerLabels": 6,
+      "hits": 0
+    },
+    {
+      "eventId": "thailand-2011",
+      "snapshotYear": 2011,
+      "cohort": {
+        "snapshotYear": 2011,
+        "eventYear": 2011,
+        "publicationYear": 2012,
+        "yearBasis": "Document title Apple Suppliers 2011; published January 2012; fiscal-year basis is not stated; company membership only",
+        "locationCoverage": "company-only",
+        "assumption": true,
+        "basis": "January 2012 company roster, retrospectively applied under M10",
+        "companyOnlyExportApproved": true,
+        "proxyApproved": false
+      },
+      "rows": 163,
+      "validSupplierLabels": 54,
+      "validPeerLabels": 6,
+      "hits": 1
+    },
+    {
+      "eventId": "russia-2022",
+      "snapshotYear": 2022,
+      "cohort": {
+        "snapshotYear": 2022,
+        "eventYear": 2022,
+        "publicationYear": 2023,
+        "yearBasis": "explicit fiscal year",
+        "locationCoverage": "disclosed locations",
+        "assumption": false,
+        "basis": "Own-year procurement coverage, published retrospectively",
+        "companyOnlyExportApproved": false,
+        "proxyApproved": false
+      },
+      "rows": 193,
+      "validSupplierLabels": 122,
+      "validPeerLabels": 5,
+      "hits": 7
     }
   ],
   "gaps": [],
@@ -80,6 +205,24 @@
       "source": {
         "title": "USGS: M7.4 earthquake south of Hualien",
         "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m9g4"
+      }
+    },
+    {
+      "eventId": "japan-korea-2019",
+      "snapshotYear": 2019,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "METI: update of licensing policies and procedures toward the Republic of Korea, July 1, 2019",
+        "url": "https://www.meti.go.jp/policy/external_economy/export_control_korea/index-en.html"
+      }
+    },
+    {
+      "eventId": "helene-2024",
+      "snapshotYear": 2024,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "The Quartz Corp: Spruce Pine Hurricane Helene timeline, September 27, 2024",
+        "url": "https://www.thequartzcorp.com/articles/bringing-our-community-back-to-life-after-hurricane-helene"
       }
     }
   ]

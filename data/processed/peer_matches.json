@@ -1084,6 +1084,446 @@
       ],
       "eventId": "red-sea-2023",
       "filedOn": "2023-02-24"
+    },
+    {
+      "ticker": "CEVA",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "CEVA INC",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1173489,
+      "verifiedIssuerNames": [
+        "CEVA INC",
+        "CEVA  INC",
+        "PARTHUSCEVA INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: CEVA INC",
+          "url": "https://data.sec.gov/submissions/CIK0001173489.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2010-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012310024774/0000950123-10-024774.txt"
+        }
+      ],
+      "eventId": "japan-2011",
+      "filedOn": "2010-03-15"
+    },
+    {
+      "ticker": "FORM",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "FORMFACTOR INC",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1039399,
+      "verifiedIssuerNames": [
+        "FORMFACTOR INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: FORMFACTOR INC",
+          "url": "https://data.sec.gov/submissions/CIK0001039399.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "eventId": "japan-2011",
+      "filedOn": "2011-02-17"
+    },
+    {
+      "ticker": "HIMX",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "Himax Technologies, Inc.",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1342338,
+      "verifiedIssuerNames": [
+        "Himax Technologies, Inc."
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: Himax Technologies, Inc.",
+          "url": "https://data.sec.gov/submissions/CIK0001342338.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2010-06-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010310001648/0000950103-10-001648.txt"
+        }
+      ],
+      "eventId": "japan-2011",
+      "filedOn": "2010-06-03"
+    },
+    {
+      "ticker": "PLXS",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "PLEXUS CORP",
+      "sic": "3672",
+      "industry": "PRINTED CIRCUIT BOARDS",
+      "cik": 785786,
+      "verifiedIssuerNames": [
+        "PLEXUS CORP"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: PLEXUS CORP",
+          "url": "https://data.sec.gov/submissions/CIK0000785786.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: PLEXUS CORP (2010-11-19)",
+          "url": "https://www.sec.gov/Archives/edgar/data/785786/000095012310107157/0000950123-10-107157.txt"
+        }
+      ],
+      "eventId": "japan-2011",
+      "filedOn": "2010-11-19"
+    },
+    {
+      "ticker": "BHE",
+      "exchange": "NYSE",
+      "benchmark": "^NYA",
+      "listedName": "BENCHMARK ELECTRONICS INC",
+      "sic": "3672",
+      "industry": "PRINTED CIRCUIT BOARDS",
+      "cik": 863436,
+      "verifiedIssuerNames": [
+        "BENCHMARK ELECTRONICS INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: BENCHMARK ELECTRONICS INC",
+          "url": "https://data.sec.gov/submissions/CIK0000863436.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: BENCHMARK ELECTRONICS INC (2011-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/863436/000114420411011119/0001144204-11-011119.txt"
+        }
+      ],
+      "eventId": "japan-2011",
+      "filedOn": "2011-02-25"
+    },
+    {
+      "ticker": "CLS",
+      "exchange": "NYSE",
+      "benchmark": "^NYA",
+      "listedName": "CELESTICA INC",
+      "sic": "3672",
+      "industry": "PRINTED CIRCUIT BOARDS",
+      "cik": 1030894,
+      "verifiedIssuerNames": [
+        "CELESTICA INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: CELESTICA INC",
+          "url": "https://data.sec.gov/submissions/CIK0001030894.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: CELESTICA INC (2010-03-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1030894/000104746910002628/0001047469-10-002628.txt"
+        }
+      ],
+      "eventId": "japan-2011",
+      "filedOn": "2010-03-23"
+    },
+    {
+      "ticker": "MX",
+      "exchange": "NYSE",
+      "benchmark": "^NYA",
+      "listedName": "MAGNACHIP SEMICONDUCTOR Corp",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1325702,
+      "verifiedIssuerNames": [
+        "MAGNACHIP SEMICONDUCTOR Corp",
+        "MAGNACHIP SEMICONDUCTOR Corp",
+        "MAGNACHIP SEMICONDUCTOR LLC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: MAGNACHIP SEMICONDUCTOR Corp",
+          "url": "https://data.sec.gov/submissions/CIK0001325702.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2011-03-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312511071056/0001193125-11-071056.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2011-03-18"
+    },
+    {
+      "ticker": "CEVA",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "CEVA INC",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1173489,
+      "verifiedIssuerNames": [
+        "CEVA INC",
+        "CEVA  INC",
+        "PARTHUSCEVA INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: CEVA INC",
+          "url": "https://data.sec.gov/submissions/CIK0001173489.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2011-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012311025581/0000950123-11-025581.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2011-03-15"
+    },
+    {
+      "ticker": "FORM",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "FORMFACTOR INC",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1039399,
+      "verifiedIssuerNames": [
+        "FORMFACTOR INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: FORMFACTOR INC",
+          "url": "https://data.sec.gov/submissions/CIK0001039399.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2011-02-17"
+    },
+    {
+      "ticker": "HIMX",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "Himax Technologies, Inc.",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1342338,
+      "verifiedIssuerNames": [
+        "Himax Technologies, Inc."
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: Himax Technologies, Inc.",
+          "url": "https://data.sec.gov/submissions/CIK0001342338.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2011-05-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010311001944/0000950103-11-001944.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2011-05-20"
+    },
+    {
+      "ticker": "PLXS",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "PLEXUS CORP",
+      "sic": "3672",
+      "industry": "PRINTED CIRCUIT BOARDS",
+      "cik": 785786,
+      "verifiedIssuerNames": [
+        "PLEXUS CORP"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: PLEXUS CORP",
+          "url": "https://data.sec.gov/submissions/CIK0000785786.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: PLEXUS CORP (2010-11-19)",
+          "url": "https://www.sec.gov/Archives/edgar/data/785786/000095012310107157/0000950123-10-107157.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2010-11-19"
+    },
+    {
+      "ticker": "BHE",
+      "exchange": "NYSE",
+      "benchmark": "^NYA",
+      "listedName": "BENCHMARK ELECTRONICS INC",
+      "sic": "3672",
+      "industry": "PRINTED CIRCUIT BOARDS",
+      "cik": 863436,
+      "verifiedIssuerNames": [
+        "BENCHMARK ELECTRONICS INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: BENCHMARK ELECTRONICS INC",
+          "url": "https://data.sec.gov/submissions/CIK0000863436.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: BENCHMARK ELECTRONICS INC (2011-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/863436/000114420411011119/0001144204-11-011119.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2011-02-25"
+    },
+    {
+      "ticker": "CLS",
+      "exchange": "NYSE",
+      "benchmark": "^NYA",
+      "listedName": "CELESTICA INC",
+      "sic": "3672",
+      "industry": "PRINTED CIRCUIT BOARDS",
+      "cik": 1030894,
+      "verifiedIssuerNames": [
+        "CELESTICA INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: CELESTICA INC",
+          "url": "https://data.sec.gov/submissions/CIK0001030894.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: CELESTICA INC (2011-03-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1030894/000104746911002599/0001047469-11-002599.txt"
+        }
+      ],
+      "eventId": "thailand-2011",
+      "filedOn": "2011-03-24"
+    },
+    {
+      "ticker": "FORM",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "FORMFACTOR INC",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1039399,
+      "verifiedIssuerNames": [
+        "FORMFACTOR INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: FORMFACTOR INC",
+          "url": "https://data.sec.gov/submissions/CIK0001039399.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "eventId": "russia-2022",
+      "filedOn": "2022-02-18"
+    },
+    {
+      "ticker": "HIMX",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "Himax Technologies, Inc.",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1342338,
+      "verifiedIssuerNames": [
+        "Himax Technologies, Inc."
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: Himax Technologies, Inc.",
+          "url": "https://data.sec.gov/submissions/CIK0001342338.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "eventId": "russia-2022",
+      "filedOn": "2021-03-31"
+    },
+    {
+      "ticker": "IMOS",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "CHIPMOS TECHNOLOGIES INC",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1123134,
+      "verifiedIssuerNames": [
+        "CHIPMOS TECHNOLOGIES INC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: CHIPMOS TECHNOLOGIES INC",
+          "url": "https://data.sec.gov/submissions/CIK0001123134.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "eventId": "russia-2022",
+      "filedOn": "2021-04-20"
+    },
+    {
+      "ticker": "CAMT",
+      "exchange": "NASDAQ",
+      "benchmark": "^IXIC",
+      "listedName": "CAMTEK LTD",
+      "sic": "3827",
+      "industry": "OPTICAL INSTRUMENTS & LENSES",
+      "cik": 1109138,
+      "verifiedIssuerNames": [
+        "CAMTEK LTD"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: CAMTEK LTD",
+          "url": "https://data.sec.gov/submissions/CIK0001109138.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: CAMTEK LTD (2021-03-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1109138/000117891321001065/0001178913-21-001065.txt"
+        }
+      ],
+      "eventId": "russia-2022",
+      "filedOn": "2021-03-17"
+    },
+    {
+      "ticker": "MX",
+      "exchange": "NYSE",
+      "benchmark": "^NYA",
+      "listedName": "MAGNACHIP SEMICONDUCTOR Corp",
+      "sic": "3674",
+      "industry": "SEMICONDUCTORS & RELATED DEVICES",
+      "cik": 1325702,
+      "verifiedIssuerNames": [
+        "MAGNACHIP SEMICONDUCTOR Corp",
+        "MAGNACHIP SEMICONDUCTOR Corp",
+        "MAGNACHIP SEMICONDUCTOR LLC"
+      ],
+      "sources": [
+        {
+          "title": "SEC issuer exchange and SIC: MAGNACHIP SEMICONDUCTOR Corp",
+          "url": "https://data.sec.gov/submissions/CIK0001325702.json"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2022-02-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312522050017/0001193125-22-050017.txt"
+        }
+      ],
+      "eventId": "russia-2022",
+      "filedOn": "2022-02-23"
     }
   ],
   "matches": [
@@ -5307,6 +5747,1518 @@
         }
       ],
       "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Diodes Inc.",
+      "supplierTicker": "DIOD",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-28",
+      "peerClassificationFiledOn": "2010-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2011-02-28)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/0000950123-11-019939.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2010-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012310024774/0000950123-10-024774.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Diodes Inc.",
+      "supplierTicker": "DIOD",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-28",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2011-02-28)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/0000950123-11-019939.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Diodes Inc.",
+      "supplierTicker": "DIOD",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-28",
+      "peerClassificationFiledOn": "2010-06-03",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2011-02-28)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/0000950123-11-019939.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2010-06-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010310001648/0000950103-10-001648.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Flextronics International Ltd.",
+      "supplierTicker": "FLEX",
+      "peerTicker": "PLXS",
+      "exchange": "NASDAQ",
+      "sic": "3672",
+      "supplierClassificationFiledOn": "2010-05-24",
+      "peerClassificationFiledOn": "2010-11-19",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: FLEX LTD. (2010-05-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/866374/000095012310052098/0000950123-10-052098.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: PLEXUS CORP (2010-11-19)",
+          "url": "https://www.sec.gov/Archives/edgar/data/785786/000095012310107157/0000950123-10-107157.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Intel Corporation",
+      "supplierTicker": "INTC",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2010-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: INTEL CORP (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/0000950123-11-015783.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2010-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012310024774/0000950123-10-024774.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Intel Corporation",
+      "supplierTicker": "INTC",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: INTEL CORP (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/0000950123-11-015783.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Intel Corporation",
+      "supplierTicker": "INTC",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2010-06-03",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: INTEL CORP (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/0000950123-11-015783.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2010-06-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010310001648/0000950103-10-001648.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Jabil Circuit, Inc.",
+      "supplierTicker": "JBL",
+      "peerTicker": "BHE",
+      "exchange": "NYSE",
+      "sic": "3672",
+      "supplierClassificationFiledOn": "2010-10-21",
+      "peerClassificationFiledOn": "2011-02-25",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: JABIL INC (2010-10-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/898293/000095012310094969/0000950123-10-094969.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: BENCHMARK ELECTRONICS INC (2011-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/863436/000114420411011119/0001144204-11-011119.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Jabil Circuit, Inc.",
+      "supplierTicker": "JBL",
+      "peerTicker": "CLS",
+      "exchange": "NYSE",
+      "sic": "3672",
+      "supplierClassificationFiledOn": "2010-10-21",
+      "peerClassificationFiledOn": "2010-03-23",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: JABIL INC (2010-10-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/898293/000095012310094969/0000950123-10-094969.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CELESTICA INC (2010-03-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1030894/000104746910002628/0001047469-10-002628.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Micron Technology, Inc.",
+      "supplierTicker": "MU",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-10-26",
+      "peerClassificationFiledOn": "2010-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: MICRON TECHNOLOGY INC (2010-10-26)",
+          "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/0000723125-10-000174.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2010-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012310024774/0000950123-10-024774.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Micron Technology, Inc.",
+      "supplierTicker": "MU",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-10-26",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: MICRON TECHNOLOGY INC (2010-10-26)",
+          "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/0000723125-10-000174.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Micron Technology, Inc.",
+      "supplierTicker": "MU",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-10-26",
+      "peerClassificationFiledOn": "2010-06-03",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: MICRON TECHNOLOGY INC (2010-10-26)",
+          "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/0000723125-10-000174.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2010-06-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010310001648/0000950103-10-001648.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "ON Semiconductor Corporation",
+      "supplierTicker": "ON",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-24",
+      "peerClassificationFiledOn": "2010-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ON SEMICONDUCTOR CORP (2011-02-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1097864/000119312511045204/0001193125-11-045204.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2010-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012310024774/0000950123-10-024774.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "ON Semiconductor Corporation",
+      "supplierTicker": "ON",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-24",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ON SEMICONDUCTOR CORP (2011-02-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1097864/000119312511045204/0001193125-11-045204.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "ON Semiconductor Corporation",
+      "supplierTicker": "ON",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-24",
+      "peerClassificationFiledOn": "2010-06-03",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ON SEMICONDUCTOR CORP (2011-02-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1097864/000119312511045204/0001193125-11-045204.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2010-06-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010310001648/0000950103-10-001648.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Skyworks Solutions Inc.",
+      "supplierTicker": "SWKS",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-29",
+      "peerClassificationFiledOn": "2010-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2010-11-29)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/0000950123-10-109435.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2010-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012310024774/0000950123-10-024774.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Skyworks Solutions Inc.",
+      "supplierTicker": "SWKS",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-29",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2010-11-29)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/0000950123-10-109435.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Skyworks Solutions Inc.",
+      "supplierTicker": "SWKS",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-29",
+      "peerClassificationFiledOn": "2010-06-03",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2010-11-29)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/0000950123-10-109435.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2010-06-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010310001648/0000950103-10-001648.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Advanced Micro Devices, Inc.",
+      "supplierTicker": "AMD",
+      "peerTicker": "MX",
+      "exchange": "NYSE",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2011-03-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ADVANCED MICRO DEVICES INC (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/2488/000119312511040392/0001193125-11-040392.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2011-03-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312511071056/0001193125-11-071056.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Analog Devices, Inc.",
+      "supplierTicker": "ADI",
+      "peerTicker": "MX",
+      "exchange": "NYSE",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-22",
+      "peerClassificationFiledOn": "2011-03-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ANALOG DEVICES INC (2010-11-22)",
+          "url": "https://www.sec.gov/Archives/edgar/data/6281/000095012310107816/0000950123-10-107816.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2011-03-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312511071056/0001193125-11-071056.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Diodes Inc.",
+      "supplierTicker": "DIOD",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-28",
+      "peerClassificationFiledOn": "2011-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2011-02-28)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/0000950123-11-019939.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2011-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012311025581/0000950123-11-025581.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Diodes Inc.",
+      "supplierTicker": "DIOD",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-28",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2011-02-28)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/0000950123-11-019939.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Diodes Inc.",
+      "supplierTicker": "DIOD",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-28",
+      "peerClassificationFiledOn": "2011-05-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2011-02-28)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/0000950123-11-019939.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2011-05-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010311001944/0000950103-11-001944.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Flextronics International Ltd.",
+      "supplierTicker": "FLEX",
+      "peerTicker": "PLXS",
+      "exchange": "NASDAQ",
+      "sic": "3672",
+      "supplierClassificationFiledOn": "2011-05-23",
+      "peerClassificationFiledOn": "2010-11-19",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: FLEX LTD. (2011-05-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/866374/000104746911005449/0001047469-11-005449.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: PLEXUS CORP (2010-11-19)",
+          "url": "https://www.sec.gov/Archives/edgar/data/785786/000095012310107157/0000950123-10-107157.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Intel Corporation",
+      "supplierTicker": "INTC",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2011-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: INTEL CORP (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/0000950123-11-015783.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2011-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012311025581/0000950123-11-025581.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Intel Corporation",
+      "supplierTicker": "INTC",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: INTEL CORP (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/0000950123-11-015783.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Intel Corporation",
+      "supplierTicker": "INTC",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-18",
+      "peerClassificationFiledOn": "2011-05-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: INTEL CORP (2011-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/0000950123-11-015783.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2011-05-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010311001944/0000950103-11-001944.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Jabil Circuit, Inc.",
+      "supplierTicker": "JBL",
+      "peerTicker": "BHE",
+      "exchange": "NYSE",
+      "sic": "3672",
+      "supplierClassificationFiledOn": "2010-10-21",
+      "peerClassificationFiledOn": "2011-02-25",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: JABIL INC (2010-10-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/898293/000095012310094969/0000950123-10-094969.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: BENCHMARK ELECTRONICS INC (2011-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/863436/000114420411011119/0001144204-11-011119.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Jabil Circuit, Inc.",
+      "supplierTicker": "JBL",
+      "peerTicker": "CLS",
+      "exchange": "NYSE",
+      "sic": "3672",
+      "supplierClassificationFiledOn": "2010-10-21",
+      "peerClassificationFiledOn": "2011-03-24",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: JABIL INC (2010-10-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/898293/000095012310094969/0000950123-10-094969.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CELESTICA INC (2011-03-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1030894/000104746911002599/0001047469-11-002599.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Micron Technology, Inc.",
+      "supplierTicker": "MU",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-10-26",
+      "peerClassificationFiledOn": "2011-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: MICRON TECHNOLOGY INC (2010-10-26)",
+          "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/0000723125-10-000174.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2011-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012311025581/0000950123-11-025581.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Micron Technology, Inc.",
+      "supplierTicker": "MU",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-10-26",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: MICRON TECHNOLOGY INC (2010-10-26)",
+          "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/0000723125-10-000174.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Micron Technology, Inc.",
+      "supplierTicker": "MU",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-10-26",
+      "peerClassificationFiledOn": "2011-05-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: MICRON TECHNOLOGY INC (2010-10-26)",
+          "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/0000723125-10-000174.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2011-05-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010311001944/0000950103-11-001944.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "ON Semiconductor Corporation",
+      "supplierTicker": "ON",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-24",
+      "peerClassificationFiledOn": "2011-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ON SEMICONDUCTOR CORP (2011-02-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1097864/000119312511045204/0001193125-11-045204.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2011-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012311025581/0000950123-11-025581.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "ON Semiconductor Corporation",
+      "supplierTicker": "ON",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-24",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ON SEMICONDUCTOR CORP (2011-02-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1097864/000119312511045204/0001193125-11-045204.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "ON Semiconductor Corporation",
+      "supplierTicker": "ON",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-24",
+      "peerClassificationFiledOn": "2011-05-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ON SEMICONDUCTOR CORP (2011-02-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1097864/000119312511045204/0001193125-11-045204.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2011-05-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010311001944/0000950103-11-001944.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Skyworks Solutions Inc.",
+      "supplierTicker": "SWKS",
+      "peerTicker": "CEVA",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-29",
+      "peerClassificationFiledOn": "2011-03-15",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2010-11-29)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/0000950123-10-109435.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CEVA INC (2011-03-15)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1173489/000095012311025581/0000950123-11-025581.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Skyworks Solutions Inc.",
+      "supplierTicker": "SWKS",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-29",
+      "peerClassificationFiledOn": "2011-02-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2010-11-29)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/0000950123-10-109435.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2011-02-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000104746911001026/0001047469-11-001026.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Skyworks Solutions Inc.",
+      "supplierTicker": "SWKS",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2010-11-29",
+      "peerClassificationFiledOn": "2011-05-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2010-11-29)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/0000950123-10-109435.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2011-05-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000095010311001944/0000950103-11-001944.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "STMicroelectronics",
+      "supplierTicker": "STM",
+      "peerTicker": "MX",
+      "exchange": "NYSE",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-03-07",
+      "peerClassificationFiledOn": "2011-03-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: STMicroelectronics N.V. (2011-03-07)",
+          "url": "https://www.sec.gov/Archives/edgar/data/932787/000095012311022652/0000950123-11-022652.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2011-03-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312511071056/0001193125-11-071056.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Texas Instruments Inc.",
+      "supplierTicker": "TXN",
+      "peerTicker": "MX",
+      "exchange": "NYSE",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2011-02-25",
+      "peerClassificationFiledOn": "2011-03-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: TEXAS INSTRUMENTS INC (2011-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/97476/000114036111012312/0001140361-11-012312.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2011-03-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312511071056/0001193125-11-071056.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "supplierTicker": "AOSL",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-08-30",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ALPHA & OMEGA SEMICONDUCTOR Ltd (2021-08-30)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1387467/000138746721000063/0001387467-21-000063.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "supplierTicker": "AOSL",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-08-30",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ALPHA & OMEGA SEMICONDUCTOR Ltd (2021-08-30)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1387467/000138746721000063/0001387467-21-000063.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "supplierTicker": "AOSL",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-08-30",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ALPHA & OMEGA SEMICONDUCTOR Ltd (2021-08-30)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1387467/000138746721000063/0001387467-21-000063.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Analog Devices Incorporated",
+      "supplierTicker": "ADI",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-12-03",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ANALOG DEVICES INC (2021-12-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628121000294/0000006281-21-000294.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Analog Devices Incorporated",
+      "supplierTicker": "ADI",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-12-03",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ANALOG DEVICES INC (2021-12-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628121000294/0000006281-21-000294.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Analog Devices Incorporated",
+      "supplierTicker": "ADI",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-12-03",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: ANALOG DEVICES INC (2021-12-03)",
+          "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628121000294/0000006281-21-000294.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Cirrus Logic Incorporated",
+      "supplierTicker": "CRUS",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-05-21",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: CIRRUS LOGIC, INC. (2021-05-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/772406/000077240621000013/0000772406-21-000013.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Cirrus Logic Incorporated",
+      "supplierTicker": "CRUS",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-05-21",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: CIRRUS LOGIC, INC. (2021-05-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/772406/000077240621000013/0000772406-21-000013.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Cirrus Logic Incorporated",
+      "supplierTicker": "CRUS",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-05-21",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: CIRRUS LOGIC, INC. (2021-05-21)",
+          "url": "https://www.sec.gov/Archives/edgar/data/772406/000077240621000013/0000772406-21-000013.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Coherent Corporation",
+      "supplierTicker": "COHR",
+      "peerTicker": "CAMT",
+      "exchange": "NASDAQ",
+      "sic": "3827",
+      "supplierClassificationFiledOn": "2021-08-20",
+      "peerClassificationFiledOn": "2021-03-17",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: COHERENT CORP. (2021-08-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031821000017/0000820318-21-000017.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CAMTEK LTD (2021-03-17)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1109138/000117891321001065/0001178913-21-001065.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Diodes Incorporated",
+      "supplierTicker": "DIOD",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-18",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095017022001438/0000950170-22-001438.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Diodes Incorporated",
+      "supplierTicker": "DIOD",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-18",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095017022001438/0000950170-22-001438.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Diodes Incorporated",
+      "supplierTicker": "DIOD",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-18",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: DIODES INC /DEL/ (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/29002/000095017022001438/0000950170-22-001438.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lattice Semiconductor Corp.",
+      "supplierTicker": "LSCC",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-23",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: LATTICE SEMICONDUCTOR CORP (2022-02-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/855658/000143774922004190/0001437749-22-004190.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lattice Semiconductor Corp.",
+      "supplierTicker": "LSCC",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-23",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: LATTICE SEMICONDUCTOR CORP (2022-02-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/855658/000143774922004190/0001437749-22-004190.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lattice Semiconductor Corp.",
+      "supplierTicker": "LSCC",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-23",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: LATTICE SEMICONDUCTOR CORP (2022-02-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/855658/000143774922004190/0001437749-22-004190.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "NXP Semiconductors N.V.",
+      "supplierTicker": "NXPI",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-02-25",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: NXP Semiconductors N.V. (2021-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1413447/000141344721000011/0001413447-21-000011.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "NXP Semiconductors N.V.",
+      "supplierTicker": "NXPI",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-02-25",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: NXP Semiconductors N.V. (2021-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1413447/000141344721000011/0001413447-21-000011.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "NXP Semiconductors N.V.",
+      "supplierTicker": "NXPI",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-02-25",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: NXP Semiconductors N.V. (2021-02-25)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1413447/000141344721000011/0001413447-21-000011.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Power Integrations Incorporated",
+      "supplierTicker": "POWI",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-07",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: POWER INTEGRATIONS INC (2022-02-07)",
+          "url": "https://www.sec.gov/Archives/edgar/data/833640/000083364022000021/0000833640-22-000021.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Power Integrations Incorporated",
+      "supplierTicker": "POWI",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-07",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: POWER INTEGRATIONS INC (2022-02-07)",
+          "url": "https://www.sec.gov/Archives/edgar/data/833640/000083364022000021/0000833640-22-000021.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Power Integrations Incorporated",
+      "supplierTicker": "POWI",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-07",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: POWER INTEGRATIONS INC (2022-02-07)",
+          "url": "https://www.sec.gov/Archives/edgar/data/833640/000083364022000021/0000833640-22-000021.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Qorvo Incorporated",
+      "supplierTicker": "QRVO",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-05-24",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: Qorvo, Inc. (2021-05-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1604778/000160477821000032/0001604778-21-000032.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Qorvo Incorporated",
+      "supplierTicker": "QRVO",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-05-24",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: Qorvo, Inc. (2021-05-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1604778/000160477821000032/0001604778-21-000032.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Qorvo Incorporated",
+      "supplierTicker": "QRVO",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-05-24",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: Qorvo, Inc. (2021-05-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1604778/000160477821000032/0001604778-21-000032.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Skyworks Solutions Incorporated",
+      "supplierTicker": "SWKS",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-11-24",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2021-11-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412721000058/0000004127-21-000058.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Skyworks Solutions Incorporated",
+      "supplierTicker": "SWKS",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-11-24",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2021-11-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412721000058/0000004127-21-000058.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Skyworks Solutions Incorporated",
+      "supplierTicker": "SWKS",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-11-24",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: SKYWORKS SOLUTIONS, INC. (2021-11-24)",
+          "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412721000058/0000004127-21-000058.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Taiwan Semiconductor Manufacturing Company Limited",
+      "supplierTicker": "TSM",
+      "peerTicker": "MX",
+      "exchange": "NYSE",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2021-04-16",
+      "peerClassificationFiledOn": "2022-02-23",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD (2021-04-16)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312521118512/0001193125-21-118512.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: MAGNACHIP SEMICONDUCTOR Corp (2022-02-23)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1325702/000119312522050017/0001193125-22-050017.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Texas Instruments Incorporated",
+      "supplierTicker": "TXN",
+      "peerTicker": "FORM",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-04",
+      "peerClassificationFiledOn": "2022-02-18",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: TEXAS INSTRUMENTS INC (2022-02-04)",
+          "url": "https://www.sec.gov/Archives/edgar/data/97476/000009747622000009/0000097476-22-000009.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: FORMFACTOR INC (2022-02-18)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1039399/000103939922000014/0001039399-22-000014.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Texas Instruments Incorporated",
+      "supplierTicker": "TXN",
+      "peerTicker": "HIMX",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-04",
+      "peerClassificationFiledOn": "2021-03-31",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: TEXAS INSTRUMENTS INC (2022-02-04)",
+          "url": "https://www.sec.gov/Archives/edgar/data/97476/000009747622000009/0000097476-22-000009.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: Himax Technologies, Inc. (2021-03-31)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1342338/000110465921044259/0001104659-21-044259.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Texas Instruments Incorporated",
+      "supplierTicker": "TXN",
+      "peerTicker": "IMOS",
+      "exchange": "NASDAQ",
+      "sic": "3674",
+      "supplierClassificationFiledOn": "2022-02-04",
+      "peerClassificationFiledOn": "2021-04-20",
+      "sources": [
+        {
+          "title": "SEC pre-event annual filing: TEXAS INSTRUMENTS INC (2022-02-04)",
+          "url": "https://www.sec.gov/Archives/edgar/data/97476/000009747622000009/0000097476-22-000009.txt"
+        },
+        {
+          "title": "SEC pre-event annual filing: CHIPMOS TECHNOLOGIES INC (2021-04-20)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1123134/000119312521121875/0001193125-21-121875.txt"
+        }
+      ],
+      "selection": "First three alphabetic candidates with identical pre-event exchange and four-digit SIC; selection uses no event returns"
     }
   ],
   "unmatched": [
@@ -8712,6 +10664,1126 @@
     },
     {
       "eventId": "red-sea-2023",
+      "supplier": "Zhuhai CosMX Battery Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "AAC Technologies Holdings Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Advanced Micro Devices, Inc.",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Amphenol Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Analog Devices, Inc.",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Broadcom Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "ByD Company Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Career Technology (MFG.) Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Catcher Technology Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Cheng Loong Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Cheng Uei Precision Industry Co., Ltd. (Foxlink)",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Compeq Manufacturing Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Darfon Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Delta Electronics Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Dynapack International Technology",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "FLEXium Interconnect, Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Foster Electric Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Fujikura Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Hon Hai Precision Industry Co., Ltd. (Foxconn)",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Ibiden Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Infineon Technologies AG",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Interflex Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Japan Aviation Electronics Industry, Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "LG Chem, Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "LG Display Co., Ltd.",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "LG Innotek Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Lite-On Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Longwell Company",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Microchip Technology Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Murata Manufacturing Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Pegatron Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Primax Electronics Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Qualcomm Incorporated",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Quanta Computer Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Renesas Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "ROHM Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Samsung Electro-Mechanics Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Samsung Electronics Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Sharp Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Shin Zu Shing Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Simplo Technology Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Sony Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "STMicroelectronics",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Sumida Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Sumitomo Electric Industries, Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Sunrex Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Taiyo Yuden Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "TDK Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Texas Instruments Inc.",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "TPK Holding Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Tripod Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "TXC Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "Western Digital Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplier": "yageo Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "AAC Technologies Holdings Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Amphenol Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Broadcom Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "ByD Company Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Career Technology (MFG.) Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Catcher Technology Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Cheng Loong Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Cheng Uei Precision Industry Co., Ltd. (Foxlink)",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Compeq Manufacturing Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Darfon Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Delta Electronics Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Dynapack International Technology",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "FLEXium Interconnect, Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Foster Electric Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Fujikura Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Hon Hai Precision Industry Co., Ltd. (Foxconn)",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Ibiden Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Infineon Technologies AG",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Interflex Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Japan Aviation Electronics Industry, Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "LG Chem, Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "LG Display Co., Ltd.",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "LG Innotek Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Lite-On Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Longwell Company",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Microchip Technology Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Murata Manufacturing Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Pegatron Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Primax Electronics Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Qualcomm Incorporated",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Quanta Computer Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Renesas Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "ROHM Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Samsung Electro-Mechanics Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Samsung Electronics Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Sharp Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Shin Zu Shing Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Simplo Technology Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Sony Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Sumida Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Sumitomo Electric Industries, Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Sunrex Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Taiyo Yuden Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "TDK Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "TPK Holding Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Tripod Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "TXC Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "Western Digital Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplier": "yageo Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "3M",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Alps Alpine Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Amkor Technology Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Amphenol Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "ams-OSRAM AG",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "AT & S Austria Technologie & Systemtechnik AG",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Baotou Inst Magnetic New Materials Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Beijing Zhong Ke San Huan High-Tech Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Bichamp Cutting Technology (Hunan) Co., Ltd",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "BOE Technology Group Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Broadcom Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "BYD Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Career Technology (Mfg.) Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Catcher Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Cheng Uei Precision Industry Company Limited (Foxlink)",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Compal Electronics Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Compeq Manufacturing Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Corning Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Cowell E Holdings Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Delta Electronics Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Derkwoo Electronics Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Dexerials Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Dynapack International Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Flex Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Flexium Interconnect Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Fujikura Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Genius Electronic Optical Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "GigaDevice Semiconductor Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Global Lighting Technologies",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "GoerTek Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Hirose Electric Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Hitachi Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Hon Hai Precision Industry Company Limited (Foxconn)",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Infineon Technologies AG",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Intel Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Jabil Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Japan Aviation Electronics Industry Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Japan Display Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "JCET Group Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Jiangsu Gian Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Keiwa Inc.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Kioxia Holdings Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Knowles Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Kyocera Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Largan Precision Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lens Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "LG Chem Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "LG Display Company Limited",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "LG Innotek Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lingyi iTech (Guangdong) Company",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lite-On Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "LOTES Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Lumentum Holdings Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Luxshare Precision Industry Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "LX Semicon Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "MicroChip Technology Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Micron Technology Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Murata Manufacturing Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "MYS Group Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Nanya Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Nidec Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Nippon Light Metal Holdings Company, Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Nissha Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Nitto Denko Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Novatek Microelectronics Corp.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "ON Semiconductor Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Parade Technologies Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Pegatron Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "POSCO International",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Primax Electronics Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "QUALCOMM Incorporated",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Quanta Computer Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Radiant Opto-Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Renesas Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Rohm Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Samsung Electro-Mechanics Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Samsung Electronics Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Samsung SDI Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Seoul Semiconductor Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shanghai Industrial Holdings Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sharp Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shenzhen Deren Electronic Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shenzhen Desay Battery Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shenzhen Everwin Precision Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shenzhen Sunway Communication Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shenzhen YUTO Packaging Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Shin Zu Shing Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Simplo Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "SK hynix Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Solvay S.A.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sony Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "STMicroelectronics N.V.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Stora Enso Oyj",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sumida Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sumitomo Chemical Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sumitomo Electric Industries Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sunrex Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Sunwoda Electronic Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Suzhou Anjie Technology Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Suzhou Dongshan Precision Manufacturing Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Synaptics Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Taiwan Surface Mounting Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Taiyo Yuden Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "TDK Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "The Chemours Company",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Tongda Group Holdings Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Toyoda Gosei Co., Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "TPK Holding Company Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Tripod Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "TXC Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Unimicron Technology Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Unitech Printed Circuit Board Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Viavi Solutions Incorporated",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Western Digital Corporation",
+      "reason": "No eligible same-exchange and same-SIC candidate"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Winbond Electronics Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Wingtech Technology Co., Ltd.",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Winox Holdings Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Wistron Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Yageo Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Young Poong Corporation",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplier": "Zhen Ding Technology Holding Limited",
+      "reason": "Verified pre-event SIC or exchange unavailable"
+    },
+    {
+      "eventId": "russia-2022",
       "supplier": "Zhuhai CosMX Battery Co., Ltd.",
       "reason": "Verified pre-event SIC or exchange unavailable"
     }

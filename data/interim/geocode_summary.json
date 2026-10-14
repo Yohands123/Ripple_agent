@@ -3,6 +3,13 @@
   "naturalEarthVersion": "5.1.2",
   "years": [
     {
+      "snapshotYear": 2011,
+      "rows": 156,
+      "counts": {
+        "unmatched": 156
+      }
+    },
+    {
       "snapshotYear": 2016,
       "rows": 769,
       "counts": {

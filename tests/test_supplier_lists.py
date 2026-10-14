@@ -127,3 +127,17 @@ def test_cached_pdf_cannot_be_relabelled_with_a_different_year():
         pytest.skip("Raw PDFs are intentionally not committed")
     with pytest.raises(ParseError, match="Expected FY2021, document covers FY2020"):
         parse_pdf(path, 2021)
+
+
+def test_legacy_roster_keeps_companies_without_fabricating_factory_locations():
+    from pipeline.supplier_lists import parse_company_roster
+    path = Path("data/raw/supplier_lists/suppliers_2011.pdf")
+    if not path.exists():
+        pytest.skip("Raw source PDFs are intentionally not committed")
+    rows = parse_company_roster(path, 2011)
+    assert len(rows) == 156
+    assert {r["sourcePage"] for r in rows} == {1, 2}
+    assert all(r["location"] == r["country"] == "" and r["locationRole"] == "undisclosed" for r in rows)
+    assert "Hon Hai Precision Industry Co., Ltd. (Foxconn)" in {r["supplier"] for r in rows}
+    with pytest.raises(ParseError):
+        parse_company_roster(path, 2012)

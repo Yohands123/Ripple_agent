@@ -22,3 +22,10 @@ def test_unverified_or_ambiguous_exchange_is_not_guessed():
     assert parse_evidence(document("NASDAQ and NYSE"), 123)["exchange"] is None
     with pytest.raises(ValueError):
         parse_evidence(document(), 456)
+
+
+def test_archive_selection_reaches_filings_before_2011_events():
+    from pipeline.industry_history import archive_relevant
+    archive = {"filingFrom": "2000-01-01", "filingTo": "2012-12-31"}
+    assert archive_relevant(archive, [{"start": "2011-03-11"}])
+    assert not archive_relevant(archive, [{"start": "2022-03-28"}])

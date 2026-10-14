@@ -71,6 +71,38 @@
       "issuerId": "amd",
       "partType": "processors and graphics semiconductors",
       "partTypeSource": {
+        "title": "ADVANCED MICRO DEVICES INC annual report, FY2023, filed 2024-01-31",
+        "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248824000012/amd-20231230.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-01-31",
+      "reportDate": "2023-12-30",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Advanced Micro Devices Incorporated",
+      "issuerId": "amd",
+      "partType": "processors and graphics semiconductors",
+      "partTypeSource": {
+        "title": "ADVANCED MICRO DEVICES INC annual report, FY2010, filed 2011-02-18",
+        "url": "https://www.sec.gov/Archives/edgar/data/2488/000119312511040392/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-18",
+      "reportDate": "2010-12-25",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Advanced Micro Devices Incorporated",
+      "issuerId": "amd",
+      "partType": "processors and graphics semiconductors",
+      "partTypeSource": {
         "title": "ADVANCED MICRO DEVICES INC annual report, FY2020, filed 2021-01-29",
         "url": "https://www.sec.gov/Archives/edgar/data/2488/000162828021001185/amd-20201226.htm"
       },
@@ -96,6 +128,29 @@
       "filedOn": "2015-11-24",
       "reportDate": "2015-10-02",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Skyworks Solutions Incorporated",
+      "issuerId": "skyworks",
+      "partType": "RF and analog semiconductors",
+      "partTypeSource": {
+        "title": "SKYWORKS SOLUTIONS, INC. annual report, FY2018, filed 2018-11-15",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412718000046/fy1810k92818.htm"
+      },
+      "appleRevenueShare": 0.47,
+      "appleRevenueShareSource": {
+        "title": "SKYWORKS SOLUTIONS, INC. annual report, FY2018, filed 2018-11-15",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412718000046/fy1810k92818.htm"
+      },
+      "revenueEvidence": {
+        "reportedYear": 2018,
+        "percentage": 47.0,
+        "method": "named Apple revenue disclosure; ordered years and percentages"
+      },
+      "filedOn": "2018-11-15",
+      "reportDate": "2018-09-28",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -191,6 +246,22 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Skyworks Solutions Incorporated",
+      "issuerId": "skyworks",
+      "partType": "RF and analog semiconductors",
+      "partTypeSource": {
+        "title": "SKYWORKS SOLUTIONS INC annual report, FY2010, filed 2010-11-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000095012310109435/a57120e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-11-29",
+      "reportDate": "2010-10-01",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Analog Devices Incorporated",
       "issuerId": "adi",
       "partType": "analog and mixed-signal semiconductors",
@@ -204,6 +275,22 @@
       "filedOn": "2015-11-24",
       "reportDate": "2015-10-31",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Analog Devices Incorporated",
+      "issuerId": "adi",
+      "partType": "analog and mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "ANALOG DEVICES INC annual report, FY2018, filed 2018-11-27",
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628118000126/adi-1132018x10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-11-27",
+      "reportDate": "2018-11-03",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -271,6 +358,38 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Analog Devices Incorporated",
+      "issuerId": "adi",
+      "partType": "analog and mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "ANALOG DEVICES INC annual report, FY2023, filed 2023-11-21",
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000000628123000203/adi-20231028.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2023-11-21",
+      "reportDate": "2023-10-28",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Analog Devices Incorporated",
+      "issuerId": "adi",
+      "partType": "analog and mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "ANALOG DEVICES INC annual report, FY2010, filed 2010-11-22",
+        "url": "https://www.sec.gov/Archives/edgar/data/6281/000095012310107816/b81293e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-11-22",
+      "reportDate": "2010-10-30",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Corning Incorporated",
       "issuerId": "corning",
       "partType": "glass and optical materials",
@@ -300,6 +419,22 @@
       "filedOn": "2019-02-12",
       "reportDate": "2018-12-31",
       "reportFiscalYear": 2018,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Corning Incorporated",
+      "issuerId": "corning",
+      "partType": "glass and optical materials",
+      "partTypeSource": {
+        "title": "CORNING INC /NY annual report, FY2010, filed 2011-02-10",
+        "url": "https://www.sec.gov/Archives/edgar/data/24741/000119312511030621/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-10",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -339,6 +474,22 @@
       "issuerId": "corning",
       "partType": "glass and optical materials",
       "partTypeSource": {
+        "title": "CORNING INC /NY annual report, FY2023, filed 2024-02-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/24741/000143774924003735/glw20231231_10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-12",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Corning Incorporated",
+      "issuerId": "corning",
+      "partType": "glass and optical materials",
+      "partTypeSource": {
         "title": "CORNING INC /NY annual report, FY2020, filed 2021-02-12",
         "url": "https://www.sec.gov/Archives/edgar/data/24741/000156276221000023/glw-20201231x10k.htm"
       },
@@ -348,6 +499,22 @@
       "filedOn": "2021-02-12",
       "reportDate": "2020-12-31",
       "reportFiscalYear": 2020,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Diodes Incorporated",
+      "issuerId": "diodes",
+      "partType": "discrete and analog semiconductors",
+      "partTypeSource": {
+        "title": "DIODES INC /DEL/ annual report, FY2010, filed 2011-02-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/29002/000095012311019939/d78803e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-28",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -380,6 +547,22 @@
       "filedOn": "2023-02-10",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Diodes Incorporated",
+      "issuerId": "diodes",
+      "partType": "discrete and analog semiconductors",
+      "partTypeSource": {
+        "title": "DIODES INC /DEL/ annual report, FY2023, filed 2024-02-09",
+        "url": "https://www.sec.gov/Archives/edgar/data/29002/000095017024013363/diod-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-09",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
       "extractionMethod": "rule-based"
     },
     {
@@ -511,6 +694,38 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Intel Corporation",
+      "issuerId": "intel",
+      "partType": "processors and semiconductors",
+      "partTypeSource": {
+        "title": "INTEL CORP annual report, FY2023, filed 2024-01-26",
+        "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086324000010/intc-20231230.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-01-26",
+      "reportDate": "2023-12-30",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Intel Corporation",
+      "issuerId": "intel",
+      "partType": "processors and semiconductors",
+      "partTypeSource": {
+        "title": "INTEL CORP annual report, FY2010, filed 2011-02-18",
+        "url": "https://www.sec.gov/Archives/edgar/data/50863/000095012311015783/f56033e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-18",
+      "reportDate": "2010-12-25",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "3M",
       "issuerId": "3m",
       "partType": "materials and adhesives",
@@ -572,6 +787,70 @@
       "filedOn": "2023-02-08",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "3M",
+      "issuerId": "3m",
+      "partType": "materials and adhesives",
+      "partTypeSource": {
+        "title": "3M CO annual report, FY2023, filed 2024-02-07",
+        "url": "https://www.sec.gov/Archives/edgar/data/66740/000006674024000016/mmm-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-07",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "3M Company",
+      "issuerId": "3m",
+      "partType": "materials and adhesives",
+      "partTypeSource": {
+        "title": "3M CO annual report, FY2023, filed 2024-02-07",
+        "url": "https://www.sec.gov/Archives/edgar/data/66740/000006674024000016/mmm-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-07",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "3M",
+      "issuerId": "3m",
+      "partType": "materials and adhesives",
+      "partTypeSource": {
+        "title": "3M CO annual report, FY2010, filed 2011-02-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/66740/000110465911007845/a11-2060_110k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-16",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "3M Company",
+      "issuerId": "3m",
+      "partType": "materials and adhesives",
+      "partTypeSource": {
+        "title": "3M CO annual report, FY2010, filed 2011-02-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/66740/000110465911007845/a11-2060_110k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-16",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -723,6 +1002,38 @@
       "issuerId": "ti",
       "partType": "analog and embedded semiconductors",
       "partTypeSource": {
+        "title": "TEXAS INSTRUMENTS INC annual report, FY2023, filed 2024-02-02",
+        "url": "https://www.sec.gov/Archives/edgar/data/97476/000009747624000007/txn-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-02",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Texas Instruments Incorporated",
+      "issuerId": "ti",
+      "partType": "analog and embedded semiconductors",
+      "partTypeSource": {
+        "title": "TEXAS INSTRUMENTS INC annual report, FY2010, filed 2011-02-25",
+        "url": "https://www.sec.gov/Archives/edgar/data/97476/000114036111012312/form10-k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-25",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Texas Instruments Incorporated",
+      "issuerId": "ti",
+      "partType": "analog and embedded semiconductors",
+      "partTypeSource": {
         "title": "TEXAS INSTRUMENTS INC annual report, FY2015, filed 2016-02-24",
         "url": "https://www.sec.gov/Archives/edgar/data/97476/000156459016013126/txn-10k_20151231.htm"
       },
@@ -764,6 +1075,22 @@
       "filedOn": "2015-08-21",
       "reportDate": "2015-07-03",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Western Digital Corporation",
+      "issuerId": "western-digital",
+      "partType": "storage devices and memory",
+      "partTypeSource": {
+        "title": "WESTERN DIGITAL CORP annual report, FY2018, filed 2018-08-24",
+        "url": "https://www.sec.gov/Archives/edgar/data/106040/000010604018000029/wdc-2018q410xkdoc.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-24",
+      "reportDate": "2018-06-29",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -844,6 +1171,86 @@
       "filedOn": "2023-08-22",
       "reportDate": "2023-06-30",
       "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Western Digital Corporation",
+      "issuerId": "western-digital",
+      "partType": "storage devices and memory",
+      "partTypeSource": {
+        "title": "WESTERN DIGITAL CORP annual report, FY2024, filed 2024-08-20",
+        "url": "https://www.sec.gov/Archives/edgar/data/106040/000010604024000031/wdc-20240628.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-20",
+      "reportDate": "2024-06-28",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Western Digital Corporation",
+      "issuerId": "western-digital",
+      "partType": "storage devices and memory",
+      "partTypeSource": {
+        "title": "WESTERN DIGITAL CORP annual report, FY2010, filed 2010-08-13",
+        "url": "https://www.sec.gov/Archives/edgar/data/106040/000095012310077390/a56460e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-08-13",
+      "reportDate": "2010-07-02",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Western Digital Corporation",
+      "issuerId": "western-digital",
+      "partType": "storage devices and memory",
+      "partTypeSource": {
+        "title": "WESTERN DIGITAL CORP annual report, FY2011, filed 2011-08-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/106040/000095012311076255/a59422e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-08-12",
+      "reportDate": "2011-07-01",
+      "reportFiscalYear": 2011,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Sony Corporation",
+      "issuerId": "sony",
+      "partType": "image sensors",
+      "partTypeSource": {
+        "title": "SONY CORP annual report, FY2009, filed 2010-06-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/313838/000095012310061435/k02298e20vf.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-06-28",
+      "reportDate": "2010-03-31",
+      "reportFiscalYear": 2009,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Sony Corporation",
+      "issuerId": "sony",
+      "partType": "image sensors",
+      "partTypeSource": {
+        "title": "SONY CORP annual report, FY2010, filed 2011-06-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/313838/000095012311062283/k02583e20vf.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-06-28",
+      "reportDate": "2011-03-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -943,6 +1350,38 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Sony Corporation",
+      "issuerId": "sony",
+      "partType": "image sensors",
+      "partTypeSource": {
+        "title": "Sony Group Corp annual report, FY2024, filed 2024-06-25",
+        "url": "https://www.sec.gov/Archives/edgar/data/313838/000119312524167500/d797371d20f.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-06-25",
+      "reportDate": "2024-03-31",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Micron Technology Incorporated",
+      "issuerId": "micron",
+      "partType": "memory semiconductors",
+      "partTypeSource": {
+        "title": "MICRON TECHNOLOGY INC annual report, period ending 2010-09-02, filed 2010-10-26",
+        "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312510000174/q4fy2010.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-10-26",
+      "reportDate": "2010-09-02",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Micron Technology Incorporated",
       "issuerId": "micron",
       "partType": "memory semiconductors",
@@ -956,6 +1395,22 @@
       "filedOn": "2015-10-27",
       "reportDate": "2015-09-03",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Micron Technology Incorporated",
+      "issuerId": "micron",
+      "partType": "memory semiconductors",
+      "partTypeSource": {
+        "title": "MICRON TECHNOLOGY INC annual report, FY2018, filed 2018-10-15",
+        "url": "https://www.sec.gov/Archives/edgar/data/723125/000072312518000092/a2018q4.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-10-15",
+      "reportDate": "2018-08-30",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -1158,6 +1613,61 @@
       "issuerId": "cirrus",
       "partType": "audio and mixed-signal semiconductors",
       "partTypeSource": {
+        "title": "CIRRUS LOGIC, INC. annual report, FY2024, filed 2024-05-24",
+        "url": "https://www.sec.gov/Archives/edgar/data/772406/000077240624000031/crus-20240330.htm"
+      },
+      "appleRevenueShare": 0.87,
+      "appleRevenueShareSource": {
+        "title": "CIRRUS LOGIC, INC. annual report, FY2024, filed 2024-05-24",
+        "url": "https://www.sec.gov/Archives/edgar/data/772406/000077240624000031/crus-20240330.htm"
+      },
+      "revenueEvidence": {
+        "reportedYear": 2024,
+        "percentage": 87.0,
+        "method": "named Apple revenue disclosure; ordered years and percentages"
+      },
+      "filedOn": "2024-05-24",
+      "reportDate": "2024-03-30",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Cirrus Logic Incorporated",
+      "issuerId": "cirrus",
+      "partType": "audio and mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "CIRRUS LOGIC INC annual report, period ending 2010-03-27, filed 2010-06-01",
+        "url": "https://www.sec.gov/Archives/edgar/data/772406/000095012310054820/d73254e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-06-01",
+      "reportDate": "2010-03-27",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Cirrus Logic Incorporated",
+      "issuerId": "cirrus",
+      "partType": "audio and mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "CIRRUS LOGIC INC annual report, period ending 2011-03-26, filed 2011-05-25",
+        "url": "https://www.sec.gov/Archives/edgar/data/772406/000095012311053974/d82129e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-05-25",
+      "reportDate": "2011-03-26",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Cirrus Logic Incorporated",
+      "issuerId": "cirrus",
+      "partType": "audio and mixed-signal semiconductors",
+      "partTypeSource": {
         "title": "CIRRUS LOGIC INC annual report, FY2015, filed 2015-05-27",
         "url": "https://www.sec.gov/Archives/edgar/data/772406/000119312515201883/d862656d10k.htm"
       },
@@ -1245,6 +1755,38 @@
       "issuerId": "qualcomm",
       "partType": "wireless semiconductors",
       "partTypeSource": {
+        "title": "QUALCOMM INC/DE annual report, FY2010, filed 2010-11-03",
+        "url": "https://www.sec.gov/Archives/edgar/data/804328/000095012310100207/a57478e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-11-03",
+      "reportDate": "2010-09-26",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Qualcomm Incorporated",
+      "issuerId": "qualcomm",
+      "partType": "wireless semiconductors",
+      "partTypeSource": {
+        "title": "QUALCOMM INC/DE annual report, FY2010, filed 2010-11-03",
+        "url": "https://www.sec.gov/Archives/edgar/data/804328/000095012310100207/a57478e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-11-03",
+      "reportDate": "2010-09-26",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "QUALCOMM Incorporated",
+      "issuerId": "qualcomm",
+      "partType": "wireless semiconductors",
+      "partTypeSource": {
         "title": "QUALCOMM INC/DE annual report, FY2015, filed 2015-11-04",
         "url": "https://www.sec.gov/Archives/edgar/data/804328/000123445215000271/qcom10-k2015.htm"
       },
@@ -1270,6 +1812,38 @@
       "filedOn": "2015-11-04",
       "reportDate": "2015-09-27",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "QUALCOMM Incorporated",
+      "issuerId": "qualcomm",
+      "partType": "wireless semiconductors",
+      "partTypeSource": {
+        "title": "QUALCOMM INC/DE annual report, FY2018, filed 2018-11-07",
+        "url": "https://www.sec.gov/Archives/edgar/data/804328/000172894918000095/qcom10-k2018.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-11-07",
+      "reportDate": "2018-09-30",
+      "reportFiscalYear": 2018,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Qualcomm Incorporated",
+      "issuerId": "qualcomm",
+      "partType": "wireless semiconductors",
+      "partTypeSource": {
+        "title": "QUALCOMM INC/DE annual report, FY2018, filed 2018-11-07",
+        "url": "https://www.sec.gov/Archives/edgar/data/804328/000172894918000095/qcom10-k2018.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-11-07",
+      "reportDate": "2018-09-30",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -1366,6 +1940,38 @@
       "filedOn": "2021-11-03",
       "reportDate": "2021-09-26",
       "reportFiscalYear": 2021,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Synaptics Incorporated",
+      "issuerId": "synaptics",
+      "partType": "interface semiconductors",
+      "partTypeSource": {
+        "title": "SYNAPTICS INC annual report, period ending 2010-06-26, filed 2010-08-23",
+        "url": "https://www.sec.gov/Archives/edgar/data/817720/000095012310079962/c05286e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-08-23",
+      "reportDate": "2010-06-26",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Synaptics Incorporated",
+      "issuerId": "synaptics",
+      "partType": "interface semiconductors",
+      "partTypeSource": {
+        "title": "SYNAPTICS INC annual report, FY2011, filed 2011-08-22",
+        "url": "https://www.sec.gov/Archives/edgar/data/817720/000095012311079162/c21467e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-08-22",
+      "reportDate": "2011-06-25",
+      "reportFiscalYear": 2011,
       "extractionMethod": "rule-based"
     },
     {
@@ -1405,6 +2011,22 @@
       "issuerId": "synaptics",
       "partType": "interface semiconductors",
       "partTypeSource": {
+        "title": "SYNAPTICS Inc annual report, FY2024, filed 2024-08-23",
+        "url": "https://www.sec.gov/Archives/edgar/data/817720/000095017024100261/syna-20240629.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-23",
+      "reportDate": "2024-06-29",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Synaptics Incorporated",
+      "issuerId": "synaptics",
+      "partType": "interface semiconductors",
+      "partTypeSource": {
         "title": "SYNAPTICS Inc annual report, FY2015, filed 2015-08-25",
         "url": "https://www.sec.gov/Archives/edgar/data/817720/000156459015007555/syna-10k_20150627.htm"
       },
@@ -1414,6 +2036,22 @@
       "filedOn": "2015-08-25",
       "reportDate": "2015-06-27",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Synaptics Incorporated",
+      "issuerId": "synaptics",
+      "partType": "interface semiconductors",
+      "partTypeSource": {
+        "title": "SYNAPTICS Inc annual report, FY2018, filed 2018-08-24",
+        "url": "https://www.sec.gov/Archives/edgar/data/817720/000156459018022311/syna-10k_20180630.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-24",
+      "reportDate": "2018-06-30",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -1462,6 +2100,22 @@
       "filedOn": "2021-08-23",
       "reportDate": "2021-06-26",
       "reportFiscalYear": 2021,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Amphenol Corporation",
+      "issuerId": "amphenol",
+      "partType": "connectors and interconnects",
+      "partTypeSource": {
+        "title": "AMPHENOL CORP /DE/ annual report, FY2010, filed 2011-02-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/820313/000110465911010845/a10-22168_110k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-28",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -1545,6 +2199,22 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Amphenol Corporation",
+      "issuerId": "amphenol",
+      "partType": "connectors and interconnects",
+      "partTypeSource": {
+        "title": "AMPHENOL CORP /DE/ annual report, FY2023, filed 2024-02-07",
+        "url": "https://www.sec.gov/Archives/edgar/data/820313/000155837024000866/aph-20231231x10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-07",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Coherent Corporation",
       "issuerId": "coherent",
       "partType": "optical and photonic components",
@@ -1677,6 +2347,102 @@
       "issuerId": "coherent",
       "partType": "optical and photonic components",
       "partTypeSource": {
+        "title": "COHERENT CORP. annual report, FY2024, filed 2024-08-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031824000016/iivi-20240630.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-16",
+      "reportDate": "2024-06-30",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "II-VI Incorporated",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "COHERENT CORP. annual report, FY2024, filed 2024-08-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031824000016/iivi-20240630.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-16",
+      "reportDate": "2024-06-30",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Coherent Corporation",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "II-VI INC annual report, period ending 2010-06-30, filed 2010-08-27",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312510199366/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-08-27",
+      "reportDate": "2010-06-30",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "II-VI Incorporated",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "II-VI INC annual report, period ending 2010-06-30, filed 2010-08-27",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312510199366/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-08-27",
+      "reportDate": "2010-06-30",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Coherent Corporation",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "II-VI INC annual report, FY2011, filed 2011-08-26",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312511233520/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-08-26",
+      "reportDate": "2011-06-30",
+      "reportFiscalYear": 2011,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "II-VI Incorporated",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "II-VI INC annual report, FY2011, filed 2011-08-26",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312511233520/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-08-26",
+      "reportDate": "2011-06-30",
+      "reportFiscalYear": 2011,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Coherent Corporation",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
         "title": "II-VI INC annual report, FY2015, filed 2015-08-28",
         "url": "https://www.sec.gov/Archives/edgar/data/820318/000156459015007628/iivi-10k_20150630.htm"
       },
@@ -1702,6 +2468,38 @@
       "filedOn": "2015-08-28",
       "reportDate": "2015-06-30",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Coherent Corporation",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "II-VI INC annual report, FY2018, filed 2018-08-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000156459018022409/iivi-10k_20180630.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-28",
+      "reportDate": "2018-06-30",
+      "reportFiscalYear": 2018,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "II-VI Incorporated",
+      "issuerId": "coherent",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "II-VI INC annual report, FY2018, filed 2018-08-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000156459018022409/iivi-10k_20180630.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-28",
+      "reportDate": "2018-06-30",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -1817,6 +2615,70 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Power Integrations Incorporated",
+      "issuerId": "power-integrations",
+      "partType": "power conversion semiconductors",
+      "partTypeSource": {
+        "title": "POWER INTEGRATIONS INC annual report, FY2023, filed 2024-02-12",
+        "url": "https://www.sec.gov/Archives/edgar/data/833640/000083364024000030/powi-20231231x10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-12",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Power Integrations Incorporated",
+      "issuerId": "power-integrations",
+      "partType": "power conversion semiconductors",
+      "partTypeSource": {
+        "title": "POWER INTEGRATIONS INC annual report, FY2010, filed 2011-02-25",
+        "url": "https://www.sec.gov/Archives/edgar/data/833640/000119312511045774/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-25",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corp.",
+      "issuerId": "lattice",
+      "partType": "programmable semiconductors",
+      "partTypeSource": {
+        "title": "LATTICE SEMICONDUCTOR CORP annual report, period ending 2011-01-01, filed 2011-03-11",
+        "url": "https://www.sec.gov/Archives/edgar/data/855658/000085565811000033/a201010k01012011.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-03-11",
+      "reportDate": "2011-01-01",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corporation",
+      "issuerId": "lattice",
+      "partType": "programmable semiconductors",
+      "partTypeSource": {
+        "title": "LATTICE SEMICONDUCTOR CORP annual report, period ending 2011-01-01, filed 2011-03-11",
+        "url": "https://www.sec.gov/Archives/edgar/data/855658/000085565811000033/a201010k01012011.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-03-11",
+      "reportDate": "2011-01-01",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Lattice Semiconductor Corp.",
       "issuerId": "lattice",
       "partType": "programmable semiconductors",
@@ -1878,6 +2740,38 @@
       "filedOn": "2019-02-26",
       "reportDate": "2018-12-29",
       "reportFiscalYear": 2018,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corp.",
+      "issuerId": "lattice",
+      "partType": "programmable semiconductors",
+      "partTypeSource": {
+        "title": "LATTICE SEMICONDUCTOR CORP annual report, period ending 2010-01-02, filed 2010-03-10",
+        "url": "https://www.sec.gov/Archives/edgar/data/855658/000119312510052435/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-03-10",
+      "reportDate": "2010-01-02",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corporation",
+      "issuerId": "lattice",
+      "partType": "programmable semiconductors",
+      "partTypeSource": {
+        "title": "LATTICE SEMICONDUCTOR CORP annual report, period ending 2010-01-02, filed 2010-03-10",
+        "url": "https://www.sec.gov/Archives/edgar/data/855658/000119312510052435/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-03-10",
+      "reportDate": "2010-01-02",
+      "reportFiscalYear": null,
       "extractionMethod": "rule-based"
     },
     {
@@ -1974,6 +2868,38 @@
       "filedOn": "2023-02-17",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corp.",
+      "issuerId": "lattice",
+      "partType": "programmable semiconductors",
+      "partTypeSource": {
+        "title": "LATTICE SEMICONDUCTOR CORP annual report, FY2023, filed 2024-02-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/855658/000143774924004522/lscc20231206_10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-16",
+      "reportDate": "2023-12-30",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lattice Semiconductor Corporation",
+      "issuerId": "lattice",
+      "partType": "programmable semiconductors",
+      "partTypeSource": {
+        "title": "LATTICE SEMICONDUCTOR CORP annual report, FY2023, filed 2024-02-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/855658/000143774924004522/lscc20231206_10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-16",
+      "reportDate": "2023-12-30",
+      "reportFiscalYear": 2023,
       "extractionMethod": "rule-based"
     },
     {
@@ -2061,6 +2987,54 @@
       "issuerId": "flex",
       "partType": "electronics manufacturing services",
       "partTypeSource": {
+        "title": "FLEX LTD. annual report, FY2024, filed 2024-05-17",
+        "url": "https://www.sec.gov/Archives/edgar/data/866374/000086637424000021/flex-20240331.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-05-17",
+      "reportDate": "2024-03-31",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Flex Limited",
+      "issuerId": "flex",
+      "partType": "electronics manufacturing services",
+      "partTypeSource": {
+        "title": "FLEXTRONICS INTERNATIONAL LTD. annual report, FY2009, filed 2010-05-24",
+        "url": "https://www.sec.gov/Archives/edgar/data/866374/000095012310052098/d73128e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-05-24",
+      "reportDate": "2010-03-31",
+      "reportFiscalYear": 2009,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Flex Limited",
+      "issuerId": "flex",
+      "partType": "electronics manufacturing services",
+      "partTypeSource": {
+        "title": "FLEXTRONICS INTERNATIONAL LTD. annual report, FY2010, filed 2011-05-23",
+        "url": "https://www.sec.gov/Archives/edgar/data/866374/000104746911005449/a2204252z10-k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-05-23",
+      "reportDate": "2011-03-31",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Flex Limited",
+      "issuerId": "flex",
+      "partType": "electronics manufacturing services",
+      "partTypeSource": {
         "title": "FLEXTRONICS INTERNATIONAL LTD. annual report, FY2015, filed 2015-05-21",
         "url": "https://www.sec.gov/Archives/edgar/data/866374/000104746915004931/a2224823z10-k.htm"
       },
@@ -2070,6 +3044,22 @@
       "filedOn": "2015-05-21",
       "reportDate": "2015-03-31",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Jabil Incorporated",
+      "issuerId": "jabil",
+      "partType": "electronics manufacturing services",
+      "partTypeSource": {
+        "title": "JABIL CIRCUIT INC annual report, period ending 2010-08-31, filed 2010-10-21",
+        "url": "https://www.sec.gov/Archives/edgar/data/898293/000095012310094969/g24918e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-10-21",
+      "reportDate": "2010-08-31",
+      "reportFiscalYear": null,
       "extractionMethod": "rule-based"
     },
     {
@@ -2093,6 +3083,29 @@
       "filedOn": "2015-10-16",
       "reportDate": "2015-08-31",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Jabil Incorporated",
+      "issuerId": "jabil",
+      "partType": "electronics manufacturing services",
+      "partTypeSource": {
+        "title": "JABIL INC annual report, FY2018, filed 2018-10-19",
+        "url": "https://www.sec.gov/Archives/edgar/data/898293/000119312518303041/d636018d10k.htm"
+      },
+      "appleRevenueShare": 0.28,
+      "appleRevenueShareSource": {
+        "title": "JABIL INC annual report, FY2018, filed 2018-10-19",
+        "url": "https://www.sec.gov/Archives/edgar/data/898293/000119312518303041/d636018d10k.htm"
+      },
+      "revenueEvidence": {
+        "reportedYear": 2018,
+        "percentage": 28.000000000000004,
+        "method": "named Apple revenue disclosure; ordered years and percentages"
+      },
+      "filedOn": "2018-10-19",
+      "reportDate": "2018-08-31",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -2215,6 +3228,22 @@
       "issuerId": "viavi",
       "partType": "optical products",
       "partTypeSource": {
+        "title": "VIAVI SOLUTIONS INC. annual report, FY2018, filed 2018-08-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/912093/000091209318000059/viavq4fy1810-k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-28",
+      "reportDate": "2018-06-30",
+      "reportFiscalYear": 2018,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Viavi Solutions Incorporated",
+      "issuerId": "viavi",
+      "partType": "optical products",
+      "partTypeSource": {
         "title": "VIAVI SOLUTIONS INC. annual report, FY2019, filed 2019-08-27",
         "url": "https://www.sec.gov/Archives/edgar/data/912093/000091209319000023/viavq4fy1910-k.htm"
       },
@@ -2295,6 +3324,38 @@
       "issuerId": "viavi",
       "partType": "optical products",
       "partTypeSource": {
+        "title": "VIAVI SOLUTIONS INC. annual report, FY2024, filed 2024-08-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/912093/000091209324000063/viav-20240629.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-16",
+      "reportDate": "2024-06-29",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Viavi Solutions Incorporated",
+      "issuerId": "viavi",
+      "partType": "optical products",
+      "partTypeSource": {
+        "title": "JDS UNIPHASE CORP /CA/ annual report, FY2011, filed 2011-08-30",
+        "url": "https://www.sec.gov/Archives/edgar/data/912093/000104746911007735/a2205402z10-k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-08-30",
+      "reportDate": "2011-07-02",
+      "reportFiscalYear": 2011,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Viavi Solutions Incorporated",
+      "issuerId": "viavi",
+      "partType": "optical products",
+      "partTypeSource": {
         "title": "VIAVI SOLUTIONS INC. annual report, FY2015, filed 2015-08-25",
         "url": "https://www.sec.gov/Archives/edgar/data/912093/000110465915061694/a15-16909_110k.htm"
       },
@@ -2304,6 +3365,38 @@
       "filedOn": "2015-08-25",
       "reportDate": "2015-06-27",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Viavi Solutions Incorporated",
+      "issuerId": "viavi",
+      "partType": "optical products",
+      "partTypeSource": {
+        "title": "JDS UNIPHASE CORP /CA/ annual report, period ending 2010-07-03, filed 2010-08-31",
+        "url": "https://www.sec.gov/Archives/edgar/data/912093/000119312510201868/d10k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-08-31",
+      "reportDate": "2010-07-03",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "STMicroelectronics N.V.",
+      "issuerId": "st-micro",
+      "partType": "semiconductors",
+      "partTypeSource": {
+        "title": "STMICROELECTRONICS NV annual report, FY2010, filed 2011-03-07",
+        "url": "https://www.sec.gov/Archives/edgar/data/932787/000095012311022652/y03348e20vf.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-03-07",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -2384,6 +3477,54 @@
       "filedOn": "2023-02-23",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "STMicroelectronics N.V.",
+      "issuerId": "st-micro",
+      "partType": "semiconductors",
+      "partTypeSource": {
+        "title": "STMicroelectronics N.V. annual report, FY2023, filed 2024-02-22",
+        "url": "https://www.sec.gov/Archives/edgar/data/932787/000162828024006353/stm-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-22",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Taiwan Semiconductor Manufacturing Company Limited",
+      "issuerId": "tsmc",
+      "partType": "semiconductor foundry",
+      "partTypeSource": {
+        "title": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD annual report, period ending 2009-12-31, filed 2010-04-15",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000095012310034985/h04138e20vf.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-04-15",
+      "reportDate": "2009-12-31",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Taiwan Semiconductor Manufacturing Company Limited",
+      "issuerId": "tsmc",
+      "partType": "semiconductor foundry",
+      "partTypeSource": {
+        "title": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD annual report, period ending 2010-12-31, filed 2011-04-15",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000095012311035858/h05002e20vf.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-04-15",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": null,
       "extractionMethod": "rule-based"
     },
     {
@@ -2483,6 +3624,38 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Taiwan Semiconductor Manufacturing Company Limited",
+      "issuerId": "tsmc",
+      "partType": "semiconductor foundry",
+      "partTypeSource": {
+        "title": "TAIWAN SEMICONDUCTOR MANUFACTURING CO LTD annual report, FY2023, filed 2024-04-18",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312524099840/d592628d20f.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-04-18",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Amkor Technology Incorporated",
+      "issuerId": "amkor",
+      "partType": "semiconductor packaging and testing",
+      "partTypeSource": {
+        "title": "AMKOR TECHNOLOGY INC annual report, FY2010, filed 2011-02-24",
+        "url": "https://www.sec.gov/Archives/edgar/data/1047127/000095012311017901/p18139e10vk.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-24",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Amkor Technology Incorporated",
       "issuerId": "amkor",
       "partType": "semiconductor packaging and testing",
@@ -2560,6 +3733,35 @@
       "filedOn": "2023-02-22",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Amkor Technology Incorporated",
+      "issuerId": "amkor",
+      "partType": "semiconductor packaging and testing",
+      "partTypeSource": {
+        "title": "AMKOR TECHNOLOGY, INC. annual report, FY2023, filed 2024-02-16",
+        "url": "https://www.sec.gov/Archives/edgar/data/1047127/000104712724000019/amkr-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-16",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "ON Semiconductor Corporation",
+      "issuerId": "onsemi",
+      "partType": null,
+      "partTypeSource": null,
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-02-24",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": 2010,
       "extractionMethod": "rule-based"
     },
     {
@@ -2643,6 +3845,22 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "ON Semiconductor Corporation",
+      "issuerId": "onsemi",
+      "partType": "power and sensing semiconductors",
+      "partTypeSource": {
+        "title": "ON SEMICONDUCTOR CORP annual report, FY2023, filed 2024-02-05",
+        "url": "https://www.sec.gov/Archives/edgar/data/1097864/000162828024003201/on-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-05",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "LG Display Company Limited",
       "issuerId": "lg-display",
       "partType": "display panels",
@@ -2656,6 +3874,54 @@
       "filedOn": "2023-04-27",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "LG Display Company Limited",
+      "issuerId": "lg-display",
+      "partType": "display panels",
+      "partTypeSource": {
+        "title": "LG Display Co., Ltd. annual report, FY2023, filed 2024-04-29",
+        "url": "https://www.sec.gov/Archives/edgar/data/1290109/000095017024049414/lpl-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-04-29",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "LG Display Company Limited",
+      "issuerId": "lg-display",
+      "partType": "display panels",
+      "partTypeSource": {
+        "title": "LG Display Co., Ltd. annual report, FY2009, filed 2010-06-09",
+        "url": "https://www.sec.gov/Archives/edgar/data/1290109/000119312510136028/d20f.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-06-09",
+      "reportDate": "2009-12-31",
+      "reportFiscalYear": 2009,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "LG Display Company Limited",
+      "issuerId": "lg-display",
+      "partType": "display panels",
+      "partTypeSource": {
+        "title": "LG Display Co., Ltd. annual report, period ending 2010-12-31, filed 2011-05-03",
+        "url": "https://www.sec.gov/Archives/edgar/data/1290109/000119312511123762/d20f.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-05-03",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": null,
       "extractionMethod": "rule-based"
     },
     {
@@ -2743,6 +4009,22 @@
       "issuerId": "aos",
       "partType": "power semiconductors",
       "partTypeSource": {
+        "title": "ALPHA & OMEGA SEMICONDUCTOR Ltd annual report, period ending 2010-06-30, filed 2010-09-02",
+        "url": "https://www.sec.gov/Archives/edgar/data/1387467/000119312510203833/d20f.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2010-09-02",
+      "reportDate": "2010-06-30",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "issuerId": "aos",
+      "partType": "power semiconductors",
+      "partTypeSource": {
         "title": "ALPHA & OMEGA SEMICONDUCTOR Ltd annual report, FY2015, filed 2015-08-27",
         "url": "https://www.sec.gov/Archives/edgar/data/1387467/000138746715000074/aosl630201510k.htm"
       },
@@ -2752,6 +4034,22 @@
       "filedOn": "2015-08-27",
       "reportDate": "2015-06-30",
       "reportFiscalYear": 2015,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "issuerId": "aos",
+      "partType": "power semiconductors",
+      "partTypeSource": {
+        "title": "ALPHA & OMEGA SEMICONDUCTOR Ltd annual report, FY2018, filed 2018-08-23",
+        "url": "https://www.sec.gov/Archives/edgar/data/1387467/000138746718000046/aosl630201810k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-23",
+      "reportDate": "2018-06-30",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -2835,6 +4133,54 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "issuerId": "aos",
+      "partType": "power semiconductors",
+      "partTypeSource": {
+        "title": "ALPHA & OMEGA SEMICONDUCTOR Ltd annual report, FY2024, filed 2024-08-23",
+        "url": "https://www.sec.gov/Archives/edgar/data/1387467/000138746724000073/aosl-20240630.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-23",
+      "reportDate": "2024-06-30",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Alpha and Omega Semiconductor Limited",
+      "issuerId": "aos",
+      "partType": "power semiconductors",
+      "partTypeSource": {
+        "title": "ALPHA & OMEGA SEMICONDUCTOR Ltd annual report, period ending 2011-06-30, filed 2011-09-09",
+        "url": "https://www.sec.gov/Archives/edgar/data/1387467/000144530511002723/aosl630201110k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-09-09",
+      "reportDate": "2011-06-30",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "NXP Semiconductors N.V.",
+      "issuerId": "nxp",
+      "partType": "mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "NXP Semiconductors N.V. annual report, period ending 2010-12-31, filed 2011-03-09",
+        "url": "https://www.sec.gov/Archives/edgar/data/1413447/000119312511061029/d20f.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2011-03-09",
+      "reportDate": "2010-12-31",
+      "reportFiscalYear": null,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "NXP Semiconductors N.V.",
       "issuerId": "nxp",
       "partType": "mixed-signal semiconductors",
@@ -2896,6 +4242,22 @@
       "filedOn": "2023-03-01",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "NXP Semiconductors N.V.",
+      "issuerId": "nxp",
+      "partType": "mixed-signal semiconductors",
+      "partTypeSource": {
+        "title": "NXP Semiconductors N.V. annual report, FY2023, filed 2024-02-22",
+        "url": "https://www.sec.gov/Archives/edgar/data/1413447/000141344724000013/nxpi-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-22",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
       "extractionMethod": "rule-based"
     },
     {
@@ -2992,6 +4354,22 @@
       "filedOn": "2023-02-09",
       "reportDate": "2022-12-31",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Knowles Corporation",
+      "issuerId": "knowles",
+      "partType": "acoustic and precision components",
+      "partTypeSource": {
+        "title": "Knowles Corp annual report, FY2023, filed 2024-02-21",
+        "url": "https://www.sec.gov/Archives/edgar/data/1587523/000158752324000017/kn-20231231.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-02-21",
+      "reportDate": "2023-12-31",
+      "reportFiscalYear": 2023,
       "extractionMethod": "rule-based"
     },
     {
@@ -3126,6 +4504,29 @@
       "extractionMethod": "rule-based"
     },
     {
+      "supplier": "Qorvo Incorporated",
+      "issuerId": "qorvo",
+      "partType": "RF semiconductors",
+      "partTypeSource": {
+        "title": "Qorvo, Inc. annual report, FY2024, filed 2024-05-20",
+        "url": "https://www.sec.gov/Archives/edgar/data/1604778/000160477824000036/rfmd-20240330.htm"
+      },
+      "appleRevenueShare": 0.46,
+      "appleRevenueShareSource": {
+        "title": "Qorvo, Inc. annual report, FY2024, filed 2024-05-20",
+        "url": "https://www.sec.gov/Archives/edgar/data/1604778/000160477824000036/rfmd-20240330.htm"
+      },
+      "revenueEvidence": {
+        "reportedYear": 2024,
+        "percentage": 46.0,
+        "method": "named Apple revenue disclosure; ordered years and percentages"
+      },
+      "filedOn": "2024-05-20",
+      "reportDate": "2024-03-30",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
       "supplier": "Lumentum Holdings Incorporated",
       "issuerId": "lumentum",
       "partType": "optical and photonic components",
@@ -3194,6 +4595,38 @@
       "issuerId": "lumentum",
       "partType": "optical and photonic components",
       "partTypeSource": {
+        "title": "Lumentum Holdings Inc. annual report, FY2024, filed 2024-08-21",
+        "url": "https://www.sec.gov/Archives/edgar/data/1633978/000162828024038024/lite-20240629.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2024-08-21",
+      "reportDate": "2024-06-29",
+      "reportFiscalYear": 2024,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lumentum Holdings Incorporated",
+      "issuerId": "lumentum",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
+        "title": "Lumentum Holdings Inc. annual report, FY2018, filed 2018-08-28",
+        "url": "https://www.sec.gov/Archives/edgar/data/1633978/000163397818000108/lumentumfy1810k.htm"
+      },
+      "appleRevenueShare": null,
+      "appleRevenueShareSource": null,
+      "revenueEvidence": null,
+      "filedOn": "2018-08-28",
+      "reportDate": "2018-06-30",
+      "reportFiscalYear": 2018,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Lumentum Holdings Incorporated",
+      "issuerId": "lumentum",
+      "partType": "optical and photonic components",
+      "partTypeSource": {
         "title": "Lumentum Holdings Inc. annual report, FY2019, filed 2019-08-27",
         "url": "https://www.sec.gov/Archives/edgar/data/1633978/000163397819000069/lumentumfy19-10k.htm"
       },
@@ -3219,6 +4652,29 @@
       "filedOn": "2020-08-25",
       "reportDate": "2020-06-27",
       "reportFiscalYear": 2020,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Broadcom Limited",
+      "issuerId": "broadcom",
+      "partType": "semiconductors",
+      "partTypeSource": {
+        "title": "Broadcom Inc. annual report, FY2018, filed 2018-12-21",
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016818000084/avgo-11042018x10k.htm"
+      },
+      "appleRevenueShare": 0.25,
+      "appleRevenueShareSource": {
+        "title": "Broadcom Inc. annual report, FY2018, filed 2018-12-21",
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016818000084/avgo-11042018x10k.htm"
+      },
+      "revenueEvidence": {
+        "reportedYear": 2018,
+        "percentage": 25.0,
+        "method": "named Apple revenue disclosure; ordered years and percentages"
+      },
+      "filedOn": "2018-12-21",
+      "reportDate": "2018-11-04",
+      "reportFiscalYear": 2018,
       "extractionMethod": "rule-based"
     },
     {
@@ -3311,6 +4767,29 @@
       "filedOn": "2022-12-16",
       "reportDate": "2022-10-30",
       "reportFiscalYear": 2022,
+      "extractionMethod": "rule-based"
+    },
+    {
+      "supplier": "Broadcom Limited",
+      "issuerId": "broadcom",
+      "partType": "semiconductors",
+      "partTypeSource": {
+        "title": "Broadcom Inc. annual report, FY2023, filed 2023-12-14",
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016823000096/avgo-20231029.htm"
+      },
+      "appleRevenueShare": 0.2,
+      "appleRevenueShareSource": {
+        "title": "Broadcom Inc. annual report, FY2023, filed 2023-12-14",
+        "url": "https://www.sec.gov/Archives/edgar/data/1730168/000173016823000096/avgo-20231029.htm"
+      },
+      "revenueEvidence": {
+        "reportedYear": 2023,
+        "percentage": 20.0,
+        "method": "named Apple revenue disclosure; ordered years and percentages"
+      },
+      "filedOn": "2023-12-14",
+      "reportDate": "2023-10-29",
+      "reportFiscalYear": 2023,
       "extractionMethod": "rule-based"
     }
   ]

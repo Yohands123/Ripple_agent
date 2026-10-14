@@ -1,0 +1,8 @@
+{
+  "approved": true,
+  "singleClassEvents": "exclude-from-metrics",
+  "approvalDate": "2026-10-14",
+  "userDecision": "Exclude single-class events from metrics",
+  "scope": "Exclude single-class supplier events from per-event metrics, pooled metrics, calibration, and metric-bootstrap resampling. Retain their labels, held-out predictions, and scenario exports; training cohorts are unchanged.",
+  "limitation": "Reported metrics condition on events with both observed supplier outcome classes; they do not summarize all exported scenarios."
+}

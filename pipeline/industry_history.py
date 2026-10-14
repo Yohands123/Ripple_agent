@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import argparse
 import html
 import json
 import os
@@ -12,6 +13,12 @@ from pathlib import Path
 from pipeline.sec_filings import SecClient, filing_rows
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def archive_relevant(archive, events):
+    earliest = f"{min(int(e['start'][:4]) for e in events) - 2}-01-01"
+    latest = max(e.get("knowledgeCutoffDate") or e["start"] for e in events)
+    return archive["filingTo"] >= earliest and archive["filingFrom"] <= latest
 
 
 def parse_evidence(prefix: bytes, expected_cik: int) -> dict:
@@ -43,14 +50,14 @@ def parse_evidence(prefix: bytes, expected_cik: int) -> dict:
     return {"sic": sic[2], "industry": sic[1].strip(), "exchange": exchange, "exchangeEvidence": excerpt}
 
 
-def main() -> int:
+def main(event_path=None) -> int:
     client = SecClient(os.environ.get("SEC_USER_AGENT", ""))
     registry = client.cached_json("https://www.sec.gov/files/company_tickers_exchange.json", ROOT / "data/raw/listings/SEC.json")
     by_ticker = {row[2]: row for row in registry["data"]}
     mapping = json.loads((ROOT / "data/processed/ticker_map.json").read_text(encoding="utf-8"))
     candidates = json.loads((ROOT / "data/sources/peer_candidates.json").read_text(encoding="utf-8"))["tickers"]
     tickers = set(candidates) | {r["ticker"] for r in mapping["mapped"] if r.get("cik")}
-    events = list(csv.DictReader((ROOT / "data/events.csv").open(encoding="utf-8")))
+    events = list(csv.DictReader((event_path or ROOT / "data/events.csv").open(encoding="utf-8")))
     raw = ROOT / "data/raw/industry_headers"
     raw.mkdir(parents=True, exist_ok=True)
     output, gaps = [], []
@@ -63,7 +70,7 @@ def main() -> int:
             submission = client.cached_json(f"https://data.sec.gov/submissions/CIK{cik}.json", ROOT / f"data/raw/sec/CIK{cik}.json")
             entries = filing_rows(submission["filings"]["recent"])
             for archive in submission["filings"].get("files", []):
-                if archive["filingTo"] >= "2014-01-01" and archive["filingFrom"] <= max(e["start"] for e in events):
+                if archive_relevant(archive, events):
                     document = client.cached_json("https://data.sec.gov/submissions/" + archive["name"], ROOT / "data/raw/sec" / archive["name"])
                     entries.extend(filing_rows(document))
             for event in events:
@@ -99,4 +106,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--events", type=Path, help="Optional event-date CSV for collecting evidence before activation")
+    raise SystemExit(main(parser.parse_args().events))

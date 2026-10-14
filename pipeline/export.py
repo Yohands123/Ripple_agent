@@ -33,6 +33,16 @@ def citations(*groups):
     return list({(s["title"], s["url"]): {"title": s["title"], "url": s["url"]} for group in groups for s in group}.values())
 
 
+def unlocated_company(prediction, attributes, label=None):
+    result = {k: prediction[k] for k in ["companyId", "supplier", "pHit", "ciLow", "ciHigh", "lowConfidence", "shap", "shapBaseValue", "shapMeanRawScore"]}
+    result.update(ticker=attributes["ticker"] or None,
+                  sources=citations(prediction["sources"], json.loads(attributes["sources"]), json.loads(label["sources"]) if label else []),
+                  predictionScope="Company stock-response prediction; the roster discloses no manufacturing-site coordinates",
+                  outcomeObservable=label is not None,
+                  actual={"hit": label["hit"].lower() == "true", "car": float(label["car"])} if label else None)
+    return result
+
+
 def build_bundle(root=ROOT):
     """Build deterministic documents using processed inputs, without downloading."""
     events = list(csv.DictReader((root / "data/events.csv").open(encoding="utf-8")))
@@ -40,6 +50,9 @@ def build_bundle(root=ROOT):
     metadata = read_json(root / "data/processed/feature_metadata.json")
     provenance = {(r["eventId"], r["companyId"]): r["attributeSources"] for r in metadata["provenance"]}
     sites = read_json(root / "data/processed/site_predictions.json")["predictions"]
+    companies = read_json(root / "data/processed/company_predictions.json")["predictions"]
+    with (root / "data/processed/labels.csv").open(encoding="utf-8") as handle:
+        labels = {(r["eventId"], r["companyId"]): r for r in csv.DictReader(handle) if r["status"] == "ok" and r["role"] == "supplier"}
     tickers = defaultdict(list)
     for record in read_json(root / "data/processed/ticker_map.json")["mapped"]:
         tickers[record["ticker"]].extend(record["sources"])
@@ -53,6 +66,10 @@ def build_bundle(root=ROOT):
         raise ValueError("Review-only optimizer output cannot be published")
     for event in events:
         identifier, year = event["id"], int(event["snapshotYear"])
+        cohort = json.loads(event["cohort"]) if event.get("cohort") else {}
+        company_only = cohort.get("locationCoverage") == "company-only"
+        if company_only and cohort.get("companyOnlyExportApproved") is not True:
+            raise ValueError(f"{identifier}: company-only export requires the M10 decision")
         nodes, predictions, actual = [], [], []
         for site in sorted(by_event[identifier], key=lambda r: r["nodeId"]):
             if site["snapshotYear"] != year:
@@ -77,13 +94,13 @@ def build_bundle(root=ROOT):
             predictions.append(prediction)
             if site["actual"] is not None:
                 actual.append({"nodeId": site["nodeId"], **site["actual"], "scope": "Company-level CAR shared by disclosed sites"})
-        if not nodes:
+        if not nodes and not company_only:
             raise ValueError(f"{identifier}: no geocoded predictions")
         network_path = f"networks/{identifier}.json"
         documents[network_path] = {
             "snapshotYear": year, "sampleData": False, "nodes": nodes, "edges": [],
             "eventId": identifier, "asOfDate": event["knowledgeCutoffDate"],
-            "scope": "Disclosed supplier locations. Physical transport links and production tiers are unavailable.",
+            "scope": "Company roster; manufacturing locations undisclosed" if company_only else "Disclosed supplier locations. Physical transport links and production tiers are unavailable.",
             "cohortBasis": metadata["retrospectiveScope"],
             "coverage": {"matchedLocations": len(nodes), "manufacturingLocations": sum(n["locationRole"] == "manufacturing" for n in nodes)},
         }
@@ -105,6 +122,15 @@ def build_bundle(root=ROOT):
             "dateBasis": event["dateBasis"], "endBasis": event["endBasis"],
             "sources": json.loads(event["sources"]),
         }
+        if cohort:
+            documents[f"scenarios/{identifier}.json"]["cohort"] = cohort
+            documents[network_path]["cohort"] = cohort
+        if company_only:
+            company_predictions = [unlocated_company(p, features[(identifier, p["companyId"])], labels.get((identifier, p["companyId"]))) for p in companies if p["eventId"] == identifier]
+            if not company_predictions or nodes:
+                raise ValueError("Company-only cohort must have company predictions and no invented mapped locations")
+            documents[f"scenarios/{identifier}.json"]["companyPredictions"] = company_predictions
+            documents[network_path]["coverage"].update(unlocatedCompanies=len(company_predictions), locationCoverage="undisclosed")
         if optimization_plans is not None:
             if identifier not in optimization_plans["scenarios"]:
                 raise ValueError(f"{identifier}: optimizer plan missing; rerun for the full event set")

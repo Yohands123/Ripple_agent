@@ -102,6 +102,22 @@ def calibration(frame):
     return result
 
 
+def evaluation_population(frame, policy):
+    """Apply the user's event-level exclusion to every reported metric."""
+    excluded = []
+    for event_id, rows in frame.groupby("eventId", sort=True):
+        if rows["hit"].nunique() < 2:
+            excluded.append({"eventId": event_id, "rows": len(rows), "hits": int(rows["hit"].sum()),
+                             "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"})
+    if excluded and (policy.get("approved") is not True or policy.get("singleClassEvents") != "exclude-from-metrics"):
+        raise ValueError("Single-class metric exclusions require the user's recorded evaluation decision")
+    identifiers = {row["eventId"] for row in excluded}
+    eligible = frame[~frame["eventId"].isin(identifiers)].copy()
+    if eligible.empty:
+        raise ValueError("No events with both outcome classes remain for evaluation")
+    return eligible, excluded
+
+
 def nested_rounds(training):
     events = sorted(training["eventId"].unique())
     validation_event = events[-1]
@@ -172,6 +188,9 @@ def train(members=200, metric_draws=2000):
     if len(training_data) != len(valid):
         raise ValueError("At least one valid company label has no unique feature record")
     event_ids = sorted(training_data["eventId"].unique())
+    policy_path = ROOT / "data/sources/evaluation_policy.json"
+    policy = json.loads(policy_path.read_text(encoding="utf-8")) if policy_path.exists() else {}
+    evaluation_population(training_data, policy)  # Fail before fitting if a decision is missing.
     if len(event_ids) < 3:
         raise ValueError("At least three events are required for nested event-held-out fitting")
     company_predictions, manifests = [], []
@@ -187,23 +206,34 @@ def train(members=200, metric_draws=2000):
     prediction_frame = pd.DataFrame([{k: p[k] for k in ["eventId", "companyId", "pHit", "logisticProbability", "distanceProbability"]} for p in company_predictions])
     held_out = training_data[["eventId", "companyId", "supplier", "hit", "car"]].merge(prediction_frame, on=["eventId", "companyId"], validate="one_to_one")
     held_out.to_csv(ROOT / "data/processed/held_out_predictions.csv", index=False)
+    evaluation, metric_exclusions = evaluation_population(held_out, policy)
     per_event = []
-    for event_id, frame in held_out.groupby("eventId"):
+    for event_id, frame in evaluation.groupby("eventId"):
         evaluated = score(frame["hit"], frame["pHit"])
         logistic = score(frame["hit"], frame["logisticProbability"])
         distance = score(frame["hit"], frame["distanceProbability"])
-        per_event.append({"eventId": event_id, **evaluated, "baselineAuc": logistic["auc"], "logisticBrier": logistic["brier"],
-                          "distanceAuc": distance["auc"], "distanceBrier": distance["brier"], "rows": len(frame), "hits": int(frame["hit"].sum())})
-    metrics = {"model": "lightgbm", "sampleData": False, "events": len(event_ids), "rows": len(held_out), "loeo": per_event,
-               "overall": bootstrap_intervals(held_out, metric_draws), "calibration": calibration(held_out), "bootstrapEventDraws": metric_draws,
+        result = {"eventId": event_id, **evaluated, "baselineAuc": logistic["auc"], "logisticBrier": logistic["brier"],
+                  "distanceAuc": distance["auc"], "distanceBrier": distance["brier"], "rows": len(frame), "hits": int(frame["hit"].sum())}
+        per_event.append(result)
+    event_rows = list(csv.DictReader((ROOT / "data/events.csv").open(encoding="utf-8")))
+    cohorts = [{"eventId": e["id"], **json.loads(e["cohort"])} for e in event_rows if e.get("cohort")]
+    excluded_path = ROOT / "data/review/event_gaps.json"
+    excluded = json.loads(excluded_path.read_text(encoding="utf-8"))["events"] if excluded_path.exists() else []
+    metrics = {"model": "lightgbm", "sampleData": False, "events": int(evaluation["eventId"].nunique()), "rows": len(evaluation), "loeo": per_event,
+               "predictionEvents": len(event_ids), "evaluationPolicy": policy, "excludedFromMetrics": metric_exclusions,
+               "cohorts": cohorts, "excludedEvents": excluded,
+               "overall": bootstrap_intervals(evaluation, metric_draws), "calibration": calibration(evaluation), "bootstrapEventDraws": metric_draws,
                "ensembleMembersPerFold": members, "probabilityDefinition": "Median of event-bootstrap probabilities; per-node intervals are 2.5/97.5 percentiles",
-               "overallPoint": {**score(held_out["hit"], held_out["pHit"]), "baselineAuc": score(held_out["hit"], held_out["logisticProbability"])["auc"],
-                                "distanceAuc": score(held_out["hit"], held_out["distanceProbability"])["auc"]},
+               "overallPoint": {**score(evaluation["hit"], evaluation["pHit"]), "baselineAuc": score(evaluation["hit"], evaluation["logisticProbability"])["auc"],
+                                "distanceAuc": score(evaluation["hit"], evaluation["distanceProbability"])["auc"]},
                "baselineDefinition": "Logistic regression with training-only median imputation and scaling; distance-only exponential rule calibrated to training prevalence",
                "evaluationDefinition": "Entire target event excluded from every training model. Tree count selected by early stopping on another event inside training; bootstrap refits use that tree count.",
                "shapDefinition": "Mean TreeSHAP contributions to raw log odds across bootstrap models; categorical dummy contributions are summed. Mean raw score is distinct from logit of median probability.",
                "lowConfidenceRule": "All predictions flagged while public route dependence is unavailable; coarse geography, limited event clusters, and extrapolation to unlisted firms add uncertainty",
                "limitations": ["Retrospective cohorts and a current listing universe; delisted issuers and unverified mappings are underrepresented",
+                               "Reported metrics exclude single-class events by user decision; this outcome-based selection conditions the evaluation population and omits both 2011 events",
+                               "2011 uses the approved January 2012 company roster approximation; factory locations and all geographic predictors are unavailable for those events",
+                               "FY2019 and FY2024 Supplier Lists are unavailable; Japan-Korea 2019, Taiwan 2024, and Helene 2024 remain excluded",
                                "Stock-market abnormal-return labels are proxies, not causal disruption losses or observed factory damage",
                                "Country concentration uses disclosed location counts, not actual sourcing volumes",
                                "Transport-route chokepoint dependence is unavailable; graph hops describe disclosure relationships",
@@ -224,8 +254,9 @@ def train(members=200, metric_draws=2000):
     (ROOT / "data/processed/site_predictions.json").write_text(json.dumps({"sampleData": False, "predictions": site_predictions}, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
     summary = {"sampleData": False, "seed": SEED, "folds": [{k: m[k] for k in ["heldOutEvent", "trainingEvents", "innerValidationEvent", "earlyStoppedRounds", "members", "parameters", "featureGroups"]} for m in manifests],
                "inputSha256": {str(path.relative_to(ROOT)).replace("\\", "/"): hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
-                               for path in [ROOT / "data/processed/features.csv", ROOT / "data/processed/labels.csv"]},
-               "modelCache": "data/raw/model_ensembles/", "companyPredictions": len(company_predictions), "sitePredictions": len(site_predictions)}
+                               for path in [ROOT / "data/processed/features.csv", ROOT / "data/processed/labels.csv"] + ([policy_path] if policy_path.exists() else [])},
+               "modelCache": "data/raw/model_ensembles/", "companyPredictions": len(company_predictions), "sitePredictions": len(site_predictions), "cohorts": cohorts,
+               "evaluatedEvents": sorted(evaluation["eventId"].unique()), "excludedFromMetrics": metric_exclusions}
     (ROOT / "ml/model_manifest.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"events": metrics["events"], "rows": metrics["rows"], "overall": metrics["overall"], "sites": len(site_predictions)}, indent=2))
     return metrics

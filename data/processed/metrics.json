@@ -1,134 +1,313 @@
 {
   "model": "lightgbm",
   "sampleData": false,
-  "events": 6,
-  "rows": 698,
+  "events": 7,
+  "rows": 820,
   "loeo": [
     {
       "eventId": "covid-china-2020",
-      "auc": 0.6709070796460178,
-      "brier": 0.061931173394892666,
-      "baselineAuc": 0.6493362831858407,
-      "logisticBrier": 0.0629008471988636,
-      "distanceAuc": 0.43528761061946897,
-      "distanceBrier": 0.06317731085083586,
+      "auc": 0.6780973451327433,
+      "brier": 0.06218633717761793,
+      "baselineAuc": 0.6360619469026548,
+      "logisticBrier": 0.06783315181540793,
+      "distanceAuc": 0.439712389380531,
+      "distanceBrier": 0.06224788172297838,
       "rows": 121,
       "hits": 8
     },
     {
       "eventId": "kumamoto-2016",
-      "auc": 0.674698795180723,
-      "brier": 0.03401296504809545,
-      "baselineAuc": 0.8674698795180722,
-      "logisticBrier": 0.03656236139971589,
-      "distanceAuc": 0.6285140562248995,
-      "distanceBrier": 0.03489390054663985,
+      "auc": 0.7991967871485943,
+      "brier": 0.03372697446983548,
+      "baselineAuc": 0.8554216867469879,
+      "logisticBrier": 0.03545766150109052,
+      "distanceAuc": 0.6405622489959839,
+      "distanceBrier": 0.03499302266862772,
       "rows": 86,
       "hits": 3
     },
     {
       "eventId": "red-sea-2023",
-      "auc": 0.5387931034482758,
-      "brier": 0.025603736561583483,
-      "baselineAuc": 0.375,
-      "logisticBrier": 0.026702902920777895,
+      "auc": 0.7830459770114943,
+      "brier": 0.025156863444614975,
+      "baselineAuc": 0.3778735632183908,
+      "logisticBrier": 0.02686992000832123,
       "distanceAuc": 0.6293103448275862,
-      "distanceBrier": 0.025213049262259545,
+      "distanceBrier": 0.02517309504590118,
       "rows": 119,
       "hits": 3
     },
     {
+      "eventId": "russia-2022",
+      "auc": 0.39565217391304347,
+      "brier": 0.05425028236900152,
+      "baselineAuc": 0.5130434782608695,
+      "logisticBrier": 0.05966283412836061,
+      "distanceAuc": 0.5335403726708075,
+      "distanceBrier": 0.05660388700521178,
+      "rows": 122,
+      "hits": 7
+    },
+    {
       "eventId": "shanghai-2022",
-      "auc": 0.6501322751322752,
-      "brier": 0.10493988200507966,
-      "baselineAuc": 0.6309523809523809,
-      "logisticBrier": 0.08741646950822078,
+      "auc": 0.5178571428571429,
+      "brier": 0.10681366413937411,
+      "baselineAuc": 0.6302910052910053,
+      "logisticBrier": 0.09075720096138766,
       "distanceAuc": 0.7046957671957672,
-      "distanceBrier": 0.09952289594666482,
+      "distanceBrier": 0.10207895691169347,
       "rows": 122,
       "hits": 14
     },
     {
       "eventId": "suez-2021",
-      "auc": 0.5316804407713499,
-      "brier": 0.02466377698776005,
-      "baselineAuc": 0.8815426997245179,
-      "logisticBrier": 0.022033210824134,
+      "auc": 0.41597796143250687,
+      "brier": 0.02421519976372407,
+      "baselineAuc": 0.8677685950413223,
+      "logisticBrier": 0.022139658129717802,
       "distanceAuc": 0.8870523415977962,
-      "distanceBrier": 0.024095186084234492,
+      "distanceBrier": 0.023985216317396498,
       "rows": 124,
       "hits": 3
     },
     {
       "eventId": "zhengzhou-2022",
-      "auc": 0.5979166666666667,
-      "brier": 0.050099275346631174,
-      "baselineAuc": 0.4305555555555556,
-      "logisticBrier": 0.06116688678222899,
+      "auc": 0.5534722222222223,
+      "brier": 0.05962148218154032,
+      "baselineAuc": 0.39999999999999997,
+      "logisticBrier": 0.056638575831032295,
       "distanceAuc": 0.5520833333333333,
-      "distanceBrier": 0.04649580169103844,
+      "distanceBrier": 0.04610332122103766,
       "rows": 126,
       "hits": 6
     }
   ],
+  "predictionEvents": 9,
+  "evaluationPolicy": {
+    "approved": true,
+    "singleClassEvents": "exclude-from-metrics",
+    "approvalDate": "2026-10-14",
+    "userDecision": "Exclude single-class events from metrics",
+    "scope": "Exclude single-class supplier events from per-event metrics, pooled metrics, calibration, and metric-bootstrap resampling. Retain their labels, held-out predictions, and scenario exports; training cohorts are unchanged.",
+    "limitation": "Reported metrics condition on events with both observed supplier outcome classes; they do not summarize all exported scenarios."
+  },
+  "excludedFromMetrics": [
+    {
+      "eventId": "japan-2011",
+      "rows": 54,
+      "hits": 0,
+      "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"
+    },
+    {
+      "eventId": "thailand-2011",
+      "rows": 54,
+      "hits": 0,
+      "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"
+    }
+  ],
+  "cohorts": [
+    {
+      "eventId": "kumamoto-2016",
+      "snapshotYear": 2016,
+      "eventYear": 2016,
+      "publicationYear": 2017,
+      "yearBasis": "Explicit 2016 procurement coverage; fiscal-year basis is not stated",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "covid-china-2020",
+      "snapshotYear": 2020,
+      "eventYear": 2020,
+      "publicationYear": 2021,
+      "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "suez-2021",
+      "snapshotYear": 2021,
+      "eventYear": 2021,
+      "publicationYear": 2022,
+      "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "shanghai-2022",
+      "snapshotYear": 2022,
+      "eventYear": 2022,
+      "publicationYear": 2023,
+      "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "snapshotYear": 2022,
+      "eventYear": 2022,
+      "publicationYear": 2023,
+      "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "red-sea-2023",
+      "snapshotYear": 2023,
+      "eventYear": 2023,
+      "publicationYear": 2024,
+      "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "japan-2011",
+      "snapshotYear": 2011,
+      "eventYear": 2011,
+      "publicationYear": 2012,
+      "yearBasis": "Document title Apple Suppliers 2011; published January 2012; fiscal-year basis is not stated; company membership only",
+      "locationCoverage": "company-only",
+      "assumption": true,
+      "basis": "January 2012 company roster, retrospectively applied under M10",
+      "companyOnlyExportApproved": true,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "thailand-2011",
+      "snapshotYear": 2011,
+      "eventYear": 2011,
+      "publicationYear": 2012,
+      "yearBasis": "Document title Apple Suppliers 2011; published January 2012; fiscal-year basis is not stated; company membership only",
+      "locationCoverage": "company-only",
+      "assumption": true,
+      "basis": "January 2012 company roster, retrospectively applied under M10",
+      "companyOnlyExportApproved": true,
+      "proxyApproved": false
+    },
+    {
+      "eventId": "russia-2022",
+      "snapshotYear": 2022,
+      "eventYear": 2022,
+      "publicationYear": 2023,
+      "yearBasis": "explicit fiscal year",
+      "locationCoverage": "disclosed locations",
+      "assumption": false,
+      "basis": "Own-year procurement coverage, published retrospectively",
+      "companyOnlyExportApproved": false,
+      "proxyApproved": false
+    }
+  ],
+  "excludedEvents": [
+    {
+      "eventId": "taiwan-2024",
+      "snapshotYear": 2024,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "USGS: M7.4 earthquake south of Hualien",
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000m9g4"
+      }
+    },
+    {
+      "eventId": "japan-korea-2019",
+      "snapshotYear": 2019,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "METI: update of licensing policies and procedures toward the Republic of Korea, July 1, 2019",
+        "url": "https://www.meti.go.jp/policy/external_economy/export_control_korea/index-en.html"
+      }
+    },
+    {
+      "eventId": "helene-2024",
+      "snapshotYear": 2024,
+      "reason": "No verified own-year Supplier List; omitted under the user's verified-editions-and-explicit-gaps policy",
+      "source": {
+        "title": "The Quartz Corp: Spruce Pine Hurricane Helene timeline, September 27, 2024",
+        "url": "https://www.thequartzcorp.com/articles/bringing-our-community-back-to-life-after-hurricane-helene"
+      }
+    }
+  ],
   "overall": {
     "auc": [
-      0.42290677600345283,
-      0.5988110499489966
+      0.39629252316246816,
+      0.5623695842698895
     ],
     "brier": [
-      0.030727692954775215,
-      0.07499658864965937
+      0.033600746369926326,
+      0.07419225522153283
     ],
     "baselineAuc": [
-      0.5328525641025641,
-      0.7360527120989889
+      0.4858320162564913,
+      0.68175127382525
     ],
     "distanceAuc": [
-      0.5490269792127378,
-      0.7671395518323383
+      0.5315832413484618,
+      0.7424267953189434
     ]
   },
   "calibration": [
     {
       "binMid": 0.05,
-      "predicted": 0.051662455412016854,
-      "observed": 0.05377906976744186,
-      "n": 688
+      "predicted": 0.043914556975609344,
+      "observed": 0.05425400739827373,
+      "n": 811
     },
     {
       "binMid": 0.15,
-      "predicted": 0.11776990941927239,
+      "predicted": 0.1312362894152367,
       "observed": 0.0,
-      "n": 5
+      "n": 3
     },
     {
       "binMid": 0.25,
-      "predicted": 0.2501177953476351,
+      "predicted": 0.275079481939436,
       "observed": 0.0,
       "n": 2
     },
     {
       "binMid": 0.35,
-      "predicted": 0.3818870720865697,
-      "observed": 0.0,
-      "n": 2
-    },
-    {
-      "binMid": 0.45,
-      "predicted": 0.40206065950118886,
+      "predicted": 0.3247157289463979,
       "observed": 0.0,
       "n": 1
+    },
+    {
+      "binMid": 0.55,
+      "predicted": 0.5242510168914936,
+      "observed": 0.0,
+      "n": 1
+    },
+    {
+      "binMid": 0.75,
+      "predicted": 0.7787158123982387,
+      "observed": 0.0,
+      "n": 2
     }
   ],
   "bootstrapEventDraws": 2000,
   "ensembleMembersPerFold": 200,
   "probabilityDefinition": "Median of event-bootstrap probabilities; per-node intervals are 2.5/97.5 percentiles",
   "overallPoint": {
-    "auc": 0.5069918632702294,
-    "brier": 0.05105890296636697,
-    "baselineAuc": 0.6440078505131455,
-    "distanceAuc": 0.6751850186040806
+    "auc": 0.4508112699156514,
+    "brier": 0.053150641893176205,
+    "baselineAuc": 0.5822838566073103,
+    "distanceAuc": 0.6287048969072165
   },
   "baselineDefinition": "Logistic regression with training-only median imputation and scaling; distance-only exponential rule calibrated to training prevalence",
   "evaluationDefinition": "Entire target event excluded from every training model. Tree count selected by early stopping on another event inside training; bootstrap refits use that tree count.",
@@ -136,6 +315,9 @@
   "lowConfidenceRule": "All predictions flagged while public route dependence is unavailable; coarse geography, limited event clusters, and extrapolation to unlisted firms add uncertainty",
   "limitations": [
     "Retrospective cohorts and a current listing universe; delisted issuers and unverified mappings are underrepresented",
+    "Reported metrics exclude single-class events by user decision; this outcome-based selection conditions the evaluation population and omits both 2011 events",
+    "2011 uses the approved January 2012 company roster approximation; factory locations and all geographic predictors are unavailable for those events",
+    "FY2019 and FY2024 Supplier Lists are unavailable; Japan-Korea 2019, Taiwan 2024, and Helene 2024 remain excluded",
     "Stock-market abnormal-return labels are proxies, not causal disruption losses or observed factory damage",
     "Country concentration uses disclosed location counts, not actual sourcing volumes",
     "Transport-route chokepoint dependence is unavailable; graph hops describe disclosure relationships",

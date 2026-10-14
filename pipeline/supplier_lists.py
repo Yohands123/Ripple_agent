@@ -205,6 +205,31 @@ def parse_page(page, previous: str | None = None) -> tuple[list[dict], str | Non
     return result, previous
 
 
+def roster_year(text: str) -> int:
+    years = set(re.findall(r"Apple\s+Suppliers\s+(20\d{2})", text))
+    if len(years) != 1:
+        raise ParseError("Legacy roster must state one supplier-list year")
+    return int(years.pop())
+
+
+def parse_company_roster(path: Path, expected_year: int) -> list[dict]:
+    """January 2012 roster: membership only, with no invented locations."""
+    output = []
+    with pdfplumber.open(path) as document:
+        if len(document.pages) != 2 or expected_year != 2011 or roster_year(document.pages[0].extract_text() or "") != expected_year:
+            raise ParseError("Unexpected legacy roster year or layout")
+        if "January 2012" not in (document.pages[-1].extract_text() or ""):
+            raise ParseError("Legacy roster publication date is unverified")
+        for number, page in enumerate(document.pages, start=1):
+            top, bottom = (330, 730) if number == 1 else (110, 430)
+            for left, right in [(65, 235), (235, 407), (407, 600)]:
+                names = (page.crop((left, top, right, bottom)).extract_text() or "").splitlines()
+                output.extend({"supplier": clean(name), "location": "", "country": "", "locationRole": "undisclosed", "sourcePage": number} for name in names if clean(name))
+    if len(output) != 156 or len({r["supplier"] for r in output}) != 156:
+        raise ParseError("Expected the 156 unique named suppliers; refusing a partial roster")
+    return sorted(output, key=lambda r: r["supplier"].casefold())
+
+
 def parse_pdf(path: Path, expected_year: int) -> list[dict]:
     rows, previous = [], None
     with pdfplumber.open(path) as document:
@@ -252,17 +277,22 @@ def download(edition: dict, raw_dir: Path, session: requests.Session) -> Path:
     if path.exists():
         if not path.read_bytes().startswith(b"%PDF-"):
             raise ParseError(f"Invalid cached PDF: {path.name}")
+        if edition.get("sha256") and hashlib.sha256(path.read_bytes()).hexdigest() != edition["sha256"]:
+            raise ParseError("Cached supplier PDF checksum mismatch")
         return path
     errors = []
     for url in edition["downloads"]:
         try:
             content = fetch_pdf(url, session)
+            if edition.get("sha256") and hashlib.sha256(content).hexdigest() != edition["sha256"]:
+                raise ParseError("Downloaded supplier PDF checksum mismatch")
             path.parent.mkdir(parents=True, exist_ok=True)
             temporary = path.with_suffix(".tmp")
             temporary.write_bytes(content)
             # Check the cover before caching a mutable URL under a year.
             with pdfplumber.open(temporary) as document:
-                year = fiscal_year(document.pages[0].extract_text() or "")
+                cover = document.pages[0].extract_text() or ""
+                year = roster_year(cover) if edition.get("format") == "company-roster" else fiscal_year(cover)
             if year != edition["snapshotYear"]:
                 temporary.unlink()
                 raise ParseError(f"Downloaded FY{year}, expected FY{edition['snapshotYear']}")
@@ -287,7 +317,9 @@ def ingest(source_file: Path, raw_dir: Path, output_dir: Path, offline: bool = F
                 path = raw_dir / f"suppliers_{year}.pdf" if offline else download(edition, raw_dir, session)
                 if not path.exists():
                     raise ParseError("Verified PDF is unavailable in the raw cache")
-                rows = parse_pdf(path, year)
+                if edition.get("sha256") and hashlib.sha256(path.read_bytes()).hexdigest() != edition["sha256"]:
+                    raise ParseError("Supplier PDF checksum mismatch")
+                rows = parse_company_roster(path, year) if edition.get("format") == "company-roster" else parse_pdf(path, year)
             except (ParseError, OSError) as exc:
                 LOGGER.error("FY%s: %s", year, exc)
                 manifest["gaps"].append({"snapshotYear": year, "reason": str(exc)})
@@ -299,6 +331,7 @@ def ingest(source_file: Path, raw_dir: Path, output_dir: Path, offline: bool = F
                 writer.writerows(rows)
             record = {"snapshotYear": year, "publicationYear": edition["publicationYear"], "sources": [{"title": edition["title"], "url": edition["url"]}],
                       "yearBasis": edition.get("yearBasis", "explicit fiscal year"),
+                      "locationCoverage": "company-only" if edition.get("format") == "company-roster" else "disclosed locations",
                       "pdfSha256": hashlib.sha256(path.read_bytes()).hexdigest(), "csvSha256": hashlib.sha256(output.read_bytes().replace(b"\r\n", b"\n")).hexdigest(), "csvHashNormalization": "LF",
                       "rows": len(rows), "suppliers": len({row["supplier"] for row in rows}),
                       "headquartersRows": sum(row["locationRole"] == "headquarters" for row in rows)}

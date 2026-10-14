@@ -142,6 +142,13 @@ class Validator:
             self.check(scenario["start"] <= scenario["end"], label + ": reversed event dates")
         self.check(scenario.get("snapshotYear") == network.get("snapshotYear"), label + ": event network uses a different Supplier List year")
         self.check(type(scenario.get("sampleData")) is bool, label + ": sampleData boolean required")
+        if "cohort" in scenario:
+            cohort = scenario["cohort"]
+            self.check(cohort.get("snapshotYear") == scenario["snapshotYear"], label + ": cohort source year differs from scenario")
+            if cohort.get("snapshotYear") != cohort.get("eventYear"):
+                self.check(cohort.get("assumption") is True and cohort.get("proxyApproved") is True, label + ": nearby-year cohort needs explicit approval and assumption flag")
+        if "companyPredictions" in scenario:
+            self.company_predictions(scenario, node_ids, label)
         shock = scenario.get("shock", {})
         if not self.check(isinstance(shock, dict), label + ": shock object required"):
             shock = {}
@@ -254,6 +261,37 @@ class Validator:
                 if frozenset(plan["optionIds"]) == default_ids:
                     self.check(plan["withPlan"] == quota["withPlan"], label + ": default combination disagrees with quota.withPlan")
 
+    def company_predictions(self, scenario, node_ids, label):
+        cohort = scenario.get("cohort", {})
+        self.check(cohort.get("locationCoverage") == "company-only" and cohort.get("companyOnlyExportApproved") is True and cohort.get("assumption") is True and not node_ids, label + ": company-only export needs explicit approval, an assumption flag, and no invented sites")
+        records = scenario["companyPredictions"]
+        if not self.check(isinstance(records, list) and bool(records), label + ": company predictions array required"):
+            return
+        seen = set()
+        for record in records:
+            self.check(not {"lon", "lat", "nodeId"} & record.keys(), label + ": unlocated company prediction cannot assert site coordinates or node IDs")
+            identifier = record.get("companyId")
+            self.text(identifier, label + ".companyId")
+            self.check(identifier not in seen, label + ": duplicate company prediction")
+            seen.add(identifier)
+            self.text(record.get("supplier"), label + ".supplier")
+            valid = all(self.number(record.get(k), label + ".company." + k, 0, 1) for k in ["pHit", "ciLow", "ciHigh"])
+            if valid:
+                self.check(record["ciLow"] <= record["pHit"] <= record["ciHigh"], label + ": invalid company prediction interval")
+            self.check(type(record.get("lowConfidence")) is bool and type(record.get("outcomeObservable")) is bool, label + ": company outcome flags required")
+            self.sources(record.get("sources"), label + ".company", sample=False)
+            self.text(record.get("predictionScope"), label + ".company.predictionScope")
+            for key in ["shapBaseValue", "shapMeanRawScore"]:
+                self.number(record.get(key), label + ".company." + key)
+            for contribution in record.get("shap", []):
+                self.text(contribution.get("feature"), label + ".company.shap.feature")
+                self.number(contribution.get("value"), label + ".company.shap.value")
+            actual = record.get("actual")
+            self.check(record.get("outcomeObservable") == (actual is not None), label + ": inconsistent company outcome availability")
+            if actual is not None:
+                self.check(type(actual.get("hit")) is bool, label + ": company actual.hit boolean required")
+                self.number(actual.get("car"), label + ".company.actual.car")
+
     def metrics(self, document):
         self.text(document.get("model"), "metrics.model")
         for key in ["events", "rows"]:
@@ -261,8 +299,12 @@ class Validator:
         self.check(isinstance(document.get("loeo"), list), "metrics.loeo: array required")
         for fold in document.get("loeo", []):
             self.text(fold.get("eventId"), "metrics.loeo.eventId")
-            for key in ["auc", "brier", "baselineAuc"]:
+            keys = ["auc", "baselineAuc"] + (["distanceAuc"] if "distanceAuc" in fold else [])
+            for key in keys:
                 self.number(fold.get(key), "metrics.loeo." + key, 0, 1)
+            if "rows" in fold and "hits" in fold:
+                self.check(type(fold["rows"]) is int and type(fold["hits"]) is int and 0 < fold["hits"] < fold["rows"], "metrics.loeo: reported event must have both supplier outcome classes")
+            self.number(fold.get("brier"), "metrics.loeo.brier", 0, 1)
         for key in ["auc", "brier", "baselineAuc"]:
             self.interval(document.get("overall", {}).get(key), "metrics.overall." + key, 0, 1)
         self.check(isinstance(document.get("calibration"), list), "metrics.calibration: array required")

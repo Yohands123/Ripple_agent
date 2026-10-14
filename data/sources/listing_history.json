@@ -7,8 +7,25 @@
     "tickerChangeDate": "2022-09-08",
     "legacyCoherentAcquisitionDate": "2022-07-01",
     "sources": [
-      {"title":"II-VI renamed Coherent; predecessor and acquired company are distinct issuers", "url":"https://ir.coherent.com/news-releases/news-release-details/ii-vi-changes-name-coherent-and-launches-new-brand-identity"},
-      {"title":"Coherent began NYSE trading on February 23, 2023", "url":"https://ir.coherent.com/news-releases/news-release-details/coherent-corp-began-trading-nyse"}
+      {
+        "title": "II-VI renamed Coherent; predecessor and acquired company are distinct issuers",
+        "url": "https://ir.coherent.com/news-releases/news-release-details/ii-vi-changes-name-coherent-and-launches-new-brand-identity"
+      },
+      {
+        "title": "Coherent began NYSE trading on February 23, 2023",
+        "url": "https://ir.coherent.com/news-releases/news-release-details/coherent-corp-began-trading-nyse"
+      }
+    ]
+  },
+  "AVGO": {
+    "broadcomAcquisitionDate": "2016-02-01",
+    "legacyBroadcomTicker": "BRCM",
+    "predecessorIssuer": "Avago Technologies Limited",
+    "sources": [
+      {
+        "title": "Broadcom: February 1, 2016 combination; AVGO previously Avago and BRCM a distinct issuer",
+        "url": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-limited-announces-expected-completion-business"
+      }
     ]
   }
 }

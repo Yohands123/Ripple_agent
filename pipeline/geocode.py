@@ -172,7 +172,7 @@ def geocode(interim: Path, review: Path, raw_dir: Path, offline: bool = False) -
             rows = list(csv.DictReader(handle))
         output, counts = [], defaultdict(int)
         for number, row in enumerate(rows, start=1):
-            match, reason = gazetteer.match(row["location"], row["country"])
+            match, reason = (None, "Company roster does not disclose manufacturing locations or countries") if not row["location"] and not row["country"] else gazetteer.match(row["location"], row["country"])
             result = {"snapshotYear": year, "rowNumber": number, **row, "locationRole": roles[(year, number)], "matchStatus": "matched" if match else "unmatched"}
             sources = list(edition["sources"])
             if match:
