@@ -9,6 +9,7 @@ import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
 import { tierColor, size } from "@/lib/tokens";
 import type { Metrics, Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
 import DisruptionPanel from "./DisruptionPanel";
+import NodeDetailPanel from "./NodeDetailPanel";
 import FreeFlowPanel from "./FreeFlowPanel";
 import { Pill } from "./Glyphs";
 import MapStage from "./MapStage";
@@ -19,9 +20,9 @@ import RouteLayer from "./RouteLayer";
 import WorldMap from "./WorldMap";
 import YearTag from "./YearTag";
 
-function readScenarioParam(): string | null {
+function readParam(name: string): string | null {
   if (typeof window === "undefined") return null;
-  return new URLSearchParams(window.location.search).get("scenario");
+  return new URLSearchParams(window.location.search).get(name);
 }
 
 export default function RippleApp() {
@@ -32,12 +33,15 @@ export default function RippleApp() {
   const [scenario, setScenario] = useState<Scenario | null>(null);
   const [dropped, setDropped] = useState(false);
   const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [dayChoice, setDayChoice] = useState<{ id: string; day: number } | null>(null);
   const [worldReady, setWorldReady] = useState(false);
   const onWorld = useCallback(() => setWorldReady(true), []);
 
   useEffect(() => {
     loadNetwork().then((res) => {
+      const nodeParam = readParam("node");
+      if (res && nodeParam && res.data.nodes.some((n) => n.id === nodeParam)) setSelectedId(nodeParam);
       if (res) setNetwork(res.data);
       else setNetworkMissing(true);
     });
@@ -45,7 +49,7 @@ export default function RippleApp() {
     loadScenarioIndex().then((res) => {
       const list = res?.data ?? [];
       setIndex(list);
-      const fromUrl = readScenarioParam();
+      const fromUrl = readParam("scenario");
       const pick = list.find((s) => s.id === fromUrl) ?? list[0];
       if (pick) setScenarioId(pick.id);
       if (fromUrl && pick?.id === fromUrl) setDropped(true);
@@ -88,6 +92,16 @@ export default function RippleApp() {
   }, [network, scenario, disrupted, progress, eventOver]);
 
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedId(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const selectedNode = network?.nodes.find((n) => n.id === selectedId) ?? null;
+
   const clear = () => {
     setDropped(false);
     const url = new URL(window.location.href);
@@ -117,7 +131,7 @@ export default function RippleApp() {
             {scene?.zones?.map((z) => (
               <div key={z.key} className="shock-zone" style={{ left: z.x - z.d / 2, top: z.y - z.d / 2, width: z.d, height: z.d }} />
             ))}
-            {network && scene && <NodeLayer network={network} layout={scene.layout} groupText={scene.groupText} />}
+            {network && scene && <NodeLayer network={network} layout={scene.layout} groupText={scene.groupText} selectedId={selectedId} onSelect={setSelectedId} />}
             {scene?.captions.map((c) => (
               <div key={c.key} className="map-caption" style={{ left: c.x, top: c.y, width: c.w, color: c.color }}>
                 {c.text}
@@ -152,8 +166,10 @@ export default function RippleApp() {
         {networkMissing && <div className="empty-note">Network data is not available yet.</div>}
       </div>
       <aside className="panel" aria-label="Ripple panel">
-        {disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver}>
+        {selectedNode ? (
+          <NodeDetailPanel sample={sample} node={selectedNode} scenario={scenario} onClose={() => setSelectedId(null)} />
+        ) : disrupted ? (
+          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={setSelectedId}>
             <ReplaySection
               scenario={scenario!}
               metrics={metrics}
