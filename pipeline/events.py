@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 
 import requests
@@ -29,6 +30,8 @@ def main() -> int:
             continue
         row = {k: v for k, v in event.items() if k not in {"earthquakeId", "referencePoint", "endSource", "zone"}}
         sources = [{"title": event["sourceTitle"], "url": event["sourceUrl"]}]
+        row["eventUtc"] = ""
+        row["knowledgeCutoffDate"] = event["start"]
         if event.get("endSource"):
             sources.append(event["endSource"])
         if event.get("earthquakeId"):
@@ -44,6 +47,8 @@ def main() -> int:
                 raw.write_bytes(response.content)
             document = json.loads(raw.read_text(encoding="utf-8"))
             lon, lat = document["geometry"]["coordinates"][:2]
+            row["eventUtc"] = datetime.fromtimestamp(document["properties"]["time"] / 1000, tz=UTC).isoformat().replace("+00:00", "Z")
+            row["knowledgeCutoffDate"] = min(event["start"], row["eventUtc"][:10])
             row.update(lon=lon, lat=lat, locationPrecision="exact", locationBasis="Published USGS epicenter; not a factory coordinate")
             sources.append({"title": f"USGS earthquake GeoJSON: {event['earthquakeId']}", "url": url})
         elif event.get("referencePoint"):
@@ -60,7 +65,7 @@ def main() -> int:
         row["sources"] = json.dumps(sources, ensure_ascii=False)
         output.append(row)
     with (ROOT / "data/events.csv").open("w", encoding="utf-8", newline="") as handle:
-        fields = ["id", "title", "type", "start", "end", "eventYear", "snapshotYear", "location", "country", "lon", "lat", "locationPrecision", "locationBasis", "dateBasis", "endBasis", "zone", "sourceTitle", "sourceUrl", "sources"]
+        fields = ["id", "title", "type", "start", "end", "eventYear", "snapshotYear", "eventUtc", "knowledgeCutoffDate", "location", "country", "lon", "lat", "locationPrecision", "locationBasis", "dateBasis", "endBasis", "zone", "sourceTitle", "sourceUrl", "sources"]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         writer.writerows(output)

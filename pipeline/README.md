@@ -165,6 +165,11 @@ the end of a disruption. `data/events.csv` preserves those distinctions.
 
 The event study uses adjusted equity closes and matching exchange benchmarks.
 Day zero is the first exchange session on or after the local event date.
+For exact USGS timestamps, NYSE/NASDAQ sessions instead use the event's Eastern
+time and the regular 4 p.m. close. Kumamoto occurred during the US April 15
+session, despite Japan's local April 16 date. Current exact-timestamp cases
+avoid US early-close days. Financial disclosures exclude the earliest event
+calendar date, preventing an unknown same-day release time from looking ahead.
 Estimation days -250 through -30 contain exactly 221 returns; event days 0
 through +10 contain 11. The market model has an OLS intercept and slope.
 For L event returns, CAR variance is the fitted residual variance multiplied

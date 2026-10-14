@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from pipeline.event_study import Unavailable, market_model, trading_windows
+from pipeline.event_study import Unavailable, market_event_date, market_model, trading_windows
 
 
 def test_synthetic_car_and_estimation_uncertainty_match_closed_form():
@@ -63,6 +63,15 @@ def test_degenerate_models_and_short_calendars_are_unavailable():
         trading_windows(closes, closes, "2020-02-01")
 
 
+def test_earthquake_us_session_uses_timestamp_instead_of_japan_calendar_day():
+    event = {"start": "2016-04-16", "eventUtc": "2016-04-15T16:25:06Z"}
+    assert market_event_date(event, "NYSE") == "2016-04-15"
+    assert market_event_date(event, "NASDAQ") == "2016-04-15"
+    assert market_event_date(event, "JPX") == "2016-04-16"
+    event = {"start": "2024-04-03", "eventUtc": "2024-04-02T23:58:12Z"}
+    assert market_event_date(event, "NYSE") == "2024-04-03"
+
+
 def test_saved_labels_have_unique_identities_valid_windows_and_no_fake_outcomes():
     path = Path("data/processed/labels.csv")
     if not path.exists():
@@ -89,6 +98,7 @@ def test_saved_peer_matches_use_pre_event_classifications_and_exclude_suppliers(
     for match in peers["matches"]:
         event = events[match["eventId"]]
         assert match["supplierTicker"] != match["peerTicker"]
-        assert match["supplierClassificationFiledOn"] < event["start"]
-        assert match["peerClassificationFiledOn"] < event["start"]
+        cutoff = event.get("knowledgeCutoffDate") or event["start"]
+        assert match["supplierClassificationFiledOn"] < cutoff
+        assert match["peerClassificationFiledOn"] < cutoff
         assert len(match["sic"]) == 4 and match["sources"]

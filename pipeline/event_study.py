@@ -7,7 +7,9 @@ import csv
 import hashlib
 import json
 from collections import Counter, defaultdict
+from datetime import datetime, time, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import numpy as np
 import pandas as pd
@@ -20,6 +22,16 @@ TRAIN_FIRST, TRAIN_LAST, EVENT_LAST = -250, -30, 10
 
 class Unavailable(ValueError):
     """The prescribed estimation or event window cannot be observed."""
+
+
+def market_event_date(event: dict, exchange: str) -> str:
+    if event.get("eventUtc") and exchange in {"NYSE", "NASDAQ"}:
+        observed = datetime.fromisoformat(event["eventUtc"].replace("Z", "+00:00")).astimezone(ZoneInfo("America/New_York"))
+        # Active events with exact timestamps fall on normal US sessions.
+        # The benchmark index still supplies weekends and holiday handling.
+        day = observed.date() + timedelta(days=observed.time() >= time(16, 0))
+        return day.isoformat()
+    return event["start"]
 
 
 def supplier_mapping_index(mapping: dict) -> dict:
@@ -164,7 +176,9 @@ def analyze() -> dict:
                 for symbol in (record["ticker"], record["benchmark"]):
                     if symbol not in cache:
                         cache[symbol] = read_close(symbol, price_records)
-                windows = trading_windows(cache[record["ticker"]], cache[record["benchmark"]], event["start"])
+                windows = trading_windows(cache[record["ticker"]], cache[record["benchmark"]], market_event_date(event, record["exchange"]))
+                if event.get("eventUtc") and record["exchange"] in {"NYSE", "NASDAQ"}:
+                    row["sources"].append({"title": "NYSE regular core session: 9:30 a.m. to 4 p.m. Eastern", "url": "https://www.nyse.com/markets/hours-calendars"})
                 row.update(market_model(*windows[:4]), **windows[4], status="ok")
                 row["sources"].extend(source for symbol in (record["ticker"], record["benchmark"]) for source in price_records[symbol]["sources"])
             except Unavailable as exc:
@@ -199,7 +213,7 @@ def analyze() -> dict:
         writer.writerows(output)
     summary = {"sampleData": False, "estimationTradingDays": [-250, -30], "eventTradingDays": [0, 10], "hitThreshold": -1.96,
                "carVariance": "OLS residual variance times [L + g' (X'X)^-1 g], g = sum of event design rows",
-               "dayZeroPolicy": "First exchange session on or after local event date; global session timing is not intraday synchronized",
+               "dayZeroPolicy": "Exact USGS timestamps aligned to US regular-session close for NYSE/NASDAQ; otherwise first benchmark session on/after local event date. Current exact-timestamp events avoid US early-close sessions.",
                "interpretation": "Statistically negative stock-market abnormal return; not a causal impact estimate or factory-output observation",
                "snapshotPolicy": "Own-year procurement list, published retrospectively; not evidence that supplier membership was publicly known at the event date",
                "exchangePolicy": "Pre-event registered-securities cover where verified; otherwise currently reported listing, flagged as not historically verified",

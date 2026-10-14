@@ -67,7 +67,8 @@ def main() -> int:
                     document = client.cached_json("https://data.sec.gov/submissions/" + archive["name"], ROOT / "data/raw/sec" / archive["name"])
                     entries.extend(filing_rows(document))
             for event in events:
-                annual = [r for r in entries if r.get("form") in {"10-K", "20-F"} and r.get("filingDate", "9999") < event["start"]]
+                cutoff = event.get("knowledgeCutoffDate") or event["start"]
+                annual = [r for r in entries if r.get("form") in {"10-K", "20-F"} and r.get("filingDate", "9999") < cutoff]
                 if not annual:
                     gaps.append({"ticker": ticker, "eventId": event["id"], "reason": "No pre-event annual filing found"})
                     continue

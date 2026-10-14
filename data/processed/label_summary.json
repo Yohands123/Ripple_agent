@@ -10,7 +10,7 @@
   ],
   "hitThreshold": -1.96,
   "carVariance": "OLS residual variance times [L + g' (X'X)^-1 g], g = sum of event design rows",
-  "dayZeroPolicy": "First exchange session on or after local event date; global session timing is not intraday synchronized",
+  "dayZeroPolicy": "Exact USGS timestamps aligned to US regular-session close for NYSE/NASDAQ; otherwise first benchmark session on/after local event date. Current exact-timestamp events avoid US early-close sessions.",
   "interpretation": "Statistically negative stock-market abnormal return; not a causal impact estimate or factory-output observation",
   "snapshotPolicy": "Own-year procurement list, published retrospectively; not evidence that supplier membership was publicly known at the event date",
   "exchangePolicy": "Pre-event registered-securities cover where verified; otherwise currently reported listing, flagged as not historically verified",
@@ -28,7 +28,7 @@
       "rows": 209,
       "validSupplierLabels": 86,
       "validPeerLabels": 8,
-      "hits": 3
+      "hits": 4
     },
     {
       "eventId": "covid-china-2020",
