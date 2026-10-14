@@ -1,0 +1,46 @@
+{
+  "checkedOn": "2026-10-14",
+  "yearPolicy": "Filenames and snapshotYear use the fiscal year stated in the PDF, never its publication year. Only verified editions are included; missing years are not substituted.",
+  "editions": [
+    {
+      "snapshotYear": 2018,
+      "publicationYear": 2019,
+      "title": "Apple Supplier Responsibility 2019 Supplier List (FY2018)",
+      "url": "https://www.keywalker.co.jp/wp-content/uploads/2019/09/Apple-Supplier-List.pdf",
+      "downloads": ["https://www.keywalker.co.jp/wp-content/uploads/2019/09/Apple-Supplier-List.pdf"]
+    },
+    {
+      "snapshotYear": 2020,
+      "publicationYear": 2021,
+      "title": "Apple Supplier List FY2020",
+      "url": "https://ekitait.com/wp-content/uploads/2021/10/2021-apple-supplier-list.pdf",
+      "downloads": ["https://ekitait.com/wp-content/uploads/2021/10/2021-apple-supplier-list.pdf", "https://lunablossom.tistory.com/303"]
+    },
+    {
+      "snapshotYear": 2021,
+      "publicationYear": 2022,
+      "title": "Apple Supplier List FY2021 (updated October 5, 2022)",
+      "url": "https://ninja7.tistory.com/233",
+      "downloads": ["https://ninja7.tistory.com/233", "https://www.esmchina.com/d/file/news/2022-10-08/f7a22ae36278c46b1f369939ef26c30a.pdf"]
+    },
+    {
+      "snapshotYear": 2022,
+      "publicationYear": 2023,
+      "title": "Apple Supplier List FY2022",
+      "url": "https://web.archive.org/web/20230601000000id_/https://www.apple.com/supplier-responsibility/pdf/Apple-Supplier-List.pdf",
+      "downloads": ["https://web.archive.org/web/20230601000000id_/https://www.apple.com/supplier-responsibility/pdf/Apple-Supplier-List.pdf"]
+    },
+    {
+      "snapshotYear": 2023,
+      "publicationYear": 2024,
+      "title": "Apple Supplier List FY2023",
+      "url": "https://www.supplychainreports.apple/files/doc_downloads/2024/04/Apple-Supplier-List.pdf",
+      "downloads": ["https://www.supplychainreports.apple/files/doc_downloads/2024/04/Apple-Supplier-List.pdf"]
+    }
+  ],
+  "gaps": [
+    {"snapshotYear": 2019, "reason": "No fiscal-year 2019 Supplier List located. The edition published in 2019 explicitly covers FY2018."},
+    {"snapshotYear": 2024, "reason": "No fiscal-year 2024 Supplier List located; Apple's current supplier-list link serves FY2023."},
+    {"snapshotYear": 2025, "reason": "No fiscal-year 2025 Supplier List located; Apple's current supplier-list link serves FY2023."}
+  ]
+}

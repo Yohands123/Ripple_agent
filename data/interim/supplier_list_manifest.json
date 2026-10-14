@@ -1,0 +1,96 @@
+{
+  "sampleData": false,
+  "checkedOn": "2026-10-14",
+  "yearPolicy": "Filenames and snapshotYear use the fiscal year stated in the PDF, never its publication year. Only verified editions are included; missing years are not substituted.",
+  "editions": [
+    {
+      "snapshotYear": 2018,
+      "publicationYear": 2019,
+      "sources": [
+        {
+          "title": "Apple Supplier Responsibility 2019 Supplier List (FY2018)",
+          "url": "https://www.keywalker.co.jp/wp-content/uploads/2019/09/Apple-Supplier-List.pdf"
+        }
+      ],
+      "pdfSha256": "e317e22be816d5f103e5f3fc5960138a6406a1462cd981e8101c103d22f6caf5",
+      "csvSha256": "f0b16b6607bec61471bd8222198cfe368cc825323d0de3959dc98b34dd39895b",
+      "rows": 808,
+      "suppliers": 200,
+      "headquartersRows": 9
+    },
+    {
+      "snapshotYear": 2020,
+      "publicationYear": 2021,
+      "sources": [
+        {
+          "title": "Apple Supplier List FY2020",
+          "url": "https://ekitait.com/wp-content/uploads/2021/10/2021-apple-supplier-list.pdf"
+        }
+      ],
+      "pdfSha256": "c7d6ba933383857df24da6a472380699be5710d68fd607a979d68d055e4528c9",
+      "csvSha256": "8b436e77b9a47a5a01adb8f970a9dfbc25ffc6c3da84505ccf6449ec129fc991",
+      "rows": 614,
+      "suppliers": 200,
+      "headquartersRows": 8
+    },
+    {
+      "snapshotYear": 2021,
+      "publicationYear": 2022,
+      "sources": [
+        {
+          "title": "Apple Supplier List FY2021 (updated October 5, 2022)",
+          "url": "https://ninja7.tistory.com/233"
+        }
+      ],
+      "pdfSha256": "6ad5bd66297c08806544f71840311ddbfbec09dd0867487979c7627982f6a186",
+      "csvSha256": "df4436d9e4184cee3810b24fc40a0a3f75ad1a45fb1d4c172f5d553780cff36e",
+      "rows": 745,
+      "suppliers": 191,
+      "headquartersRows": 0
+    },
+    {
+      "snapshotYear": 2022,
+      "publicationYear": 2023,
+      "sources": [
+        {
+          "title": "Apple Supplier List FY2022",
+          "url": "https://web.archive.org/web/20230601000000id_/https://www.apple.com/supplier-responsibility/pdf/Apple-Supplier-List.pdf"
+        }
+      ],
+      "pdfSha256": "90b0c7b5d1e9bf4c6d5e8ed96fc720b87196858b239c868e27198b17543c59fc",
+      "csvSha256": "cbf27bde44b46221cda959a370801cc84f6bfae713baf66f366f7fd92ffe2881",
+      "rows": 710,
+      "suppliers": 188,
+      "headquartersRows": 0
+    },
+    {
+      "snapshotYear": 2023,
+      "publicationYear": 2024,
+      "sources": [
+        {
+          "title": "Apple Supplier List FY2023",
+          "url": "https://www.supplychainreports.apple/files/doc_downloads/2024/04/Apple-Supplier-List.pdf"
+        }
+      ],
+      "pdfSha256": "19006bc0d77ed26eba99fa8c59e8bf0fc5dd8b06e2cf91dd904f93681959cf42",
+      "csvSha256": "db1678454c3dcf237e6e7e7c060c43e26cda5cf836aa8c66db63e76304627512",
+      "rows": 761,
+      "suppliers": 187,
+      "headquartersRows": 0
+    }
+  ],
+  "gaps": [
+    {
+      "snapshotYear": 2019,
+      "reason": "No fiscal-year 2019 Supplier List located. The edition published in 2019 explicitly covers FY2018."
+    },
+    {
+      "snapshotYear": 2024,
+      "reason": "No fiscal-year 2024 Supplier List located; Apple's current supplier-list link serves FY2023."
+    },
+    {
+      "snapshotYear": 2025,
+      "reason": "No fiscal-year 2025 Supplier List located; Apple's current supplier-list link serves FY2023."
+    }
+  ]
+}
