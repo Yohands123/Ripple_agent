@@ -18,3 +18,73 @@ a {
 button {
   font-family: inherit;
 }
+
+.app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--ocean);
+}
+
+.map-area {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+}
+
+.map-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.map-stage-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+}
+
+.map-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.panel {
+  flex: none;
+  width: var(--frame-panel-w);
+  height: 100%;
+  padding: 28px 28px 24px;
+  background: var(--panel-bg);
+  border-left: var(--panel-border-w) solid var(--panel-border);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+  .app {
+    display: block;
+    position: relative;
+  }
+  .map-area {
+    position: absolute;
+    inset: 0;
+  }
+  .panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    max-height: 55vh;
+    border-left: none;
+    border-top: var(--panel-border-w) solid var(--panel-border);
+    border-radius: 16px 16px 0 0;
+  }
+}
