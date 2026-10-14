@@ -1,7 +1,7 @@
 // The map during a dropped disruption, built only from the network and the scenario file.
 
 import { project, type Pt } from "./geo";
-import { largePillBox, placeBox, smallPillBox, spiral, type MapLayout } from "./layout";
+import { largePillBox, symbolSize, placeBox, smallPillBox, spiral, type MapLayout } from "./layout";
 import { Polyline, sampleSmooth } from "./polyline";
 import { edgeGeometry, edgeLonLat, nodeIndex, sampleEdge, smoothPath } from "./routes";
 import {
@@ -12,6 +12,7 @@ import {
   SHIP_SPACING,
   SHIP_SPEED,
   type Caption,
+  type Marker,
   type MapPill,
   type MoneyLine,
   type Mover,
@@ -69,7 +70,12 @@ export function atRiskCoins(scenario: Scenario): { delayed: number; lost: number
   return { delayed, lost: n - delayed };
 }
 
-export function buildDisruptionScene(network: Network, layout: MapLayout, scenario: Scenario): Scene {
+/**
+ * `progress` (0..1] is how far through the event the replay is: the queue builds
+ * and revenue coins turn delayed or lost as it advances.
+ */
+export function buildDisruptionScene(network: Network, layout: MapLayout, scenario: Scenario, progress = 0.5): Scene {
+  const p = Math.min(1, Math.max(0, progress));
   const nodes = nodeIndex(network);
   const shockIds = new Set(scenario.shock.nodeIds);
   const { blocked, detour, expedited } = scenario.affectedRoutes;
@@ -135,10 +141,11 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     }
     if (intoShock) {
       // Ships bunch up before the blockage; the blocked ship lies across the chokepoint.
-      for (let k = 1; k <= QUEUE_SHIPS; k++) {
+      const queued = Math.max(1, Math.ceil(QUEUE_SHIPS * p));
+      for (let k = 1; k <= queued; k++) {
         const [x, y] = path.at(path.length - k * QUEUE_GAP);
-        const p: Pt = [x + (k % 2 === 0 ? 9 : -6), y];
-        movers.push({ id: `queue-${r.id}-${k}`, kind: "ship", path: new Polyline([p, p]), offset: 0, speed: 0, enter: "enter-coins" });
+        const at: Pt = [x + (k % 2 === 0 ? 9 : -6), y];
+        movers.push({ id: `queue-${r.id}-${k}`, kind: "ship", path: new Polyline([at, at]), offset: 0, speed: 0, enter: "enter-coins" });
       }
       const end = path.at(path.length);
       movers.push({ id: `blocked-ship-${r.id}`, kind: "ship", path: new Polyline([[end[0], end[1] + 4], [end[0], end[1] + 4]]), offset: 0, speed: 0, rotate: 58 });
@@ -163,7 +170,8 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   // Money: spend continues; revenue coins split into one on time, delayed, and lost.
   const money: MoneyLine[] = [];
   const mg = moneyGeometry(network, layout);
-  const risk = atRiskCoins(scenario);
+  const full = atRiskCoins(scenario);
+  const risk = { delayed: Math.round(full.delayed * p), lost: Math.round(full.lost * p) };
   mg.revenue.forEach((rev, i) => {
     const path = new Polyline(sampleSmooth(rev.pts));
     money.push({ id: `revenue-${i}`, kind: "in", d: smoothPath(rev.pts), path });
@@ -174,8 +182,8 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     const hub = rev.hub;
     const stackX = hub[0] + 23;
     for (let k = 0; k < risk.delayed; k++) {
-      const p: Pt = [stackX, hub[1] + 34 - k * size.delayedOffset];
-      movers.push({ id: `grey-${k}`, kind: "coin", coin: "grey", size: size.coin, path: new Polyline([p, p]), offset: 0, speed: 0, enter: "enter-coins" });
+      const at: Pt = [stackX, hub[1] + 34 - k * size.delayedOffset];
+      movers.push({ id: `grey-${k}`, kind: "coin", coin: "grey", size: size.coin, path: new Polyline([at, at]), offset: 0, speed: 0, enter: "enter-coins" });
     }
     if (risk.delayed > 0) {
       const text = "DELAYED";
@@ -234,8 +242,8 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   if (detourOpt && detourRoute) {
     const text = `${detourOpt.label}: ${detourOpt.detail}`.toUpperCase();
     const { w, h } = largePillBox(text);
-    const p = paths.get(detourRoute.id)!.atFraction(0.3);
-    const box = placeBox(spiral(p[0] + 10, p[1] + 40, w, h, 160), layout, { ignoreRoutes: true });
+    const at = paths.get(detourRoute.id)!.atFraction(0.3);
+    const box = placeBox(spiral(at[0] + 10, at[1] + 40, w, h, 160), layout, { ignoreRoutes: true });
     if (box) pills.push({ key: "detour", text, big: true, bg: tierColor[4], fg: color.ocean, x: box.x, y: box.y });
   }
   const airOpt = optionMatching(scenario, /air/i);
@@ -243,7 +251,7 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
 
   // Regional groups with predicted hits run low on stock.
   const groupText: Record<string, string> = {};
-  const hitIds = new Set(scenario.predictions.filter((p) => p.pHit >= 0.5).map((p) => p.nodeId));
+  const hitIds = new Set(scenario.predictions.filter((pr) => pr.pHit >= 0.5).map((pr) => pr.nodeId));
   for (const g of layout.groups) {
     if (g.nodeIds.some((id) => hitIds.has(id))) groupText[g.key] = `${g.key.toUpperCase()}: STOCK RUNNING LOW`;
   }
@@ -253,6 +261,23 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     captions.push({ key: "spend-caption", text: "Payments from Apple Park, across the Pacific", x: size.mapW - 20 - 170, y: mg.spend.target[1] + 60, w: 170, color: "#9CC6EE" });
   }
 
+  // Predicted hits (rings) and, once the event is over, actual outcomes.
+  const markers: Marker[] = [];
+  for (const pr of scenario.predictions) {
+    const at = layout.points.get(pr.nodeId);
+    const n = nodes.get(pr.nodeId);
+    if (!at || !n || pr.pHit < 0.5) continue;
+    markers.push({ key: `pred-${pr.nodeId}`, kind: "predicted", x: at[0], y: at[1], r: symbolSize(n.kind) / 2 + 6, low: pr.lowConfidence });
+  }
+  if (p >= 1) {
+    for (const a of scenario.actual) {
+      const at = layout.points.get(a.nodeId);
+      const n = nodes.get(a.nodeId);
+      if (!at || !n) continue;
+      markers.push({ key: `actual-${a.nodeId}`, kind: a.hit ? "actual-hit" : "actual-miss", x: at[0], y: at[1], r: symbolSize(n.kind) / 2 + 6, low: false });
+    }
+  }
+
   const visibleEdges = network.edges;
-  return { zones, groupText, routes, money, movers, pills, captions, visibleEdges };
+  return { zones, groupText, routes, money, movers, pills, captions, visibleEdges, markers };
 }

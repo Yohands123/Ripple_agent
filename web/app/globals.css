@@ -533,3 +533,101 @@ button {
   font-weight: 700;
   margin-top: 8px;
 }
+
+.replay {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.replay-range {
+  flex: 1;
+  accent-color: var(--option-accent);
+}
+
+.replay-day {
+  font-family: var(--font-arcade);
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.replay-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-heading);
+  margin-top: 6px;
+}
+
+.marker-key {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 6px;
+}
+
+.marker-key:first-child {
+  margin-left: 0;
+}
+
+.marker-key.predicted,
+.map-marker.predicted {
+  border: 2px solid var(--coin-red);
+}
+
+.marker-key.actual-hit,
+.map-marker.actual-hit {
+  border: 3px solid var(--coin-red);
+  background: rgba(214, 69, 61, 0.35);
+}
+
+.marker-key.actual-miss,
+.map-marker.actual-miss {
+  border: 3px solid var(--text-secondary);
+}
+
+.map-marker {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.map-marker.predicted.low {
+  border-style: dashed;
+}
+
+.model-result {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-body);
+  margin-top: 8px;
+}
+
+.affected-row.with-actual {
+  grid-template-columns: minmax(0, 1fr) 90px 34px 44px;
+}
+
+.affected-actual {
+  font-size: 11px;
+  font-weight: 700;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.affected-actual.hit {
+  color: var(--coin-red);
+}
+
+.heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.heading-row .text-button {
+  padding: 0;
+  font-size: 12px;
+}

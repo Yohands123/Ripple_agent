@@ -1,19 +1,20 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
+import { loadMetrics, loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout } from "@/lib/layout";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
 import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
 import { tierColor, size } from "@/lib/tokens";
-import type { Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
+import type { Metrics, Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
 import DisruptionPanel from "./DisruptionPanel";
 import FreeFlowPanel from "./FreeFlowPanel";
 import { Pill } from "./Glyphs";
 import MapStage from "./MapStage";
 import MoverLayer from "./MoverLayer";
 import NodeLayer from "./NodeLayer";
+import ReplaySection from "./ReplaySection";
 import RouteLayer from "./RouteLayer";
 import WorldMap from "./WorldMap";
 import YearTag from "./YearTag";
@@ -30,6 +31,8 @@ export default function RippleApp() {
   const [scenarioId, setScenarioId] = useState<string | null>(null);
   const [scenario, setScenario] = useState<Scenario | null>(null);
   const [dropped, setDropped] = useState(false);
+  const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [dayChoice, setDayChoice] = useState<{ id: string; day: number } | null>(null);
   const [worldReady, setWorldReady] = useState(false);
   const onWorld = useCallback(() => setWorldReady(true), []);
 
@@ -38,6 +41,7 @@ export default function RippleApp() {
       if (res) setNetwork(res.data);
       else setNetworkMissing(true);
     });
+    loadMetrics().then((res) => setMetrics(res?.data ?? null));
     loadScenarioIndex().then((res) => {
       const list = res?.data ?? [];
       setIndex(list);
@@ -57,9 +61,12 @@ export default function RippleApp() {
     };
   }, [scenarioId]);
 
-  const sample = Boolean(network?.sampleData || scenario?.sampleData);
+  const sample = Boolean(network?.sampleData || scenario?.sampleData || metrics?.sampleData);
 
   const disrupted = dropped && scenario !== null;
+  const totalDays = scenario ? Math.max(1, daysBetween(scenario.start, scenario.end)) : 1;
+  const day = scenario && dayChoice?.id === scenario.id ? dayChoice.day : Math.ceil(totalDays / 2);
+  const progress = day / totalDays;
 
   // Highlighted land: assembly countries, plus the shock country during a disruption.
   const highlight = useMemo(() => {
@@ -72,14 +79,12 @@ export default function RippleApp() {
     if (!network) return null;
     if (disrupted) {
       const layout = computeLayout(network, network.edges);
-      return { layout, ...buildDisruptionScene(network, layout, scenario!) };
+      return { layout, ...buildDisruptionScene(network, layout, scenario!, progress) };
     }
     const layout = computeLayout(network, freeFlowEdges(network, scenario));
     return { layout, ...buildFreeFlowScene(network, layout, scenario) };
-  }, [network, scenario, disrupted]);
+  }, [network, scenario, disrupted, progress]);
 
-  const totalDays = scenario ? Math.max(1, daysBetween(scenario.start, scenario.end)) : 1;
-  const day = Math.ceil(totalDays / 2);
 
   const clear = () => {
     setDropped(false);
@@ -116,6 +121,14 @@ export default function RippleApp() {
                 {c.text}
               </div>
             ))}
+            {scene?.markers?.map((m) => (
+              <div
+                key={m.key}
+                className={`map-marker ${m.kind}${m.low ? " low" : ""}`}
+                data-marker={m.kind}
+                style={{ left: m.x - m.r, top: m.y - m.r, width: 2 * m.r, height: 2 * m.r }}
+              />
+            ))}
             {scene && <MoverLayer movers={scene.movers} />}
             {scene?.pills.map((p) => (
               <Pill key={p.key} big={p.big} bg={p.bg} fg={p.fg} style={{ left: p.x, top: p.y }}>
@@ -138,7 +151,15 @@ export default function RippleApp() {
       </div>
       <aside className="panel" aria-label="Ripple panel">
         {disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} />
+          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={day >= totalDays}>
+            <ReplaySection
+              scenario={scenario!}
+              metrics={metrics}
+              day={day}
+              totalDays={totalDays}
+              onDay={(d) => setDayChoice({ id: scenario!.id, day: d })}
+            />
+          </DisruptionPanel>
         ) : (
           <FreeFlowPanel sample={sample} scenario={scenario} onDrop={drop} />
         )}

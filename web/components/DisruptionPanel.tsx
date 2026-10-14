@@ -11,13 +11,15 @@ const MAX_AFFECTED = 5;
 interface Props {
   sample: boolean;
   scenario: Scenario;
+  /** Show actual outcomes next to predictions (once a replay reaches the end). */
+  showActual?: boolean;
   network: Network | null;
   onClear: () => void;
   onSelectNode?: (nodeId: string) => void;
   children?: React.ReactNode;
 }
 
-export default function DisruptionPanel({ sample, scenario, network, onClear, onSelectNode, children }: Props) {
+export default function DisruptionPanel({ sample, scenario, showActual = false, network, onClear, onSelectNode, children }: Props) {
   // Remount-free reset: options start from the file's defaults whenever the scenario changes.
   const [choice, setChoice] = useState<{ id: string; chosen: Set<string> }>(() => defaults(scenario));
   const chosen = choice.id === scenario.id ? choice.chosen : defaults(scenario).chosen;
@@ -26,6 +28,8 @@ export default function DisruptionPanel({ sample, scenario, network, onClear, on
   const names = new Map((network?.nodes ?? []).map((n) => [n.id, n.name]));
   const affected = [...scenario.predictions].sort((a, b) => b.pHit - a.pHit).slice(0, MAX_AFFECTED);
   const anyLowConfidence = affected.some((p) => p.lowConfidence);
+  const actual = new Map(scenario.actual.map((a) => [a.nodeId, a]));
+  const withActual = showActual && affected.some((p) => actual.has(p.nodeId));
 
   const toggle = (id: string) => {
     const next = new Set(chosen);
@@ -39,7 +43,12 @@ export default function DisruptionPanel({ sample, scenario, network, onClear, on
       <PanelHeader sample={sample} />
 
       <section>
-        <h2 className="panel-heading">WHAT&apos;S WRONG</h2>
+        <div className="heading-row">
+          <h2 className="panel-heading">WHAT&apos;S WRONG</h2>
+          <button type="button" className="text-button" onClick={onClear}>
+            Back to a normal week
+          </button>
+        </div>
         <div className="headline">{scenario.headline}</div>
       </section>
 
@@ -53,7 +62,7 @@ export default function DisruptionPanel({ sample, scenario, network, onClear, on
               <button
                 key={p.nodeId}
                 type="button"
-                className="affected-row"
+                className={withActual ? "affected-row with-actual" : "affected-row"}
                 onClick={() => onSelectNode?.(p.nodeId)}
                 title={`Chance of a hit ${p.pHit.toFixed(2)}, 95% interval ${p.ciLow.toFixed(2)} to ${p.ciHigh.toFixed(2)}${p.lowConfidence ? ", low confidence" : ""}`}
               >
@@ -62,6 +71,11 @@ export default function DisruptionPanel({ sample, scenario, network, onClear, on
                   <span className={p.lowConfidence ? "affected-bar dashed" : "affected-bar"} style={{ width: `${Math.round(p.pHit * 100)}%` }} />
                 </span>
                 <span className="affected-score">{p.pHit.toFixed(2)}</span>
+                {withActual && (
+                  <span className={actual.get(p.nodeId)?.hit ? "affected-actual hit" : "affected-actual"}>
+                    {actual.has(p.nodeId) ? (actual.get(p.nodeId)!.hit ? "HIT" : "NO HIT") : ""}
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -92,12 +106,6 @@ export default function DisruptionPanel({ sample, scenario, network, onClear, on
       </section>
 
       {children}
-
-      <div style={{ marginTop: "auto" }}>
-        <button type="button" className="text-button" onClick={onClear}>
-          Back to a normal week
-        </button>
-      </div>
     </>
   );
 }

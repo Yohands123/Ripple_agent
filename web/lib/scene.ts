@@ -71,7 +71,18 @@ export interface ShockZone {
   d: number;
 }
 
+export interface Marker {
+  key: string;
+  kind: "predicted" | "actual-hit" | "actual-miss";
+  x: number;
+  y: number;
+  /** Ring radius, px. */
+  r: number;
+  low: boolean;
+}
+
 export interface Scene {
+  markers?: Marker[];
   zones?: ShockZone[];
   /** Replacement text for regional group pills, keyed by continent. */
   groupText?: Record<string, string>;
