@@ -2,7 +2,7 @@
 
 import type { MapLayout } from "@/lib/layout";
 import { symbolSize } from "@/lib/layout";
-import { size, tierColor } from "@/lib/tokens";
+import { tierColor } from "@/lib/tokens";
 import type { Network } from "@/lib/types";
 import { NodeSymbol, Pill } from "./Glyphs";
 
@@ -27,7 +27,6 @@ export default function NodeLayer({ network, layout, onSelect, selectedId, group
         if (n.kind === "hq") return null;
         const [x, y] = layout.points.get(n.id)!;
         const s = symbolSize(n.kind);
-        if (x < -s || y < -s || x > size.mapW + s || y > size.mapH + s) return null;
         const label = `${n.name}, ${n.region}`;
         return (
           <button
@@ -59,7 +58,7 @@ export default function NodeLayer({ network, layout, onSelect, selectedId, group
       ))}
 
       {layout.hq && (
-        <div className="hq-card" style={{ left: layout.hq.x, top: layout.hq.y }}>
+        <div className="hq-card" data-hq="real" style={{ left: layout.hq.x, top: layout.hq.y }}>
           APPLE PARK
           <br />
           CUPERTINO

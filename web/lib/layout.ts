@@ -1,6 +1,6 @@
 // Where nodes, their label pills, and regional group labels go on the map.
 
-import { project, type Pt } from "./geo";
+import { DEFAULT_FRAME, project, WORLD_BOUNDS, type Pt } from "./geo";
 import { nodeIndex, sampleEdge } from "./routes";
 import { size } from "./tokens";
 import type { Network, NetworkEdge, NetworkNode, NodeKind } from "./types";
@@ -77,12 +77,27 @@ export interface GroupLabel {
 }
 
 export interface HqCard {
+  /** The card at Apple Park's real location. */
   x: number;
   y: number;
-  /** Point that money lines attach to. */
+  /** Apple Park's real location, where money lines end. */
   anchor: Pt;
+  /** True when Apple Park is outside the concept-art view (it is, at Cupertino). */
   offMap: boolean;
+  /** Where the card is pinned on screen while Apple Park is out of view (top-left, as in the concept art). */
+  pin: { x: number; y: number; anchor: Pt };
 }
+
+/** The 1440 × 810 concept view, inset 4 px, for keeping its pills tidy. */
+const FRAME: Box = { x: DEFAULT_FRAME.x + 4, y: DEFAULT_FRAME.y + 4, w: DEFAULT_FRAME.w - 8, h: DEFAULT_FRAME.h - 8 };
+const WORLD: Box = { x: WORLD_BOUNDS.x0 + 4, y: WORLD_BOUNDS.y0 + 4, w: WORLD_BOUNDS.x1 - WORLD_BOUNDS.x0 - 8, h: WORLD_BOUNDS.y1 - WORLD_BOUNDS.y0 - 8 };
+
+/** Pills for things in the concept view stay inside it; pills elsewhere only need to stay on the world. */
+function frameFor(anchor: Pt): Box {
+  return inside(anchor, DEFAULT_FRAME) ? FRAME : WORLD;
+}
+
+const within = (b: Box, f: Box) => b.x >= f.x && b.y >= f.y && b.x + b.w <= f.x + f.w && b.y + b.h <= f.y + f.h;
 
 export interface MapLayout {
   points: Map<string, Pt>;
@@ -110,13 +125,11 @@ export function spiral(x: number, y: number, w: number, h: number, maxR = 160, s
 
 /** First candidate box that stays in frame and clear of `taken` and `obstacles`; it is then marked taken. */
 export function placeBox(candidates: Box[], layout: MapLayout, opts: { ignoreRoutes?: boolean } = {}): Box | null {
-  const frame: Box = { x: 4, y: 4, w: size.mapW - 8, h: size.mapH - 8 };
+  const first = candidates[0];
+  const frame = first ? frameFor([first.x + first.w / 2, first.y + first.h / 2]) : FRAME;
   const pick = candidates.find(
     (b) =>
-      b.x >= frame.x &&
-      b.y >= frame.y &&
-      b.x + b.w <= frame.x + frame.w &&
-      b.y + b.h <= frame.y + frame.h &&
+      within(b, frame) &&
       !layout.taken.some((o) => overlaps(b, o)) &&
       !layout.obstacles.boxes.some((o) => overlaps(b, o)) &&
       (opts.ignoreRoutes || !layout.obstacles.pts.some((p) => inside(p, b))),
@@ -153,11 +166,11 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   const points = new Map<string, Pt>();
   for (const n of network.nodes) points.set(n.id, project(n.lon, n.lat));
   const nodes = nodeIndex(network);
-  const frame: Box = { x: 4, y: 4, w: size.mapW - 8, h: size.mapH - 8 };
-  const onMap = (n: NetworkNode) => inside(points.get(n.id)!, { x: 0, y: 0, w: size.mapW, h: size.mapH });
+  const inView = (n: NetworkNode) => inside(points.get(n.id)!, DEFAULT_FRAME);
+  const onWorld = (n: NetworkNode) => inside(points.get(n.id)!, WORLD);
 
   // Obstacles: node symbols and sampled routes.
-  const nodeBoxes: Box[] = network.nodes.filter(onMap).map((n) => {
+  const nodeBoxes: Box[] = network.nodes.filter(onWorld).map((n) => {
     const [x, y] = points.get(n.id)!;
     const s = symbolSize(n.kind);
     return { x: x - s / 2, y: y - s / 2, w: s, h: s };
@@ -166,24 +179,23 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   const routePts: Pt[] = [...visibleEdges.filter((e) => e.mode !== "air").flatMap((e) => sampleEdge(e, nodes, 6)), ...extraObstaclePts];
   const taken: Box[] = [];
 
-  // Apple Park card: at its location when on the map, else pinned top-left.
+  // Apple Park card: drawn at its real location; while that is out of view the
+  // card is pinned top-left on screen, as in the concept art.
   const hqNode = network.nodes.find((n) => n.kind === "hq");
   let hq: HqCard | null = null;
   if (hqNode) {
     const p = points.get(hqNode.id)!;
     const cardH = 48;
-    if (onMap(hqNode)) {
-      hq = { x: p[0] - size.hqCardW / 2, y: p[1] - cardH - 8, anchor: p, offMap: false };
-    } else {
-      hq = { x: 12, y: 12, anchor: [12 + 48, 12 + 31], offMap: true };
-    }
+    const pin = { x: 12, y: 12, anchor: [12 + 48, 12 + 31] as Pt };
+    hq = { x: p[0] - size.hqCardW / 2, y: p[1] - cardH - 8, anchor: p, offMap: !inView(hqNode), pin };
     taken.push({ x: hq.x, y: hq.y, w: size.hqCardW, h: cardH });
+    if (hq.offMap) taken.push({ x: pin.x, y: pin.y, w: size.hqCardW, h: cardH });
   }
 
   // Regional sales groups get one pill instead of per-node labels.
   const groups: GroupLabel[] = [];
   const byContinent = new Map<string, NetworkNode[]>();
-  for (const n of network.nodes.filter((n) => isSales(n) && onMap(n))) {
+  for (const n of network.nodes.filter((n) => isSales(n) && onWorld(n))) {
     const c = continentOf(n.lon, n.lat);
     byContinent.set(c, [...(byContinent.get(c) ?? []), n]);
   }
@@ -204,7 +216,7 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   const used = new Set<string>();
   const order: NodeKind[] = ["assembly", "supplier_major", "port"];
   const candidates = [...network.nodes]
-    .filter((n) => onMap(n) && order.includes(n.kind))
+    .filter((n) => onWorld(n) && order.includes(n.kind))
     .sort((a, b) => order.indexOf(a.kind) - order.indexOf(b.kind));
   for (const n of candidates) {
     const text = labelText(n);
@@ -220,11 +232,9 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
       { x: cx - w / 2, y: cy - r - 8 - h, w, h },
     ];
     const ownBox: Box = { x: cx - r, y: cy - r, w: 2 * r, h: 2 * r };
+    const frame = frameFor([cx, cy]);
     const fits = (b: Box) =>
-      b.x >= frame.x &&
-      b.y >= frame.y &&
-      b.x + b.w <= frame.x + frame.w &&
-      b.y + b.h <= frame.y + frame.h &&
+      within(b, frame) &&
       !nodeBoxes.some((o) => o !== ownBox && !(o.x === ownBox.x && o.y === ownBox.y) && overlaps(b, o)) &&
       !taken.some((o) => overlaps(b, o)) &&
       !routePts.some((p) => inside(p, b));

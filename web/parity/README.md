@@ -5,8 +5,11 @@ reduced motion (so ships and coins sit still). Regenerate with:
 
 ```bash
 cd web && npm run build && npm start   # in one terminal
-node scripts/screenshot.mjs --reduced  # in another
+node scripts/screenshot.mjs --reduced --fixtures  # in another
 ```
+
+`--fixtures` hides `web/public/data/real/` from the browser so the comparison uses the
+fixture data the references were drawn from.
 
 | State | Reference | App | Side by side |
 |---|---|---|---|
@@ -43,3 +46,4 @@ delayed coin stack, falling lost coins, and the four disruption sections with th
 | What's affected lists two rows, not three | The fixture has two predictions; "Ships queued in Red Sea" is not a node prediction. |
 | Extra panel lines: option assumption note, "Back to a normal week", "What matters most", replay section | Data rules require labeling assumptions; W11 adds the sensitivity chart and W7 the replay (the panel scrolls); the link returns to free flow. |
 | Quota chart has 5 points, not 7 | The fixture has 5 weeks. |
+| Zoom controls (+, −, Reset view) in the map's bottom-right corner | Added at the human's request: the map pans and zooms over the whole world so sites in the Americas can be reached. It opens on the concept-art view, so everything else in that view is unchanged. |

@@ -1,13 +1,14 @@
 // Verifies forecast fan charts render from forecasts.json, and that a missing file shows a quiet empty state.
 // Usage: node scripts/check-forecasts.mjs [base-url]   (app must be running)
 import { chromium } from "@playwright/test";
+import { fixturesContext } from "./fixtures-only.mjs";
 
 const base = process.argv[2] ?? "http://localhost:3000";
 const browser = await chromium.launch();
 let ok = true;
 
 for (const missing of [false, true]) {
-  const context = await browser.newContext({ viewport: { width: 1840, height: 810 } });
+  const context = await fixturesContext(browser, { viewport: { width: 1840, height: 810 } });
   if (missing) await context.route("**/data/*/forecasts.json", (r) => r.fulfill({ status: 404, body: "" }));
   const page = await context.newPage();
   const errors = [];

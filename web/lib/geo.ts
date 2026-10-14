@@ -14,17 +14,29 @@ export const PX_PER_DEGREE = 8.6;
 export const VIEW_WEST = -25;
 export const VIEW_NORTH = 57;
 
+// The whole world is drawn in the same pixel space, so panning reaches every continent.
 export const projection = geoEquirectangular()
   .scale((PX_PER_DEGREE * 180) / Math.PI)
-  .translate([-VIEW_WEST * PX_PER_DEGREE, VIEW_NORTH * PX_PER_DEGREE])
-  .clipExtent([
-    [-40, -40],
-    [size.mapW + 40, size.mapH + 40],
-  ]);
+  .translate([-VIEW_WEST * PX_PER_DEGREE, VIEW_NORTH * PX_PER_DEGREE]);
 
 export const pathFor = geoPath(projection);
 
 export type Pt = [number, number];
+
+/** Pannable extent in map pixels: 180°W to 180°E, 84°N to 58°S (Antarctica left out). */
+export const WORLD_BOUNDS = {
+  x0: (-180 - VIEW_WEST) * PX_PER_DEGREE,
+  x1: (180 - VIEW_WEST) * PX_PER_DEGREE,
+  y0: (VIEW_NORTH - 84) * PX_PER_DEGREE,
+  y1: (VIEW_NORTH + 58) * PX_PER_DEGREE,
+};
+
+/** Map pixel x of the antimeridian on each side. */
+export const DATELINE_WEST = WORLD_BOUNDS.x0;
+export const DATELINE_EAST = WORLD_BOUNDS.x1;
+
+/** The concept-art view: what the map shows before any pan or zoom. */
+export const DEFAULT_FRAME = { x: 0, y: 0, w: size.mapW, h: size.mapH };
 
 export function project(lon: number, lat: number): Pt {
   return [(lon - VIEW_WEST) * PX_PER_DEGREE, (VIEW_NORTH - lat) * PX_PER_DEGREE];

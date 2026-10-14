@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { countryAt, countryPath, loadWorld, type WorldGeometry } from "@/lib/geo";
-import { color, size } from "@/lib/tokens";
+import { countryAt, countryPath, loadWorld, WORLD_BOUNDS, type WorldGeometry } from "@/lib/geo";
+import { color } from "@/lib/tokens";
 
 export interface HighlightPoint {
   lon: number;
@@ -37,7 +37,7 @@ export default function WorldMap({ highlight, onLoaded }: { highlight: Highlight
 
   return (
     <g data-layer="world">
-      <rect x={0} y={0} width={size.mapW} height={size.mapH} fill={color.ocean} />
+      <rect x={WORLD_BOUNDS.x0} y={WORLD_BOUNDS.y0} width={WORLD_BOUNDS.x1 - WORLD_BOUNDS.x0} height={WORLD_BOUNDS.y1 - WORLD_BOUNDS.y0} fill={color.ocean} />
       {world && <path d={world.land} fill={color.land} stroke={color.landStroke} strokeWidth={1} strokeLinejoin="round" />}
       {highlightPaths.map(([id, d]) => (
         <path key={id} d={d} fill={color.landHighlight} />

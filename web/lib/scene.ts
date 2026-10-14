@@ -1,7 +1,7 @@
 // Everything drawn on the map for one state (free flow or a dropped disruption),
 // derived only from the network, the scenario file, and the layout.
 
-import type { Pt } from "./geo";
+import { DATELINE_EAST, DATELINE_WEST, type Pt } from "./geo";
 import { continentOf, largePillBox, placeBox, smallPillBox, spiral, type MapLayout } from "./layout";
 import { Polyline, sampleSmooth } from "./polyline";
 import { edgeGeometry, nodeIndex, sampleEdge, smoothPath } from "./routes";
@@ -133,10 +133,27 @@ function revenueLine(from: Pt, to: Pt): Pt[] {
   return [from, [a[0], a[1] + 13], [b[0], b[1] + 12.5], to];
 }
 
-/** Spend crosses the Pacific: it enters at the right edge and curls into the target. */
-function spendLine(to: Pt): Pt[] {
+/**
+ * Revenue heading to an Apple Park outside the concept view keeps the concept-art
+ * shape up to the pinned card, then carries on to Apple Park's real location.
+ */
+function revenueToHq(hub: Pt, hq: NonNullable<MapLayout["hq"]>): Pt[] {
+  if (!hq.offMap) return revenueLine(hub, hq.anchor);
+  const pin = hq.pin.anchor;
+  const [tx, ty] = hq.anchor;
+  const onward: Pt[] = [
+    [pin[0] + (tx - pin[0]) * 0.3, pin[1] + (ty - pin[1]) * 0.15],
+    [pin[0] + (tx - pin[0]) * 0.7, pin[1] + (ty - pin[1]) * 0.6],
+    [tx, ty],
+  ];
+  return [...revenueLine(hub, pin), ...onward];
+}
+
+/** Spend crosses the Pacific: it enters the concept view at the right edge and curls into the target. */
+function spendEast(to: Pt): Pt[] {
   const [x, y] = to;
   return [
+    [DATELINE_EAST, y - 62],
     [size.mapW + 22, y - 60],
     [x + 155, y - 43],
     [x + 95, y - 37],
@@ -145,24 +162,74 @@ function spendLine(to: Pt): Pt[] {
   ];
 }
 
+/** The same payment leaving Apple Park westward, up to the antimeridian. */
+function spendWest(from: Pt, to: Pt): Pt[] {
+  const yEdge = to[1] - 62;
+  return [from, [from[0] - 160, from[1] + (yEdge - from[1]) * 0.6 + 18], [DATELINE_WEST, yEdge]];
+}
+
 export interface MoneyGeometry {
   revenue: { pts: Pt[]; hub: Pt }[];
-  spend: { pts: Pt[]; target: Pt } | null;
+  /** Spend is one or two segments (split where it crosses the antimeridian), in travel order. */
+  spend: { segments: Pt[][]; target: Pt } | null;
 }
 
 /** Money lines: revenue from each sales region to Apple Park, spend from Apple Park to the assembly nearest the Pacific. */
 export function moneyGeometry(network: Network, layout: MapLayout): MoneyGeometry {
   if (!layout.hq) return { revenue: [], spend: null };
   const hq = layout.hq;
-  const revenue = salesHubs(network, layout).map((hub) => ({ hub, pts: revenueLine(hub, hq.anchor) }));
+  const revenue = salesHubs(network, layout).map((hub) => ({ hub, pts: revenueToHq(hub, hq) }));
   const assemblies = network.nodes.filter((n) => n.kind === "assembly");
   let spend: MoneyGeometry["spend"] = null;
   if (assemblies.length) {
     const east = assemblies.reduce((a, b) => (b.lon > a.lon ? b : a));
     const target = layout.points.get(east.id)!;
-    spend = { target, pts: hq.offMap ? spendLine(target) : [hq.anchor, target] };
+    const acrossPacific = hq.offMap && hq.anchor[0] < target[0];
+    spend = { target, segments: acrossPacific ? [spendWest(hq.anchor, target), spendEast(target)] : [[hq.anchor, target]] };
   }
   return { revenue, spend };
+}
+
+/**
+ * Coins along money lines, spaced so the concept view shows the same three coins
+ * per line; the rest travel on beyond it (behind the pinned card or off the edge).
+ */
+export function moneyCoins(
+  mg: MoneyGeometry,
+  layout: MapLayout,
+): { lines: MoneyLine[]; movers: Mover[] } {
+  const lines: MoneyLine[] = [];
+  const movers: Mover[] = [];
+  mg.revenue.forEach((rev, i) => {
+    const path = new Polyline(sampleSmooth(rev.pts));
+    lines.push({ id: `revenue-${i}`, kind: "in", d: smoothPath(rev.pts), path });
+    const visible = layout.hq?.offMap ? cardEdgeDistance(path, layout.hq.pin.x + size.hqCardW + size.coin / 2) : path.length;
+    const gap = visible / MONEY_COINS;
+    for (let k = 0; k < MONEY_COINS; k++) {
+      movers.push({ id: `gold-${i}-${k}`, kind: "coin", coin: "gold", size: size.coin, path, offset: (k + 0.5) * gap, speed: COIN_SPEED, span: [0, visible] });
+    }
+    // Beyond the concept view the line is long, so its coins are spaced wider.
+    const onward = path.length - visible;
+    const far = Math.round(onward / (gap * 3));
+    for (let k = 0; k < far; k++) {
+      movers.push({ id: `gold-${i}-far-${k}`, kind: "coin", coin: "gold", size: size.coin, path, offset: visible + ((k + 0.5) * onward) / far, speed: COIN_SPEED, span: [visible, path.length] });
+    }
+  });
+  if (mg.spend) {
+    mg.spend.segments.forEach((seg, j) => {
+      const path = new Polyline(sampleSmooth(seg));
+      lines.push({ id: `spend-${j}`, kind: "out", d: smoothPath(seg), path });
+      const last = j === mg.spend!.segments.length - 1;
+      // The last segment's visible stretch starts at the concept view's right edge.
+      const visible = last && layout.hq?.offMap ? path.length - path.project([size.mapW, seg[1][1]]) : path.length;
+      const gap = Math.max(40, visible / MONEY_COINS);
+      const count = Math.max(1, Math.round(path.length / gap));
+      for (let k = 0; k < count; k++) {
+        movers.push({ id: `blue-${j}-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: path.length - (k + 0.5) * gap, speed: COIN_SPEED });
+      }
+    });
+  }
+  return { lines, movers };
 }
 
 /** Sea routes that carry finished devices, joined end to end (e.g. Shenzhen → Suez → Rotterdam). */
@@ -216,24 +283,9 @@ export function buildFreeFlowScene(network: Network, layout: MapLayout, scenario
   }
 
   // Money lines and their coins.
-  const money: MoneyLine[] = [];
   const mg = moneyGeometry(network, layout);
-  mg.revenue.forEach((rev, i) => {
-    const path = new Polyline(sampleSmooth(rev.pts));
-    money.push({ id: `revenue-${i}`, kind: "in", d: smoothPath(rev.pts), path });
-    // Coins arrive at the edge of the Apple Park card rather than sliding under it.
-    const end = layout.hq ? cardEdgeDistance(path, layout.hq.x + size.hqCardW + size.coin / 2) : path.length;
-    for (let k = 0; k < MONEY_COINS; k++) {
-      movers.push({ id: `gold-${i}-${k}`, kind: "coin", coin: "gold", size: size.coin, path, offset: ((k + 0.5) / MONEY_COINS) * end, speed: COIN_SPEED, span: [0, end] });
-    }
-  });
-  if (mg.spend) {
-    const path = new Polyline(sampleSmooth(mg.spend.pts));
-    money.push({ id: "spend", kind: "out", d: smoothPath(mg.spend.pts), path });
-    for (let k = 0; k < MONEY_COINS; k++) {
-      movers.push({ id: `blue-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: ((k + 0.5) / MONEY_COINS) * path.length, speed: COIN_SPEED });
-    }
-  }
+  const { lines: money, movers: coins } = moneyCoins(mg, layout);
+  movers.push(...coins);
 
   // Route pills.
   pills.push(...routePills(network, layout, routes, mg, null));
@@ -291,7 +343,7 @@ export function routePills(network: Network, layout: MapLayout, routes: RouteDra
     const { w, h } = smallPillBox(text);
     const hub = mg.revenue[0].hub;
     const box = placeBox(
-      spiral(layout.hq.anchor[0] + 80, hub[1] + 86, w, h),
+      spiral((layout.hq.offMap ? layout.hq.pin.anchor : layout.hq.anchor)[0] + 80, hub[1] + 86, w, h),
       layout,
     );
     if (box) pills.push({ key: "revenue", text, big: false, bg: color.moneyIn, fg: color.ocean, x: box.x, y: box.y });

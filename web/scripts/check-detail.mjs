@@ -2,6 +2,7 @@
 // Real data is simulated by answering /data/real/* requests in the browser; nothing is written to disk.
 // Usage: node scripts/check-detail.mjs [base-url]   (app must be running)
 import { chromium } from "@playwright/test";
+import { fixturesContext } from "./fixtures-only.mjs";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,7 +15,7 @@ const browser = await chromium.launch();
 let ok = true;
 
 async function run(name, setup, expectText) {
-  const context = await browser.newContext({ viewport: { width: 1840, height: 810 } });
+  const context = await fixturesContext(browser, { viewport: { width: 1840, height: 810 } });
   await setup(context);
   const page = await context.newPage();
   await page.goto(`${base}/?scenario=suez-2021`);

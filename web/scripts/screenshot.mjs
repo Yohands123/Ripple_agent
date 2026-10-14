@@ -1,7 +1,8 @@
 // Screenshots the app and the concept-art references at 1840 × 810, plus a
 // side-by-side comparison image for each pair.
 //
-// Usage: node scripts/screenshot.mjs [--base http://localhost:3000] [--out parity] [--reduced]
+// Usage: node scripts/screenshot.mjs [--base http://localhost:3000] [--out parity] [--reduced] [--fixtures]
+// --fixtures hides /data/real/ from the browser so the app shows the fixture data the references were drawn from.
 // The app must already be running (npm run build && npm start).
 
 import { chromium } from "@playwright/test";
@@ -18,6 +19,7 @@ const arg = (name, fallback) => {
 const base = arg("--base", "http://localhost:3000");
 const out = resolve(arg("--out", resolve(here, "..", "parity")));
 const reduced = args.includes("--reduced");
+const fixturesOnly = args.includes("--fixtures");
 const refDir = resolve(here, "..", "..", "design", "reference");
 
 const pairs = [
@@ -31,6 +33,7 @@ const context = await browser.newContext({
   viewport: { width: 1840, height: 810 },
   reducedMotion: reduced ? "reduce" : "no-preference",
 });
+if (fixturesOnly) await context.route("**/data/real/**", (r) => r.fulfill({ status: 404, body: "" }));
 const page = await context.newPage();
 
 for (const p of pairs) {

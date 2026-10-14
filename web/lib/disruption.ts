@@ -7,6 +7,7 @@ import { edgeGeometry, edgeLonLat, nodeIndex, sampleEdge, smoothPath } from "./r
 import {
   cardEdgeDistance,
   COIN_SPEED,
+  moneyCoins,
   moneyGeometry,
   routePills,
   SHIP_SPACING,
@@ -176,7 +177,8 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   mg.revenue.forEach((rev, i) => {
     const path = new Polyline(sampleSmooth(rev.pts));
     money.push({ id: `revenue-${i}`, kind: "in", d: smoothPath(rev.pts), path });
-    const end = layout.hq ? cardEdgeDistance(path, layout.hq.x + size.hqCardW + size.coin / 2) : path.length;
+    // Revenue still arriving: one coin on the stretch before the pinned card.
+    const end = layout.hq?.offMap ? cardEdgeDistance(path, layout.hq.pin.x + size.hqCardW + size.coin / 2) : path.length;
     movers.push({ id: `gold-${i}`, kind: "coin", coin: "gold", size: size.coin, path, offset: end * 0.9, speed: COIN_SPEED, span: [end * 0.45, end] });
 
     if (i > 0) return;
@@ -218,11 +220,10 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     }
   });
   if (mg.spend) {
-    const path = new Polyline(sampleSmooth(mg.spend.pts));
-    money.push({ id: "spend", kind: "out", d: smoothPath(mg.spend.pts), path });
-    for (let k = 0; k < 3; k++) {
-      movers.push({ id: `blue-${k}`, kind: "coin", coin: "blue", size: size.coin, path, offset: ((k + 0.5) / 3) * path.length, speed: COIN_SPEED });
-    }
+    // Spend keeps flowing during a disruption.
+    const spendOnly = moneyCoins({ revenue: [], spend: mg.spend }, layout);
+    money.push(...spendOnly.lines);
+    movers.push(...spendOnly.movers);
   }
 
   // Pills: the shock, the queue, the detour, air freight.

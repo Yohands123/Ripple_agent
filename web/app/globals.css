@@ -38,6 +38,85 @@ button {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.map-stage:active {
+  cursor: grabbing;
+}
+
+.map-stage:focus-visible {
+  outline: 2px solid var(--tier-4);
+  outline-offset: -2px;
+}
+
+/* Screen-space layer: scaled like the concept frame but anchored to the window's corners. */
+.map-hud {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.map-hud > * {
+  pointer-events: auto;
+}
+
+/* 98 px above the bottom: y = 712 in the 810 px concept frame. */
+.map-hud .year-tag {
+  top: calc(100% - (var(--frame-map-h) - var(--year-y)));
+  pointer-events: none;
+}
+
+.hq-pinned {
+  position: absolute;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.hq-pinned:focus-visible {
+  outline: 2px solid var(--tier-4);
+  outline-offset: 2px;
+}
+
+.map-hud-controls {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 6px;
+}
+
+.map-hud-controls button {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: rgba(14, 26, 25, 0.85);
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.map-hud-controls button.reset {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.map-hud-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.map-hud-controls button:focus-visible {
+  outline: 2px solid var(--tier-4);
+  outline-offset: 2px;
 }
 
 .map-stage-inner {
@@ -51,6 +130,7 @@ button {
   position: absolute;
   left: 0;
   top: 0;
+  overflow: visible;
 }
 
 .panel {

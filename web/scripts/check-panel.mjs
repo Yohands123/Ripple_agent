@@ -1,10 +1,11 @@
 // Verifies that toggling "What can be shifted" options changes the with-plan line.
 // Usage: node scripts/check-panel.mjs [base-url]   (app must be running)
 import { chromium } from "@playwright/test";
+import { fixturesContext } from "./fixtures-only.mjs";
 
 const base = process.argv[2] ?? "http://localhost:3000";
 const browser = await chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1840, height: 810 } });
+const page = await (await fixturesContext(browser, { viewport: { width: 1840, height: 810 } })).newPage();
 await page.goto(`${base}/?scenario=suez-2021`);
 await page.waitForSelector("[data-ready='true']");
 const line = () => page.getAttribute("[data-line='with-plan']", "d");

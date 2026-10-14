@@ -1,6 +1,7 @@
 // Verifies the "What matters most" chart renders from scenario.sensitivity and hides when it is empty.
 // Usage: node scripts/check-sensitivity.mjs [base-url]   (app must be running)
 import { chromium } from "@playwright/test";
+import { fixturesContext } from "./fixtures-only.mjs";
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,7 +12,7 @@ const browser = await chromium.launch();
 let ok = true;
 
 for (const empty of [false, true]) {
-  const context = await browser.newContext({ viewport: { width: 1840, height: 810 } });
+  const context = await fixturesContext(browser, { viewport: { width: 1840, height: 810 } });
   if (empty) {
     const s = JSON.parse(readFileSync(file, "utf8"));
     s.sensitivity = [];

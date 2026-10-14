@@ -160,7 +160,35 @@ export default function RippleApp() {
   return (
     <div className="app" data-ready={String(ready)} data-mode={disrupted ? "disruption" : "free"}>
       <div className="map-area">
-        <MapStage>
+        <MapStage
+          hud={(stage) => (
+            <>
+              {scene?.layout.hq?.offMap && !stage.isVisible(scene.layout.hq.anchor, -40) && (
+                <button
+                  type="button"
+                  className="hq-card hq-pinned"
+                  style={{ left: scene.layout.hq.pin.x, top: scene.layout.hq.pin.y }}
+                  onClick={() => stage.goTo(scene.layout.hq!.anchor)}
+                  title="Go to Apple Park"
+                >
+                  APPLE PARK
+                  <br />
+                  CUPERTINO
+                </button>
+              )}
+              {disrupted ? (
+                <YearTag text={monthYear(scenario!.start)} subtitle={`Day ${day} of ${totalDays}. ${scenario!.title}`} />
+              ) : (
+                <>
+                  <Pill big bg={tierColor[6]} style={{ left: `${(560 / size.mapW) * 100}%`, top: 18 }}>
+                    ALL LANES CLEAR
+                  </Pill>
+                  <YearTag text="NORMAL WEEK" subtitle="Goods flow west, money flows home" />
+                </>
+              )}
+            </>
+          )}
+        >
           <svg width={size.mapW} height={size.mapH} viewBox={`0 0 ${size.mapW} ${size.mapH}`} aria-hidden="true" className="map-svg">
             <WorldMap highlight={highlight} onLoaded={onWorld} />
             {scene && <RouteLayer routes={scene.routes} money={scene.money} />}
@@ -189,16 +217,6 @@ export default function RippleApp() {
                 {p.text}
               </Pill>
             ))}
-            {disrupted ? (
-              <YearTag text={monthYear(scenario!.start)} subtitle={`Day ${day} of ${totalDays}. ${scenario!.title}`} />
-            ) : (
-              <>
-                <Pill big bg={tierColor[6]} style={{ left: 560, top: 18 }}>
-                  ALL LANES CLEAR
-                </Pill>
-                <YearTag text="NORMAL WEEK" subtitle="Goods flow west, money flows home" />
-              </>
-            )}
           </div>
         </MapStage>
         {networkMissing && <div className="empty-note">Network data is not available yet.</div>}
