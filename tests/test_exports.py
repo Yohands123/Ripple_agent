@@ -94,7 +94,7 @@ def test_site_outcomes_preserve_company_scope_and_use_no_invented_routes(candida
         assert scenario["money"]["revenueAtRisk"] is None
         assert all(n["sources"] for n in network["nodes"])
         assert all(n["tier"] is None for n in network["nodes"] if n["partType"] is None)
-        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] == "mapped from part type" for n in network["nodes"] if n["partType"] is not None)
+        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] in {"mapped from part type", "model classification, see data/reference/supplier_classes.csv"} for n in network["nodes"] if n["partType"] is not None)
         assert all("Company" in p["predictionScope"] for p in scenario["predictions"])
         ids = {n["id"] for n in network["nodes"]}
         assert {a["nodeId"] for a in scenario["actual"]} <= ids
@@ -105,7 +105,7 @@ def test_expansion_keeps_company_only_scenarios_and_reports_only_selected_metric
     index = candidate["scenarios/index.json"]
     assert len(index) == metrics["predictionEvents"] == 9
     assert len(metrics["loeo"]) == metrics["events"] == 7
-    assert sum(r["rows"] for r in metrics["loeo"]) == metrics["rows"] == 820
+    assert sum(r["rows"] for r in metrics["loeo"]) == metrics["rows"]
     assert sum(r["n"] for r in metrics["calibration"]) == metrics["rows"]
     omitted = {r["eventId"] for r in metrics["excludedFromMetrics"]}
     assert omitted == {"japan-2011", "thailand-2011"}
@@ -118,7 +118,28 @@ def test_expansion_keeps_company_only_scenarios_and_reports_only_selected_metric
         assert scenario["predictions"] == scenario["actual"] == []
         companies = scenario["companyPredictions"]
         assert len(companies) == network["coverage"]["unlocatedCompanies"] == 156
-        assert sum(r["outcomeObservable"] for r in companies) == 54
+        assert sum(r["outcomeObservable"] for r in companies) == next(r["rows"] for r in metrics["excludedFromMetrics"] if r["eventId"] == identifier)
         assert all(not {"nodeId", "lon", "lat"} & r.keys() for r in companies)
         assert scenario["cohort"]["assumption"] is True
         assert scenario["cohort"]["publicationYear"] == 2012
+
+
+def test_reference_classification_preserves_filing_part_types_and_shared_dated_company_ids(candidate):
+    import csv
+    from pipeline.company_registry import CLASS_BASIS, registry
+    attributes = {(r["eventId"], r["companyId"]): r for r in csv.DictReader((ROOT / "data/processed/features.csv").open(encoding="utf-8"))}
+    classes = registry()
+    for entry in candidate["scenarios/index.json"]:
+        scenario = candidate[f"scenarios/{entry['id']}.json"]
+        network = candidate[scenario["networkPath"]]
+        for node in network["nodes"]:
+            if "sourceCompany" not in node:
+                continue
+            assert node["companyId"] == classes.identifier(node["sourceCompany"], scenario["start"])
+            feature = attributes[(entry["id"], node["companyId"])]
+            if feature["part_type"] != "unknown":
+                assert node["partType"] == feature["part_type"] and node["partTypeStatus"] == "sourced"
+            row = classes.rows[node["sourceCompany"]]
+            assert node["tierBasis"] == CLASS_BASIS and node["confidence"] == row["confidence"]
+            if row["tierValue"] is None:
+                assert node["tier"] is None

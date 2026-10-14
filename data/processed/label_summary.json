@@ -16,12 +16,12 @@
   "exchangePolicy": "Pre-event registered-securities cover where verified; otherwise currently reported listing, flagged as not historically verified",
   "rows": 1708,
   "statusCounts": {
-    "mapping_unavailable": 646,
-    "ok": 980,
-    "missing_estimation_observations": 71,
+    "ok": 1012,
+    "mapping_unavailable": 602,
+    "missing_estimation_observations": 83,
     "missing_event_observations": 3,
-    "insufficient_market_calendar": 6,
-    "legacy_issuer_price_series_unverified": 2
+    "legacy_issuer_price_series_unverified": 2,
+    "insufficient_market_calendar": 6
   },
   "events": [
     {
@@ -39,9 +39,9 @@
         "proxyApproved": false
       },
       "rows": 209,
-      "validSupplierLabels": 86,
+      "validSupplierLabels": 100,
       "validPeerLabels": 8,
-      "hits": 4
+      "hits": 5
     },
     {
       "eventId": "covid-china-2020",
@@ -58,7 +58,7 @@
         "proxyApproved": false
       },
       "rows": 208,
-      "validSupplierLabels": 121,
+      "validSupplierLabels": 124,
       "validPeerLabels": 8,
       "hits": 9
     },
@@ -77,7 +77,7 @@
         "proxyApproved": false
       },
       "rows": 196,
-      "validSupplierLabels": 124,
+      "validSupplierLabels": 126,
       "validPeerLabels": 5,
       "hits": 3
     },
@@ -96,7 +96,7 @@
         "proxyApproved": false
       },
       "rows": 193,
-      "validSupplierLabels": 122,
+      "validSupplierLabels": 123,
       "validPeerLabels": 5,
       "hits": 15
     },
@@ -115,7 +115,7 @@
         "proxyApproved": false
       },
       "rows": 192,
-      "validSupplierLabels": 126,
+      "validSupplierLabels": 127,
       "validPeerLabels": 4,
       "hits": 6
     },
@@ -134,7 +134,7 @@
         "proxyApproved": false
       },
       "rows": 192,
-      "validSupplierLabels": 119,
+      "validSupplierLabels": 120,
       "validPeerLabels": 5,
       "hits": 3
     },
@@ -153,7 +153,7 @@
         "proxyApproved": false
       },
       "rows": 162,
-      "validSupplierLabels": 54,
+      "validSupplierLabels": 58,
       "validPeerLabels": 6,
       "hits": 0
     },
@@ -172,7 +172,7 @@
         "proxyApproved": false
       },
       "rows": 163,
-      "validSupplierLabels": 54,
+      "validSupplierLabels": 59,
       "validPeerLabels": 6,
       "hits": 1
     },
@@ -191,7 +191,7 @@
         "proxyApproved": false
       },
       "rows": 193,
-      "validSupplierLabels": 122,
+      "validSupplierLabels": 123,
       "validPeerLabels": 5,
       "hits": 7
     }

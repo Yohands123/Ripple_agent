@@ -365,7 +365,7 @@
         "zhengzhou-2022"
       ],
       "innerValidationEvent": "zhengzhou-2022",
-      "earlyStoppedRounds": 7,
+      "earlyStoppedRounds": 4,
       "members": 200,
       "parameters": {
         "objective": "binary",
@@ -634,8 +634,11 @@
     }
   ],
   "inputSha256": {
-    "data/processed/features.csv": "5272de6e25ba6cd54f5fd1606cc6519a5c7cf0838eee8d119c0babc8ded9c52f",
-    "data/processed/labels.csv": "154611feca5d5129a53ae4a13df2c55a2c732182d1ff6051cecec8bba1e53852",
+    "data/processed/features.csv": "6f4611c588e1ed9cea179f8c424414fc1fa4aabe98c5a921f1a14ca34b1f42d7",
+    "data/processed/labels.csv": "dde6fbb89b2de8c27f488687a1614c9b50722ce36853603b888314243cf5f458",
+    "data/reference/supplier_classes.csv": "bddb92484e79d789b8ffd5905cf986385ed99cb19cb077b3b786c43e01827437",
+    "data/reference/classification_corrections.json": "3618586c85336ccf85c1f5300f69e426f57cec1d10d980a8e936f21d75bf4d93",
+    "data/reference/historical_identity_rules.json": "c67558c5669e3ac141ad9c79025b676cbb6ee500ddb5b46980f30b2c7abfa095",
     "data/sources/evaluation_policy.json": "1eb64c5fea5d6546265cb99971996d326ed48f9e300207227cedb9c681b4c608"
   },
   "modelCache": "data/raw/model_ensembles/",
@@ -763,13 +766,13 @@
   "excludedFromMetrics": [
     {
       "eventId": "japan-2011",
-      "rows": 54,
+      "rows": 58,
       "hits": 0,
       "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"
     },
     {
       "eventId": "thailand-2011",
-      "rows": 54,
+      "rows": 59,
       "hits": 0,
       "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"
     }

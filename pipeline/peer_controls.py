@@ -35,7 +35,8 @@ def download_metadata() -> int:
 
 
 def build_matches() -> dict:
-    from pipeline.event_study import listing_for_event, supplier_mapping_index
+    from pipeline.event_study import supplier_mapping_index
+    from pipeline.company_registry import company_groups, registry, resolve_listing
     from pipeline.prices import canonical_exchange, company_key
     config = json.loads((ROOT / "data/sources/markets.json").read_text(encoding="utf-8"))
     rows = json.loads((ROOT / "data/raw/listings/SEC.json").read_text(encoding="utf-8"))["data"]
@@ -66,13 +67,12 @@ def build_matches() -> dict:
         path = ROOT / f"data/interim/suppliers_{event['snapshotYear']}.csv"
         if not path.exists():
             continue
-        names = {company_key(r["supplier"]): r["supplier"] for r in csv.DictReader(path.open(encoding="utf-8"))}
+        source_names = {r["supplier"] for r in csv.DictReader(path.open(encoding="utf-8"))}
+        names = {company_key(alias) for name in source_names for alias in registry().aliases(name, event["start"])}
         known_tickers = {r["ticker"] for key in names for r in by_name[key]}
-        for key, name in names.items():
-            unique = {r["ticker"]: r for r in by_name[key]}
-            if len(unique) != 1:
-                continue
-            record = listing_for_event(next(iter(unique.values())), name, event["start"])
+        for aliases in company_groups(source_names, event["start"]).values():
+            name = registry().canonical(aliases[0], event["start"])
+            record = resolve_listing(aliases, by_name, event["start"])
             historical = history.get((event["id"], record.get("ticker")))
             if not historical or not historical.get("exchange"):
                 unmatched.append({"eventId": event["id"], "supplier": name, "reason": "Verified pre-event SIC or exchange unavailable"})

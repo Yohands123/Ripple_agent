@@ -254,7 +254,7 @@ def train(members=200, metric_draws=2000):
     (ROOT / "data/processed/site_predictions.json").write_text(json.dumps({"sampleData": False, "predictions": site_predictions}, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
     summary = {"sampleData": False, "seed": SEED, "folds": [{k: m[k] for k in ["heldOutEvent", "trainingEvents", "innerValidationEvent", "earlyStoppedRounds", "members", "parameters", "featureGroups"]} for m in manifests],
                "inputSha256": {str(path.relative_to(ROOT)).replace("\\", "/"): hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
-                               for path in [ROOT / "data/processed/features.csv", ROOT / "data/processed/labels.csv"] + ([policy_path] if policy_path.exists() else [])},
+                               for path in [ROOT / "data/processed/features.csv", ROOT / "data/processed/labels.csv", ROOT / "data/reference/supplier_classes.csv", ROOT / "data/reference/classification_corrections.json", ROOT / "data/reference/historical_identity_rules.json"] + ([policy_path] if policy_path.exists() else [])},
                "modelCache": "data/raw/model_ensembles/", "companyPredictions": len(company_predictions), "sitePredictions": len(site_predictions), "cohorts": cohorts,
                "evaluatedEvents": sorted(evaluation["eventId"].unique()), "excludedFromMetrics": metric_exclusions}
     (ROOT / "ml/model_manifest.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")

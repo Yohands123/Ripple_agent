@@ -1,5 +1,9 @@
 # M10 nine-event evaluation
 
+This is the completed M10 snapshot before the later supplier-classification
+and canonical-identity request. See `company_merge_comparison.md` for the
+subsequent retrain and its AUC changes.
+
 Retraining and production re-export are complete. The user chose to exclude
 single-class events from metrics, recorded in `evaluation_policy.json`.
 All nine scenario exports remain available; seven events contribute to scores.

@@ -1,0 +1,137 @@
+{
+  "inputSha256": {
+    "ml/train.py": "475f3ccc7b57617cd7342b6ac8f26a93ecef702d3572c0deba58ded9380f3363",
+    "ml/features.py": "4d31ac943e8bb37be41b0a1322976e8555e2fd81c089e949cdb2519e456a5268",
+    "ml/model_manifest.json": "4b556032cfeda35c34a4c3963354aae3ea7ae3a33e45a91abdac0ef44bb7980a",
+    "data/events.csv": "228a2e1359918a5fe6970a5f80b6875fde5fb82af2e92a7290103afe8f83a837",
+    "data/processed/features.csv": "d96b01687791072d1a9af6a994bb484a9830c5b8fdb36bbd5f42db181d561265",
+    "data/processed/labels.csv": "5d6a2901936e052cd2db5a186d6ddd6a7019205936c98b58cfe5c9a65575062a",
+    "data/processed/metrics.json": "89c62db50276120579ffc066d6011100616d2741c0ade66c9dc18118d0f5505b",
+    "data/processed/held_out_predictions.csv": "dba801f4d91caa3c2e336741bf2508852d8220dc3384e073df56fc37bc1f92f8",
+    "data/processed/company_predictions.json": "2974b0b3e117c7f4618b196571522f3c4c268303b2d42938594eaf2649d5b1cb",
+    "data/processed/site_predictions.json": "044a1ceff5dc7aa7e5c53f1dcae84fa24ac3bf5c0ba14adc09f0c08e23c4e970"
+  },
+  "modelChanged": false,
+  "evaluatedEvents": [
+    {
+      "eventId": "covid-china-2020",
+      "companies": 124,
+      "hits": 8,
+      "modelAuc": 0.6514008620689655,
+      "distanceAuc": 0.44450431034482757,
+      "logisticAuc": 0.6336206896551724,
+      "missingDistances": 4,
+      "companySiteProjections": 414,
+      "maxSitesPerCompany": 14,
+      "siteWeightedDistanceAucDiagnostic": 0.4401587041884817
+    },
+    {
+      "eventId": "kumamoto-2016",
+      "companies": 100,
+      "hits": 4,
+      "modelAuc": 0.6875,
+      "distanceAuc": 0.6588541666666665,
+      "logisticAuc": 0.6692708333333333,
+      "missingDistances": 3,
+      "companySiteProjections": 463,
+      "maxSitesPerCompany": 23,
+      "siteWeightedDistanceAucDiagnostic": 0.6468120805369127
+    },
+    {
+      "eventId": "red-sea-2023",
+      "companies": 120,
+      "hits": 3,
+      "modelAuc": 0.782051282051282,
+      "distanceAuc": 0.6296296296296297,
+      "logisticAuc": 0.37179487179487175,
+      "missingDistances": 0,
+      "companySiteProjections": 564,
+      "maxSitesPerCompany": 30,
+      "siteWeightedDistanceAucDiagnostic": 0.5932927831662009
+    },
+    {
+      "eventId": "russia-2022",
+      "companies": 123,
+      "hits": 7,
+      "modelAuc": 0.3897783251231527,
+      "distanceAuc": 0.5332512315270935,
+      "logisticAuc": 0.49261083743842365,
+      "missingDistances": 0,
+      "companySiteProjections": 510,
+      "maxSitesPerCompany": 30,
+      "siteWeightedDistanceAucDiagnostic": 0.5101327742837176
+    },
+    {
+      "eventId": "shanghai-2022",
+      "companies": 123,
+      "hits": 14,
+      "modelAuc": 0.5095019659239843,
+      "distanceAuc": 0.7041284403669724,
+      "logisticAuc": 0.6195937090432503,
+      "missingDistances": 0,
+      "companySiteProjections": 510,
+      "maxSitesPerCompany": 30,
+      "siteWeightedDistanceAucDiagnostic": 0.6813122264971071
+    },
+    {
+      "eventId": "suez-2021",
+      "companies": 126,
+      "hits": 3,
+      "modelAuc": 0.426829268292683,
+      "distanceAuc": 0.8807588075880758,
+      "logisticAuc": 0.8780487804878049,
+      "missingDistances": 0,
+      "companySiteProjections": 522,
+      "maxSitesPerCompany": 15,
+      "siteWeightedDistanceAucDiagnostic": 0.7582727272727272
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "companies": 127,
+      "hits": 6,
+      "modelAuc": 0.5447658402203857,
+      "distanceAuc": 0.5509641873278237,
+      "logisticAuc": 0.3980716253443526,
+      "missingDistances": 0,
+      "companySiteProjections": 519,
+      "maxSitesPerCompany": 30,
+      "siteWeightedDistanceAucDiagnostic": 0.7038076152304609
+    }
+  ],
+  "duplicateCompanyEventRows": 0,
+  "duplicateTickerEventRows": 0,
+  "baselineReplayMaxAbsError": 9.93129189996722e-17,
+  "distanceReconstructionMaxAbsKm": 1.8189894035458565e-12,
+  "companiesObservedInMultipleEvents": 142,
+  "excludedFromMetrics": [
+    {
+      "eventId": "japan-2011",
+      "rows": 58,
+      "hits": 0,
+      "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"
+    },
+    {
+      "eventId": "thailand-2011",
+      "rows": 59,
+      "hits": 0,
+      "reason": "Single observed supplier outcome class; excluded from all metrics by the user's decision"
+    }
+  ],
+  "overall": {
+    "auc": 0.4471177944862155,
+    "brier": 0.05281295521458291,
+    "baselineAuc": 0.5691450849345587,
+    "distanceAuc": 0.63895850737956
+  },
+  "findings": [
+    "No direct held-out-label leakage detected: evaluation has one row per company/event and one valid supplier per ticker/event.",
+    "Sites share company labels only in display projections; these repeated site rows do not enter metrics or training. Site-weighted AUC is a diagnostic of the distortion that would occur if they did.",
+    "All saved evaluated distances reconstruct from disclosed manufacturing locations and independently sourced event anchors, without hit labels or a fitted hit-cluster center. Headquarters are excluded.",
+    "Saved distance probabilities reproduce using other events' labeled companies only: median known training distance and training prevalence. No held-out labels select the scale or calibration.",
+    "The same issuer appears in other events during training. Leave-one-event-out tests a new event, not a new company; company dependence and within-event market correlation remain.",
+    "Minimum distance favors firms with more disclosed sites; varying disclosure coverage and coarse centroids may confound it. Straight-line distance to Suez or the Red Sea is not observed route exposure.",
+    "Public shock anchors and retrospective supplier cohorts were analyst-defined, not prospectively preregistered. Code/data checks cannot prove that no analyst selection was influenced by later knowledge.",
+    "The approved removal of single-class events conditions pooled metrics on observed outcomes. Few hits, current-universe survivorship, and repeated companies limit inference.",
+    "ReplaySection.tsx currently labels baselineAuc as distance alone, but baselineAuc is logistic regression. This is a display-label error, not leakage in the saved distance predictions. Web code was not changed."
+  ]
+}

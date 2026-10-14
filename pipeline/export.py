@@ -19,6 +19,7 @@ if __package__ in {None, ""}:
 
 from pipeline.validate import validate_folder
 from pipeline.tiers import inferred_tier
+from pipeline.company_registry import registry
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "data/review/export_preview"
@@ -81,13 +82,13 @@ def build_bundle(root=ROOT):
             financial_sources = [v["source"] for v in evidence.values() if "source" in v]
             nodes.append({
                 "id": site["nodeId"], "name": f"{site['supplier']} — {site['location']}",
-                "kind": "supplier_major", **inferred_tier(part_type),
+                "kind": "supplier_major", **registry().classify(site["supplier"], part_type, inferred_tier(part_type)),
                 "lon": site["lon"], "lat": site["lat"], "precision": site["precision"],
                 "region": site["location"], "ticker": attributes["ticker"] or None,
-                "partType": part_type,
                 "appleRevenueShare": float(attributes["apple_revenue_share"]) if attributes["apple_revenue_share"] else None,
-                "sources": citations(site["sources"], financial_sources, tickers[attributes["ticker"]]),
+                "sources": citations(site["sources"], financial_sources, tickers[attributes["ticker"]], [registry().rows[site["supplier"]]["correction"]["source"]] if registry().rows.get(site["supplier"], {}).get("correction") else []),
                 "companyId": site["companyId"], "locationRole": site["locationRole"],
+                "sourceCompany": site["supplier"], "canonicalCompany": site["canonicalCompany"], "supplierAliases": site["supplierAliases"],
                 "attributeSources": evidence,
                 "partTypeScope": "Company product category, not an Apple-specific bill of materials",
             })

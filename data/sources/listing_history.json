@@ -17,6 +17,16 @@
       }
     ]
   },
+  "6479.T": {
+    "mitsumiAcquisitionDate": "2017-01-27",
+    "legacyMitsumiTicker": "6767.T",
+    "sources": [
+      {
+        "title": "MinebeaMitsumi: Mitsumi became a subsidiary on January 27, 2017; distinct historical stock",
+        "url": "https://www.minebeamitsumi.com/english/news/press/2017/1192715_8993.html"
+      }
+    ]
+  },
   "AVGO": {
     "broadcomAcquisitionDate": "2016-02-01",
     "legacyBroadcomTicker": "BRCM",

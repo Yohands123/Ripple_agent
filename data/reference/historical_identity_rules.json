@@ -1,0 +1,12 @@
+{
+  "scope": "Keep historically distinct issuers separate before a publicly documented merger; current canonical groups do not establish historical stock identity.",
+  "rules": [
+    {
+      "canonicalCompany": "MinebeaMitsumi",
+      "sourceNamePrefix": "Mitsumi",
+      "before": "2017-01-27",
+      "historicalCanonicalCompany": "Mitsumi Electric",
+      "source": {"title": "MinebeaMitsumi: Mitsumi became a subsidiary on January 27, 2017; separate historical issuer", "url": "https://www.minebeamitsumi.com/english/news/press/2017/1192715_8993.html"}
+    }
+  ]
+}

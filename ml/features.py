@@ -12,19 +12,16 @@ from pathlib import Path
 
 from shapely.geometry import Point, shape
 
-from pipeline.event_study import supplier_mapping_index, listing_for_event
+from pipeline.event_study import supplier_mapping_index
+from pipeline.company_registry import company_id, deduplicate_locations, registry, resolve_listing
 from pipeline.prices import company_key
 
 ROOT = Path(__file__).resolve().parents[1]
 NUMERIC = ["hops_from_shock", "distance_km", "location_share_in_zone", "apple_revenue_share", "sourcing_hhi", "chokepoint_dependence", "size"]
 
 
-def company_id(name: str) -> str:
-    return "supplier-" + hashlib.sha256(company_key(name).encode()).hexdigest()[:16]
-
-
-def node_id(row: dict) -> str:
-    identity = "\0".join([company_key(row["supplier"]), row["location"].casefold(), row["country"], row["locationRole"]])
+def node_id(row: dict, event_date=None) -> str:
+    identity = "\0".join([company_id(row["supplier"], event_date), row["location"].casefold(), row["country"], row["locationRole"]])
     return "location-" + hashlib.sha256(identity.encode()).hexdigest()[:16]
 
 
@@ -44,10 +41,11 @@ def disclosed_hhi(locations: list[dict]) -> float | None:
 
 
 def latest_profile(profiles: list[dict], name: str, event_date: str, mapping: dict) -> dict | None:
-    keys = {company_key(name)}
+    aliases = registry().aliases(name, event_date)
+    keys = {company_key(alias) for alias in aliases}
     # Equality through a verified ticker/issuer alias permits the old legal
     # name's report to be used after a rename, without inventing subsidiaries.
-    target = {r["ticker"] for r in mapping.get(company_key(name), [])}
+    target = {r["ticker"] for alias in aliases for r in mapping.get(company_key(alias), [])}
     candidates = [p for p in profiles if p.get("filedOn") and p["filedOn"] < event_date
                   and (company_key(p["supplier"]) in keys or target & {r["ticker"] for r in mapping.get(company_key(p["supplier"]), [])})]
     return max(candidates, key=lambda p: (p["filedOn"], p.get("reportDate") or "")) if candidates else None
@@ -120,10 +118,10 @@ def build() -> dict:
     for event in events:
         year = int(event["snapshotYear"])
         cutoff = event.get("knowledgeCutoffDate") or event["start"]
-        locations = list(csv.DictReader((ROOT / f"data/interim/geocoded_{year}.csv").open(encoding="utf-8")))
+        locations = deduplicate_locations(csv.DictReader((ROOT / f"data/interim/geocoded_{year}.csv").open(encoding="utf-8")), event["start"])
         companies = defaultdict(list)
         for row in locations:
-            companies[company_id(row["supplier"])].append(row)
+            companies[company_id(row["supplier"], event["start"])].append(row)
         adjacency = defaultdict(set)
         graph_nodes = [{"id": "apple-company", "kind": "customer", "sources": manifests[year]["sources"]},
                        {"id": event["id"], "kind": "shock", "sources": json.loads(event["sources"])}]
@@ -140,7 +138,7 @@ def build() -> dict:
             for location in company_locations:
                 if not location["location"]:
                     continue  # A company roster does not disclose a physical site.
-                site = node_id(location)
+                site = node_id(location, event["start"])
                 source = json.loads(location["sources"])
                 graph_nodes.append({"id": site, "kind": "disclosed_location", "sources": source})
                 connect(identifier, site, "supplier's disclosed location", "known", source)
@@ -154,18 +152,17 @@ def build() -> dict:
         graphs.append({"eventId": event["id"], "file": str(path.relative_to(ROOT)).replace("\\", "/"), "nodes": len(graph_nodes), "edges": len(graph_edges),
                        "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "geographicExposureEdges": sum(e["status"] == "inferred" for e in graph_edges)})
         for identifier, company_locations in companies.items():
-            name = company_locations[0]["supplier"]
+            aliases = sorted({n for row in company_locations for n in row["supplierAliases"]})
+            name = registry().canonical(aliases[0], event["start"])
             manufacturing = [r for r in company_locations if r["locationRole"] == "manufacturing"]
             matched = [r for r in manufacturing if r["matchStatus"] == "matched"]
             distances = [haversine(float(r["lon"]), float(r["lat"]), float(event["lon"]), float(event["lat"])) for r in matched]
-            classifications = [overlaps[node_id(r)] for r in manufacturing]
+            classifications = [overlaps[node_id(r, event["start"])] for r in manufacturing]
             lower = sum(v is True for v in classifications) / len(classifications) if classifications else None
             upper = sum(v is not False for v in classifications) / len(classifications) if classifications else None
             fraction = lower if lower == upper else None
-            ticker_records = {r["ticker"]: r for r in mappings.get(company_key(name), [])}
-            listing = next(iter(ticker_records.values())) if len(ticker_records) == 1 else {}
-            listing = listing_for_event(listing, name, event["start"])
-            profile = None if listing.get("mappingUnavailableReason") == "legacy_issuer_price_series_unverified" else latest_profile(profiles, name, cutoff, mappings)
+            listing = resolve_listing(aliases, mappings, event["start"])
+            profile = None if listing.get("mappingUnavailableReason") in {"legacy_issuer_price_series_unverified", "canonical_listing_ambiguous"} else latest_profile(profiles, name, cutoff, mappings)
             cik = listing.get("cik")
             asset_fact = None
             if cik:
@@ -190,7 +187,7 @@ def build() -> dict:
                 source_list.append(source)
                 attribute_sources["size"] = {"source": source, "filedOn": asset_fact["filed"], "periodEnd": asset_fact["end"], "assetsUsd": asset_fact["val"]}
             record = {"eventId": event["id"], "eventStart": event["start"], "financialCutoffDate": cutoff, "snapshotYear": year, "companyId": identifier, "supplier": name,
-                      "ticker": listing.get("ticker", ""), "hops_from_shock": hops.get(identifier), "distance_km": min(distances) if distances else None,
+                      "sourceSupplierNames": json.dumps(aliases, ensure_ascii=False), "ticker": listing.get("ticker", ""), "hops_from_shock": hops.get(identifier), "distance_km": min(distances) if distances else None,
                       "location_share_in_zone": fraction, "apple_revenue_share": profile.get("appleRevenueShare") if profile else None,
                       "part_type": profile.get("partType") or "unknown" if profile else "unknown", "sourcing_hhi": disclosed_hhi(manufacturing),
                       "chokepoint_dependence": int(route["depends"]) if route else None, "size": math.log(asset_fact["val"]) if asset_fact else None,
@@ -201,7 +198,8 @@ def build() -> dict:
                                "chokepointStatus": "Verified pre-event disclosure" if route else "Unavailable: no verified transport-route dependence supplied", "locationShareBounds": [lower, upper] if lower is not None else None})
             for location in company_locations:
                 if location["matchStatus"] == "matched":
-                    sites.append({"eventId": event["id"], "snapshotYear": year, "companyId": identifier, "nodeId": node_id(location), "supplier": name,
+                    sites.append({"eventId": event["id"], "snapshotYear": year, "companyId": identifier, "nodeId": node_id(location, event["start"]), "supplier": location["supplier"],
+                                  "canonicalCompany": name, "supplierAliases": location["supplierAliases"],
                                   "location": location["location"], "country": location["country"], "locationRole": location["locationRole"], "precision": location["precision"],
                                   "lon": float(location["lon"]), "lat": float(location["lat"]), "sources": json.loads(location["sources"])})
     with (ROOT / "data/processed/features.csv").open("w", encoding="utf-8", newline="") as handle:
@@ -218,6 +216,7 @@ def build() -> dict:
                                 "chokepoint_dependence": "Unavailable without verified transport-route evidence; never silently assumed zero",
                                 "size": "Natural log of reported total assets in USD, most recent period filed before event; unavailable currencies are not converted with invented rates"},
                 "retrospectiveScope": "Supplier lists were published retrospectively. The two 2011 events use the approved January 2012 names-only roster approximation, with missing manufacturing geography. Financial attributes are publication-filtered; this is a retrospective backtest, not a real-time reconstruction.",
+                "classificationScope": "CSV canonicalCompany groups identity only. Unsourced current model classifications fill display exports, not dated pre-event feature values.",
                 "provenance": provenance}
     (ROOT / "data/processed/feature_metadata.json").write_text(json.dumps(metadata, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Features: {len(rows)} company/event rows, {len(sites)} matched location/event records")

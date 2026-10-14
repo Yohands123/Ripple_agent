@@ -109,7 +109,15 @@ class Validator:
             self.text(node.get("region"), name + ".region")
             self.check(node.get("ticker") is None or isinstance(node["ticker"], str), name + ": ticker must be text or null")
             self.check(node.get("partType") is None or isinstance(node["partType"], str), name + ": partType must be text or null")
-            if "tierStatus" in node:
+            if "classification" in node:
+                from pipeline.company_registry import CLASS_BASIS
+                classification = node["classification"]
+                self.check(node.get("tierStatus") == "inferred" and node.get("tierBasis") == CLASS_BASIS, name + ": model-classified tier needs inferred provenance")
+                self.check(node.get("confidence") == classification.get("confidence") and node.get("confidence") in {"high", "medium", "low", "unknown"}, name + ": classification confidence required")
+                if classification.get("tier") is None:
+                    self.check(node.get("tier") is None, name + ": empty CSV tier must stay null")
+                self.check(classification.get("reference") == "data/reference/supplier_classes.csv", name + ": classification reference required")
+            elif "tierStatus" in node:
                 from pipeline.tiers import inferred_tier
                 expected = inferred_tier(node.get("partType"))
                 self.check(all(node.get(k) == v for k, v in expected.items()), name + ": inferred tier must follow the approved part-type mapping")

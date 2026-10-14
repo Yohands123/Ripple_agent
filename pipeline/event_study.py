@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from pipeline.prices import company_key, safe_symbol
+from pipeline.company_registry import company_groups, registry, resolve_listing
 
 ROOT = Path(__file__).resolve().parents[1]
 TRAIN_FIRST, TRAIN_LAST, EVENT_LAST = -250, -30, 10
@@ -55,7 +56,7 @@ def listing_for_event(record: dict, supplier: str, event_date: str) -> dict:
     era = history.get(record.get("ticker"))
     if era:
         result["sources"] = list(record.get("sources", [])) + era["sources"]
-        invalid_legacy = (record.get("ticker") == "AVGO" and supplier.casefold().startswith("broadcom") and event_date < era["broadcomAcquisitionDate"]) or (record.get("ticker") == "COHR" and supplier.casefold().startswith("coherent") and "corporation" not in supplier.casefold() and event_date < era["legacyCoherentAcquisitionDate"])
+        invalid_legacy = (record.get("ticker") == "AVGO" and supplier.casefold().startswith("broadcom") and event_date < era["broadcomAcquisitionDate"]) or (record.get("ticker") == "COHR" and supplier.casefold().startswith("coherent") and "corporation" not in supplier.casefold() and event_date < era["legacyCoherentAcquisitionDate"]) or (record.get("ticker") == "6479.T" and supplier.casefold().startswith("mitsumi") and event_date < era["mitsumiAcquisitionDate"])
         if invalid_legacy:
             # An acquired company's earlier stock/financial history cannot
             # be replaced by its acquirer's predecessor history.
@@ -163,7 +164,7 @@ def analyze() -> dict:
     markets = json.loads((ROOT / "data/sources/markets.json").read_text(encoding="utf-8"))
     cache, output, gaps = {}, [], []
 
-    def evaluate(record, event, role, supplier, company_id, source_list):
+    def evaluate(record, event, role, supplier, company_id, source_list, aliases=None):
         record = dict(record)
         historical = classifications.get((event["id"], record.get("ticker")))
         if historical and historical.get("exchange"):
@@ -171,7 +172,9 @@ def analyze() -> dict:
             record["sources"] = record.get("sources", []) + [historical["source"]]
         row = {"eventId": event["id"], "eventYear": int(event["eventYear"]), "snapshotYear": int(event["snapshotYear"]), "companyId": company_id,
                "supplier": supplier, "role": role, "ticker": record.get("ticker", ""), "exchange": record.get("exchange", ""),
-               "benchmark": record.get("benchmark", ""), "status": record.get("mappingUnavailableReason", "mapping_unavailable"), "sources": source_list + [{"title": event["sourceTitle"], "url": event["sourceUrl"]}] + record.get("sources", [])}
+               "benchmark": record.get("benchmark", ""), "status": record.get("mappingUnavailableReason", "mapping_unavailable"), "sources": source_list + [{"title": event["sourceTitle"], "url": event["sourceUrl"]}] + record.get("sources", []),
+               "sourceSupplierNames": json.dumps(aliases or [supplier]),
+               "identityBasis": "User-provided inferred canonicalCompany; exact source-name matches" if role == "supplier" else "Peer ticker identity"}
         row["exchangeEvidenceStatus"] = "verified_pre_event_cover" if historical and historical.get("exchange") else "current_listing_historical_exchange_unverified"
         if record.get("ticker"):
             try:
@@ -195,19 +198,15 @@ def analyze() -> dict:
             continue
         with (ROOT / f"data/interim/suppliers_{year}.csv").open(encoding="utf-8") as handle:
             names = sorted({r["supplier"] for r in csv.DictReader(handle)})
-        canonical_names = {company_key(name): name for name in reversed(names)}
-        for name in canonical_names.values():
-            candidates = by_key[company_key(name)]
-            unique = {r["ticker"]: r for r in candidates}
-            record = next(iter(unique.values())) if len(unique) == 1 else {}
-            record = listing_for_event(record, name, event["start"])
-            company_id = "supplier-" + hashlib.sha256(company_key(name).encode()).hexdigest()[:16]
-            evaluate(record, event, "supplier", name, company_id, editions[year]["sources"])
+        for identifier, aliases in company_groups(names, event["start"]).items():
+            name = registry().canonical(aliases[0], event["start"])
+            record = resolve_listing(aliases, by_key, event["start"])
+            evaluate(record, event, "supplier", name, identifier, editions[year]["sources"], aliases)
         peer_tickers = {r["peerTicker"] for r in peer_data["matches"] if r["eventId"] == event["id"]}
         for ticker in sorted(peer_tickers):
             record = peers[(event["id"], ticker)]
             evaluate(record, event, "peer", record["listedName"], "peer-" + safe_symbol(ticker), editions[year]["sources"])
-    fields = ["eventId", "eventYear", "snapshotYear", "companyId", "supplier", "role", "ticker", "exchange", "benchmark", "exchangeEvidenceStatus", "status", "dayZero", "estimationStart", "estimationEnd", "eventWindowEnd",
+    fields = ["eventId", "eventYear", "snapshotYear", "companyId", "supplier", "sourceSupplierNames", "identityBasis", "role", "ticker", "exchange", "benchmark", "exchangeEvidenceStatus", "status", "dayZero", "estimationStart", "estimationEnd", "eventWindowEnd",
               "alpha", "beta", "residualVariance", "nEstimation", "nEvent", "car", "carStdError", "tStat", "hit", "sources"]
     with (ROOT / "data/processed/labels.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields)

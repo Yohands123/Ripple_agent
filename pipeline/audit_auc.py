@@ -18,7 +18,7 @@ from ml.train import distance_rule
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def audit(root=ROOT):
+def audit(root=ROOT, prefix="auc_audit"):
     protected = ["ml/train.py", "ml/features.py", "ml/model_manifest.json", "data/events.csv",
                  "data/processed/features.csv", "data/processed/labels.csv", "data/processed/metrics.json",
                  "data/processed/held_out_predictions.csv", "data/processed/company_predictions.json",
@@ -94,11 +94,11 @@ def audit(root=ROOT):
                   "ReplaySection.tsx currently labels baselineAuc as distance alone, but baselineAuc is logistic regression. This is a display-label error, not leakage in the saved distance predictions. Web code was not changed."
               ]}
     output = root / "data/review"
-    with (output / "auc_audit.csv").open("w", encoding="utf-8", newline="") as handle:
+    with (output / f"{prefix}.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
-    (output / "auc_audit.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (output / f"{prefix}.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     lines = ["# Company-level AUC and distance leakage audit", "", "Saved model, features, labels, and predictions were not changed.", "",
              "| Event | Companies | Hits | Model AUC | Distance AUC | Logistic AUC |", "|---|---:|---:|---:|---:|---:|"]
     lines += [f"| {r['eventId']} | {r['companies']} | {r['hits']} | {r['modelAuc']:.4f} | {r['distanceAuc']:.4f} | {r['logisticAuc']:.4f} |" for r in rows]
@@ -106,13 +106,16 @@ def audit(root=ROOT):
               "`baselineAuc` means logistic regression; `distanceAuc` is the separate distance rule. Both 2011 events remain excluded from metrics under the user's decision.", ""]
     lines += ["- " + finding for finding in report["findings"]]
     lines += ["", f"Distance replay maximum absolute probability error: {replay_error:.3g}. Reconstructed minimum-distance error: {distance_error:.3g} km.", "",
-              "Audit inputs and their SHA-256 hashes are in `auc_audit.json`. `auc_audit.csv` also records missing distances, site projection multiplicity, and hypothetical site-weighted distance AUCs.", "",
+              f"Audit inputs and their SHA-256 hashes are in `{prefix}.json`. `{prefix}.csv` also records missing distances, site projection multiplicity, and hypothetical site-weighted distance AUCs.", "",
               "Evidence: `ml/features.py` builds distances before outcomes are joined; `ml/train.py` joins one-to-one company/event labels, excludes the outer event before fitting, and calibrates the distance rule on training data. `data/events.csv` retains the source and location basis for each shock."]
-    (output / "auc_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (output / f"{prefix}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     assert hashes == {p: hashlib.sha256((root / p).read_bytes()).hexdigest() for p in protected}
     print(json.dumps({"events": rows, "baselineReplayMaxAbsError": replay_error, "distanceReconstructionMaxAbsKm": distance_error}, indent=2))
     return report
 
 
 if __name__ == "__main__":
-    audit()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--prefix", choices=["auc_audit", "auc_after_merge"], default="auc_audit")
+    audit(prefix=parser.parse_args().prefix)

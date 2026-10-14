@@ -1,0 +1,18 @@
+{
+  "approved": true,
+  "approvalDate": "2026-10-14",
+  "userDecision": "Approve sourced correction",
+  "originalCsvSha256": "7c43807bc77735ea315cbf71b6eac0963f23348564fb190c677fa175d8bcd0ec",
+  "normalizedCsvSha256": "bddb92484e79d789b8ffd5905cf986385ed99cb19cb077b3b786c43e01827437",
+  "csvHashNormalization": "LF",
+  "corrections": [
+    {
+      "companies": ["Unimicron Corporation", "Unimicron Technology Corp.", "Unimicron Technology Corporation"],
+      "canonicalCompany": "Unimicron Technology",
+      "partType": "printed circuit boards and IC substrates",
+      "tier": "3",
+      "basis": "User-approved correction of an incorrect Micron/Unimicron merge; distinct public issuer and PCB/substrate products",
+      "source": {"title": "Taiwan Stock Exchange: Unimicron Technology Corp., 3037, PCB and IC substrate business", "url": "https://www.twse.com.tw/pdf/en/3037_en.pdf"}
+    }
+  ]
+}
