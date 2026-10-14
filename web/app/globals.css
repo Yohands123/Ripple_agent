@@ -344,3 +344,24 @@ button {
   color: var(--text-secondary);
   font-size: 14px;
 }
+
+.mover-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.map-caption {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 600;
+  font-stretch: 85%;
+  text-align: right;
+}

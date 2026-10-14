@@ -3,12 +3,15 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout } from "@/lib/layout";
+import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
 import { tierColor, size } from "@/lib/tokens";
 import type { Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
 import FreeFlowPanel from "./FreeFlowPanel";
 import { Pill } from "./Glyphs";
 import MapStage from "./MapStage";
+import MoverLayer from "./MoverLayer";
 import NodeLayer from "./NodeLayer";
+import RouteLayer from "./RouteLayer";
 import WorldMap from "./WorldMap";
 import YearTag from "./YearTag";
 
@@ -55,7 +58,11 @@ export default function RippleApp() {
 
   const highlight = useMemo(() => (network?.nodes ?? []).filter((n) => n.kind === "assembly"), [network]);
 
-  const layout = useMemo(() => (network ? computeLayout(network, []) : null), [network]);
+  const scene = useMemo(() => {
+    if (!network) return null;
+    const layout = computeLayout(network, freeFlowEdges(network, scenario));
+    return { layout, ...buildFreeFlowScene(network, layout, scenario) };
+  }, [network, scenario]);
 
   const drop = () => {
     if (!scenario) return;
@@ -73,9 +80,21 @@ export default function RippleApp() {
         <MapStage>
           <svg width={size.mapW} height={size.mapH} viewBox={`0 0 ${size.mapW} ${size.mapH}`} aria-hidden="true" className="map-svg">
             <WorldMap highlight={highlight} onLoaded={onWorld} />
+            {scene && <RouteLayer routes={scene.routes} money={scene.money} />}
           </svg>
           <div className="map-overlay">
-            {network && layout && <NodeLayer network={network} layout={layout} />}
+            {network && scene && <NodeLayer network={network} layout={scene.layout} />}
+            {scene?.captions.map((c) => (
+              <div key={c.key} className="map-caption" style={{ left: c.x, top: c.y, width: c.w, color: c.color }}>
+                {c.text}
+              </div>
+            ))}
+            {scene && <MoverLayer movers={scene.movers} />}
+            {scene?.pills.map((p) => (
+              <Pill key={p.key} big={p.big} bg={p.bg} fg={p.fg} style={{ left: p.x, top: p.y }}>
+                {p.text}
+              </Pill>
+            ))}
             <Pill big bg={tierColor[6]} style={{ left: 560, top: 18 }}>
               ALL LANES CLEAR
             </Pill>

@@ -1,7 +1,7 @@
 // Where nodes, their label pills, and regional group labels go on the map.
 
 import { project, type Pt } from "./geo";
-import { sampleRoute, nodeIndex } from "./routes";
+import { nodeIndex, sampleEdge } from "./routes";
 import { size } from "./tokens";
 import type { Network, NetworkEdge, NetworkNode, NodeKind } from "./types";
 
@@ -89,6 +89,40 @@ export interface MapLayout {
   labels: NodeLabel[];
   groups: GroupLabel[];
   hq: HqCard | null;
+  /** Boxes already used by labels and cards, for placing more pills later. */
+  taken: Box[];
+  /** Node symbol boxes and sampled route points to keep pills off. */
+  obstacles: { boxes: Box[]; pts: Pt[] };
+}
+
+/** Candidate boxes spiralling out from a preferred top-left corner, nearest first. */
+export function spiral(x: number, y: number, w: number, h: number, maxR = 160, step = 8): Box[] {
+  const out: Box[] = [{ x, y, w, h }];
+  for (let r = step; r <= maxR; r += step) {
+    const n = Math.max(8, Math.round((2 * Math.PI * r) / step));
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * 2 * Math.PI;
+      out.push({ x: Math.round(x + r * Math.cos(a)), y: Math.round(y + r * Math.sin(a)), w, h });
+    }
+  }
+  return out;
+}
+
+/** First candidate box that stays in frame and clear of `taken` and `obstacles`; it is then marked taken. */
+export function placeBox(candidates: Box[], layout: MapLayout, opts: { ignoreRoutes?: boolean } = {}): Box | null {
+  const frame: Box = { x: 4, y: 4, w: size.mapW - 8, h: size.mapH - 8 };
+  const pick = candidates.find(
+    (b) =>
+      b.x >= frame.x &&
+      b.y >= frame.y &&
+      b.x + b.w <= frame.x + frame.w &&
+      b.y + b.h <= frame.y + frame.h &&
+      !layout.taken.some((o) => overlaps(b, o)) &&
+      !layout.obstacles.boxes.some((o) => overlaps(b, o)) &&
+      (opts.ignoreRoutes || !layout.obstacles.pts.some((p) => inside(p, b))),
+  );
+  if (pick) layout.taken.push(pick);
+  return pick ?? null;
 }
 
 function labelText(n: NetworkNode): string | null {
@@ -115,7 +149,7 @@ function groupText(continent: string, nodes: NetworkNode[]): string {
   return `${continent.toUpperCase()}: ${parts.join(", ")}`;
 }
 
-export function computeLayout(network: Network, visibleEdges: NetworkEdge[]): MapLayout {
+export function computeLayout(network: Network, visibleEdges: NetworkEdge[], extraObstaclePts: Pt[] = []): MapLayout {
   const points = new Map<string, Pt>();
   for (const n of network.nodes) points.set(n.id, project(n.lon, n.lat));
   const nodes = nodeIndex(network);
@@ -128,7 +162,8 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[]): Ma
     const s = symbolSize(n.kind);
     return { x: x - s / 2, y: y - s / 2, w: s, h: s };
   });
-  const routePts: Pt[] = visibleEdges.flatMap((e) => sampleRoute(e, nodes, 6));
+  // Thin dotted air arcs may pass behind labels (as in the concept art); solid lanes may not.
+  const routePts: Pt[] = [...visibleEdges.filter((e) => e.mode !== "air").flatMap((e) => sampleEdge(e, nodes, 6)), ...extraObstaclePts];
   const taken: Box[] = [];
 
   // Apple Park card: at its location when on the map, else pinned top-left.
@@ -200,5 +235,5 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[]): Ma
     labels.push({ nodeId: n.id, text, x: Math.round(pick.x), y: Math.round(pick.y) });
   }
 
-  return { points, labels, groups, hq };
+  return { points, labels, groups, hq, taken, obstacles: { boxes: nodeBoxes, pts: routePts } };
 }

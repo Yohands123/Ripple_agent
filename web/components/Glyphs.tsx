@@ -147,7 +147,7 @@ export function Coin({ kind, size, style }: { kind: CoinKind; size: number; styl
 /** Original container ship: white hull, two tier-4 containers, a bridge. */
 export function Ship({ style }: { style?: CSSProperties }) {
   return (
-    <div className="ship" style={style}>
+    <div className="ship" style={{ position: "relative", ...style }}>
       <svg width="30" height="16" viewBox="0 0 30 16" aria-hidden="true">
         <path d="M1 8 H29 L25 15 H5 Z" fill={color.textPrimary} />
         <rect x="6" y="3" width="5" height="5" fill={tierColor[4]} />
