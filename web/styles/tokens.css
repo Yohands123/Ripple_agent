@@ -124,6 +124,7 @@
 
   /* Side panel */
   --quota-blocks: 20;
+  --quota-empty: #2f4743; /* from the concept art */
   --button-bg: #e9eeea;
   --button-h: 48px;
   --option-accent: #46c6d8;
