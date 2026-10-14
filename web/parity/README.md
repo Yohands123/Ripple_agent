@@ -41,5 +41,5 @@ delayed coin stack, falling lost coins, and the four disruption sections with th
 | Year subtitle reads "Day 3 of 6. Suez Canal blocked" | "Based on the Ever Given blockage" is not in the scenario file; the title is. |
 | Quota note reads "On track: 99 of 100 units shipped", coin note "1 coin = $500M per week" | Filled from the scenario file where the reference has placeholders. |
 | What's affected lists two rows, not three | The fixture has two predictions; "Ships queued in Red Sea" is not a node prediction. |
-| Extra panel lines: option assumption note, "Back to a normal week", replay section | Data rules require labeling assumptions; W7 adds the replay; the link returns to free flow. |
+| Extra panel lines: option assumption note, "Back to a normal week", "What matters most", replay section | Data rules require labeling assumptions; W11 adds the sensitivity chart and W7 the replay (the panel scrolls); the link returns to free flow. |
 | Quota chart has 5 points, not 7 | The fixture has 5 weeks. |
