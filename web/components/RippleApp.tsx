@@ -138,7 +138,7 @@ export default function RippleApp() {
       </div>
       <aside className="panel" aria-label="Ripple panel">
         {disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} onClear={clear} />
+          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} />
         ) : (
           <FreeFlowPanel sample={sample} scenario={scenario} onDrop={drop} />
         )}
