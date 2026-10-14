@@ -283,7 +283,7 @@ def ingest(source_file: Path, raw_dir: Path, output_dir: Path, offline: bool = F
                 writer.writeheader()
                 writer.writerows(rows)
             record = {"snapshotYear": year, "publicationYear": edition["publicationYear"], "sources": [{"title": edition["title"], "url": edition["url"]}],
-                      "pdfSha256": hashlib.sha256(path.read_bytes()).hexdigest(), "csvSha256": hashlib.sha256(output.read_bytes()).hexdigest(),
+                      "pdfSha256": hashlib.sha256(path.read_bytes()).hexdigest(), "csvSha256": hashlib.sha256(output.read_bytes().replace(b"\r\n", b"\n")).hexdigest(), "csvHashNormalization": "LF",
                       "rows": len(rows), "suppliers": len({row["supplier"] for row in rows}),
                       "headquartersRows": sum(row["locationRole"] == "headquarters" for row in rows)}
             manifest["editions"].append(record)

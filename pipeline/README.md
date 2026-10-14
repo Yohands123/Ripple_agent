@@ -35,3 +35,29 @@ The parser uses printed supplier-cell boundaries rather than filling names
 down by text line: FY2020 centers names vertically across several country
 rows. It also handles the missing final table border in FY2021. Download and
 parse failures are reported in the manifest and produce a nonzero CLI exit.
+
+## M2: Geographic matching
+
+```bash
+.venv/bin/python -m pipeline.geocode
+.venv/bin/python -m pipeline.geocode --offline
+```
+
+Natural Earth 5.1.2 admin-1 polygons, populated-place points, and admin-0
+polygons are pinned by SHA-256 in `data/sources/natural_earth.json`. Downloads
+stay in `data/raw/natural_earth/`. Province and country coordinates are
+area-weighted centroids computed in EPSG:6933 and transformed back to WGS84.
+City coordinates are the dataset's populated-place points. These are geographic
+approximations, and none are labeled as an exact factory location.
+
+Standalone province names retain province precision even when a city has the
+same name. Addresses can resolve to cities, with the stated province used to
+disambiguate names. Province matches provide a fallback; country precision is
+used only when the source itself specifies just a country. Remaining unknown
+or ambiguous names go to `data/review/unmatched.csv` without coordinates.
+
+Outputs are `data/interim/geocoded_<year>.csv` and `geocode_summary.json`.
+The CSV keeps every original row, its location role, explicit match status,
+and both Apple and geographic sources. Supplier CSV hashes are checked before
+matching. The same version of contemporary geography is used for every
+snapshot; changing historical administrative boundaries are not reconstructed.

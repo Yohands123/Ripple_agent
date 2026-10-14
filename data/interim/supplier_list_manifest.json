@@ -13,7 +13,8 @@
         }
       ],
       "pdfSha256": "e317e22be816d5f103e5f3fc5960138a6406a1462cd981e8101c103d22f6caf5",
-      "csvSha256": "f0b16b6607bec61471bd8222198cfe368cc825323d0de3959dc98b34dd39895b",
+      "csvSha256": "53007fdddfde4e6b5f0606d064cee4f27cb6bebfdebaacc620757521506ece6b",
+      "csvHashNormalization": "LF",
       "rows": 808,
       "suppliers": 200,
       "headquartersRows": 9
@@ -28,7 +29,8 @@
         }
       ],
       "pdfSha256": "c7d6ba933383857df24da6a472380699be5710d68fd607a979d68d055e4528c9",
-      "csvSha256": "8b436e77b9a47a5a01adb8f970a9dfbc25ffc6c3da84505ccf6449ec129fc991",
+      "csvSha256": "ac703dac883d38f200b4c7897b0b8ea96fbd1a09ba7c50c64988185d35b4aa01",
+      "csvHashNormalization": "LF",
       "rows": 614,
       "suppliers": 200,
       "headquartersRows": 8
@@ -43,7 +45,8 @@
         }
       ],
       "pdfSha256": "6ad5bd66297c08806544f71840311ddbfbec09dd0867487979c7627982f6a186",
-      "csvSha256": "df4436d9e4184cee3810b24fc40a0a3f75ad1a45fb1d4c172f5d553780cff36e",
+      "csvSha256": "9032bc94f02d9e0691d41e786f3a832289008822af0b6f16022269954efbfc8e",
+      "csvHashNormalization": "LF",
       "rows": 745,
       "suppliers": 191,
       "headquartersRows": 0
@@ -58,7 +61,8 @@
         }
       ],
       "pdfSha256": "90b0c7b5d1e9bf4c6d5e8ed96fc720b87196858b239c868e27198b17543c59fc",
-      "csvSha256": "cbf27bde44b46221cda959a370801cc84f6bfae713baf66f366f7fd92ffe2881",
+      "csvSha256": "7a9dfd8b6b5e3e5221b901d79595f3dcdd8f6131299baf6eb4dee943497771b5",
+      "csvHashNormalization": "LF",
       "rows": 710,
       "suppliers": 188,
       "headquartersRows": 0
@@ -73,7 +77,8 @@
         }
       ],
       "pdfSha256": "19006bc0d77ed26eba99fa8c59e8bf0fc5dd8b06e2cf91dd904f93681959cf42",
-      "csvSha256": "db1678454c3dcf237e6e7e7c060c43e26cda5cf836aa8c66db63e76304627512",
+      "csvSha256": "c02f072f5ae200bdf6d67dde070ba013a31799e77c5837ee9958a7157bbe68c3",
+      "csvHashNormalization": "LF",
       "rows": 761,
       "suppliers": 187,
       "headquartersRows": 0

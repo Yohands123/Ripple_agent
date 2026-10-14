@@ -1,0 +1,54 @@
+{
+  "sampleData": false,
+  "naturalEarthVersion": "5.1.2",
+  "years": [
+    {
+      "snapshotYear": 2018,
+      "rows": 808,
+      "counts": {
+        "province": 229,
+        "city": 551,
+        "unmatched": 28
+      }
+    },
+    {
+      "snapshotYear": 2020,
+      "rows": 614,
+      "counts": {
+        "province": 566,
+        "country": 16,
+        "unmatched": 32
+      }
+    },
+    {
+      "snapshotYear": 2021,
+      "rows": 745,
+      "counts": {
+        "province": 677,
+        "country": 24,
+        "city": 3,
+        "unmatched": 41
+      }
+    },
+    {
+      "snapshotYear": 2022,
+      "rows": 710,
+      "counts": {
+        "province": 625,
+        "country": 64,
+        "unmatched": 20,
+        "city": 1
+      }
+    },
+    {
+      "snapshotYear": 2023,
+      "rows": 761,
+      "counts": {
+        "province": 653,
+        "country": 76,
+        "unmatched": 28,
+        "city": 4
+      }
+    }
+  ]
+}
