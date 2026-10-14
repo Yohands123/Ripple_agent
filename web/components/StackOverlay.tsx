@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { Chute as ChuteData, Stack } from "@/lib/stack";
-import { color, tierColor } from "@/lib/tokens";
+import { color, tierColorOf } from "@/lib/tokens";
 import { NodeSymbol } from "./Glyphs";
 
 /** Original chute: a rounded tube with chevrons that slide in the direction of flow. */
@@ -83,7 +83,7 @@ export default function StackOverlay({ stack, onClose, onSelectNode }: Props) {
                         key={n.id}
                         type="button"
                         className={stack.hit.has(n.id) ? "stack-tile hit" : "stack-tile"}
-                        style={{ borderColor: tierColor[n.tier] }}
+                        style={{ borderColor: tierColorOf(n.tier) }}
                         onClick={() => onSelectNode(n.id)}
                         data-tile={n.id}
                       >

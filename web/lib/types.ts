@@ -25,7 +25,8 @@ export interface NetworkNode {
   id: string;
   name: string;
   kind: NodeKind;
-  tier: number;
+  /** 1 to 7; null when the export marks the production tier unknown. */
+  tier: number | null;
   lon: number;
   lat: number;
   precision: "exact" | "city" | "province" | "country";
@@ -87,19 +88,27 @@ export interface Scenario {
   end: string;
   snapshotYear: number;
   sampleData: boolean;
-  shock: { nodeIds: string[]; capacityLoss: number };
+  shock: {
+    nodeIds: string[];
+    capacityLoss: number | null;
+    /** Where the shock happened when it is not a node in the network. */
+    location?: { lon: number; lat: number; precision?: string; basis?: string };
+  };
   headline: string;
   predictions: Prediction[];
   actual: { nodeId: string; hit: boolean; car: number }[];
   options: ScenarioOption[];
+  /** Null when the production quota and recovery plan are unknown. */
   quota: {
     weeks: string[];
     target: number[];
     noAction: number[];
     withPlan: number[];
     recoverySentence: string;
-  };
-  money: { coinUsd: number; revenueAtRisk: Range; delayedShare: number; assumption: boolean };
+  } | null;
+  money: { coinUsd: number; revenueAtRisk: Range | null; delayedShare: number | null; assumption: boolean };
+  /** Things the export states are not known (e.g. "Physical supplier transport routes"). */
+  unknowns?: string[];
   affectedRoutes: { blocked: string[]; detour: string[]; expedited: string[] };
   sensitivity?: { assumption: string; spearman: number }[];
 }

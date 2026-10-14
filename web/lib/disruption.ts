@@ -59,15 +59,20 @@ function optionMatching(scenario: Scenario, re: RegExp) {
   return scenario.options.find((o) => re.test(o.id) || re.test(o.label));
 }
 
-/** How many revenue coins are at risk, and how they split into delayed and lost. */
+/**
+ * How many revenue coins are at risk, and how they split into delayed and lost.
+ * None when the data says revenue at risk or the delayed share is unknown (null).
+ */
 export function atRiskCoins(scenario: Scenario): { delayed: number; lost: number } {
-  const [lo, hi] = scenario.money.revenueAtRisk;
+  const { revenueAtRisk, delayedShare } = scenario.money;
+  if (revenueAtRisk == null || delayedShare == null) return { delayed: 0, lost: 0 };
+  const [lo, hi] = revenueAtRisk;
   const mid = (lo + hi) / 2;
   const n =
     mid > 0 && scenario.money.coinUsd > 0
       ? Math.min(MAX_AT_RISK_COINS, Math.max(1, Math.round(mid / scenario.money.coinUsd)))
       : DEFAULT_AT_RISK_COINS;
-  const delayed = Math.round(n * Math.min(1, Math.max(0, scenario.money.delayedShare)));
+  const delayed = Math.round(n * Math.min(1, Math.max(0, delayedShare)));
   return { delayed, lost: n - delayed };
 }
 
@@ -112,6 +117,12 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
       const [x, y] = layout.points.get(n.id)!;
       return { key: n.id, x, y, d: ZONE_DIAMETER };
     });
+  // Shocks that are not a node in the network carry a location instead.
+  const loc = scenario.shock.location;
+  if (zones.length === 0 && loc) {
+    const [x, y] = project(loc.lon, loc.lat);
+    zones.push({ key: "shock-location", x, y, d: ZONE_DIAMETER });
+  }
   for (const z of zones) layout.taken.push({ x: z.x - z.d / 2, y: z.y - z.d / 2, w: z.d, h: z.d });
 
   // Ships.

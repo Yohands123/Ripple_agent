@@ -89,7 +89,10 @@ export default function RippleApp() {
   const highlight = useMemo(() => {
     const nodes = network?.nodes ?? [];
     const shock = new Set(disrupted ? scenario!.shock.nodeIds : []);
-    return nodes.filter((n) => n.kind === "assembly" || shock.has(n.id));
+    const points: { lon: number; lat: number }[] = nodes.filter((n) => n.kind === "assembly" || shock.has(n.id));
+    const loc = disrupted ? scenario!.shock.location : undefined;
+    if (loc) points.push({ lon: loc.lon, lat: loc.lat });
+    return points;
   }, [network, scenario, disrupted]);
 
   const scene = useMemo(() => {

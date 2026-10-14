@@ -42,7 +42,7 @@ function suppliersOf(id: string, network: Network, nodes: Map<string, NetworkNod
     const n = nodes.get(e.from);
     if (!n) continue;
     if (SHIPPING.has(n.kind)) out.push(...suppliersOf(n.id, network, nodes, seen));
-    else if (n.tier <= 4 && n.kind !== "hq") out.push(n);
+    else if ((n.tier == null || n.tier <= 4) && n.kind !== "hq") out.push(n);
   }
   return out;
 }

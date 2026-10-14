@@ -2,7 +2,7 @@
 // Sizes and colors follow docs/design-spec.md; markup follows design/reference/*.html.
 
 import type { CSSProperties, ReactNode } from "react";
-import { coin as coinColors, color, shippingDot, tierColor, type CoinKind } from "@/lib/tokens";
+import { coin as coinColors, color, shippingDot, tierColor, tierColorOf, type CoinKind } from "@/lib/tokens";
 import type { NodeKind } from "@/lib/types";
 
 const HEX = "M13 1 L24 7 L24 19 L13 25 L2 19 L2 7 Z";
@@ -10,8 +10,8 @@ const FACTORY = "M8 17 V11 L11 13 V11 L14 13 V11 L18 13 V17 Z";
 const TRIANGLE = "M12 2 L23 21 L1 21 Z";
 
 /** A node's symbol, `size` px square, drawn at the origin of its box. */
-export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number; size: number }) {
-  const c = tierColor[tier] ?? color.pillLight;
+export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number | null; size: number }) {
+  const c = tierColorOf(tier);
   switch (kind) {
     case "assembly":
       return (

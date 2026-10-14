@@ -31,6 +31,13 @@ export const tierColor: Record<number, string> = {
   7: "#F08CC0",
 };
 
+/** Nodes whose production tier the data marks unknown: the panel's neutral heading grey, never a tier color. */
+export const tierUnknown = "#8FA6A1";
+
+export function tierColorOf(tier: number | null | undefined): string {
+  return (tier != null && tierColor[tier]) || tierUnknown;
+}
+
 /** Shipping-node dots are drawn slightly brighter than the tier-5 swatch. */
 export const shippingDot = "#F1F5F2";
 

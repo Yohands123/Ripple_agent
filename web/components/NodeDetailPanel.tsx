@@ -1,6 +1,6 @@
 "use client";
 
-import { tierColor, tierLabel } from "@/lib/tokens";
+import { tierColorOf, tierLabel } from "@/lib/tokens";
 import type { NetworkNode, Scenario } from "@/lib/types";
 import PanelHeader from "./PanelHeader";
 
@@ -69,8 +69,8 @@ export default function NodeDetailPanel({ sample, node, scenario, onClose, child
         <dl className="facts">
           <dt>Tier</dt>
           <dd>
-            <span className="tier-swatch inline" style={{ background: tierColor[node.tier] }} />
-            {node.tier} {tierLabel[node.tier]}
+            <span className="tier-swatch inline" style={{ background: tierColorOf(node.tier) }} />
+            {node.tier != null ? `${node.tier} ${tierLabel[node.tier] ?? ""}` : "Not known in the data"}
           </dd>
           {node.partType && (
             <>

@@ -19,8 +19,10 @@ export interface PlanLine {
 
 const mid = ([lo, hi]: [number, number]) => (lo + hi) / 2;
 
-export function planLine(scenario: Scenario, chosen: Set<string>): PlanLine {
+/** Null when the scenario has no quota (the data marks it unknown). */
+export function planLine(scenario: Scenario, chosen: Set<string>): PlanLine | null {
   const { quota, options } = scenario;
+  if (!quota) return null;
   const hasWeights = options.some((o) => mid(o.unitsRecovered) > 0);
   const weight = (o: (typeof options)[number]) => (hasWeights ? Math.max(0, mid(o.unitsRecovered)) : o.defaultOn ? 1 : 0);
   const defaultTotal = options.filter((o) => o.defaultOn).reduce((s, o) => s + weight(o), 0);

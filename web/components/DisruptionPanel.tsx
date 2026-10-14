@@ -54,6 +54,9 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
           </button>
         </div>
         <div className="headline">{scenario.headline}</div>
+        {scenario.unknowns && scenario.unknowns.length > 0 && (
+          <div className="panel-tiny">Not known from public data: {scenario.unknowns.join("; ")}.</div>
+        )}
       </section>
 
       <section>
@@ -89,6 +92,7 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
 
       <section>
         <h2 className="panel-heading">WHAT CAN BE SHIFTED</h2>
+        {scenario.options.length === 0 && <div className="panel-note">No options to shift are in the data for this event.</div>}
         {scenario.options.map((o) => (
           <div key={o.id} className="option-row">
             <input type="checkbox" id={`opt-${o.id}`} checked={chosen.has(o.id)} onChange={() => toggle(o.id)} />
@@ -96,17 +100,23 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
             <div className="option-detail">{o.detail}</div>
           </div>
         ))}
-        {plan.equalSplitAssumed && scenario.options.length > 0 && (
+        {plan?.equalSplitAssumed && scenario.options.length > 0 && (
           <div className="panel-tiny">Assumption: option effects not yet estimated, so the plan&apos;s gain is split evenly.</div>
         )}
       </section>
 
       <section>
         <h2 className="panel-heading">WILL WE MEET QUOTA?</h2>
-        <QuotaChart target={scenario.quota.target} noAction={scenario.quota.noAction} withPlan={plan.values} />
-        <div className="recovery" aria-live="polite">
-          {plan.sentence}
-        </div>
+        {scenario.quota && plan ? (
+          <>
+            <QuotaChart target={scenario.quota.target} noAction={scenario.quota.noAction} withPlan={plan.values} />
+            <div className="recovery" aria-live="polite">
+              {plan.sentence}
+            </div>
+          </>
+        ) : (
+          <div className="panel-note">Production quota and recovery are not known from public data.</div>
+        )}
       </section>
 
       <SensitivitySection scenario={scenario} />
