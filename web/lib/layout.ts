@@ -124,9 +124,11 @@ export function spiral(x: number, y: number, w: number, h: number, maxR = 160, s
 }
 
 /** First candidate box that stays in frame and clear of `taken` and `obstacles`; it is then marked taken. */
-export function placeBox(candidates: Box[], layout: MapLayout, opts: { ignoreRoutes?: boolean } = {}): Box | null {
+export function placeBox(candidates: Box[], layout: MapLayout, opts: { ignoreRoutes?: boolean; anchor?: Pt } = {}): Box | null {
   const first = candidates[0];
-  const frame = first ? frameFor([first.x + first.w / 2, first.y + first.h / 2]) : FRAME;
+  // Stay in the concept view when the thing being labelled is in it.
+  const anchor = opts.anchor ?? (first ? ([first.x + first.w / 2, first.y + first.h / 2] as Pt) : null);
+  const frame = anchor ? frameFor(anchor) : FRAME;
   const pick = candidates.find(
     (b) =>
       within(b, frame) &&
@@ -170,7 +172,7 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   const onWorld = (n: NetworkNode) => inside(points.get(n.id)!, WORLD);
 
   // Obstacles: node symbols and sampled routes.
-  const nodeBoxes: Box[] = network.nodes.filter(onWorld).map((n) => {
+  const nodeBoxes: Box[] = network.nodes.filter((n) => onWorld(n) && !n.waypoint).map((n) => {
     const [x, y] = points.get(n.id)!;
     const s = symbolSize(n.kind);
     return { x: x - s / 2, y: y - s / 2, w: s, h: s };

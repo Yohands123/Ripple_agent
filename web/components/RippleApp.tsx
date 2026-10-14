@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { loadForecasts, loadMetrics, loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout } from "@/lib/layout";
+import { needsIllustrativeLanes, withIllustrativeEffects, withIllustrativeLanes } from "@/lib/lanes";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
 import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
@@ -30,11 +31,11 @@ function readParam(name: string): string | null {
 }
 
 export default function RippleApp() {
-  const [network, setNetwork] = useState<Network | null>(null);
+  const [rawNetwork, setNetwork] = useState<Network | null>(null);
   const [networkMissing, setNetworkMissing] = useState(false);
   const [index, setIndex] = useState<ScenarioIndexEntry[]>([]);
   const [scenarioId, setScenarioId] = useState<string | null>(null);
-  const [scenario, setScenario] = useState<Scenario | null>(null);
+  const [rawScenario, setScenario] = useState<Scenario | null>(null);
   const [dropped, setDropped] = useState(false);
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -75,6 +76,16 @@ export default function RippleApp() {
       live = false;
     };
   }, [scenarioId]);
+
+  // With no routes in the data, typical lanes stand in so the map keeps its sea lanes, ships, and flights.
+  const network = useMemo(() => (rawNetwork ? withIllustrativeLanes(rawNetwork) : null), [rawNetwork]);
+  const illustrative = Boolean(rawNetwork && needsIllustrativeLanes(rawNetwork));
+  const scenario = useMemo(() => (rawScenario && network ? withIllustrativeEffects(rawScenario, network) : rawScenario), [rawScenario, network]);
+  const lanesNote = illustrative ? (
+    <div className="panel-tiny" data-note="illustrative-lanes">
+      Dashed lanes, ships, and flights are typical routes from public geography, not supplier-specific: the data does not include transport routes.
+    </div>
+  ) : null;
 
   const sample = Boolean(network?.sampleData || scenario?.sampleData || metrics?.sampleData);
 
@@ -232,6 +243,7 @@ export default function RippleApp() {
           </NodeDetailPanel>
         ) : disrupted ? (
           <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={selectNode} picker={picker}>
+            {lanesNote}
             <ReplaySection
               scenario={scenario!}
               metrics={metrics}
@@ -242,6 +254,7 @@ export default function RippleApp() {
           </DisruptionPanel>
         ) : (
           <FreeFlowPanel sample={sample} scenario={scenario} onDrop={drop}>
+            {lanesNote}
             {picker}
           </FreeFlowPanel>
         )}

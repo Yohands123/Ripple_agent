@@ -103,7 +103,7 @@ export const MONEY_COINS = 3;
 /** Edges drawn in free flow: everything except routes that only exist as a scenario's detour. */
 export function freeFlowEdges(network: Network, scenario: Scenario | null): NetworkEdge[] {
   const detourOnly = new Set(scenario?.affectedRoutes.detour ?? []);
-  return network.edges.filter((e) => !detourOnly.has(e.id));
+  return network.edges.filter((e) => !detourOnly.has(e.id) && !e.detourOnly);
 }
 
 /** Where revenue leaves each regional sales group: its nearest shipping node, or the group's first node. */
@@ -320,7 +320,7 @@ export function routePills(network: Network, layout: MapLayout, routes: RouteDra
       const { w, h } = largePillBox(text);
       const near = longest.pts.filter((p) => Math.abs(p[0] - mid[0]) < w / 2 + 10);
       const lowest = Math.max(...near.map((p) => p[1]));
-      const box = placeBox(spiral(mid[0] - w / 2, lowest + 23, w, h), layout);
+      const box = placeBox(spiral(mid[0] - w / 2, lowest + 23, w, h), layout, { anchor: mid });
       if (box) pills.push({ key: `lane-${chain[0].id}`, text, big: true, bg: tierColor[4], fg: color.ocean, x: box.x, y: box.y });
     }
   }
@@ -333,7 +333,7 @@ export function routePills(network: Network, layout: MapLayout, routes: RouteDra
     const m = mids.reduce((a, b) => (b[1] > a[1] ? b : a));
     const text = disrupted ? `MORE AIR FREIGHT${airDetail ? `, AT ${airDetail}` : ""}`.toUpperCase() : "AIR FREIGHT";
     const { w, h } = smallPillBox(text);
-    const box = placeBox(spiral(m[0] - 37, m[1] - 31, w, h), layout);
+    const box = placeBox(spiral(m[0] - 37, m[1] - 31, w, h), layout, { anchor: m });
     if (box) pills.push({ key: "air", text, big: false, bg: tierColor[4], fg: color.ocean, x: box.x, y: box.y });
   }
 

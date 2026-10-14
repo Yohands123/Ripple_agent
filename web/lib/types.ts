@@ -35,6 +35,10 @@ export interface NetworkNode {
   partType: string | null;
   appleRevenueShare: number | null;
   sources: Source[];
+  /** Added by the interface (lib/lanes.ts), not from the data files. */
+  illustrative?: boolean;
+  /** A routing point with no symbol (e.g. where a lane crosses the date line). */
+  waypoint?: boolean;
 }
 
 export type Mode = "sea" | "air" | "road" | "rail";
@@ -48,6 +52,14 @@ export interface NetworkEdge {
   status: "known" | "inferred";
   sources: Source[];
   via?: [number, number][];
+  /** Added by the interface (lib/lanes.ts), not from the data files. */
+  illustrative?: boolean;
+  /** Drawn only when a scenario uses it as a detour. */
+  detourOnly?: boolean;
+  /** Node ids this detour goes around. */
+  avoids?: string[];
+  /** Name for the detour pill when the scenario has no detour option. */
+  label?: string;
 }
 
 export interface Network {

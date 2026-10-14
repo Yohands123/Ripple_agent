@@ -94,6 +94,7 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   const paths = new Map<string, Polyline>();
   for (const edge of network.edges) {
     const state = stateOf(edge.id);
+    if (edge.detourOnly && state !== "detour") continue;
     const tint = tierColor[edge.carriesTier] ?? color.pillLight;
     if (state === "detour") {
       const pts = trimmedDetour(edge, network);
@@ -165,9 +166,13 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
       // Name the water they queue in: the last shipping node the lane passes before the shock.
       const via = (r.edge.via ?? []).map(key);
       const upstream = network.nodes.filter((n) => (n.kind === "canal" || n.kind === "port") && via.includes(key([n.lon, n.lat])));
+      const fromNode = nodes.get(r.edge.from);
       if (upstream.length) {
         const last = upstream.reduce((a, b) => (via.lastIndexOf(key([b.lon, b.lat])) > via.lastIndexOf(key([a.lon, a.lat])) ? b : a));
         queuedUpstream = last.region;
+      } else if (fromNode?.kind === "canal") {
+        // The lane starts at the previous chokepoint: ships wait in its waters.
+        queuedUpstream = fromNode.region;
       }
     }
   }
@@ -252,11 +257,12 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   }
   const detourOpt = optionMatching(scenario, /detour/i);
   const detourRoute = routes.find((r) => r.state === "detour");
-  if (detourOpt && detourRoute) {
-    const text = `${detourOpt.label}: ${detourOpt.detail}`.toUpperCase();
+  const detourText = detourOpt ? `${detourOpt.label}: ${detourOpt.detail}` : detourRoute?.edge.label;
+  if (detourText && detourRoute) {
+    const text = detourText.toUpperCase();
     const { w, h } = largePillBox(text);
     const at = paths.get(detourRoute.id)!.atFraction(0.3);
-    const box = placeBox(spiral(at[0] + 10, at[1] + 40, w, h, 160), layout, { ignoreRoutes: true });
+    const box = placeBox(spiral(at[0] + 10, at[1] + 40, w, h, 160), layout, { ignoreRoutes: true, anchor: at });
     if (box) pills.push({ key: "detour", text, big: true, bg: tierColor[4], fg: color.ocean, x: box.x, y: box.y });
   }
   const airOpt = optionMatching(scenario, /air/i);

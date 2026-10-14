@@ -24,7 +24,7 @@ export default function NodeLayer({ network, layout, onSelect, selectedId, group
   return (
     <>
       {ordered.map((n) => {
-        if (n.kind === "hq") return null;
+        if (n.kind === "hq" || n.waypoint) return null;
         const [x, y] = layout.points.get(n.id)!;
         const s = symbolSize(n.kind);
         const label = `${n.name}, ${n.region}`;
