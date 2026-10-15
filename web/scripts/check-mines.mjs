@@ -54,6 +54,9 @@ const mine = page.locator("[data-node-id='test-mine-katanga']");
 check("mine drawn", (await mine.count()) === 1, "Katanga marker");
 const mineSvg = await mine.locator("radialGradient stop").first().getAttribute("stop-color");
 check("mine is a soft region marker in tier 1 sandstone", mineSvg?.toLowerCase() === "#c79a6b", `gradient ${mineSvg}`);
+// Zoomed into the country, where sites are no longer clustered.
+await page.evaluate(() => window.__rippleGoTo?.(114.9, 25.8, 6));
+await page.waitForTimeout(600);
 const refinery = page.locator("[data-node-id='test-refinery-ganzhou']");
 const refFill = await refinery.locator("rect").first().getAttribute("fill");
 check("refinery drawn in tier 2 orange", refFill?.toLowerCase() === "#e8662f", `fill ${refFill}`);

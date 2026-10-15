@@ -1165,3 +1165,58 @@ button {
   font-family: inherit;
   font-size: 14px;
 }
+
+/* Supplier clusters: a bubble with a count, keeping its screen size while the map zooms. */
+.cluster {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 2px solid var(--ocean);
+  border-radius: 50%;
+  color: var(--ocean);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: zoom-in;
+  transform: scale(calc(1 / var(--zoom-k, 1)));
+  transition: background-color 0.4s ease, opacity 0.3s ease;
+}
+
+.cluster:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.layer-toggles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+  font-size: 13px;
+}
+
+.layer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.layer-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--option-accent);
+}
+
+/* Zoomed in, ships, coins, pills, captions, and markers keep their concept-art screen size. */
+.mover > *,
+.map-overlay .pill:not(.node-label),
+.map-overlay .map-caption,
+.map-overlay .hq-card,
+.map-overlay .shock-zone,
+.map-overlay .map-marker {
+  /* The standalone scale property, so it composes with entrance animations on transform. */
+  scale: calc(1 / max(1, var(--zoom-k, 1)));
+}

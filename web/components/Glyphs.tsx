@@ -44,8 +44,9 @@ function RefinerySymbol({ c, size }: { c: string; size: number }) {
 /** Mines are tier 1 and refineries tier 2 even when the file leaves the tier blank. */
 const kindTier = (kind: NodeKind, tier: number | null) => tier ?? (kind === "mine" ? 1 : kind === "refinery" ? 2 : null);
 
-export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number | null; size: number }) {
-  const c = tierColorOf(kindTier(kind, tier));
+/** `fill` overrides the tier color (e.g. predicted risk during a disruption). */
+export function NodeSymbol({ kind, tier, size, fill }: { kind: NodeKind; tier: number | null; size: number; fill?: string }) {
+  const c = fill ?? tierColorOf(kindTier(kind, tier));
   switch (kind) {
     case "mine":
       return <MineSymbol c={c} size={size} />;

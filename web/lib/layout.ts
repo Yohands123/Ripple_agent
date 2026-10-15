@@ -1,6 +1,7 @@
 // Where nodes, their label pills, and regional group labels go on the map.
 
 import { DEFAULT_FRAME, project, WORLD_BOUNDS, type Pt } from "./geo";
+import { bubbleSize, clusterSites, type Cluster } from "./declutter";
 import { nodeIndex, sampleEdge } from "./routes";
 import { size } from "./tokens";
 import type { Network, NetworkEdge, NetworkNode, NodeKind } from "./types";
@@ -80,7 +81,7 @@ export interface NodeLabel {
 }
 
 /** Zoom levels at which labels are thinned or added (1 is the concept-art view). */
-export const LABEL_LEVELS = [0.25, 0.35, 0.5, 0.7, 1, 1.5, 2, 3, 4];
+export const LABEL_LEVELS = [0.25, 0.35, 0.5, 0.7, 1, 1.6, 2.4, 3.5, 5, 8];
 
 /** The level in effect at zoom k: the highest one not above it. */
 export function labelLevel(k: number): number {
@@ -137,6 +138,8 @@ export interface MapLayout {
   obstacles: { boxes: Box[]; pts: Pt[] };
   /** Label candidates in priority order, for adding labels at other zoom levels. */
   labelCandidates: LabelCandidate[];
+  /** Supplier sites gathered into clusters at each label level. */
+  clusters: Map<number, Cluster[]>;
 }
 
 interface LabelCandidate {
@@ -231,7 +234,12 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   });
   // Thin dotted air arcs may pass behind labels (as in the concept art); solid lanes may not.
   const routePts: Pt[] = [...visibleEdges.filter((e) => e.mode !== "air").flatMap((e) => sampleEdge(e, nodes)), ...extraObstaclePts];
-  const taken: Box[] = [];
+  // Screen furniture over the concept view: the status pill, the year tag, and the zoom buttons.
+  const taken: Box[] = [
+    { x: 556, y: 14, w: 204, h: 46 },
+    { x: 16, y: 700, w: 350, h: 100 },
+    { x: 1250, y: 752, w: 186, h: 50 },
+  ];
 
   // Apple Park card: drawn at its real location; while that is out of view the
   // card is pinned top-left on screen, as in the concept art.
@@ -259,7 +267,11 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
     const maxX = Math.max(...pts.map((p) => p[0]));
     const maxY = Math.max(...pts.map((p) => p[1]));
     const text = groupText(continent, members);
-    const box = { x: maxX, y: maxY - 25, ...smallPillBox(text) };
+    const size0 = smallPillBox(text);
+    // The concept-art spot first; nudged until it stays on the map and off other pills.
+    const box =
+      spiral(maxX, maxY - 25, size0.w, size0.h, 120).find((b) => within(b, frameFor([maxX, maxY])) && !taken.some((o) => overlaps(b, o))) ??
+      { x: maxX, y: maxY - 25, ...size0 };
     taken.push(box);
     groups.push({ key: continent, text, x: box.x, y: box.y, nodeIds: members.map((m) => m.id) });
   }
@@ -268,7 +280,8 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
 
   // Label candidates: one per label text (a region can hold many sites), assembly first,
   // then the biggest clusters, so the biggest clusters keep their labels when space runs out.
-  const order: NodeKind[] = ["assembly", "mine", "refinery", "supplier_major", "port"];
+  // Backbone (assembly, ports) before suppliers; among suppliers, bigger clusters first.
+  const order: NodeKind[] = ["assembly", "port", "mine", "refinery", "supplier_major"];
   const byText = new Map<string, NetworkNode[]>();
   for (const n of network.nodes) {
     if (!onWorld(n) || !order.includes(n.kind)) continue;
@@ -290,11 +303,28 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
       return ka - kb || b.members.length - a.members.length;
     });
 
-  const layout: MapLayout = { points, labels: [], groups, hq, taken, obstacles: { boxes: nodeBoxes, pts: routePts }, labelCandidates };
+  const clusters = new Map(LABEL_LEVELS.map((L) => [L, clusterSites(network.nodes.filter(onWorld), points, L)]));
+  // Pills keep off cluster bubbles as well as symbols.
+  for (const c of clusters.get(1) ?? []) {
+    if (c.members.length < 2) continue;
+    const d = bubbleSize(c.members.length);
+    nodeBoxes.push({ x: c.x - d / 2, y: c.y - d / 2, w: d, h: d });
+  }
+  const layout: MapLayout = { points, labels: [], groups, hq, taken, obstacles: { boxes: nodeBoxes, pts: routePts }, labelCandidates, clusters };
   // Individual pills at the concept-art zoom: try left, right, below, above; skip collisions.
   layout.labels = placeLabels(layout, 1, []);
   for (const l of layout.labels) taken.push(labelBox(l));
   return layout;
+}
+
+/** Cluster bubbles at zoom level L, with their boxes in map units (bubbles keep their screen size). */
+function bubblesAt(layout: MapLayout, L: number): { cluster: Cluster; box: Box }[] {
+  return (layout.clusters.get(L) ?? [])
+    .filter((c) => c.members.length > 1)
+    .map((c) => {
+      const d = bubbleSize(c.members.length) / L;
+      return { cluster: c, box: { x: c.x - d / 2, y: c.y - d / 2, w: d, h: d } };
+    });
 }
 
 /** Zoom-1 box of a label. */
@@ -308,15 +338,19 @@ function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: B
   const { points, obstacles } = layout;
   const done = new Set(placed.map((l) => l.text));
   const seen = placed.filter((l) => l.minK <= L).map((l) => labelBoxAt(l, L));
+  // Cluster bubbles at this zoom: labels sit beside them, never on them.
+  const bubbles = bubblesAt(layout, L);
+  const bubbleOf = new Map(bubbles.flatMap((b) => b.cluster.members.map((m) => [m.id, b] as const)));
   const out: NodeLabel[] = [];
   for (const c of layout.labelCandidates) {
     if (done.has(c.text)) continue;
     for (const n of c.members) {
-      const [cx, cy] = points.get(n.id)!;
+      const bubble = bubbleOf.get(n.id);
+      const [cx, cy] = bubble ? [bubble.cluster.x, bubble.cluster.y] : points.get(n.id)!;
       // Symbols keep their screen size when zoomed in, so they shrink in map units.
       const symScale = 1 / Math.max(1, L);
       const r0 = symbolSize(n.kind) / 2;
-      const r = r0 * symScale;
+      const r = bubble ? bubble.box.w / 2 : r0 * symScale;
       const { w, h } = smallPillBox(c.text);
       const frame = frameFor([cx, cy]);
       const pad = 2 / L;
@@ -327,6 +361,7 @@ function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: B
         !symbols.some((o) => overlaps(b, o, pad)) &&
         !fixed.some((o) => overlaps(b, o, pad)) &&
         !seen.some((o) => overlaps(b, o, pad)) &&
+        !bubbles.some((o) => overlaps(b, o.box, pad)) &&
         !obstacles.pts.some((p) => inside(p, b));
       const pick = pillOptions(cx, cy, r, w, h, L).find(fits);
       if (!pick) continue;
@@ -349,9 +384,10 @@ function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: B
  * Call after all other pills are in `layout.taken`; the concept-art labels are unchanged.
  */
 export function withZoomLabels(layout: MapLayout): NodeLabel[] {
-  const base = layout.labels;
-  const labelKeys = new Set(base.map((l) => `${l.x},${l.y}`));
+  const labelKeys = new Set(layout.labels.map((l) => `${l.x},${l.y}`));
   const fixed = layout.taken.filter((b) => !labelKeys.has(`${b.x},${b.y}`));
+  // Placed again now that the scene's pills and captions are known, so none overlap them.
+  const base = placeLabels(layout, 1, [], fixed);
   const order = new Map(layout.labelCandidates.map((c, i) => [c.text, i]));
 
   // Zooming out: walk down the levels; a label survives while it fits beside higher-priority survivors.
@@ -361,7 +397,8 @@ export function withZoomLabels(layout: MapLayout): NodeLabel[] {
     const kept: { l: NodeLabel; b: Box }[] = [];
     for (const l of survivors) {
       const b = labelBoxAt(l, L);
-      if (kept.some((o) => overlaps(b, o.b, 2 / L)) || fixed.some((o) => overlaps(b, o, 2 / L))) continue;
+      const bubbles = bubblesAt(layout, L).filter((x) => !x.cluster.members.some((m) => m.id === l.nodeId));
+      if (kept.some((o) => overlaps(b, o.b, 2 / L)) || fixed.some((o) => overlaps(b, o, 2 / L)) || bubbles.some((o) => overlaps(b, o.box, 2 / L))) continue;
       kept.push({ l, b });
       minK.set(l.text, L);
     }

@@ -12,7 +12,9 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1840, height: 810 } });
 page.on("pageerror", (e) => console.log("page error:", e.message));
 for (const spec of specs) {
-  const [name, rest = ""] = spec.split("=");
+  const cut = spec.indexOf("=");
+  const name = spec.slice(0, cut);
+  const rest = spec.slice(cut + 1);
   const [query, view] = rest.split("@");
   await page.goto(`${base}/${query}`);
   await page.waitForSelector("[data-ready='true']");

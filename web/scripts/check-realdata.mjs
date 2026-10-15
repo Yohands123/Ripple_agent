@@ -56,7 +56,9 @@ for (const entry of index) {
   const before = errors.length;
   await open(`?scenario=${entry.id}`);
   const own = s.networkPath ? read(s.networkPath) : net;
-  const shown = await page.locator("[data-node-id]").count();
+  // Sites drawn on their own plus those inside cluster bubbles.
+  const clustered = (await page.locator("[data-cluster]").evaluateAll((els) => els.map((e) => Number(e.getAttribute("data-cluster"))))).reduce((a, b) => a + b, 0);
+  const shown = (await page.locator("[data-node-id]").count()) + clustered;
   const expected = own.nodes.filter((n) => n.kind !== "hq").length;
   const lanes = own.edges.length === 0 ? (await page.locator("[data-node-id][data-kind='port'], [data-node-id][data-kind='canal'], [data-node-id][data-kind='airport']").count()) : 0;
   check(`${entry.id}: own network`, shown - lanes === expected, `${shown - lanes} sites shown, ${expected} in ${s.networkPath ?? "network.json"}`);

@@ -75,11 +75,13 @@ async function open(url, simulated) {
 // Route-less data, free flow: lanes, ships, flights, and the note; the Cape detour stays hidden.
 {
   const r = await open("/", true);
+  // Eight sea lanes, and the two Asia-Europe flights as one air bundle per origin.
   const lanes = Object.keys(r.routes).filter((k) => k.startsWith("lane-"));
+  const air = Object.keys(r.routes).filter((k) => k.startsWith("air-lane-"));
   check(
     "route-less free flow",
-    lanes.length === 10 && !lanes.includes("lane-sea-cape") && r.ships > 5 && r.note === 1 && r.errors.length === 0,
-    `${lanes.length} lanes, ${r.ships} ships, note ${r.note}, errors ${r.errors.length}`,
+    lanes.length === 8 && air.length === 2 && !lanes.includes("lane-sea-cape") && r.ships > 5 && r.note === 1 && r.errors.length === 0,
+    `${lanes.length} lanes, ${air.length} air bundles, ${r.ships} ships, note ${r.note}, errors ${r.errors.length}`,
   );
   await r.page.screenshot({ path: `${process.env.TEMP}/ripple-shots/lanes-free.png` });
   await r.context.close();
@@ -88,7 +90,7 @@ async function open(url, simulated) {
 const expectations = {
   "suez-2021": { blocked: ["lane-sea-suez-rotterdam"], detour: "lane-sea-cape", expedited: true, queuePill: "SHIPS QUEUED IN THE RED SEA" },
   "red-sea-2023": { blocked: ["lane-sea-babelmandeb-suez", "lane-sea-suez-rotterdam"], detour: "lane-sea-cape", expedited: true },
-  "shanghai-2022": { blocked: ["lane-sea-shanghai-hongkong", "lane-sea-transpacific-east", "lane-air-shanghai-frankfurt"], detour: null, expedited: false },
+  "shanghai-2022": { blocked: ["lane-sea-shanghai-hongkong", "lane-sea-transpacific-east", "air-lane-port-shanghai>Europe"], detour: null, expedited: false },
   "zhengzhou-2022": { blocked: [], detour: null, expedited: false },
 };
 for (const [id, exp] of Object.entries(expectations)) {

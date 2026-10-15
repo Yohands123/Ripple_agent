@@ -7,7 +7,9 @@ import { project } from "@/lib/geo";
 import { needsIllustrativeLanes, withIllustrativeEffects, withIllustrativeLanes } from "@/lib/lanes";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
-import { buildFreeFlowScene, freeFlowEdges } from "@/lib/scene";
+import { buildFreeFlowScene, drawRoutes, freeFlowEdges } from "@/lib/scene";
+import type { Band } from "@/lib/declutter";
+import { isRoute, nodeIndex } from "@/lib/routes";
 import { buildStack } from "@/lib/stack";
 import { tierColor, size } from "@/lib/tokens";
 import type { Forecasts, Metrics, Network, Scenario, ScenarioIndexEntry } from "@/lib/types";
@@ -25,6 +27,7 @@ import RouteLayer from "./RouteLayer";
 import StackOverlay from "./StackOverlay";
 import WorldMap from "./WorldMap";
 import YearTag from "./YearTag";
+import LayerToggles, { DEFAULT_LAYERS, type Layers } from "./LayerToggles";
 
 function readParam(name: string): string | null {
   if (typeof window === "undefined") return null;
@@ -46,6 +49,9 @@ export default function RippleApp() {
   const [stackId, setStackId] = useState<string | null>(null);
   const [dayChoice, setDayChoice] = useState<{ id: string; day: number } | null>(null);
   const [worldReady, setWorldReady] = useState(false);
+  const [band, setBand] = useState<Band>("world");
+  const [layers, setLayers] = useState<Layers>(DEFAULT_LAYERS);
+  const [hoverId, setHoverId] = useState<string | null>(null);
   const onWorld = useCallback(() => setWorldReady(true), []);
 
   useEffect(() => {
@@ -124,18 +130,39 @@ export default function RippleApp() {
     return at ? { key: scenario!.id, point: project(at.lon, at.lat) } : null;
   }, [disrupted, network, scenario]);
 
+  // Road links: all of them zoomed into a country or when switched on.
+  const showRoads = band === "country" || layers.road;
   const scene = useMemo(() => {
     if (!network) return null;
+    // Labels keep clear of the lanes drawn at this zoom (not of hidden road links or air arcs).
+    const obstacleEdges = (list: typeof network.edges) => list.filter((e) => isRoute(e) && e.mode !== "air" && (e.mode !== "road" || showRoads));
     // Zoom labels are added once every scene pill has its place.
     if (disrupted) {
-      const layout = computeLayout(network, network.edges);
-      const built = buildDisruptionScene(network, layout, scenario!, progress, eventOver);
+      const layout = computeLayout(network, obstacleEdges(network.edges.filter((e) => !e.alternativeTo && !e.detourOnly)));
+      const built = buildDisruptionScene(network, layout, scenario!, progress, eventOver, band, showRoads);
       return { layout: { ...layout, labels: withZoomLabels(layout) }, ...built };
     }
-    const layout = computeLayout(network, freeFlowEdges(network, scenario));
-    const built = buildFreeFlowScene(network, layout, scenario);
+    const layout = computeLayout(network, obstacleEdges(freeFlowEdges(network, scenario)));
+    const built = buildFreeFlowScene(network, layout, scenario, band, showRoads);
     return { layout: { ...layout, labels: withZoomLabels(layout) }, ...built };
-  }, [network, scenario, disrupted, progress, eventOver]);
+  }, [network, scenario, disrupted, progress, eventOver, band, showRoads]);
+
+  // The selected or hovered site's own road links, when road links are otherwise hidden.
+  const focusId = hoverId ?? selectedId;
+  const focusRoads = useMemo(() => {
+    if (!network || showRoads || !focusId) return [];
+    const edges = network.edges.filter((e) => isRoute(e) && e.mode === "road" && (e.from === focusId || e.to === focusId));
+    return drawRoutes(edges, nodeIndex(network), "country", undefined, true);
+  }, [network, showRoads, focusId]);
+
+  // What the layer switches leave on the map.
+  const shownRoutes = scene
+    ? [...scene.routes.filter((r) => (r.edge.mode === "sea" ? layers.sea : r.edge.mode === "air" ? layers.air : true)), ...focusRoads]
+    : [];
+  const shownMovers = scene ? scene.movers.filter((m) => (m.kind === "ship" ? layers.sea : layers.money)) : [];
+  const shownPills = scene
+    ? scene.pills.filter((p) => !((p.key.startsWith("lane-") && !layers.sea) || (p.key === "air" && !layers.air) || (p.key === "revenue" && !layers.money)))
+    : [];
 
 
   useEffect(() => {
@@ -197,6 +224,7 @@ export default function RippleApp() {
       <div className="map-area">
         <MapStage
           focus={focusPoint}
+          onBand={setBand}
           hud={(stage) => (
             <>
               {scene?.layout.hq?.offMap && !stage.isVisible(scene.layout.hq.anchor, -40) && (
@@ -227,14 +255,24 @@ export default function RippleApp() {
         >
           <svg width={size.mapW} height={size.mapH} viewBox={`0 0 ${size.mapW} ${size.mapH}`} aria-hidden="true" className="map-svg">
             <WorldMap highlight={highlight} onLoaded={onWorld} />
-            {scene && <RouteLayer routes={scene.routes} money={scene.money} />}
+            {scene && <RouteLayer routes={shownRoutes} money={layers.money ? scene.money : []} />}
           </svg>
           <div className="map-overlay">
             {scene?.zones?.map((z) => (
               <div key={z.key} className="shock-zone" style={{ left: z.x - z.d / 2, top: z.y - z.d / 2, width: z.d, height: z.d }} />
             ))}
-            {network && scene && <NodeLayer network={network} layout={scene.layout} groupText={scene.groupText} selectedId={selectedId} onSelect={selectNode} />}
-            {scene?.captions.map((c) => (
+            {network && scene && (
+              <NodeLayer
+                network={network}
+                layout={scene.layout}
+                groupText={scene.groupText}
+                selectedId={selectedId}
+                onSelect={selectNode}
+                onHover={setHoverId}
+                hideSuppliers={!layers.suppliers}
+              />
+            )}
+            {layers.money && scene?.captions.map((c) => (
               <div key={c.key} className="map-caption" style={{ left: c.x, top: c.y, width: c.w, color: c.color }}>
                 {c.text}
               </div>
@@ -247,8 +285,8 @@ export default function RippleApp() {
                 style={{ left: m.x - m.r, top: m.y - m.r, width: 2 * m.r, height: 2 * m.r }}
               />
             ))}
-            {scene && <MoverLayer movers={scene.movers} />}
-            {scene?.pills.map((p) => (
+            {scene && <MoverLayer movers={shownMovers} />}
+            {shownPills.map((p) => (
               <Pill key={p.key} big={p.big} bg={p.bg} fg={p.fg} style={{ left: p.x, top: p.y }}>
                 {p.text}
               </Pill>
@@ -266,6 +304,7 @@ export default function RippleApp() {
         ) : disrupted ? (
           <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={selectNode} picker={picker}>
             {lanesNote}
+            <LayerToggles layers={layers} onChange={setLayers} />
             <ReplaySection
               scenario={scenario!}
               metrics={metrics}
@@ -278,6 +317,7 @@ export default function RippleApp() {
           <FreeFlowPanel sample={sample} scenario={scenario} onDrop={drop}>
             {lanesNote}
             {picker}
+            <LayerToggles layers={layers} onChange={setLayers} />
           </FreeFlowPanel>
         )}
       </aside>

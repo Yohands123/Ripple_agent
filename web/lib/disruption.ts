@@ -3,19 +3,20 @@
 import { project, type Pt } from "./geo";
 import { largePillBox, symbolSize, placeBox, smallPillBox, spiral, type MapLayout } from "./layout";
 import { Polyline, sampleSmooth } from "./polyline";
+import { laneLabel, trimOverlaps, type Band } from "./declutter";
 import { lineGeometry } from "./georoute";
-import { edgeGeometry, edgeLonLat, isRoute, nodeIndex, smoothPath } from "./routes";
+import { edgeLonLat, edgeRank, isRoute, nodeIndex } from "./routes";
 import {
   cardEdgeDistance,
   COIN_SPEED,
+  drawRoutes,
   edgeColor,
-  edgePolylines,
+  laneShips,
   longestOf,
   moneyCoins,
   moneyGeometry,
+  revenuePaths,
   routePills,
-  SHIP_SPACING,
-  SHIP_SPEED,
   type Caption,
   type Marker,
   type MapPill,
@@ -50,7 +51,8 @@ export function trimmedDetour(edge: NetworkEdge, network: Network): Pt[] | null 
   if (!ll) return null;
   const shared = new Set<string>();
   for (const other of network.edges) {
-    if (other.id === edge.id || other.mode !== "sea") continue;
+    // Only the normal lanes count: other detours may run the same way round.
+    if (other.id === edge.id || other.mode !== "sea" || other.alternativeTo || other.detourOnly) continue;
     for (const p of edgeLonLat(other, nodes) ?? []) shared.add(key(p));
   }
   let start = 0;
@@ -58,6 +60,23 @@ export function trimmedDetour(edge: NetworkEdge, network: Network): Pt[] | null 
   let end = ll.length - 1;
   while (end - 1 > start && shared.has(key(ll[end])) && shared.has(key(ll[end - 1]))) end--;
   return ll.slice(start, end + 1);
+}
+
+/** The water ships wait in before the shock: the previous chokepoint on the lane, or where the lane starts. */
+function upstreamWater(edge: NetworkEdge, network: Network, shockIds: Set<string>): string | null {
+  const nodes = nodeIndex(network);
+  const ids = edge.viaNodeIds ?? [];
+  const i = ids.findIndex((id) => shockIds.has(id));
+  const before = i > 0 ? nodes.get(ids[i - 1]) : undefined;
+  if (before) return before.kind === "chokepoint" && /mandeb/i.test(before.name) ? "Red Sea" : before.region || before.name;
+  // Older files: the last canal or port the lane passes before the shock, or the chokepoint it starts at.
+  const via = (edge.via ?? []).map(key);
+  const upstream = network.nodes.filter((n) => (n.kind === "canal" || n.kind === "port") && via.includes(key([n.lon, n.lat])));
+  if (upstream.length) {
+    return upstream.reduce((a, b) => (via.lastIndexOf(key([b.lon, b.lat])) > via.lastIndexOf(key([a.lon, a.lat])) ? b : a)).region;
+  }
+  const from = nodes.get(edge.from);
+  return from?.kind === "canal" ? from.region : null;
 }
 
 function optionMatching(scenario: Scenario, re: RegExp) {
@@ -86,7 +105,15 @@ export function atRiskCoins(scenario: Scenario): { delayed: number; lost: number
  * revenue coins turn delayed or lost as it advances. `showActual` adds actual
  * outcomes (known only once the event is over).
  */
-export function buildDisruptionScene(network: Network, layout: MapLayout, scenario: Scenario, progress = 1, showActual = false): Scene {
+export function buildDisruptionScene(
+  network: Network,
+  layout: MapLayout,
+  scenario: Scenario,
+  progress = 1,
+  showActual = false,
+  band: Band = "world",
+  showRoads = band === "country",
+): Scene {
   const p = Math.min(1, Math.max(0, progress));
   const nodes = nodeIndex(network);
   const shockIds = new Set(scenario.shock.nodeIds);
@@ -94,29 +121,22 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   const stateOf = (id: string): RouteState =>
     blocked.includes(id) ? "blocked" : detour.includes(id) ? "detour" : expedited.includes(id) ? "expedited" : "normal";
 
-  // Routes.
-  const routes: RouteDraw[] = [];
-  // Each route as polylines, one per side of the antimeridian, in travel order.
-  const paths = new Map<string, Polyline[]>();
-  for (const edge of network.edges) {
-    if (!isRoute(edge)) continue;
-    const state = stateOf(edge.id);
-    if ((edge.detourOnly || edge.alternativeTo) && state !== "detour") continue;
-    const tint = edgeColor(edge);
-    if (state === "detour") {
-      const ll = trimmedDetour(edge, network);
-      if (!ll || ll.length < 2) continue;
-      const g = lineGeometry(ll, "smooth");
-      routes.push({ id: edge.id, edge, d: g.d, state, color: tint });
-      paths.set(edge.id, g.pieces.map((p) => new Polyline(p)));
-      continue;
-    }
-    const g = edgeGeometry(edge, nodes);
-    if (!g) continue;
-    routes.push({ id: edge.id, edge, d: g.d, state, color: tint });
-    paths.set(edge.id, edgePolylines(edge, nodes));
-  }
-  routes.sort((a, b) => Number(b.edge.mode === "air") - Number(a.edge.mode === "air"));
+  // Routes: open lanes, closed lanes greyed, detours drawn only where they leave the lanes.
+  const detourIds = new Set(detour);
+  const base = network.edges.filter((e) => isRoute(e) && !detourIds.has(e.id) && !e.detourOnly && !e.alternativeTo);
+  const routes: RouteDraw[] = drawRoutes(base, nodes, band, stateOf, showRoads);
+  // Detours that run the same way round are drawn once.
+  const detourLines = network.edges
+    .filter((e) => detourIds.has(e.id))
+    .map((edge) => ({ edge, ll: trimmedDetour(edge, network) }))
+    .filter((x): x is { edge: NetworkEdge; ll: Pt[] } => Boolean(x.ll && x.ll.length > 1))
+    .map((x) => ({ edge: x.edge, lonlat: lineGeometry(x.ll, "smooth").lonlat }))
+    .sort((a, b) => b.lonlat.length - a.lonlat.length);
+  trimOverlaps(detourLines.map((x) => ({ id: x.edge.id, lonlat: x.lonlat }))).forEach((g, i) => {
+    const edge = detourLines[i].edge;
+    if (g.d) routes.push({ id: edge.id, edge, d: g.d, pieces: g.pieces, state: "detour", color: edgeColor(edge), rank: edgeRank(edge) });
+  });
+  const paths = new Map<string, Polyline[]>(routes.map((r) => [r.id, r.pieces.map((p) => new Polyline(p))]));
 
   // Shock zones.
   const zones = scenario.shock.nodeIds
@@ -134,66 +154,42 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   }
   for (const z of zones) layout.taken.push({ x: z.x - z.d / 2, y: z.y - z.d / 2, w: z.d, h: z.d });
 
-  // Ships.
-  const movers: Mover[] = [];
+  // Ships: moving on open lanes, stopped and faded on closed ones, fewer on detours.
+  const movers: Mover[] = [
+    ...laneShips(routes.filter((r) => r.state === "normal" || r.state === "expedited"), band),
+    ...laneShips(routes.filter((r) => r.state === "blocked"), band, { speed: 0, opacity: 0.35 }),
+    // Fewer ships take the long way round.
+    ...laneShips(routes.filter((r) => r.state === "detour"), band, { gapFactor: 3 }),
+  ];
   const pills: MapPill[] = [];
+
+  // Ships bunch up before the blockage on the first lane into (or through) the shock.
   let queuedUpstream: string | null = null;
-  for (const r of routes) {
-    if (r.edge.mode !== "sea" || r.edge.carriesTier !== 4 || r.state === "detour") continue;
-    const pieces = paths.get(r.id)!;
-    if (pieces.length === 0) continue;
-    if (r.state === "blocked") {
-      pieces.forEach((path, j) => {
-        const count = Math.max(1, Math.round(path.length / SHIP_SPACING));
-        for (let i = 0; i < count; i++) {
-          movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: 0, opacity: 0.35 });
-        }
-      });
-      continue;
+  const zone = zones[0];
+  const queueLane = zone
+    ? routes.find((r) => r.edge.mode === "sea" && (shockIds.has(r.edge.to) || (r.edge.viaNodeIds ?? []).some((id) => shockIds.has(id))))
+    : undefined;
+  if (zone && queueLane) {
+    const full = paths.get(queueLane.id) ?? [];
+    // The stretch of lane nearest the shock, and the distance along it where the shock is.
+    let best: { path: Polyline; at: number; d: number } | null = null;
+    for (const path of full) {
+      const at = path.project([zone.x, zone.y]);
+      const [x, y] = path.at(at);
+      const d = Math.hypot(x - zone.x, y - zone.y);
+      if (!best || d < best.d) best = { path, at, d };
     }
-    const intoShock = shockIds.has(r.edge.to);
-    // Ships queue on the last piece, just before the shock.
-    const path = pieces[pieces.length - 1];
-    pieces.forEach((piece, j) => {
-      const last = j === pieces.length - 1;
-      const queueLen = last && intoShock ? (QUEUE_SHIPS + 1) * QUEUE_GAP : 0;
-      const travel = Math.max(1, piece.length - queueLen);
-      const count = Math.max(1, Math.round(piece.length / SHIP_SPACING));
-      for (let i = 0; i < count; i++) {
-        movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path: piece, offset: ((i + 0.5) / count) * travel, speed: SHIP_SPEED, span: [0, travel] });
-      }
-    });
-    if (intoShock) {
-      // Ships bunch up before the blockage; the blocked ship lies across the chokepoint.
+    if (best && best.d < ZONE_DIAMETER) {
       const queued = Math.max(1, Math.ceil(QUEUE_SHIPS * p));
       for (let k = 1; k <= queued; k++) {
-        const [x, y] = path.at(path.length - k * QUEUE_GAP);
+        const [x, y] = best.path.at(best.at - k * QUEUE_GAP);
         const at: Pt = [x + (k % 2 === 0 ? 9 : -6), y];
-        movers.push({ id: `queue-${r.id}-${k}`, kind: "ship", path: new Polyline([at, at]), offset: 0, speed: 0, enter: "enter-coins" });
+        movers.push({ id: `queue-${queueLane.id}-${k}`, kind: "ship", path: new Polyline([at, at]), offset: 0, speed: 0, enter: "enter-coins" });
       }
-      const end = path.at(path.length);
-      movers.push({ id: `blocked-ship-${r.id}`, kind: "ship", path: new Polyline([[end[0], end[1] + 4], [end[0], end[1] + 4]]), offset: 0, speed: 0, rotate: 58 });
-      // Name the water they queue in: the last shipping node the lane passes before the shock.
-      const via = (r.edge.via ?? []).map(key);
-      const upstream = network.nodes.filter((n) => (n.kind === "canal" || n.kind === "port") && via.includes(key([n.lon, n.lat])));
-      const fromNode = nodes.get(r.edge.from);
-      if (upstream.length) {
-        const last = upstream.reduce((a, b) => (via.lastIndexOf(key([b.lon, b.lat])) > via.lastIndexOf(key([a.lon, a.lat])) ? b : a));
-        queuedUpstream = last.region;
-      } else if (fromNode?.kind === "canal") {
-        // The lane starts at the previous chokepoint: ships wait in its waters.
-        queuedUpstream = fromNode.region;
-      }
+      const end = best.path.at(best.at);
+      movers.push({ id: `blocked-ship-${queueLane.id}`, kind: "ship", path: new Polyline([[end[0], end[1] + 4], [end[0], end[1] + 4]]), offset: 0, speed: 0, rotate: 58 });
+      queuedUpstream = upstreamWater(queueLane.edge, network, shockIds);
     }
-  }
-  for (const r of routes.filter((r) => r.state === "detour" && r.edge.mode === "sea")) {
-    paths.get(r.id)!.forEach((path, j) => {
-      // Fewer ships take the long way round.
-      const count = Math.max(1, Math.round(path.length / (SHIP_SPACING * 3)));
-      for (let i = 0; i < count; i++) {
-        movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: SHIP_SPEED });
-      }
-    });
   }
 
   // Money: spend continues; revenue coins split into one on time, delayed, and lost.
@@ -202,8 +198,10 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   const full = atRiskCoins(scenario);
   const risk = { delayed: Math.round(full.delayed * p), lost: Math.round(full.lost * p) };
   mg.revenue.forEach((rev, i) => {
-    const path = new Polyline(sampleSmooth(rev.pts));
-    money.push({ id: `revenue-${i}`, kind: "in", d: smoothPath(rev.pts), path });
+    const { d, paths: revPaths } = revenuePaths(rev);
+    const path = revPaths[0];
+    if (!path) return;
+    revPaths.forEach((pp, j) => money.push({ id: j === 0 ? `revenue-${i}` : `revenue-${i}-${j}`, kind: "in", d: j === 0 ? d : "", path: pp }));
     // Revenue still arriving: one coin on the stretch before the pinned card.
     const end = layout.hq?.offMap ? cardEdgeDistance(path, layout.hq.pin.x + size.hqCardW + size.coin / 2) : path.length;
     movers.push({ id: `gold-${i}`, kind: "coin", coin: "gold", size: size.coin, path, offset: end * 0.9, speed: COIN_SPEED, span: [end * 0.45, end] });
@@ -268,7 +266,12 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   }
   const detourOpt = optionMatching(scenario, /detour/i);
   const detourRoute = routes.find((r) => r.state === "detour");
-  const detourText = detourOpt ? `${detourOpt.label}: ${detourOpt.detail}` : detourRoute?.edge.label;
+  // A short option note reads well on the map ("+10 to 14 days"); a long one is left to the panel and the lane's name is used.
+  const short = (t: string | undefined) => (t && t.length <= 32 ? t : undefined);
+  const detourText =
+    detourOpt && short(detourOpt.detail)
+      ? `${detourOpt.label}: ${detourOpt.detail}`
+      : detourRoute && (laneLabel(detourRoute.edge) ?? detourRoute.edge.label ?? (detourOpt ? detourOpt.label : undefined));
   if (detourText && detourRoute) {
     const text = detourText.toUpperCase();
     const { w, h } = largePillBox(text);
@@ -277,7 +280,7 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     if (box) pills.push({ key: "detour", text, big: true, bg: tierColor[4], fg: color.ocean, x: box.x, y: box.y });
   }
   const airOpt = optionMatching(scenario, /air/i);
-  pills.push(...routePills(network, layout, routes, mg, airOpt?.detail ?? ""));
+  pills.push(...routePills(network, layout, routes, mg, short(airOpt?.detail) ?? ""));
 
   // Regional groups with predicted hits run low on stock.
   const groupText: Record<string, string> = {};
@@ -288,7 +291,8 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
 
   const captions: Caption[] = [];
   if (mg.spend && layout.hq?.offMap) {
-    captions.push({ key: "spend-caption", text: "Payments from Apple Park, across the Pacific", x: size.mapW - 20 - 170, y: mg.spend.target[1] + 60, w: 170, color: "#9CC6EE" });
+    const spot = placeBox(spiral(size.mapW - 20 - 170, mg.spend.target[1] + 60, 170, 30, 120), layout, { ignoreRoutes: true });
+    if (spot) captions.push({ key: "spend-caption", text: "Payments from Apple Park, across the Pacific", x: spot.x, y: spot.y, w: 170, color: "#9CC6EE" });
   }
 
   // Predicted hits (rings) and, once the event is over, actual outcomes.
@@ -308,6 +312,6 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     }
   }
 
-  const visibleEdges = network.edges;
+  const visibleEdges = routes.map((r) => r.edge);
   return { zones, groupText, routes, money, movers, pills, captions, visibleEdges, markers };
 }

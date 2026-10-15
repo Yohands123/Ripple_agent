@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { bandOf, type Band } from "@/lib/declutter";
 import { project, WORLD_BOUNDS, type Pt } from "@/lib/geo";
 import { size } from "@/lib/tokens";
 
@@ -35,8 +36,12 @@ export interface StageInfo {
 const ZoomContext = createContext(1);
 export const useZoom = () => useContext(ZoomContext);
 
+/** Moving the view from inside the map (e.g. clicking a cluster zooms into it). */
+const StageContext = createContext<{ goTo: (p: Pt, k?: number) => void }>({ goTo: () => {} });
+export const useStage = () => useContext(StageContext);
+
 const DEFAULT_VIEW: View = { cx: size.mapW / 2, cy: size.mapH / 2, k: 1 };
-const K_MAX = 4;
+const K_MAX = 8;
 const DRAG_THRESHOLD = 4;
 
 interface Props {
@@ -44,9 +49,11 @@ interface Props {
   hud?: (info: StageInfo) => ReactNode;
   /** A point to bring into view when its key changes (e.g. a dropped event's shock), if it is off screen. */
   focus?: { key: string; point: Pt } | null;
+  /** Called with the zoom band (world, region, country) whenever it changes. */
+  onBand?: (band: Band) => void;
 }
 
-export default function MapStage({ children, hud, focus }: Props) {
+export default function MapStage({ children, hud, focus, onBand }: Props) {
   const outer = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ w: size.mapW, h: size.mapH });
   const [view, setView] = useState<View>(DEFAULT_VIEW);
@@ -95,6 +102,9 @@ export default function MapStage({ children, hud, focus }: Props) {
 
   const v = clamp(view);
   const scale = s * v.k;
+  const band = bandOf(v.k);
+  useEffect(() => onBand?.(band), [band, onBand]);
+  const stageApi = useMemo(() => ({ goTo: (p: Pt, k?: number) => setView((cur) => clamp({ cx: p[0], cy: p[1], k: k ?? cur.k })) }), [clamp]);
 
   // Zoom keeping the content point under (sx, sy) fixed.
   const zoomAt = useCallback(
@@ -245,7 +255,9 @@ export default function MapStage({ children, hud, focus }: Props) {
           "--zoom-k": v.k,
         } as CSSProperties}
       >
-        <ZoomContext.Provider value={v.k}>{children}</ZoomContext.Provider>
+        <StageContext.Provider value={stageApi}>
+          <ZoomContext.Provider value={v.k}>{children}</ZoomContext.Provider>
+        </StageContext.Provider>
       </div>
       <div className="map-hud" style={{ width: box.w / s, height: box.h / s, transform: `scale(${s})` }}>
         {hud?.(info)}
