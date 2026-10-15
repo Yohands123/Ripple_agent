@@ -29,7 +29,19 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
   const plan = useMemo(() => planLine(scenario, chosen), [scenario, chosen]);
 
   const names = new Map((network?.nodes ?? []).map((n) => [n.id, n.name]));
-  const affected = [...scenario.predictions].sort((a, b) => b.pHit - a.pHit).slice(0, MAX_AFFECTED);
+  // Several disclosed sites can share one company-level prediction: list each company once.
+  const companyOf = new Map((network?.nodes ?? []).map((n) => [n.id, n.companyId ?? n.id]));
+  const seen = new Set<string>();
+  const affected = [...scenario.predictions]
+    .sort((a, b) => b.pHit - a.pHit)
+    .filter((p) => {
+      const c = companyOf.get(p.nodeId) ?? p.nodeId;
+      if (seen.has(c)) return false;
+      seen.add(c);
+      return true;
+    })
+    .slice(0, MAX_AFFECTED);
+  const companies = [...(scenario.companyPredictions ?? [])].sort((a, b) => b.pHit - a.pHit).slice(0, MAX_AFFECTED);
   const anyLowConfidence = affected.some((p) => p.lowConfidence);
   const actual = new Map(scenario.actual.map((a) => [a.nodeId, a]));
   const withActual = showActual && affected.some((p) => actual.has(p.nodeId));
@@ -61,7 +73,27 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
 
       <section>
         <h2 className="panel-heading">WHAT&apos;S AFFECTED</h2>
-        {affected.length === 0 ? (
+        {affected.length === 0 && companies.length > 0 ? (
+          <>
+            <div className="panel-tiny">This year&apos;s Supplier List names companies but not their sites, so they are not on the map.</div>
+            <div className="affected-list" data-list="companies">
+              {companies.map((p) => (
+                <div
+                  key={p.companyId}
+                  className={showActual && p.actual ? "affected-row with-actual" : "affected-row"}
+                  title={`Chance of a hit ${p.pHit.toFixed(2)}, 95% interval ${p.ciLow.toFixed(2)} to ${p.ciHigh.toFixed(2)}${p.lowConfidence ? ", low confidence" : ""}`}
+                >
+                  <span className="affected-name">{p.supplier}</span>
+                  <span className="affected-track">
+                    <span className={p.lowConfidence ? "affected-bar dashed" : "affected-bar"} style={{ width: `${Math.round(p.pHit * 100)}%` }} />
+                  </span>
+                  <span className="affected-score">{p.pHit.toFixed(2)}</span>
+                  {showActual && p.actual && <span className={p.actual.hit ? "affected-actual hit" : "affected-actual"}>{p.actual.hit ? "HIT" : "NO HIT"}</span>}
+                </div>
+              ))}
+            </div>
+          </>
+        ) : affected.length === 0 ? (
           <div className="panel-note">No predictions in this scenario yet.</div>
         ) : (
           <div className="affected-list">
@@ -87,7 +119,8 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
             ))}
           </div>
         )}
-        {anyLowConfidence && <div className="panel-tiny">Dashed bar: low-confidence prediction</div>}
+        {(anyLowConfidence || companies.some((p) => p.lowConfidence)) && <div className="panel-tiny">Dashed bar: low-confidence prediction</div>}
+        {scenario.outcomeDefinition && <div className="panel-tiny" data-note="outcome">{scenario.outcomeDefinition}</div>}
       </section>
 
       <section>
@@ -97,7 +130,7 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
           <div key={o.id} className="option-row">
             <input type="checkbox" id={`opt-${o.id}`} checked={chosen.has(o.id)} onChange={() => toggle(o.id)} />
             <label htmlFor={`opt-${o.id}`}>{o.label}</label>
-            <div className="option-detail">{o.detail}</div>
+            <div className={o.detail.length > 32 ? "option-detail long" : "option-detail"}>{o.detail}</div>
           </div>
         ))}
         {plan?.equalSplitAssumed && scenario.options.length > 0 && (
@@ -113,6 +146,11 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
             <div className="recovery" aria-live="polite">
               {plan.sentence}
             </div>
+            {scenario.quota.unit && (
+              <div className="panel-tiny" data-note="quota-unit">
+                Assumption: {scenario.quota.unit}.{scenario.quota.scope ? ` ${scenario.quota.scope}.` : ""}
+              </div>
+            )}
           </>
         ) : (
           <div className="panel-note">Production quota and recovery are not known from public data.</div>

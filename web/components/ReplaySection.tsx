@@ -11,10 +11,16 @@ interface Props {
 }
 
 const f2 = (n: number) => n.toFixed(2);
+const range = (r: [number, number]) => `${f2(r[0])} to ${f2(r[1])}`;
 
 /** Timeline scrubber for replaying an event, with the model's backtest results. */
 export default function ReplaySection({ scenario, metrics, day, totalDays, onDay }: Props) {
   const event = metrics?.loeo.find((e) => e.eventId === scenario.id);
+  const excluded = metrics?.excludedFromMetrics?.find((e) => e.eventId === scenario.id);
+  // Older files call the distance baseline `baselineAuc`; newer ones add `distanceAuc` and a separate comparison model.
+  const distance = (e: { baselineAuc: number; distanceAuc?: number }) => e.distanceAuc ?? e.baselineAuc;
+  const comparison = (e: { baselineAuc: number; distanceAuc?: number }) => (e.distanceAuc != null ? e.baselineAuc : null);
+  const overallDistance = metrics ? (metrics.overall.distanceAuc ?? metrics.overall.baselineAuc) : null;
 
   return (
     <section>
@@ -46,15 +52,18 @@ export default function ReplaySection({ scenario, metrics, day, totalDays, onDay
         <div className="panel-tiny">Actual outcomes appear on the last day.</div>
       ) : null}
       {metrics && event && (
-        <div className="model-result">
-          Model tested on this event without training on it: AUC {f2(event.auc)}, against {f2(event.baselineAuc)} for distance alone. Across{" "}
-          {metrics.events} events: AUC {f2(metrics.overall.auc[0])} to {f2(metrics.overall.auc[1])} (95% interval).
+        <div className="model-result" data-result="event">
+          Model tested on this event without training on it: AUC {f2(event.auc)}, against {f2(distance(event))} for distance alone
+          {comparison(event) != null && <> and {f2(comparison(event)!)} for a simple logistic model</>}.
+          {distance(event) > event.auc && " Distance alone did better here."} Across {metrics.events} events: AUC {range(metrics.overall.auc)} (95%
+          interval), against {range(overallDistance!)} for distance alone.
         </div>
       )}
       {metrics && !event && (
-        <div className="model-result">
-          Across {metrics.events} past events the model scored AUC {f2(metrics.overall.auc[0])} to {f2(metrics.overall.auc[1])} (95% interval),
-          against {f2(metrics.overall.baselineAuc[0])} to {f2(metrics.overall.baselineAuc[1])} for distance alone.
+        <div className="model-result" data-result="overall">
+          {excluded && <>This event is left out of the model results: {excluded.reason.replace(/;.*$/, "")}. </>}
+          Across {metrics.events} past events the model scored AUC {range(metrics.overall.auc)} (95% interval), against {range(overallDistance!)} for
+          distance alone.
         </div>
       )}
     </section>

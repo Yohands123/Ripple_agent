@@ -35,6 +35,9 @@ export async function loadFile<T>(relPath: string): Promise<Loaded<T> | null> {
 }
 
 export const loadNetwork = () => loadFile<Network>("network.json");
+/** A scenario's own network (its `networkPath`), from the same origin as the scenario. */
+export const loadNetworkAt = async (origin: DataOrigin, relPath: string): Promise<Network | null> =>
+  tryFetch<Network>(`/data/${origin}/${relPath.split("/").map(encodeURIComponent).join("/")}`);
 export const loadScenarioIndex = () => loadFile<ScenarioIndexEntry[]>("scenarios/index.json");
 export const loadScenario = (id: string) => loadFile<Scenario>(`scenarios/${encodeURIComponent(id)}.json`);
 export const loadMetrics = () => loadFile<Metrics>("metrics.json");

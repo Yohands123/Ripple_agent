@@ -45,7 +45,9 @@ const Z: Partial<Record<string, number>> = { port: 0, airport: 0, canal: 0, bord
 
 /** Node symbols, label pills, regional group pills, and the Apple Park card. */
 export default function NodeLayer({ network, layout, onSelect, selectedId, groupText }: Props) {
-  const ordered = [...network.nodes].sort((a, b) => (Z[a.kind] ?? 1) - (Z[b.kind] ?? 1));
+  // Sites with a known or inferred tier draw over grey (unknown-tier) sites.
+  const known = (t: number | null) => (t == null ? 0 : 1);
+  const ordered = [...network.nodes].sort((a, b) => (Z[a.kind] ?? 1) - (Z[b.kind] ?? 1) || known(a.tier) - known(b.tier));
   return (
     <>
       {ordered.map((n) => {

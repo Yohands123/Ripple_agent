@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { loadForecasts, loadMetrics, loadNetwork, loadScenario, loadScenarioIndex } from "@/lib/data";
+import { loadForecasts, loadMetrics, loadNetwork, loadNetworkAt, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout, withZoomLabels } from "@/lib/layout";
+import { project } from "@/lib/geo";
 import { needsIllustrativeLanes, withIllustrativeEffects, withIllustrativeLanes } from "@/lib/lanes";
 import { buildDisruptionScene } from "@/lib/disruption";
 import { daysBetween, monthYear } from "@/lib/format";
@@ -31,7 +32,9 @@ function readParam(name: string): string | null {
 }
 
 export default function RippleApp() {
-  const [rawNetwork, setNetwork] = useState<Network | null>(null);
+  const [defaultNetwork, setNetwork] = useState<Network | null>(null);
+  // The dropped event's own network: each event uses the Supplier List from its own year.
+  const [eventNetwork, setEventNetwork] = useState<{ id: string; network: Network } | null>(null);
   const [networkMissing, setNetworkMissing] = useState(false);
   const [index, setIndex] = useState<ScenarioIndexEntry[]>([]);
   const [scenarioId, setScenarioId] = useState<string | null>(null);
@@ -71,12 +74,18 @@ export default function RippleApp() {
   useEffect(() => {
     if (!scenarioId) return;
     let live = true;
-    loadScenario(scenarioId).then((res) => live && setScenario(res?.data ?? null));
+    loadScenario(scenarioId).then((res) => {
+      if (!live) return;
+      setScenario(res?.data ?? null);
+      const path = res?.data.networkPath;
+      if (res && path) loadNetworkAt(res.origin, path).then((net) => live && net && setEventNetwork({ id: res.data.id, network: net }));
+    });
     return () => {
       live = false;
     };
   }, [scenarioId]);
 
+  const rawNetwork = dropped && rawScenario && eventNetwork?.id === rawScenario.id ? eventNetwork.network : defaultNetwork;
   // With no routes in the data, typical lanes stand in so the map keeps its sea lanes, ships, and flights.
   const network = useMemo(() => (rawNetwork ? withIllustrativeLanes(rawNetwork) : null), [rawNetwork]);
   const illustrative = Boolean(rawNetwork && needsIllustrativeLanes(rawNetwork));
@@ -105,6 +114,15 @@ export default function RippleApp() {
     if (loc) points.push({ lon: loc.lon, lat: loc.lat });
     return points;
   }, [network, scenario, disrupted]);
+
+  // A dropped event's shock is brought into view when it is off screen (e.g. Japan from the concept view).
+  const focusPoint = useMemo(() => {
+    if (!disrupted || !network) return null;
+    const loc = scenario!.shock.location;
+    const node = network.nodes.find((n) => n.id === scenario!.shock.nodeIds[0]);
+    const at = loc ?? node;
+    return at ? { key: scenario!.id, point: project(at.lon, at.lat) } : null;
+  }, [disrupted, network, scenario]);
 
   const scene = useMemo(() => {
     if (!network) return null;
@@ -178,6 +196,7 @@ export default function RippleApp() {
     <div className="app" data-ready={String(ready)} data-mode={disrupted ? "disruption" : "free"}>
       <div className="map-area">
         <MapStage
+          focus={focusPoint}
           hud={(stage) => (
             <>
               {scene?.layout.hq?.offMap && !stage.isVisible(scene.layout.hq.anchor, -40) && (

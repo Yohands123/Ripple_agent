@@ -16,8 +16,10 @@ interface Props {
 
 export default function FreeFlowPanel({ sample, scenario, onDrop, children }: Props) {
   const q = scenario?.quota;
-  const shipped = q?.noAction[0];
-  const target = q?.target[0];
+  // An indexed quota (an assumed reference, not device counts) says nothing about a normal week.
+  const indexed = Boolean(q?.unit);
+  const shipped = indexed ? undefined : q?.noAction[0];
+  const target = indexed ? undefined : q?.target[0];
   const filled = shipped != null && target ? Math.floor((shipped / target) * size.quotaBlocks) : 0;
 
   return (
@@ -37,7 +39,11 @@ export default function FreeFlowPanel({ sample, scenario, onDrop, children }: Pr
           ))}
         </div>
         <div className="panel-note">
-          {shipped != null && target != null ? `On track: ${shipped} of ${target} units shipped` : "Quota data not available"}
+          {shipped != null && target != null
+            ? `On track: ${Math.round(shipped).toLocaleString("en-US")} of ${Math.round(target).toLocaleString("en-US")} units shipped`
+            : indexed
+              ? "Weekly quota is not public. Events use an assumed index instead (100 = a normal week)."
+              : "Quota data not available"}
         </div>
       </section>
 

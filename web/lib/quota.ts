@@ -23,6 +23,12 @@ const mid = ([lo, hi]: [number, number]) => (lo + hi) / 2;
 export function planLine(scenario: Scenario, chosen: Set<string>): PlanLine | null {
   const { quota, options } = scenario;
   if (!quota) return null;
+  const isDefault = options.every((o) => o.defaultOn === chosen.has(o.id));
+  // The optimizer's own result for this exact set of options, when the file has it.
+  const exact = quota.optionPlans?.find((p) => p.optionIds.length === chosen.size && p.optionIds.every((id) => chosen.has(id)));
+  if (exact) {
+    return { values: exact.withPlan, equalSplitAssumed: false, isDefaultPlan: isDefault, sentence: isDefault ? quota.recoverySentence : recoverySentence(exact.withPlan, quota.target) };
+  }
   const hasWeights = options.some((o) => mid(o.unitsRecovered) > 0);
   const weight = (o: (typeof options)[number]) => (hasWeights ? Math.max(0, mid(o.unitsRecovered)) : o.defaultOn ? 1 : 0);
   const defaultTotal = options.filter((o) => o.defaultOn).reduce((s, o) => s + weight(o), 0);

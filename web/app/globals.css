@@ -199,6 +199,10 @@ button {
   border-radius: 50%;
 }
 
+.muted {
+  color: var(--text-secondary);
+}
+
 .pill {
   position: absolute;
   white-space: nowrap;
@@ -583,9 +587,17 @@ button {
 
 .option-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 0 10px;
   min-height: 30px;
+}
+
+/* Long option notes sit under the option name instead of squeezing it. */
+.option-detail.long {
+  flex-basis: 100%;
+  padding: 0 0 6px 28px;
+  font-size: 11px;
 }
 
 .option-row input {

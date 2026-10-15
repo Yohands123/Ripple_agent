@@ -35,6 +35,12 @@ export interface NetworkNode {
   partType: string | null;
   appleRevenueShare: number | null;
   sources: Source[];
+  /** How the tier is known: stated in a source, mapped from part type, or unknown. */
+  tierStatus?: "known" | "inferred" | "unknown";
+  tierBasis?: string;
+  companyId?: string;
+  locationRole?: string;
+  partTypeScope?: string;
   /** Added by the interface (lib/lanes.ts), not from the data files. */
   illustrative?: boolean;
   /** A routing point with no symbol (e.g. where a lane crosses the date line). */
@@ -67,6 +73,9 @@ export interface Network {
   sampleData: boolean;
   nodes: NetworkNode[];
   edges: NetworkEdge[];
+  eventId?: string;
+  scope?: string;
+  coverage?: { matchedLocations: number; manufacturingLocations: number; unlocatedCompanies?: number; locationCoverage?: string };
 }
 
 export type ScenarioType = "sea" | "sky" | "land" | "policy" | "demand";
@@ -79,6 +88,17 @@ export interface Prediction {
   ciHigh: number;
   lowConfidence: boolean;
   shap: { feature: string; value: number }[];
+  predictionScope?: string;
+  outcomeObservable?: boolean;
+}
+
+/** A prediction for a company whose sites are not disclosed (company-only Supplier Lists). */
+export interface CompanyPrediction extends Omit<Prediction, "nodeId"> {
+  companyId: string;
+  supplier: string;
+  ticker: string | null;
+  sources: Source[];
+  actual: { hit: boolean; car: number } | null;
 }
 
 export interface ScenarioOption {
@@ -100,6 +120,13 @@ export interface Scenario {
   end: string;
   snapshotYear: number;
   sampleData: boolean;
+  /** This event's own network file, relative to the data folder. */
+  networkPath?: string;
+  dateBasis?: string;
+  endBasis?: string;
+  /** What hit, car, and pHit measure. */
+  outcomeDefinition?: string;
+  sources?: Source[];
   shock: {
     nodeIds: string[];
     capacityLoss: number | null;
@@ -108,7 +135,8 @@ export interface Scenario {
   };
   headline: string;
   predictions: Prediction[];
-  actual: { nodeId: string; hit: boolean; car: number }[];
+  companyPredictions?: CompanyPrediction[];
+  actual: { nodeId: string; hit: boolean; car: number; scope?: string }[];
   options: ScenarioOption[];
   /** Null when the production quota and recovery plan are unknown. */
   quota: {
@@ -117,6 +145,12 @@ export interface Scenario {
     noAction: number[];
     withPlan: number[];
     recoverySentence: string;
+    /** The modeled result for each combination of options. */
+    optionPlans?: { optionIds: string[]; withPlan: number[] }[];
+    /** What the numbers count, e.g. an index where 100 is an assumed weekly reference. */
+    unit?: string;
+    scope?: string;
+    assumption?: boolean;
   } | null;
   money: { coinUsd: number; revenueAtRisk: Range | null; delayedShare: number | null; assumption: boolean };
   /** Things the export states are not known (e.g. "Physical supplier transport routes"). */
@@ -137,9 +171,13 @@ export interface Metrics {
   events: number;
   rows: number;
   sampleData?: boolean;
-  loeo: { eventId: string; auc: number; brier: number; baselineAuc: number }[];
-  overall: { auc: Range; brier: Range; baselineAuc: Range };
+  /** baselineAuc is the comparison model; distanceAuc, when present, is distance alone. */
+  loeo: { eventId: string; auc: number; brier: number; baselineAuc: number; distanceAuc?: number }[];
+  overall: { auc: Range; brier: Range; baselineAuc: Range; distanceAuc?: Range };
+  overallPoint?: { auc: number; brier: number; baselineAuc: number; distanceAuc?: number };
   calibration: { binMid: number; observed: number; n: number }[];
+  excludedFromMetrics?: { eventId: string; rows: number; hits: number; reason: string }[];
+  baselineDefinition?: string;
 }
 
 export interface ForecastSeries {

@@ -42,9 +42,11 @@ const DRAG_THRESHOLD = 4;
 interface Props {
   children: ReactNode;
   hud?: (info: StageInfo) => ReactNode;
+  /** A point to bring into view when its key changes (e.g. a dropped event's shock), if it is off screen. */
+  focus?: { key: string; point: Pt } | null;
 }
 
-export default function MapStage({ children, hud }: Props) {
+export default function MapStage({ children, hud, focus }: Props) {
   const outer = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ w: size.mapW, h: size.mapH });
   const [view, setView] = useState<View>(DEFAULT_VIEW);
@@ -79,6 +81,17 @@ export default function MapStage({ children, hud }: Props) {
     },
     [box, s],
   );
+
+  // Pan (without zooming) to a new focus point that is off screen.
+  const [focusKey, setFocusKey] = useState<string | null>(null);
+  if (focus && focus.key !== focusKey) {
+    setFocusKey(focus.key);
+    const cur = clamp(view);
+    const sx = (focus.point[0] - cur.cx) * s * cur.k + box.w / 2;
+    const sy = (focus.point[1] - cur.cy) * s * cur.k + box.h / 2;
+    const margin = 80;
+    if (sx < margin || sy < margin || sx > box.w - margin || sy > box.h - margin) setView(clamp({ cx: focus.point[0], cy: focus.point[1], k: cur.k }));
+  }
 
   const v = clamp(view);
   const scale = s * v.k;

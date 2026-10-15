@@ -71,6 +71,7 @@ export default function NodeDetailPanel({ sample, node, scenario, onClose, child
           <dd>
             <span className="tier-swatch inline" style={{ background: tierColorOf(node.tier) }} />
             {node.tier != null ? `${node.tier} ${tierLabel[node.tier] ?? ""}` : "Not known in the data"}
+            {node.tier != null && node.tierStatus === "inferred" && <span className="muted"> (inferred{node.tierBasis ? `: ${node.tierBasis}` : ""})</span>}
           </dd>
           {node.partType && (
             <>
