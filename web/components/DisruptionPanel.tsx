@@ -6,8 +6,7 @@ import type { Network, Scenario } from "@/lib/types";
 import PanelHeader from "./PanelHeader";
 import QuotaChart from "./QuotaChart";
 import SensitivitySection from "./SensitivitySection";
-
-const MAX_AFFECTED = 5;
+import AffectedSection from "./AffectedSection";
 
 interface Props {
   sample: boolean;
@@ -19,32 +18,16 @@ interface Props {
   onSelectNode?: (nodeId: string) => void;
   /** Scenario picker, shown first so another event can be chosen. */
   picker?: React.ReactNode;
+  /** Suppliers reached at each hop of the ripple. */
+  hops?: number[];
   children?: React.ReactNode;
 }
 
-export default function DisruptionPanel({ sample, scenario, showActual = false, network, onClear, onSelectNode, picker, children }: Props) {
+export default function DisruptionPanel({ sample, scenario, showActual = false, network, onClear, onSelectNode, picker, hops, children }: Props) {
   // Remount-free reset: options start from the file's defaults whenever the scenario changes.
   const [choice, setChoice] = useState<{ id: string; chosen: Set<string> }>(() => defaults(scenario));
   const chosen = choice.id === scenario.id ? choice.chosen : defaults(scenario).chosen;
   const plan = useMemo(() => planLine(scenario, chosen), [scenario, chosen]);
-
-  const names = new Map((network?.nodes ?? []).map((n) => [n.id, n.name]));
-  // Several disclosed sites can share one company-level prediction: list each company once.
-  const companyOf = new Map((network?.nodes ?? []).map((n) => [n.id, n.companyId ?? n.id]));
-  const seen = new Set<string>();
-  const affected = [...scenario.predictions]
-    .sort((a, b) => b.pHit - a.pHit)
-    .filter((p) => {
-      const c = companyOf.get(p.nodeId) ?? p.nodeId;
-      if (seen.has(c)) return false;
-      seen.add(c);
-      return true;
-    })
-    .slice(0, MAX_AFFECTED);
-  const companies = [...(scenario.companyPredictions ?? [])].sort((a, b) => b.pHit - a.pHit).slice(0, MAX_AFFECTED);
-  const anyLowConfidence = affected.some((p) => p.lowConfidence);
-  const actual = new Map(scenario.actual.map((a) => [a.nodeId, a]));
-  const withActual = showActual && affected.some((p) => actual.has(p.nodeId));
 
   const toggle = (id: string) => {
     const next = new Set(chosen);
@@ -71,57 +54,7 @@ export default function DisruptionPanel({ sample, scenario, showActual = false, 
         )}
       </section>
 
-      <section>
-        <h2 className="panel-heading">WHAT&apos;S AFFECTED</h2>
-        {affected.length === 0 && companies.length > 0 ? (
-          <>
-            <div className="panel-tiny">This year&apos;s Supplier List names companies but not their sites, so they are not on the map.</div>
-            <div className="affected-list" data-list="companies">
-              {companies.map((p) => (
-                <div
-                  key={p.companyId}
-                  className={showActual && p.actual ? "affected-row with-actual" : "affected-row"}
-                  title={`Chance of a hit ${p.pHit.toFixed(2)}, 95% interval ${p.ciLow.toFixed(2)} to ${p.ciHigh.toFixed(2)}${p.lowConfidence ? ", low confidence" : ""}`}
-                >
-                  <span className="affected-name">{p.supplier}</span>
-                  <span className="affected-track">
-                    <span className={p.lowConfidence ? "affected-bar dashed" : "affected-bar"} style={{ width: `${Math.round(p.pHit * 100)}%` }} />
-                  </span>
-                  <span className="affected-score">{p.pHit.toFixed(2)}</span>
-                  {showActual && p.actual && <span className={p.actual.hit ? "affected-actual hit" : "affected-actual"}>{p.actual.hit ? "HIT" : "NO HIT"}</span>}
-                </div>
-              ))}
-            </div>
-          </>
-        ) : affected.length === 0 ? (
-          <div className="panel-note">No predictions in this scenario yet.</div>
-        ) : (
-          <div className="affected-list">
-            {affected.map((p) => (
-              <button
-                key={p.nodeId}
-                type="button"
-                className={withActual ? "affected-row with-actual" : "affected-row"}
-                onClick={() => onSelectNode?.(p.nodeId)}
-                title={`Chance of a hit ${p.pHit.toFixed(2)}, 95% interval ${p.ciLow.toFixed(2)} to ${p.ciHigh.toFixed(2)}${p.lowConfidence ? ", low confidence" : ""}`}
-              >
-                <span className="affected-name">{names.get(p.nodeId) ?? p.nodeId}</span>
-                <span className="affected-track">
-                  <span className={p.lowConfidence ? "affected-bar dashed" : "affected-bar"} style={{ width: `${Math.round(p.pHit * 100)}%` }} />
-                </span>
-                <span className="affected-score">{p.pHit.toFixed(2)}</span>
-                {withActual && (
-                  <span className={actual.get(p.nodeId)?.hit ? "affected-actual hit" : "affected-actual"}>
-                    {actual.has(p.nodeId) ? (actual.get(p.nodeId)!.hit ? "HIT" : "NO HIT") : ""}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-        )}
-        {(anyLowConfidence || companies.some((p) => p.lowConfidence)) && <div className="panel-tiny">Dashed bar: low-confidence prediction</div>}
-        {scenario.outcomeDefinition && <div className="panel-tiny" data-note="outcome">{scenario.outcomeDefinition}</div>}
-      </section>
+      <AffectedSection scenario={scenario} network={network} showActual={showActual} onSelectNode={onSelectNode} hops={hops} />
 
       <section>
         <h2 className="panel-heading">WHAT CAN BE SHIFTED</h2>

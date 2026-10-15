@@ -20,3 +20,16 @@ export function monthYear(iso: string): string {
 export function daysBetween(a: string, b: string): number {
   return Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000);
 }
+
+/** "initialCapacityFraction" → "Initial capacity fraction"; "costUsdPerIndexUnit" → "Cost USD per index unit". */
+export function humanize(code: string): string {
+  const words = code
+    .replace(/[_-]+/g, " ")
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    .trim()
+    .split(/\s+/)
+    .map((w) => (/^(usd|id|hhi|km)$/i.test(w) ? w.toUpperCase() : w.toLowerCase()));
+  const s = words.join(" ");
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
