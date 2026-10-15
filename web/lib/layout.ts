@@ -23,9 +23,12 @@ export function symbolSize(kind: NodeKind): number {
     case "assembly":
       return size.assembly;
     case "supplier_major":
-    case "mine":
-    case "refinery":
       return size.major;
+    case "mine":
+      // A soft region marker, wider than a point symbol.
+      return 48;
+    case "refinery":
+      return 22;
     case "supplier_minor":
       return size.minor;
     case "port":
@@ -190,7 +193,11 @@ function labelText(n: NetworkNode): string | null {
     case "assembly":
       return strip(n.name).toUpperCase();
     case "supplier_major":
+    case "refinery":
       return (n.region.split(",")[0] || n.name).trim().toUpperCase();
+    case "mine":
+      // Mining regions are named places (e.g. a copper belt), not a site's province.
+      return n.name.trim().toUpperCase();
     case "port":
       return strip(n.name).toUpperCase();
     default:
@@ -261,7 +268,7 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
 
   // Label candidates: one per label text (a region can hold many sites), assembly first,
   // then the biggest clusters, so the biggest clusters keep their labels when space runs out.
-  const order: NodeKind[] = ["assembly", "supplier_major", "port"];
+  const order: NodeKind[] = ["assembly", "mine", "refinery", "supplier_major", "port"];
   const byText = new Map<string, NetworkNode[]>();
   for (const n of network.nodes) {
     if (!onWorld(n) || !order.includes(n.kind)) continue;

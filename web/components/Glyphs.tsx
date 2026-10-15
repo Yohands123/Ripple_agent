@@ -10,9 +10,47 @@ const FACTORY = "M8 17 V11 L11 13 V11 L14 13 V11 L18 13 V17 Z";
 const TRIANGLE = "M12 2 L23 21 L1 21 Z";
 
 /** A node's symbol, `size` px square, drawn at the origin of its box. */
+/** Mining region: a soft sandstone glow (the place is a region, not an exact point) around a faceted ore stone. */
+function MineSymbol({ c, size }: { c: string; size: number }) {
+  const id = `mine-glow-${c.slice(1)}`;
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
+      <defs>
+        <radialGradient id={id}>
+          <stop offset="0%" stopColor={c} stopOpacity={0.75} />
+          <stop offset="70%" stopColor={c} stopOpacity={0.32} />
+          <stop offset="100%" stopColor={c} stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      <circle cx="20" cy="20" r="20" fill={`url(#${id})`} />
+      <path d={ORE} fill={c} stroke={color.ocean} strokeWidth={1.2} strokeLinejoin="round" />
+      <path d="M15.5 19 L20 16.5 L24.5 19 M20 16.5 L20 24" fill="none" stroke={color.ocean} strokeWidth={1} strokeLinejoin="round" opacity={0.6} />
+    </svg>
+  );
+}
+
+/** Refinery: a squat process tank with two stacks. */
+function RefinerySymbol({ c, size }: { c: string; size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="5" y="3" width="3.5" height="9" rx="1" fill={c} />
+      <rect x="14" y="6" width="3.5" height="6" rx="1" fill={c} />
+      <rect x="2.5" y="10" width="19" height="11" rx="3" fill={c} stroke={color.ocean} strokeWidth={1} />
+      <path d="M5 15.5 H19" stroke={color.ocean} strokeWidth={1.6} strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** Mines are tier 1 and refineries tier 2 even when the file leaves the tier blank. */
+const kindTier = (kind: NodeKind, tier: number | null) => tier ?? (kind === "mine" ? 1 : kind === "refinery" ? 2 : null);
+
 export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number | null; size: number }) {
-  const c = tierColorOf(tier);
+  const c = tierColorOf(kindTier(kind, tier));
   switch (kind) {
+    case "mine":
+      return <MineSymbol c={c} size={size} />;
+    case "refinery":
+      return <RefinerySymbol c={c} size={size} />;
     case "assembly":
       return (
         <svg width={size} height={size} viewBox="0 0 26 26" aria-hidden="true">
@@ -21,8 +59,6 @@ export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number 
         </svg>
       );
     case "supplier_major":
-    case "mine":
-    case "refinery":
       return (
         <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
           <path d={TRIANGLE} fill={c} stroke={c} strokeWidth={1} strokeLinejoin="round" />
@@ -62,7 +98,7 @@ export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number 
 }
 
 /** Legend versions of the symbols (18 px, as in the panel map key). */
-export function KeySymbol({ kind }: { kind: "assembly" | "major" | "minor" | "port" | "store" | "retailer" | "carrier" }) {
+export function KeySymbol({ kind }: { kind: "assembly" | "major" | "minor" | "port" | "store" | "retailer" | "carrier" | "mine" | "refinery" }) {
   const box = (child: ReactNode) => (
     <div style={{ width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>{child}</div>
   );
@@ -85,6 +121,10 @@ export function KeySymbol({ kind }: { kind: "assembly" | "major" | "minor" | "po
           <path d="M12 3 L22 20 L2 20 Z" fill="none" stroke={tierColor[3]} strokeWidth={2.5} strokeLinejoin="round" />
         </svg>,
       );
+    case "mine":
+      return box(<MineSymbol c={tierColor[1]} size={26} />);
+    case "refinery":
+      return box(<RefinerySymbol c={tierColor[2]} size={18} />);
     case "port":
       return box(<div style={{ width: 12, height: 12, borderRadius: "50%", background: shippingDot, margin: 3 }} />);
     case "store":
@@ -124,6 +164,9 @@ export function Pill({
     </div>
   );
 }
+
+/** A faceted ore stone, centered in a 40 × 40 box. */
+const ORE = "M14 22 L15.5 17.5 L20 15 L24.5 17.5 L26 22 L22.5 25.5 L17.5 25.5 Z";
 
 const CRACK = "M13 1 L10 9 L14 12 L9 23";
 

@@ -41,7 +41,8 @@ interface Props {
 }
 
 // Shipping dots sit under everything else, assembly hexagons on top.
-const Z: Partial<Record<string, number>> = { port: 0, airport: 0, canal: 0, border: 0, assembly: 2 };
+// Mining regions are soft glows under everything.
+const Z: Partial<Record<string, number>> = { mine: -1, port: 0, airport: 0, canal: 0, border: 0, assembly: 2 };
 
 /** Node symbols, label pills, regional group pills, and the Apple Park card. */
 export default function NodeLayer({ network, layout, onSelect, selectedId, groupText }: Props) {

@@ -70,6 +70,8 @@ export default function FreeFlowPanel({ sample, scenario, onDrop, children }: Pr
           <div className="key-item"><KeySymbol kind="store" />Apple Store</div>
           <div className="key-item"><KeySymbol kind="retailer" />Other retailer</div>
           <div className="key-item"><KeySymbol kind="carrier" />Phone carrier</div>
+          <div className="key-item"><KeySymbol kind="mine" />Mining region</div>
+          <div className="key-item"><KeySymbol kind="refinery" />Refinery</div>
         </div>
       </section>
 
