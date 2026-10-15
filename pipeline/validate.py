@@ -267,8 +267,10 @@ class Validator:
             self.number(money.get("delayedShare"), label + ".money.delayedShare", 0, 1)
         self.check(type(money.get("assumption")) is bool, label + ": money.assumption boolean required")
         routes = scenario.get("affectedRoutes", {})
+        edge_by_id = {e["id"]: e for e in network.get("edges", [])}
         for key in ["blocked", "detour", "expedited"]:
             self.check(isinstance(routes.get(key), list) and all(e in edge_ids for e in routes.get(key, [])), label + ": invalid affected-route reference")
+            self.check(all(edge_by_id.get(e, {}).get("relation", "route") == "route" for e in routes.get(key, [])), label + ": affectedRoutes must reference physical route edges, not supply relationships")
         if "backbone" in network:
             self.check(network["backbone"].get("approval", {}).get("approved") is True, label + ": backbone format needs explicit approval")
             self.check(scenario.get("affectedRoutesStatus") == "inferred", label + ": inferred exposure status required")
@@ -279,6 +281,7 @@ class Validator:
         self.check(isinstance(sensitivity, list), label + ": sensitivity array required")
         for item in sensitivity:
             self.text(item.get("assumption"), label + ".sensitivity.assumption")
+            self.text(item.get("label"), label + ".sensitivity.label")
             self.number(item.get("spearman"), label + ".sensitivity.spearman", -1, 1)
         if all(type(v.get("spearman")) in {int, float} for v in sensitivity):
             self.check([abs(v["spearman"]) for v in sensitivity] == sorted((abs(v["spearman"]) for v in sensitivity), reverse=True), label + ": sensitivity must be ranked by absolute correlation")

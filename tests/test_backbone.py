@@ -114,6 +114,7 @@ def test_geometry_audit_records_no_unexpected_land_crossings():
     ("known_route", "unverified backbone route must be inferred"),
     ("blocked_detour", "blocked route cannot be an available alternative"),
     ("invented_2011_site", "no invented sites"),
+    ("supply_route", "affectedRoutes must reference physical route edges"),
 ])
 def test_reference_layer_cannot_turn_into_observed_supplier_data(bundle, tmp_path, mutation, expected):
     candidate = copy.deepcopy(bundle)
@@ -128,6 +129,8 @@ def test_reference_layer_cannot_turn_into_observed_supplier_data(bundle, tmp_pat
         edge["status"] = "known"
     elif mutation == "blocked_detour":
         scenario["affectedRoutes"]["detour"].append(scenario["affectedRoutes"]["blocked"][0])
+    elif mutation == "supply_route":
+        scenario["affectedRoutes"]["blocked"].append(next(e["id"] for e in network["edges"] if e.get("relation") == "supply"))
     else:
         candidate["networks/japan-2011.json"]["nodes"].append(copy.deepcopy(network["nodes"][0]))
     write_bundle(candidate, tmp_path)

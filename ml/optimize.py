@@ -91,6 +91,18 @@ def interval(values):
     return np.quantile(values, [0.025, 0.975], axis=0).T.tolist()
 
 
+def sensitivity_label(key, spec):
+    general = {"demandPerWeek": "Weekly demand", "initialCapacityFraction": "Starting capacity",
+               "baseRecoveryWeeks": "Time for regular capacity to recover", "costPenaltyUnitsPerUsd": "Weight given to extra cost"}
+    if key in general:
+        return general[key]
+    option_id, field = key.split(".", 1)
+    option = next(o for o in spec["options"] if o["id"] == option_id)
+    field_label = {"capacityPerWeek": "weekly capacity", "leadWeeks": "time to start",
+                   "rampWeeks": "time to reach full capacity", "costUsdPerIndexUnit": "cost per indexed unit"}[field]
+    return option["label"] + ": " + field_label
+
+
 def simulate(spec, event, draws=None, raw_dir=None):
     """Use the same draw for every switch combination; no independent averaging."""
     from scipy.stats import spearmanr
@@ -143,7 +155,7 @@ def simulate(spec, event, draws=None, raw_dir=None):
                 continue
             correlation = float(spearmanr(values, response).statistic)
             if math.isfinite(correlation):
-                sensitivity.append({"assumption": key, "spearman": correlation})
+                sensitivity.append({"assumption": key, "label": sensitivity_label(key, spec), "spearman": correlation})
     sensitivity.sort(key=lambda v: abs(v["spearman"]), reverse=True)
     target, planned = np.median(demands, axis=0), np.median(default["delivered"], axis=0)
     recovered_from = next((t for t in range(weeks) if np.all(planned[t:] >= target[t:] - 1e-7)), None)

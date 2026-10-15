@@ -1,0 +1,114 @@
+{
+  "events": [
+    {
+      "eventId": "kumamoto-2016",
+      "shockNodeIds": [
+        "backbone-event-kumamoto-2016"
+      ],
+      "affectedRoutes": {
+        "blocked": 1,
+        "detour": 1,
+        "expedited": 1
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "covid-china-2020",
+      "shockNodeIds": [
+        "backbone-event-covid-china-2020"
+      ],
+      "affectedRoutes": {
+        "blocked": 1,
+        "detour": 1,
+        "expedited": 1
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "suez-2021",
+      "shockNodeIds": [
+        "backbone-suez"
+      ],
+      "affectedRoutes": {
+        "blocked": 5,
+        "detour": 5,
+        "expedited": 8
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "shanghai-2022",
+      "shockNodeIds": [
+        "backbone-port-shanghai",
+        "backbone-airport-pvg"
+      ],
+      "affectedRoutes": {
+        "blocked": 153,
+        "detour": 3,
+        "expedited": 2
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "shockNodeIds": [
+        "backbone-assembly-zhengzhou"
+      ],
+      "affectedRoutes": {
+        "blocked": 2,
+        "detour": 4,
+        "expedited": 3
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "red-sea-2023",
+      "shockNodeIds": [
+        "backbone-bab-el-mandeb"
+      ],
+      "affectedRoutes": {
+        "blocked": 5,
+        "detour": 5,
+        "expedited": 8
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "japan-2011",
+      "shockNodeIds": [
+        "backbone-event-japan-2011"
+      ],
+      "affectedRoutes": {
+        "blocked": 1,
+        "detour": 1,
+        "expedited": 1
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "thailand-2011",
+      "shockNodeIds": [
+        "backbone-event-thailand-2011"
+      ],
+      "affectedRoutes": {
+        "blocked": 1,
+        "detour": 1,
+        "expedited": 1
+      },
+      "labeledSensitivityEntries": 14
+    },
+    {
+      "eventId": "russia-2022",
+      "shockNodeIds": [
+        "backbone-event-russia-2022"
+      ],
+      "affectedRoutes": {
+        "blocked": 1,
+        "detour": 0,
+        "expedited": 0
+      },
+      "labeledSensitivityEntries": 14
+    }
+  ],
+  "numericOptimizerOutputsChanged": false
+}
