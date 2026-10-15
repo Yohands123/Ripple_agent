@@ -1,0 +1,19 @@
+{
+  "step": "F2",
+  "verifiedOn": "2026-10-14",
+  "sourceNames": 550,
+  "canonicalCurrentCompanies": 349,
+  "sourceNameVariantsCombined": 201,
+  "previouslyNormalizedCompanies": 401,
+  "additionalCurrentDuplicatesMerged": 52,
+  "previousHistoricalCompanyIds": 401,
+  "historicalCompanyIds": 350,
+  "historicalCompanyIdsRemoved": 51,
+  "companyEventRows": 1655,
+  "duplicateCompanyEventRowsRemoved": 0,
+  "validSupplierStockLabels": 960,
+  "duplicateTickerEventLabels": 0,
+  "allSitesShareOneDatedCompanyIdAndTicker": true,
+  "datedIdentityRules": "Distinct Mitsumi and Minebea issuers stay separate before their 2017 merger; the approved Unimicron/Micron correction is retained",
+  "result": "pass"
+}
