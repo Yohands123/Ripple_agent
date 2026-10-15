@@ -139,7 +139,16 @@ class Validator:
             if isinstance(identifier, str):
                 edge_ids.add(identifier)
             self.check(edge.get("from") in ids and edge.get("to") in ids, name + ": dangling edge endpoint")
-            self.check(edge.get("mode") in MODES, name + ": invalid mode")
+            self.check(edge.get("mode") in MODES or (self.proposed and edge.get("relation") == "supply" and edge.get("mode") is None), name + ": invalid mode")
+            if "relation" in edge:
+                self.check(edge.get("relation") in {"route", "supply"}, name + ": relation must be route or supply")
+                if edge.get("status") == "inferred":
+                    self.check(edge.get("confidence") in {"high", "medium", "low", "unknown"}, name + ": inferred edge confidence required")
+                    self.text(edge.get("basis"), name + ".basis")
+                if edge.get("relation") == "supply":
+                    self.check(edge.get("mode") is None, name + ": supply inference must not invent a movement mode")
+                if edge.get("mode") == "sea":
+                    self.text(edge.get("laneName"), name + ".laneName")
             self.check((self.proposed and "carriesTier" in edge and edge["carriesTier"] is None) or (type(edge.get("carriesTier")) is int and 1 <= edge["carriesTier"] <= 7), name + ": invalid carriesTier")
             self.check(edge.get("status") in {"known", "inferred"}, name + ": invalid link status")
             self.sources(edge.get("sources"), name, document.get("sampleData") is True)

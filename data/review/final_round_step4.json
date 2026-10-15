@@ -1,0 +1,66 @@
+{
+  "step": "F4",
+  "edgeRelations": [
+    "route",
+    "supply"
+  ],
+  "maxAssemblyTargetsPerCanonicalSupplier": 3,
+  "tier2Links": 0,
+  "tier2Reason": "No named public buyer evidence; no guessed material links",
+  "events": [
+    {
+      "eventId": "covid-china-2020",
+      "route": 681,
+      "supply": 292,
+      "modelEligibleSupply": 23
+    },
+    {
+      "eventId": "japan-2011",
+      "route": 100,
+      "supply": 0,
+      "modelEligibleSupply": 0
+    },
+    {
+      "eventId": "kumamoto-2016",
+      "route": 834,
+      "supply": 277,
+      "modelEligibleSupply": 17
+    },
+    {
+      "eventId": "red-sea-2023",
+      "route": 831,
+      "supply": 302,
+      "modelEligibleSupply": 54
+    },
+    {
+      "eventId": "russia-2022",
+      "route": 788,
+      "supply": 311,
+      "modelEligibleSupply": 29
+    },
+    {
+      "eventId": "shanghai-2022",
+      "route": 788,
+      "supply": 311,
+      "modelEligibleSupply": 29
+    },
+    {
+      "eventId": "suez-2021",
+      "route": 802,
+      "supply": 306,
+      "modelEligibleSupply": 29
+    },
+    {
+      "eventId": "thailand-2011",
+      "route": 99,
+      "supply": 0,
+      "modelEligibleSupply": 0
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "route": 788,
+      "supply": 311,
+      "modelEligibleSupply": 54
+    }
+  ]
+}

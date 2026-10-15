@@ -1,0 +1,21 @@
+{
+  "scope": "Product-family compatibility inferred from first-hand device teardowns, not a current Apple bill of materials or evidence of a supplier-to-plant purchase order. Unrecognized categories are left unlinked.",
+  "products": {
+    "phone": {
+      "availableOn": "2010-06-24",
+      "categories": ["semiconductor", "memory", "sensor", "display", "connector", "optical", "acoustic", "pcb", "battery", "antenna", "cable", "fastener", "enclosure", "switch", "haptic", "backlight"],
+      "source": {"title": "iFixit first-hand iPhone 4 teardown, June 24, 2010", "url": "https://www.ifixit.com/Teardown/iPhone+4+Teardown/3130"}
+    },
+    "tablet": {
+      "availableOn": "2014-10-22",
+      "categories": ["semiconductor", "memory", "sensor", "display", "connector", "optical", "acoustic", "pcb", "battery", "antenna", "cable", "fastener", "enclosure", "switch", "backlight"],
+      "source": {"title": "iFixit first-hand iPad Air 2 teardown, October 22, 2014", "url": "https://www.ifixit.com/Teardown/iPad+Air+2+Teardown/30592"}
+    },
+    "laptop": {
+      "availableOn": "2015-03-10",
+      "categories": ["semiconductor", "memory", "sensor", "display", "connector", "optical", "acoustic", "pcb", "battery", "antenna", "cable", "fastener", "enclosure", "keyboard", "hinge", "thermal", "backlight"],
+      "source": {"title": "iFixit first-hand MacBook Air 13-inch Early 2015 teardown, March 10, 2015", "url": "https://www.ifixit.com/Teardown/MacBook+Air+13-Inch+Early+2015+Teardown/38266"}
+    }
+  },
+  "supportedTier2Links": []
+}

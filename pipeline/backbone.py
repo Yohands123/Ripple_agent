@@ -17,6 +17,7 @@ from pathlib import Path
 
 from pipeline.sea_routes import distance_km
 from pipeline.tiers import inferred_tier
+from pipeline.supply import build_supply_edges
 
 ROOT = Path(__file__).resolve().parents[1]
 PREFIX = "backbone-"
@@ -161,7 +162,9 @@ def build_catalog(root=ROOT, offline=False):
 
     def add_edge(key, start, finish, mode, source_keys=(), **extra):
         a, b = by_id[PREFIX + start], by_id[PREFIX + finish]
-        edge = {"id": PREFIX + "route-" + key, "from": a["id"], "to": b["id"], "mode": mode,
+        purpose = extra.pop("relation", "inferred_cargo_corridor")
+        edge = {"id": PREFIX + "route-" + key, "from": a["id"], "to": b["id"], "mode": mode, "relation": "route", "purpose": purpose,
+                "confidence": "low", "confidenceKind": "Qualitative geographic/corridor inference, not a calibrated probability",
                 "carriesTier": 4, "status": "inferred", "layer": "backbone", "referenceAsOf": config["checkedOn"],
                 "sources": citations(a["sources"], b["sources"], [sources[k] for k in source_keys]),
                 "basis": ROUTE_SCOPE, "routingVerified": False, **extra}
@@ -268,6 +271,7 @@ def build_catalog(root=ROOT, offline=False):
         points = coastal_path(a, points[0]) + points + list(reversed(coastal_path(b, points[-1])))
         points = [p for i, p in enumerate(points) if not i or p != points[i - 1]]
         edge = add_edge(key, a, b, "sea", source_keys, via=points, viaNodeIds=via_nodes,
+                        laneName=by_id[PREFIX + a]["name"] + " to " + by_id[PREFIX + b]["name"] + " — " + corridor,
                         corridor=corridor, geometryBasis="Inferred Natural Earth water-grid path: 0.5-degree offshore mesh, 0.05-degree port/strait refinement, and explicit schematic canal passages; published port reference to nearest water connector is not a surveyed channel",
                         geometrySources=[geo_sources["countries"]], narrowPassages=passages)
         edge["sources"] = citations(edge["sources"], [geo_sources["countries"]], *[by_id[n]["sources"] for n in via_nodes])
@@ -312,6 +316,7 @@ def attach_backbone(network, scenario, event, catalog):
         gateway = nearest_gateway(site, gateways)
         edges.append({"id": "access-" + site["id"], "from": site["id"], "to": gateway["id"],
                       "mode": "road", "carriesTier": site["tier"], "status": "inferred", "layer": "supplier_access",
+                      "relation": "route", "confidence": "low",
                       "sources": citations(site["sources"], gateway["sources"]), "basis": catalog["nearestGatewayDefinition"],
                       "distanceKm": round(distance_km((site["lon"], site["lat"]), (gateway["lon"], gateway["lat"])), 3),
                       "distanceDefinition": "Calculated great-circle reference distance, not road length",
@@ -337,13 +342,13 @@ def attach_backbone(network, scenario, event, catalog):
         nodes.append(anchor)
         affected, alternate = anchors[event_id]
         by_id = {n["id"]: n for n in nodes}
-        for gateway_key in filter(None, [affected, alternate]):
-            gateway = by_id[PREFIX + gateway_key]
-            edges.append({"id": PREFIX + "route-event-access-" + event_id + "-" + gateway_key,
-                          "from": anchor_id, "to": gateway["id"], "mode": "road", "carriesTier": None,
-                          "status": "inferred", "layer": "backbone", "relation": "regional_event_access",
-                          "basis": "Inferred regional geographic access; an epicenter/jurisdiction centroid is an event marker, not a shipment origin or a verified road. No complete gateway closure is asserted.",
-                          "sources": citations(anchor["sources"], gateway["sources"]), "routingVerified": False})
+        if alternate:
+            a, b = by_id[PREFIX + affected], by_id[PREFIX + alternate]
+            edges.append({"id": PREFIX + "route-regional-detour-" + event_id,
+                          "from": a["id"], "to": b["id"], "mode": "road", "carriesTier": 4,
+                          "status": "inferred", "layer": "backbone", "relation": "route", "confidence": "low",
+                          "basis": "Hypothetical overland transfer between regional cargo gateways. Actual roads, permissions, post-disruption accessibility and shipment use are unknown; event markers are not shipment origins.",
+                          "sources": citations(anchor["sources"], a["sources"], b["sources"]), "routingVerified": False})
         hit_nodes = [anchor_id]
     else:
         hit_nodes = {"suez-2021": [PREFIX + "suez"], "red-sea-2023": [PREFIX + "bab-el-mandeb"],
@@ -368,12 +373,12 @@ def attach_backbone(network, scenario, event, catalog):
             expedited = [PREFIX + "route-air-szx-fra", PREFIX + "route-air-maa-lax", PREFIX + "route-air-han-lax"]
     else:
         affected, alternate = anchors[event_id]
-        blocked = [PREFIX + "route-event-access-" + event_id + "-" + affected]
+        blocked = [PREFIX + "route-" + {"kumamoto-2016": "air-kmj-nrt", "japan-2011": "air-sdj-nrt", "covid-china-2020": "air-wuh-fra", "thailand-2011": "air-bkk-fra", "russia-2022": "air-fra-svo"}[event_id]]
         if event_id == "russia-2022":
-            blocked.append(PREFIX + "route-air-fra-svo")
             # Export restrictions cannot be bypassed by inventing a detour.
+            pass
         else:
-            detour = [PREFIX + "route-event-access-" + event_id + "-" + alternate]
+            detour = [PREFIX + "route-regional-detour-" + event_id]
             destination = "fra" if event_id in {"covid-china-2020", "thailand-2011"} else "lax"
             alternate_code = alternate.removeprefix("airport-")
             key = PREFIX + f"route-air-{alternate_code}-{destination}"
@@ -381,13 +386,23 @@ def attach_backbone(network, scenario, event, catalog):
                 by_id = {n["id"]: n for n in nodes}
                 a, b = by_id[PREFIX + alternate], by_id[PREFIX + "airport-" + destination]
                 edge_by_id[key] = {"id": key, "from": a["id"], "to": b["id"], "mode": "air", "carriesTier": 4,
+                                   "relation": "route", "confidence": "low",
                                    "status": "inferred", "layer": "backbone", "basis": ROUTE_SCOPE,
                                    "sources": citations(a["sources"], b["sources"]), "routingVerified": False}
                 edges.append(edge_by_id[key])
             expedited = [key]
+    for edge in edges:
+        if edge.get("relation") != "route":
+            edge["purpose"] = edge.get("relation", "inferred access")
+            edge["relation"] = "route"
+    rules = read(ROOT / "data/reference/product_components.json")
+    supply = build_supply_edges(sites, [n for n in nodes if n["kind"] == "assembly"], event.get("knowledgeCutoffDate") or event["start"], rules)
+    edges.extend(supply)
     network["nodes"] = sites + nodes
     network["edges"] = edges
     network["coverage"].update(backboneNodes=len(nodes), supplierAccessLinks=len(sites), backboneRoutes=sum(e["layer"] == "backbone" for e in edges))
+    network["coverage"].update(supplyLinks=len(supply), modelEligibleSupplyLinks=sum(e["modelEligible"] for e in supply), tier2SupplyLinks=0)
+    network["supplyDefinition"] = rules["scope"] + " No tier-2 links are asserted without named public buyer evidence; current unsourced model classifications and post-event assembly evidence are excluded from model hops."
     network["scope"] = "Own-year disclosed supplier cohort plus a separately dated contemporary geographic backbone; all shipment and access routes are inferred."
     network["backbone"] = {k: catalog[k] for k in ["referenceAsOf", "scope", "approval", "routeDefinition", "nearestGatewayDefinition"]}
     scenario["shock"]["nodeIds"] = hit_nodes
