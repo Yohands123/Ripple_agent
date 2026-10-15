@@ -2,6 +2,8 @@
 
 **An interactive map of Apple's publicly known supply chain, and of what happens to it when something breaks.**
 
+**Live demo:** [https://ripple-agent-chi.vercel.app/](https://ripple-agent-chi.vercel.app/)
+
 Ripple takes the suppliers Apple discloses each year, places them on a world map, connects them to factories, ports, sea lanes, and sales regions, and replays real disruptions: the Suez Canal blockage, the Shanghai lockdown, the Kumamoto earthquake, and seven more. For each scored event it shows which suppliers a model expected to be hit, then shows what actually happened to them.
 
 Ripple covers all seven tiers, from mining to recycling: mining regions, refineries, parts suppliers, assembly, shipping, sales, and repair and recycling. Tier 1 (mining) and tier 7 (repair and recycling) are region-level and inferred: mines are broad producing regions, and repair sites and return routes are a small set of public references with inferred links (see [data/review/return_layer.md](data/review/return_layer.md)).
