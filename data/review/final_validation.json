@@ -1,0 +1,159 @@
+{
+  "checkedOn": "2026-10-15",
+  "implementationCommit": "bddd431",
+  "validation": {
+    "command": "PYTEST_ADDOPTS=\"-p no:cacheprovider tests\" bash autopilot/checks/ml.sh",
+    "pythonTestsPassed": 154,
+    "fixtureValidation": "passed",
+    "realExportValidation": "passed",
+    "contractFieldInventory": "matches every emitted field",
+    "finalReexportReproducible": true,
+    "finalExportSha256Lf": {
+      "forecasts.json": "b0700af9b386952eb9195078c592e7fbf62adda38172eb14159c209673e4cc17",
+      "metrics.json": "1e76e6ed5de904e2c0603d963be9bea55c74d5370314238271827e3a35d5ee12",
+      "network.json": "8c03ce91a31ad9fc60873fdce07dfc632a109f76a21be52796731b69e2944f5f",
+      "networks/copperbelt-cobalt-2025.json": "8bc83e92e1f0759a87cb974ad737b228d58a3e636d9b35e485b4813fc9f0297e",
+      "networks/covid-china-2020.json": "356301b3f6f90a7ca8462b0d0f922f1298631cbc40c3edadb84b1b429e5bf2d7",
+      "networks/japan-2011.json": "dc66119c4e12e31cc3e6cd7ba3cea1007d0e035fe5a15da7bc1615ab1dcd0d01",
+      "networks/kumamoto-2016.json": "34d9a5344ee8d9e3ec255b669d2fd68f8b74ce85b8d8042cb330b8ee83a3553d",
+      "networks/red-sea-2023.json": "b45f6fe95ce29fe42a96411d8e0a560e06b405003c882aceb96ecc3485844f7c",
+      "networks/russia-2022.json": "b78dd983ade7469b786880fecc914972e45fb7350fec4aa429a46ae0912ae25e",
+      "networks/shanghai-2022.json": "0388e94003d345eddd2b46fc5ed5a05d59b53f78f9e4fc37b1596d8ded0393ed",
+      "networks/suez-2021.json": "8c03ce91a31ad9fc60873fdce07dfc632a109f76a21be52796731b69e2944f5f",
+      "networks/thailand-2011.json": "162092cf13258d1e797ee13dbeeeb52911971e2ee18fe5ae5f7a08df8a1a2504",
+      "networks/zhengzhou-2022.json": "647b4287df3079c4141f57fb69ecee2bcf64d4b220ebdd62a1739b15d37073b7",
+      "scenarios/copperbelt-cobalt-2025.json": "c56c3be938f7b18dcf1ef54d0f64631fb04c32a67a186b13cd4fb30855cc4c3f",
+      "scenarios/covid-china-2020.json": "f3ccbaa1c992a1321c22deb20d6f1fb5c2117415ed6ecbd505c77c73b1d5222f",
+      "scenarios/index.json": "884d6b3d9ec25d1d4dacb38e082903a3b7617ba45df4a6a0fa29278fb09e9586",
+      "scenarios/japan-2011.json": "b84a878bd5cf8a962a7adf6197d28f4195e17e2d955dea2c7ad67cdc11b5e5be",
+      "scenarios/kumamoto-2016.json": "ec31a304bef0c718851c86728fd6cbf453173ffa86d3cda0eecdc4a27c5d15b4",
+      "scenarios/red-sea-2023.json": "75f3ba8a04ef537407d7f05ced5ec6a2b18a3923455f32173e34bab5b9ec6192",
+      "scenarios/russia-2022.json": "3b3d1aa469c4f580c442317e426e8f4804c482e133cc11b4d550e4bd1ad63c6a",
+      "scenarios/shanghai-2022.json": "5f9375de75e9abd708a0b734b0a5942c200b4231b0c086b27707d4ec5ee5500a",
+      "scenarios/suez-2021.json": "e49263a24a76f30699b083cf10666242ae64f087bf7868469466a9115aaabe19",
+      "scenarios/thailand-2011.json": "871c297edfbfa25c2d9d8af27e62631edba8443f697c14c4ede9b7b074490037",
+      "scenarios/zhengzhou-2022.json": "0acd2c76dde5a1906bc901b3668d8cccc58a38219ef01b7ca2dcf5ccb384f195"
+    }
+  },
+  "evaluation": {
+    "evaluatedEvents": 7,
+    "companiesAcrossEvents": 843,
+    "hits": 45,
+    "exportedModel": "distance",
+    "selectionCounts": {
+      "distance": 7,
+      "logistic_regression": 0,
+      "lightgbm": 0
+    },
+    "nestedAuc": 0.6391534391534391,
+    "nestedAuc95": [
+      0.5380480633473975,
+      0.7479948459788739
+    ],
+    "intervalBasis": "95% percentile event-cluster bootstrap of seven saved outer predictions; no refitting or model reselection inside this uncertainty calculation",
+    "report": "data/review/evaluation_report.md"
+  },
+  "context": {
+    "scenarioCount": 10,
+    "contextOnlyEvents": [
+      "copperbelt-cobalt-2025"
+    ],
+    "refinerRecords": 221,
+    "miningRegions": 38,
+    "tier7RepairNodes": 9,
+    "returnRoutes": 21,
+    "distinctValidatedSeaDisplayPaths": 49,
+    "seaLandCrossingFailures": 0,
+    "scope": "Contemporary layers remain outside historical supplier cohorts, labels, features, model selection and optimization"
+  },
+  "tierUnknowns": [
+    {
+      "eventId": "kumamoto-2016",
+      "text": "Production tier for 3.1% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "covid-china-2020",
+      "text": "Production tier for 1.7% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "suez-2021",
+      "text": "Production tier for 1.7% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "shanghai-2022",
+      "text": "Production tier for 1.2% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "text": "Production tier for 1.2% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "red-sea-2023",
+      "text": "Production tier for 1.5% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "japan-2011",
+      "text": "Production tier for an unknown share of sites (supplier locations undisclosed)",
+      "contextOnly": false
+    },
+    {
+      "eventId": "thailand-2011",
+      "text": "Production tier for an unknown share of sites (supplier locations undisclosed)",
+      "contextOnly": false
+    },
+    {
+      "eventId": "russia-2022",
+      "text": "Production tier for 1.2% of sites",
+      "contextOnly": false
+    },
+    {
+      "eventId": "copperbelt-cobalt-2025",
+      "text": "Production tier for an unknown share of sites (supplier locations undisclosed)",
+      "contextOnly": true
+    }
+  ],
+  "protectedArtifacts": [
+    {
+      "path": "data/processed/features.csv",
+      "sha256Lf": "bd736188cbeed28d4e1c3a4fc86397f44a9a4b8d2263082da4d9bf2d647ab709",
+      "unchangedSince": "6826550"
+    },
+    {
+      "path": "data/processed/labels.csv",
+      "sha256Lf": "dde6fbb89b2de8c27f488687a1614c9b50722ce36853603b888314243cf5f458",
+      "unchangedSince": "6826550"
+    },
+    {
+      "path": "data/processed/metrics.json",
+      "sha256Lf": "c458fd2671f50884ef9c5d8b0066776c5f4129ff5c5ebc8bedd66bb77bbc33d6",
+      "unchangedSince": "6826550"
+    },
+    {
+      "path": "data/processed/company_predictions.json",
+      "sha256Lf": "e0d52d5b94c347b63af22461d496c1909e438e836727c50604ca6ad6731d8f39",
+      "unchangedSince": "6826550"
+    },
+    {
+      "path": "data/processed/site_predictions.json",
+      "sha256Lf": "49a65fbeb2d26806e33425851dcfee6ed5c8961a76037f3da4e774b53c2d3d4d",
+      "unchangedSince": "6826550"
+    }
+  ],
+  "blockerReview": {
+    "checkedRemote": "origin/main",
+    "web/BLOCKERS.md": "absent on fetched main and locally"
+  },
+  "blocked": [],
+  "limitations": [
+    "220 of 221 refiner records have country-level coordinates; facility addresses and most cities are undisclosed.",
+    "Mining regions are global commodity context, never specific Apple mines; DRC/Rwanda 3TG origin exclusions remain explicit.",
+    "Return and mineral links are inferred; actual buyers, shipments, quantities, modes and cross-border permissions are unknown.",
+    "Seven evaluated events with 45 hits provide limited evidence; bootstrap uncertainty is conditional on saved predictions."
+  ]
+}
