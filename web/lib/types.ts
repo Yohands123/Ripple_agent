@@ -83,6 +83,9 @@ export interface NetworkEdge {
   basis?: string;
   /** Confidence in an inferred link, shown on hover. */
   confidence?: string;
+  confidenceKind?: string;
+  /** Part type a supply link carries. */
+  partType?: string;
   /** Added by the interface (lib/lanes.ts), not from the data files. */
   illustrative?: boolean;
   /** Drawn only when a scenario uses it as a detour. */

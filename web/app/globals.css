@@ -1041,6 +1041,10 @@ button {
   gap: 6px;
 }
 
+.stack-tile.inferred {
+  border-style: dashed;
+}
+
 .stack-tile {
   display: flex;
   align-items: center;

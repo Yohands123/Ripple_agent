@@ -5,7 +5,7 @@ import type { NetworkNode, Scenario } from "@/lib/types";
 import PanelHeader from "./PanelHeader";
 
 const KIND_LABEL: Record<string, string> = {
-  mine: "Mine",
+  mine: "Mining region",
   refinery: "Refinery",
   supplier_major: "Major supplier",
   supplier_minor: "Smaller supplier",
@@ -19,6 +19,9 @@ const KIND_LABEL: Record<string, string> = {
   retailer: "Other retailer",
   repair: "Support and repair",
   hq: "Headquarters",
+  sales_region: "Apple sales region",
+  chokepoint: "Strait",
+  event_anchor: "Event location",
 };
 
 const PRECISION_LABEL: Record<string, string> = {
@@ -71,7 +74,13 @@ export default function NodeDetailPanel({ sample, node, scenario, onClose, child
           <dd>
             <span className="tier-swatch inline" style={{ background: tierColorOf(node.tier) }} />
             {node.tier != null ? `${node.tier} ${tierLabel[node.tier] ?? ""}` : "Not known in the data"}
-            {node.tier != null && node.tierStatus === "inferred" && <span className="muted"> (inferred{node.tierBasis ? `: ${node.tierBasis}` : ""})</span>}
+            {node.tier != null && node.tierStatus === "inferred" && (
+              <span className="muted" data-tier-status="inferred" title={node.confidenceKind}>
+                {" "}
+                (inferred{node.tierBasis ? ` ${node.tierBasis.replace(/^mapped /, "")}` : ""}
+                {node.confidence ? `; confidence: ${node.confidence}` : ""})
+              </span>
+            )}
           </dd>
           {node.partType && (
             <>

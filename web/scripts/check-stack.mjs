@@ -49,9 +49,11 @@ await run(
       { id: "chips-korea", name: "Sample memory maker", kind: "supplier_major", tier: 3, lon: 127, lat: 37.5, precision: "province", region: "Gyeonggi, Korea", ticker: null, partType: "chips", appleRevenueShare: null, sources: [] },
     );
     network.edges.push(
-      { id: "x1", from: "wafer-japan", to: "supplier-taiwan", mode: "sea", carriesTier: 2, status: "inferred", sources: [] },
-      { id: "x2", from: "chips-korea", to: "port-shenzhen", mode: "sea", carriesTier: 3, status: "known", sources: [] },
-      { id: "x3", from: "port-shenzhen", to: "assembly-shenzhen", mode: "road", carriesTier: 3, status: "known", sources: [] },
+      // Supply links (who supplies whom); transport routes never put a supplier in a stack.
+      { id: "x1", from: "wafer-japan", to: "supplier-taiwan", relation: "supply", mode: null, carriesTier: 2, status: "inferred", confidence: "medium", sources: [] },
+      { id: "x2", from: "chips-korea", to: "assembly-shenzhen", relation: "supply", mode: null, carriesTier: 3, status: "known", sources: [] },
+      // A transport route into the factory: must not add anyone to the stack.
+      { id: "x3", from: "port-singapore", to: "assembly-shenzhen", relation: "route", mode: "road", carriesTier: 3, status: "known", sources: [] },
     );
     const scenario = read("scenarios/suez-2021.json");
     scenario.predictions.push({ nodeId: "wafer-japan", pHit: 0.7, ciLow: 0.5, ciHigh: 0.85, lowConfidence: false, shap: [] });
@@ -60,7 +62,9 @@ await run(
     await context.route("**/data/real/scenarios/suez-2021.json", (r) => r.fulfill(json(scenario)));
   },
   (id, tiles, active) =>
-    id === "assembly-shenzhen" ? ["supplier-taiwan", "chips-korea", "wafer-japan"].every((t) => tiles.includes(t)) && active.includes("1-up") : true,
+    id === "assembly-shenzhen"
+      ? ["supplier-taiwan", "chips-korea", "wafer-japan"].every((t) => tiles.includes(t)) && !tiles.includes("port-singapore") && active.includes("1-up")
+      : true,
 );
 
 await browser.close();

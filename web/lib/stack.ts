@@ -1,13 +1,18 @@
 // Supplier stacks: an assembly factory, its direct suppliers (tier 1), and their suppliers (tier 2),
-// taken only from the network's edges.
+// taken only from the network's supply edges (who supplies whom), never from transport routes.
 
-import type { Network, NetworkNode, Scenario } from "./types";
+import { isSupply, nodeIndex } from "./routes";
+import type { Network, NetworkEdge, NetworkNode, Scenario } from "./types";
 
-const SHIPPING = new Set(["port", "airport", "canal", "border"]);
+export interface StackItem {
+  node: NetworkNode;
+  /** The supply link that puts the node at this level. */
+  edge: NetworkEdge;
+}
 
 export interface StackGroup {
   partType: string;
-  nodes: NetworkNode[];
+  items: StackItem[];
 }
 
 export interface StackLevel {
@@ -33,40 +38,47 @@ export interface Stack {
   hit: Set<string>;
 }
 
-/** Suppliers feeding `id` directly. Shipping nodes are followed through, since goods only pass them. */
-function suppliersOf(id: string, network: Network, nodes: Map<string, NetworkNode>, seen = new Set<string>()): NetworkNode[] {
-  const out: NetworkNode[] = [];
+/** Suppliers feeding `id` directly through supply edges. */
+export function suppliersOf(id: string, network: Network, nodes = nodeIndex(network)): StackItem[] {
+  const out: StackItem[] = [];
+  const seen = new Set<string>();
   for (const e of network.edges) {
-    if (e.to !== id || seen.has(e.from)) continue;
-    seen.add(e.from);
+    if (e.to !== id || seen.has(e.from) || !isSupply(e, nodes)) continue;
     const n = nodes.get(e.from);
-    if (!n) continue;
-    if (SHIPPING.has(n.kind)) out.push(...suppliersOf(n.id, network, nodes, seen));
-    else if ((n.tier == null || n.tier <= 4) && n.kind !== "hq") out.push(n);
+    if (!n || n.kind === "hq") continue;
+    seen.add(e.from);
+    out.push({ node: n, edge: e });
   }
   return out;
 }
 
-function group(list: NetworkNode[]): StackGroup[] {
-  const by = new Map<string, NetworkNode[]>();
-  for (const n of list) {
-    const k = n.partType ?? "part type not stated";
-    by.set(k, [...(by.get(k) ?? []), n]);
+/** Who `id` supplies, through supply edges. */
+export function customersOf(id: string, network: Network, nodes = nodeIndex(network)): StackItem[] {
+  return network.edges
+    .filter((e) => e.from === id && isSupply(e, nodes) && nodes.has(e.to))
+    .map((e) => ({ node: nodes.get(e.to)!, edge: e }));
+}
+
+function group(list: StackItem[]): StackGroup[] {
+  const by = new Map<string, StackItem[]>();
+  for (const it of list) {
+    const k = it.node.partType ?? it.edge.partType ?? "part type not stated";
+    by.set(k, [...(by.get(k) ?? []), it]);
   }
-  return [...by.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([partType, nodes]) => ({ partType, nodes }));
+  return [...by.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).map(([partType, items]) => ({ partType, items }));
 }
 
 export function buildStack(network: Network, factoryId: string, scenario: Scenario | null, disrupted: boolean): Stack | null {
-  const nodes = new Map(network.nodes.map((n) => [n.id, n]));
+  const nodes = nodeIndex(network);
   const factory = nodes.get(factoryId);
   if (!factory || factory.kind !== "assembly") return null;
 
-  const tier1 = suppliersOf(factory.id, network, nodes).filter((n) => n.id !== factory.id);
-  const t1ids = new Set(tier1.map((n) => n.id));
-  const tier2Map = new Map<string, NetworkNode>();
+  const tier1 = suppliersOf(factory.id, network, nodes).filter((it) => it.node.id !== factory.id);
+  const t1ids = new Set(tier1.map((it) => it.node.id));
+  const tier2Map = new Map<string, StackItem>();
   for (const s of tier1) {
-    for (const n of suppliersOf(s.id, network, nodes)) {
-      if (n.id !== factory.id && !t1ids.has(n.id)) tier2Map.set(n.id, n);
+    for (const it of suppliersOf(s.node.id, network, nodes)) {
+      if (it.node.id !== factory.id && !t1ids.has(it.node.id)) tier2Map.set(it.node.id, it);
     }
   }
   const tier2 = [...tier2Map.values()];
@@ -76,10 +88,11 @@ export function buildStack(network: Network, factoryId: string, scenario: Scenar
     for (const id of scenario.shock.nodeIds) hit.add(id);
     for (const p of scenario.predictions) if (p.pHit >= 0.5) hit.add(p.nodeId);
   }
-  const anyHit = (list: NetworkNode[]) => list.some((n) => hit.has(n.id));
+  const anyHit = (list: StackItem[]) => list.some((it) => hit.has(it.node.id));
+  const self: StackItem = { node: factory, edge: { id: "self", from: factory.id, to: factory.id, mode: "road", carriesTier: factory.tier, status: "known", sources: [] } };
 
   const levels: StackLevel[] = [
-    { key: "factory", title: "Assembly factory", groups: group([factory]), partial: false },
+    { key: "factory", title: "Assembly factory", groups: group([self]), partial: false },
     { key: "tier1", title: "Tier 1: direct suppliers", groups: group(tier1), partial: false },
     { key: "tier2", title: "Tier 2: their suppliers (partly known)", groups: group(tier2), partial: true },
   ];

@@ -72,28 +72,41 @@ export default function StackOverlay({ stack, onClose, onSelectNode }: Props) {
           <div className={level.partial ? "stack-level partial" : "stack-level"} data-level={level.key}>
             <div className="stack-level-title">{level.title}</div>
             {level.groups.length === 0 ? (
-              <div className="panel-note">No supplier links in the data at this level.</div>
+              <div className="panel-note">No public source links suppliers at this level.</div>
             ) : (
               level.groups.map((g) => (
                 <div key={g.partType} className="stack-group">
                   <div className="stack-group-title">{g.partType}</div>
                   <div className="stack-tiles">
-                    {g.nodes.map((n) => (
-                      <button
-                        key={n.id}
-                        type="button"
-                        className={stack.hit.has(n.id) ? "stack-tile hit" : "stack-tile"}
-                        style={{ borderColor: tierColorOf(n.tier) }}
-                        onClick={() => onSelectNode(n.id)}
-                        data-tile={n.id}
-                      >
-                        <NodeSymbol kind={n.kind} tier={n.tier} size={16} />
-                        <span>
-                          <span className="stack-tile-name">{n.name}</span>
-                          <span className="stack-tile-region">{n.region}</span>
-                        </span>
-                      </button>
-                    ))}
+                    {g.items.map(({ node: n, edge }) => {
+                      const inferred = edge.status === "inferred";
+                      const confidence = edge.confidence ?? n.confidence;
+                      const hover = [
+                        `${n.name}, ${n.region}`,
+                        level.key === "factory" ? null : `${inferred ? "Inferred" : "Known"} supply link${confidence ? `, confidence: ${confidence}` : ""}`,
+                        edge.confidenceKind ?? null,
+                      ]
+                        .filter(Boolean)
+                        .join(". ");
+                      return (
+                        <button
+                          key={n.id}
+                          type="button"
+                          className={`stack-tile${stack.hit.has(n.id) ? " hit" : ""}${inferred && level.key !== "factory" ? " inferred" : ""}`}
+                          style={{ borderColor: tierColorOf(n.tier) }}
+                          onClick={() => onSelectNode(n.id)}
+                          data-tile={n.id}
+                          data-link={level.key === "factory" ? undefined : edge.status}
+                          title={hover}
+                        >
+                          <NodeSymbol kind={n.kind} tier={n.tier} size={16} />
+                          <span>
+                            <span className="stack-tile-name">{n.name}</span>
+                            <span className="stack-tile-region">{n.region}</span>
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               ))
@@ -102,7 +115,7 @@ export default function StackOverlay({ stack, onClose, onSelectNode }: Props) {
         </div>
       ))}
       <div className="panel-tiny">
-        Links come from the network file; tier 2 is only partly known from public sources. Chutes light up when the scenario predicts a hit.
+        Supply links come from the network file; a dashed tile is an inferred link (hover for its confidence). Tier 2 is only partly known from public sources. Chutes light up when the scenario predicts a hit.
       </div>
     </div>
   );
