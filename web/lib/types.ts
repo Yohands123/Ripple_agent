@@ -55,6 +55,12 @@ export interface NetworkNode {
   illustrative?: boolean;
   /** A routing point with no symbol (e.g. where a lane crosses the date line). */
   waypoint?: boolean;
+  /** `minerals` (mining regions, refineries) or `returns` (repair and recycling): dated display context, not the year's roster. */
+  contextLayer?: string;
+  minerals?: string[];
+  /** Repair nodes: `recycling`, `refurbishment` or `trade_in_collection`. */
+  serviceRole?: string;
+  recoveredMetals?: string[];
 }
 
 export type Mode = "sea" | "air" | "road" | "rail";
@@ -78,6 +84,13 @@ export interface NetworkEdge {
   corridor?: string;
   /** Shipping nodes the route passes through (canals, straits). */
   viaNodeIds?: string[];
+  /** `return` for reverse logistics (lib/routes.ts isReturn). */
+  purpose?: string;
+  /** collection, recycling, refurbishment or recovered_material. */
+  returnStage?: string;
+  contextLayer?: string;
+  /** Mineral links and recovered-material routes: the metal carried. */
+  metal?: string;
   /** The route this one replaces when used as a detour. */
   alternativeTo?: string;
   basis?: string;
@@ -162,7 +175,13 @@ export interface Scenario {
     capacityLoss: number | null;
     /** Where the shock happened when it is not a node in the network. */
     location?: { lon: number; lat: number; precision?: string; basis?: string };
+    /** A commodity-specific shock (e.g. cobalt): only links carrying this metal pass it on. */
+    mineral?: string;
   };
+  /** Context-only events have no supplier roster, labels, predictions or metrics. */
+  contextOnly?: boolean;
+  /** Why the event has no predictions. */
+  predictionScope?: string;
   headline: string;
   predictions: Prediction[];
   companyPredictions?: CompanyPrediction[];

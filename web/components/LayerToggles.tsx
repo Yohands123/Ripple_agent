@@ -7,9 +7,11 @@ export interface Layers {
   road: boolean;
   suppliers: boolean;
   money: boolean;
+  /** Return routes and the repair and recycling sites they reach. */
+  returns: boolean;
 }
 
-export const DEFAULT_LAYERS: Layers = { sea: true, air: true, road: false, suppliers: true, money: true };
+export const DEFAULT_LAYERS: Layers = { sea: true, air: true, road: false, suppliers: true, money: true, returns: false };
 
 const ITEMS: { key: keyof Layers; label: string }[] = [
   { key: "sea", label: "Sea lanes" },
@@ -17,6 +19,7 @@ const ITEMS: { key: keyof Layers; label: string }[] = [
   { key: "road", label: "Road links" },
   { key: "suppliers", label: "Suppliers" },
   { key: "money", label: "Money" },
+  { key: "returns", label: "Returns" },
 ];
 
 /** Switches for what the map draws. */

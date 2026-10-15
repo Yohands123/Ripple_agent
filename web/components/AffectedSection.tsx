@@ -82,7 +82,7 @@ export default function AffectedSection({ scenario, network, showActual = false,
       )}
       {unlocated && <div className="panel-tiny">This year&apos;s Supplier List names companies but not their sites, so they are not on the map.</div>}
       {top.length === 0 ? (
-        <div className="panel-note">No predictions in this scenario yet.</div>
+        <div className="panel-note">{scenario.contextOnly && scenario.predictionScope ? scenario.predictionScope : "No predictions in this scenario yet."}</div>
       ) : (
         <>
           {highest < LOW_RISK && (

@@ -72,6 +72,8 @@ export default function FreeFlowPanel({ sample, scenario, onDrop, children }: Pr
           <div className="key-item"><KeySymbol kind="carrier" />Phone carrier</div>
           <div className="key-item"><KeySymbol kind="mine" />Mining region</div>
           <div className="key-item"><KeySymbol kind="refinery" />Refinery</div>
+          <div className="key-item"><KeySymbol kind="repair" />Repair and recycling</div>
+          <div className="key-item"><KeySymbol kind="return" />Return route</div>
         </div>
       </section>
 

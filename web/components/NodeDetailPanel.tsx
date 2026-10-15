@@ -18,7 +18,7 @@ const KIND_LABEL: Record<string, string> = {
   apple_store: "Apple Store",
   carrier: "Phone carrier",
   retailer: "Other retailer",
-  repair: "Support and repair",
+  repair: "Repair and recycling",
   hq: "Headquarters",
   sales_region: "Apple sales region",
   chokepoint: "Strait",
@@ -52,18 +52,45 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export type ChainPart = "suppliers" | "self" | "factories" | "gateways" | "salesRegions" | "money";
+export type ChainPart =
+  | "upMines"
+  | "upRefineries"
+  | "suppliers"
+  | "self"
+  | "factories"
+  | "gateways"
+  | "salesRegions"
+  | "money"
+  | "repairSites"
+  | "refineries";
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 /** "12 suppliers → this factory → 2 ports and airports → 3 sales regions → Apple Park", each link clickable. */
 function Connections({ node, trace, onChain }: { node: NetworkNode; trace: Trace; onChain?: (p: ChainPart) => void }) {
   const c = trace.counts;
-  const self = node.kind === "assembly" ? "this factory" : `this ${KIND_LABEL[node.kind]?.toLowerCase() ?? "site"}`;
-  const parts: { key: ChainPart; text: string; n: number }[] = [
-    { key: "suppliers", text: plural(c.suppliers, "supplier"), n: c.suppliers },
-    { key: "self", text: self, n: 1 },
-  ];
+  const self =
+    node.kind === "assembly" ? "this factory" : node.kind === "sales_region" ? "this sales region" : `this ${KIND_LABEL[node.kind]?.toLowerCase() ?? "site"}`;
+  // A sales region or repair site: where returned devices and recovered metals go.
+  if (trace.returnEdges.length && (node.kind === "sales_region" || node.kind === "repair")) {
+    const back: { key: ChainPart; text: string; n: number }[] = [{ key: "self", text: self, n: 1 }];
+    if (c.repairSites) back.push({ key: "repairSites", text: plural(c.repairSites, "repair or recycling site"), n: c.repairSites });
+    if (c.refineries) back.push({ key: "refineries", text: plural(c.refineries, "refinery", "refineries"), n: c.refineries });
+    return (
+      <section data-section="connections">
+        <h2 className="panel-heading">CONNECTIONS</h2>
+        <ChainLinks parts={back} onChain={onChain} />
+        <div className="panel-tiny">Inferred return routes: trade-ins and repairs go back for refurbishment and recycling, and recovered metals back to refineries.</div>
+      </section>
+    );
+  }
+  // Upstream by tier: mining regions, then refineries, then the parts suppliers.
+  const parts: { key: ChainPart; text: string; n: number }[] = [];
+  if (c.upMines) parts.push({ key: "upMines", text: plural(c.upMines, "mining region"), n: c.upMines });
+  if (c.upRefineries) parts.push({ key: "upRefineries", text: plural(c.upRefineries, "refinery", "refineries"), n: c.upRefineries });
+  const direct = c.suppliers - c.upMines - c.upRefineries;
+  if (direct || !parts.length) parts.push({ key: "suppliers", text: plural(direct, "supplier"), n: direct });
+  parts.push({ key: "self", text: self, n: 1 });
   if (node.kind !== "assembly") parts.push({ key: "factories", text: plural(c.factories, "factory", "factories"), n: c.factories });
   parts.push({ key: "gateways", text: plural(c.gateways, "port or airport", "ports and airports"), n: c.gateways });
   parts.push({ key: "salesRegions", text: plural(c.salesRegions, "sales region"), n: c.salesRegions });
@@ -71,20 +98,26 @@ function Connections({ node, trace, onChain }: { node: NetworkNode; trace: Trace
   return (
     <section data-section="connections">
       <h2 className="panel-heading">CONNECTIONS</h2>
-      <div className="chain">
-        {parts.map((p, i) => (
-          <span key={p.key} className="chain-part">
-            {i > 0 && <span className="chain-arrow" aria-hidden="true">→</span>}
-            <button type="button" className="chain-link" disabled={p.n === 0} onClick={() => onChain?.(p.key)} data-chain={p.key}>
-              {p.text}
-            </button>
-          </span>
-        ))}
-      </div>
+      <ChainLinks parts={parts} onChain={onChain} />
       <div className="panel-tiny">
         Upstream from supply links; downstream along the inferred routes it ships by. {c.suppliers === 0 && "No public source links suppliers to this site."}
       </div>
     </section>
+  );
+}
+
+function ChainLinks({ parts, onChain }: { parts: { key: ChainPart; text: string; n: number }[]; onChain?: (p: ChainPart) => void }) {
+  return (
+    <div className="chain">
+      {parts.map((p, i) => (
+        <span key={p.key} className="chain-part">
+          {i > 0 && <span className="chain-arrow" aria-hidden="true">→</span>}
+          <button type="button" className="chain-link" disabled={p.n === 0} onClick={() => onChain?.(p.key)} data-chain={p.key}>
+            {p.text}
+          </button>
+        </span>
+      ))}
+    </div>
   );
 }
 

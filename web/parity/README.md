@@ -64,7 +64,9 @@ part of `npm run build`, so the web checks include it.
 | Suez 2021 against the concept art | `real/suez-blocked.side-by-side.png` |
 | Asia zoom (region band) | `real/asia.png` |
 | China zoom (country band: clusters split into sites, road links shown) | `real/china.png` |
-| Zhengzhou trace | `real/trace-zhengzhou.png` |
+| Zhengzhou trace (mining regions → refineries → suppliers → factory → ports → sales regions) | `real/trace-zhengzhou.png` |
+| Battery maker trace (Samsung SDI, Tianjin: upstream through refineries to mining regions) | `real/trace-battery.png` |
+| DRC cobalt export suspension, 2025 (context-only event: ripple through cobalt refineries) | `real/cobalt.png` |
 | Suez ripple, 0.85 s after the drop, and its final state | `real/suez-ripple.png`, `real/suez-ripple-final.png` |
 
 Differences from the concept art on real data, with reasons:
@@ -72,6 +74,7 @@ Differences from the concept art on real data, with reasons:
 | Difference | Reason |
 |---|---|
 | Supplier sites drawn as numbered cluster bubbles colored by their most common tier | 704 disclosed sites; at world and region zoom they cluster (the human's declutter rule) and split into triangles when zoomed into a country. |
+| Mining regions, refineries, mineral routes, repair sites and return routes | Not in the concept art. Mining regions are soft sandstone glows and refineries orange, clustering with suppliers; neither is labelled at world zoom. Mineral routes are dated context, drawn at a quarter strength without ships or labels. Repair sites and pink return routes appear only with the Returns layer on. |
 | Five sea lanes into Europe drawn as one, labelled "ASIA-EUROPE VIA SUEZ" | The export has one lane per port pair; lanes sharing water are drawn once and labelled once by corridor. |
 | Air arcs from several Asian airports | One arc per origin airport and destination region, top five at world zoom. |
 | Sales regions are green "SALES REGION" pills instead of stores | The export gives Apple's five reporting regions, not stores. |

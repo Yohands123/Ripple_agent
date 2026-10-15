@@ -2,7 +2,9 @@
 
 **An interactive map of Apple's publicly known supply chain, and of what happens to it when something breaks.**
 
-Ripple takes the suppliers Apple discloses each year, places them on a world map, connects them to factories, ports, sea lanes, and sales regions, and replays real disruptions: the Suez Canal blockage, the Shanghai lockdown, the Kumamoto earthquake, and six more. For each event it shows which suppliers a model expected to be hit, then shows what actually happened to them.
+Ripple takes the suppliers Apple discloses each year, places them on a world map, connects them to factories, ports, sea lanes, and sales regions, and replays real disruptions: the Suez Canal blockage, the Shanghai lockdown, the Kumamoto earthquake, and seven more. For each scored event it shows which suppliers a model expected to be hit, then shows what actually happened to them.
+
+Ripple covers all seven tiers, from mining to recycling: mining regions, refineries, parts suppliers, assembly, shipping, sales, and repair and recycling. Tier 1 (mining) and tier 7 (repair and recycling) are region-level and inferred: mines are broad producing regions, and repair sites and return routes are a small set of public references with inferred links (see [data/review/return_layer.md](data/review/return_layer.md)).
 
 It is built only from public data. It is a resilience case study, not a description of Apple's internal operations, and it does not recommend what Apple should do.
 
@@ -12,9 +14,9 @@ It is built only from public data. It is a resilience case study, not a descript
 
 ## What you can do
 
-- **Explore the network.** Pan and zoom across every continent. At world zoom, the 704 disclosed supplier sites gather into clusters colored by their production tier. Zoom into a country and the clusters split into individual sites.
-- **Trace a factory.** Click the Zhengzhou assembly hub to see its suppliers upstream and its path downstream: the ports and airports it ships through, the sea and air routes, the sales regions, and the money back to Apple Park. The panel summarizes it as a chain ("99 suppliers → this factory → 2 ports and airports → 5 sales regions → Apple Park"), and each step is clickable.
-- **Drop a disruption.** Pick a past event and watch it ripple out. Closed routes turn red, then the wave reaches suppliers hop by hop, and each supplier fills with its predicted risk.
+- **Explore the network.** Pan and zoom across every continent. At world zoom, the 704 disclosed supplier sites gather into clusters colored by their production tier. Zoom into a country and the clusters split into individual sites. Switch on **Returns** to see the reverse flow: trade-ins and repairs going back to refurbishment and recycling, and recovered metals back to refineries.
+- **Trace a factory.** Click the Zhengzhou assembly hub to see its suppliers upstream and its path downstream: the ports and airports it ships through, the sea and air routes, the sales regions, and the money back to Apple Park. The panel summarizes it as a chain ("32 mining regions → 93 refineries → 70 suppliers → this factory → 2 ports and airports → 5 sales regions → Apple Park"), and each step is clickable. Click a battery maker to follow its cobalt and other metals back through refineries to mining regions, or a sales region to see where its returns go.
+- **Drop a disruption.** Pick a past event and watch it ripple out. Closed routes turn red, then the wave reaches suppliers hop by hop, and each supplier fills with its predicted risk. The 2025 DRC cobalt export suspension is included as context only: its wave runs from the Copperbelt through cobalt refineries to the companies they may supply, with no predictions.
 - **Replay predicted against actual.** Step through the event day by day. The panel ranks suppliers by predicted risk, marks the ones that were actually hit, and shows how the model scored on that event.
 
 ![Tracing the Zhengzhou assembly hub](web/parity/real/trace-zhengzhou.png)
@@ -44,6 +46,8 @@ Every node and edge carries its own source title and link. The main sources:
 | Stock prices for the outcome labels | Yahoo Finance listings, plus exchange index reports |
 | Ports, airports, straits, sea lanes | World Port Index, Natural Earth, and public corridor geography |
 | Event dates and locations | USGS, WHO, Reuters, and Apple newsroom posts, cited per event |
+| Mining regions and refineries | USGS Mineral Commodity Summaries 2026; Apple's published smelter and refiner list and Conflict Minerals Reports |
+| Repair, recycling and trade-in | Apple Environmental Progress Report 2026, Apple Trade In, and public city references |
 | Input cost history | World Bank Pink Sheet (copper, aluminium, tin); SCFI Shanghai–Europe container freight |
 
 ## Methods
@@ -51,7 +55,7 @@ Every node and edge carries its own source title and link. The main sources:
 - **Outcome.** A supplier counts as "hit" when its stock had a significantly negative cumulative abnormal return (market model, trading days 0 to +10, t < −1.96). This measures how the market reacted to the company. It does not measure factory damage.
 - **Model selection.** Three candidates compete: a distance-only rule (the closer a supplier's disclosed sites are to the shock, the riskier), a logistic regression, and LightGBM. Selection is nested leave-one-event-out: for each event, the candidates are compared using only the other six events, the winner is refit on those six, and only then is it scored on the held-out event. The selection protocol was committed before the run. Intervals come from bootstrapping over events, and SHAP values explain each prediction.
 - **Routes.** A dated reference backbone: assembly hubs, gateways, sea lanes through the real straits, air corridors, and Apple's five sales regions. All routes are marked as inferred, and each supplier connects to its nearest gateway. The routes are illustrative and do not enter the model.
-- **Tiers.** A supplier's production tier is mapped from its part type and marked as inferred, with a qualitative confidence. Where the part type is unknown, the tier stays unknown and the site is drawn grey.
+- **Tiers.** A supplier's production tier is mapped from its part type and marked as inferred, with a qualitative confidence. Where the part type is unknown, the tier stays unknown and the site is drawn grey. Mining regions, refineries, repair sites and return routes are dated display context: they never enter the model.
 - **Recovery plan.** An illustrative linear program (OR-Tools) on an indexed weekly quota, run with Monte Carlo draws over assumed ranges. Its units are an index, not devices.
 - **Cost forecasts.** Chronos-Bolt (a pretrained time-series model), compared with a seasonal-naive baseline over rolling origins.
 

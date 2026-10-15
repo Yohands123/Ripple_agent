@@ -41,8 +41,19 @@ function RefinerySymbol({ c, size }: { c: string; size: number }) {
   );
 }
 
-/** Mines are tier 1 and refineries tier 2 even when the file leaves the tier blank. */
-const kindTier = (kind: NodeKind, tier: number | null) => tier ?? (kind === "mine" ? 1 : kind === "refinery" ? 2 : null);
+/** Repair and recycling: a tier-7 disc with a looping arrow (goods coming back). */
+function RepairSymbol({ c, size }: { c: string; size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10.5" fill={c} stroke={color.ocean} strokeWidth={1.5} />
+      <path d="M16.6 9.2 A5.4 5.4 0 1 0 17.2 13.6" fill="none" stroke={color.ocean} strokeWidth={2} strokeLinecap="round" />
+      <path d="M17.8 5.8 L17 9.8 L13.1 8.9" fill="none" stroke={color.ocean} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Mines are tier 1, refineries tier 2 and repair sites tier 7 even when the file leaves the tier blank. */
+const kindTier = (kind: NodeKind, tier: number | null) => tier ?? (kind === "mine" ? 1 : kind === "refinery" ? 2 : kind === "repair" ? 7 : null);
 
 /** `fill` overrides the tier color (e.g. predicted risk during a disruption). */
 export function NodeSymbol({ kind, tier, size, fill }: { kind: NodeKind; tier: number | null; size: number; fill?: string }) {
@@ -52,6 +63,8 @@ export function NodeSymbol({ kind, tier, size, fill }: { kind: NodeKind; tier: n
       return <MineSymbol c={c} size={size} />;
     case "refinery":
       return <RefinerySymbol c={c} size={size} />;
+    case "repair":
+      return <RepairSymbol c={c} size={size} />;
     case "assembly":
       return (
         <svg width={size} height={size} viewBox="0 0 26 26" aria-hidden="true">
@@ -93,13 +106,13 @@ export function NodeSymbol({ kind, tier, size, fill }: { kind: NodeKind; tier: n
     case "retailer":
       return <div style={{ width: size, height: size, background: color.ocean, border: `3px solid ${c}`, borderRadius: 3 }} />;
     default:
-      // apple_store, repair: filled square with radius 3.
+      // apple_store: filled square with radius 3.
       return <div style={{ width: size, height: size, background: c, border: `3px solid ${c}`, borderRadius: 3 }} />;
   }
 }
 
 /** Legend versions of the symbols (18 px, as in the panel map key). */
-export function KeySymbol({ kind }: { kind: "assembly" | "major" | "minor" | "port" | "store" | "retailer" | "carrier" | "mine" | "refinery" }) {
+export function KeySymbol({ kind }: { kind: "assembly" | "major" | "minor" | "port" | "store" | "retailer" | "carrier" | "mine" | "refinery" | "repair" | "return" }) {
   const box = (child: ReactNode) => (
     <div style={{ width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center", flex: "none" }}>{child}</div>
   );
@@ -126,6 +139,14 @@ export function KeySymbol({ kind }: { kind: "assembly" | "major" | "minor" | "po
       return box(<MineSymbol c={tierColor[1]} size={26} />);
     case "refinery":
       return box(<RefinerySymbol c={tierColor[2]} size={18} />);
+    case "repair":
+      return box(<RepairSymbol c={tierColor[7]} size={18} />);
+    case "return":
+      return box(
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+          <path d="M1 9 H17" stroke={tierColor[7]} strokeWidth={2.5} strokeDasharray="4 3" strokeLinecap="round" />
+        </svg>,
+      );
     case "port":
       return box(<div style={{ width: 12, height: 12, borderRadius: "50%", background: shippingDot, margin: 3 }} />);
     case "store":

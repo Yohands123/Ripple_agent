@@ -1279,6 +1279,7 @@ button {
 
 /* Tracing: everything off the trace dims to about 15%. */
 .tracing .map-svg [data-layer="routes"],
+.tracing .map-svg [data-layer="returns"],
 .tracing .mover-layer,
 .tracing .map-overlay .pill,
 .tracing .map-overlay .map-caption,
@@ -1360,4 +1361,21 @@ button {
 /* While panning or zooming, land is drawn without its outline (redrawing the coastline stroke is what makes zooming slow). */
 .map-stage[data-moving] [data-layer="world"] path {
   stroke: none;
+}
+
+/* Return routes: pink dashes flowing from sales regions back to repair, recycling and refineries. */
+.return-route {
+  animation: return-flow 1.4s linear infinite;
+}
+
+@keyframes return-flow {
+  to {
+    stroke-dashoffset: var(--flow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .return-route {
+    animation: none;
+  }
 }

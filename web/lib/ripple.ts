@@ -55,7 +55,10 @@ export function buildRipple(network: Network, scenario: Scenario): Ripple {
     return Boolean(n && isSupplierKind(n.kind));
   };
   // A supplier link (a site's road to its gateway) or a supply link joins a supplier to a reached place.
-  const joins = (e: NetworkEdge) => isSupply(e, nodes) || (isRoute(e) && edgeRank(e) === "supplier");
+  // A metal-specific shock (cobalt) passes only along mineral links that carry that metal.
+  const mineral = scenario.shock.mineral;
+  const carries = (e: NetworkEdge) => !mineral || !e.metal || e.metal === mineral;
+  const joins = (e: NetworkEdge) => carries(e) && (isSupply(e, nodes) || (isRoute(e) && edgeRank(e) === "supplier"));
 
   let frontier = exposed;
   for (let hop = 1; hop <= MAX_HOPS; hop++) {

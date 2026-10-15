@@ -1,9 +1,10 @@
 // The trace for a clicked node: its upstream suppliers (through supply edges, as far as
 // they go: refineries, mining regions) and its downstream path (assembly site, the
 // ports and airports it ships through, the sea or air route, the sales regions, and the
-// money back to Apple Park). Built only from the network's edges.
+// money back to Apple Park), and for a sales region or repair site the return routes
+// onward (repair, recycling, recovered metals back to refineries). Built only from the network's edges.
 
-import { isRoute, isSupply, nodeIndex } from "./routes";
+import { isReturn, isRoute, isSupply, nodeIndex } from "./routes";
 import type { Network, NetworkEdge, NetworkNode } from "./types";
 
 const GATEWAY = new Set(["port", "airport"]);
@@ -24,10 +25,31 @@ export interface Trace {
   upstreamEdges: NetworkEdge[][];
   /** Route edges downstream, in travel order: to gateways, line haul, to sales regions. */
   downstreamEdges: NetworkEdge[][];
+  /** Return routes onward from the root, by step (sales region → repair → recycling → refinery). */
+  returnEdges: NetworkEdge[][];
   /** Counts for the Connections chain. */
-  counts: { suppliers: number; factories: number; gateways: number; salesRegions: number };
+  counts: {
+    /** Every upstream site; `upMines` and `upRefineries` count the tier 1 and 2 ones among them. */
+    suppliers: number;
+    upMines: number;
+    upRefineries: number;
+    factories: number;
+    gateways: number;
+    salesRegions: number;
+    repairSites: number;
+    refineries: number;
+  };
   /** Node ids behind each link of the chain, for clicking. */
-  members: { suppliers: string[]; factories: string[]; gateways: string[]; salesRegions: string[] };
+  members: {
+    suppliers: string[];
+    upMines: string[];
+    upRefineries: string[];
+    factories: string[];
+    gateways: string[];
+    salesRegions: string[];
+    repairSites: string[];
+    refineries: string[];
+  };
   /** True when the path reaches a sales region, so revenue flows back to Apple Park. */
   money: boolean;
 }
@@ -116,11 +138,37 @@ export function buildTrace(network: Network, rootId: string): Trace | null {
   for (const e of toSales) salesRegions.add(e.to);
   if (toSales.length) downstreamEdges.push(toSales);
 
+  // Returns: from a sales region (or a repair site) along return routes, as far as they go.
+  const returns = network.edges.filter(isReturn);
+  const returnEdges: NetworkEdge[][] = [];
+  const repairSites = new Set<string>();
+  const refineries = new Set<string>();
+  let back = [rootId];
+  const backSeen = new Set(back);
+  for (let i = 0; i < MAX_UPSTREAM_HOPS && back.length; i++) {
+    const out = returns.filter((e) => back.includes(e.from) && !backSeen.has(e.to));
+    if (!out.length) break;
+    returnEdges.push(out);
+    back = [];
+    for (const e of out) {
+      backSeen.add(e.to);
+      back.push(e.to);
+      downstream.add(e.to);
+      const k = nodes.get(e.to)?.kind;
+      if (k === "repair") repairSites.add(e.to);
+      else if (k === "refinery") refineries.add(e.to);
+    }
+  }
+
   for (const id of [...factories, ...gateways, ...destinations, ...salesRegions]) if (id !== rootId) downstream.add(id);
   for (const e of haul) {
     for (const v of e.viaNodeIds ?? []) downstream.add(v);
     if (PASS_THROUGH.has(nodes.get(e.to)?.kind ?? "")) downstream.add(e.to);
   }
+
+  const upOf = (kind: string) => [...upstream.keys()].filter((id) => nodes.get(id)?.kind === kind);
+  const upMines = upOf("mine");
+  const upRefineries = upOf("refinery");
 
   return {
     root: rootId,
@@ -128,8 +176,27 @@ export function buildTrace(network: Network, rootId: string): Trace | null {
     downstream,
     upstreamEdges,
     downstreamEdges,
-    counts: { suppliers: upstream.size, factories: factories.size, gateways: gateways.size, salesRegions: salesRegions.size },
-    members: { suppliers: [...upstream.keys()], factories: [...factories], gateways: [...gateways], salesRegions: [...salesRegions] },
+    returnEdges,
+    counts: {
+      suppliers: upstream.size,
+      upMines: upMines.length,
+      upRefineries: upRefineries.length,
+      factories: factories.size,
+      gateways: gateways.size,
+      salesRegions: salesRegions.size,
+      repairSites: repairSites.size,
+      refineries: refineries.size,
+    },
+    members: {
+      suppliers: [...upstream.keys()].filter((id) => !upMines.includes(id) && !upRefineries.includes(id)),
+      upMines,
+      upRefineries,
+      factories: [...factories],
+      gateways: [...gateways],
+      salesRegions: [...salesRegions],
+      repairSites: [...repairSites],
+      refineries: [...refineries],
+    },
     money: salesRegions.size > 0,
   };
 }
@@ -137,4 +204,4 @@ export function buildTrace(network: Network, rootId: string): Trace | null {
 const isSalesNode = (n: NetworkNode | undefined) => Boolean(n && (n.kind === "sales_region" || (n.tier === 6 && n.kind !== "hq")));
 
 /** Every edge on the trace. */
-export const traceEdgeIds = (t: Trace) => new Set([...t.upstreamEdges.flat(), ...t.downstreamEdges.flat()].map((e) => e.id));
+export const traceEdgeIds = (t: Trace) => new Set([...t.upstreamEdges.flat(), ...t.downstreamEdges.flat(), ...t.returnEdges.flat()].map((e) => e.id));

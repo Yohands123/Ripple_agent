@@ -59,7 +59,7 @@ export default function ScenarioPicker({ index, selectedId, onSelect }: Props) {
         {value === "" && <option value="">Choose a scenario</option>}
         {shown.map((s) => (
           <option key={s.id} value={s.id}>
-            {s.title} ({s.start.slice(0, 4)})
+            {s.title.includes(s.start.slice(0, 4)) ? s.title : `${s.title} (${s.start.slice(0, 4)})`}
           </option>
         ))}
       </select>

@@ -1,7 +1,7 @@
 // Where nodes, their label pills, and regional group labels go on the map.
 
 import { DEFAULT_FRAME, project, WORLD_BOUNDS, type Pt } from "./geo";
-import { bubbleSize, clusterSites, type Cluster } from "./declutter";
+import { bubbleSize, clusterSites, REGION_K, type Cluster } from "./declutter";
 import { nodeIndex, sampleEdge } from "./routes";
 import { size } from "./tokens";
 import type { Network, NetworkEdge, NetworkNode, NodeKind } from "./types";
@@ -88,6 +88,8 @@ export function symbolSize(kind: NodeKind): number {
       // A soft region marker, wider than a point symbol.
       return 48;
     case "refinery":
+      return 22;
+    case "repair":
       return 22;
     case "supplier_minor":
       return size.minor;
@@ -340,7 +342,7 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   // Label candidates: one per label text (a region can hold many sites), assembly first,
   // then the biggest clusters, so the biggest clusters keep their labels when space runs out.
   // Backbone (assembly, ports) before suppliers; among suppliers, bigger clusters first.
-  const order: NodeKind[] = ["assembly", "port", "mine", "refinery", "supplier_major"];
+  const order: NodeKind[] = ["assembly", "port", "supplier_major", "mine", "refinery"];
   const byText = new Map<string, NetworkNode[]>();
   for (const n of network.nodes) {
     if (!onWorld(n) || !order.includes(n.kind)) continue;
@@ -410,6 +412,8 @@ function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: B
   for (const c of layout.labelCandidates) {
     if (done.has(c.text)) continue;
     for (const n of c.members) {
+      // Mining regions and refineries are context: labelled from region zoom in, never at world zoom.
+      if (L < REGION_K && (n.kind === "mine" || n.kind === "refinery")) continue;
       const bubble = bubbleOf.get(n.id);
       const [cx, cy] = bubble ? [bubble.cluster.x, bubble.cluster.y] : points.get(n.id)!;
       const r0 = symbolSize(n.kind) / 2;

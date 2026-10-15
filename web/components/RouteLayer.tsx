@@ -16,6 +16,7 @@ const RANK = {
   backbone: { opacity: 1, width: 1 },
   inferred: { opacity: 0.5, width: 0.6 },
   supplier: { opacity: 0.25, width: 0.4 },
+  context: { opacity: 0.25, width: 0.4 },
 } as const;
 
 /**

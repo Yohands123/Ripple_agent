@@ -143,7 +143,7 @@ export function drawRoutes(
   const shown = edges.filter((e) => e.mode !== "road" || showRoads);
   const lanes = shown.filter((e) => e.mode !== "air");
   const order: RouteState[] = ["normal", "expedited", "blocked", "detour"];
-  const rankOrder: EdgeRank[] = ["backbone", "inferred", "supplier"];
+  const rankOrder: EdgeRank[] = ["backbone", "inferred", "supplier", "context"];
   const lengthOf = (e: NetworkEdge) => edgeLine(e, nodes)?.lonlat.length ?? 0;
   // Most important first: open lanes before closed ones, backbone before the rest, longest first.
   lanes.sort(
@@ -422,7 +422,7 @@ export function routePills(network: Network, layout: MapLayout, routes: RouteDra
     const add = (name: string | null, rs: RouteDraw[]) => {
       if (name) byName.set(name, [...(byName.get(name) ?? []), ...rs.flatMap((r) => r.pieces.map((p) => new Polyline(p)))]);
     };
-    const lanes0 = routes.filter((r) => r.edge.mode === "sea" && r.state === "normal" && r.rank !== "supplier");
+    const lanes0 = routes.filter((r) => r.edge.mode === "sea" && r.state === "normal" && r.rank !== "supplier" && r.rank !== "context");
     for (const r of lanes0) add(laneLabel(r.edge), [r]);
     // Lanes without names: chains joined end to end are named by the continents at their ends.
     for (const chain of laneChains(lanes0.filter((r) => !laneLabel(r.edge)))) add(chainLabel(chain.map((r) => r.edge), nodes), chain);

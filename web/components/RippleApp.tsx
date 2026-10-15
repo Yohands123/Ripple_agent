@@ -29,6 +29,7 @@ import MoverLayer from "./MoverLayer";
 import NodeLayer from "./NodeLayer";
 import ReplaySection from "./ReplaySection";
 import ScenarioPicker from "./ScenarioPicker";
+import ReturnLayer from "./ReturnLayer";
 import RouteLayer from "./RouteLayer";
 import StackOverlay from "./StackOverlay";
 import WorldMap from "./WorldMap";
@@ -296,6 +297,7 @@ export default function RippleApp() {
           <svg width={size.mapW} height={size.mapH} viewBox={`0 0 ${size.mapW} ${size.mapH}`} aria-hidden="true" className="map-svg">
             <WorldMap highlight={highlight} onLoaded={onWorld} />
             {scene && <RouteLayer routes={shownRoutes} money={layers.money ? scene.money : []} />}
+            {network && layers.returns && <ReturnLayer network={network} />}
             {scene && network && ripple && !trace && <RippleLayer key={scenario!.id} network={network} ripple={ripple} risk={risk} />}
             {scene && network && trace && <TraceLayer network={network} trace={trace} money={scene.money} />}
           </svg>
@@ -313,6 +315,7 @@ export default function RippleApp() {
                 onSelect={selectNode}
                 onHover={setHoverId}
                 hideSuppliers={!layers.suppliers}
+                hideReturns={!layers.returns}
                 look={look}
               />
             )}

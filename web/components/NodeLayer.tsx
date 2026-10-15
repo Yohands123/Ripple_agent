@@ -53,6 +53,8 @@ interface Props {
   groupText?: Record<string, string>;
   /** Hide supplier sites (the Suppliers layer toggle). */
   hideSuppliers?: boolean;
+  /** Repair and recycling sites show only with the Returns layer on, or when traced. */
+  hideReturns?: boolean;
   /** Per-node look for the trace and the ripple. */
   look?: (id: string) => NodeLook | undefined;
 }
@@ -78,6 +80,7 @@ function Bubble({ c, look, onHover, k }: { c: Cluster; look?: NodeLook; onHover?
       type="button"
       className={`cluster${look?.className ? ` ${look.className}` : ""}`}
       data-cluster={c.members.length}
+      data-tier={c.tier ?? undefined}
       data-traced={look?.traced}
       aria-label={`${c.members.length} supplier sites. Zoom in to see them.`}
       title={`${c.members.length} supplier sites`}
@@ -123,14 +126,14 @@ function fanOut(nodes: NetworkNode[], points: Map<string, [number, number]>, k: 
 export default function NodeLayer(props: Props) {
   // Redrawn when the zoom level changes, not on every zoom step.
   const level = labelLevel(useZoom());
-  const { network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, look } = props;
+  const { network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, hideReturns, look } = props;
   return useMemo(
-    () => <Nodes {...{ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, look }} level={level} />,
-    [network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, look, level],
+    () => <Nodes {...{ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, hideReturns, look }} level={level} />,
+    [network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, hideReturns, look, level],
   );
 }
 
-function Nodes({ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers = false, look, level }: Props & { level: number }) {
+function Nodes({ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers = false, hideReturns = false, look, level }: Props & { level: number }) {
   const k = level;
   const fan = fanOut(network.nodes, layout.points, k);
   const clusters = layout.clusters.get(level) ?? [];
@@ -144,7 +147,8 @@ function Nodes({ network, layout, onSelect, onHover, selectedId, groupText, hide
     return looks.find((l) => l.traced) ?? looks.filter((l) => l.fill).sort((a, b) => greenOf(a.fill!) - greenOf(b.fill!))[0] ?? looks[0];
   };
 
-  const shown = (n: NetworkNode) => n.kind !== "hq" && !n.waypoint && !inBubble.has(n.id) && !(hideSuppliers && isClusterable(n));
+  const offReturns = (n: NetworkNode) => hideReturns && n.contextLayer === "returns" && !look?.(n.id)?.traced;
+  const shown = (n: NetworkNode) => n.kind !== "hq" && !n.waypoint && !inBubble.has(n.id) && !(hideSuppliers && isClusterable(n)) && !offReturns(n);
   const ordered = [...network.nodes].filter(shown).sort((a, b) => (Z[a.kind] ?? 1) - (Z[b.kind] ?? 1) || known(a.tier) - known(b.tier));
   const hidden = (id: string) => {
     const n = network.nodes.find((x) => x.id === id);

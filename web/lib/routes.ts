@@ -39,12 +39,17 @@ const SUPPLIER_KINDS = new Set<NodeKind>(["supplier_major", "supplier_minor", "m
  * supplier into an assembly site also counts as supply.
  */
 export function isRoute(e: NetworkEdge): boolean {
+  // Return routes (repair, recycling, recovered metals) are their own layer, drawn by ReturnLayer.
+  if (isReturn(e)) return false;
   if (e.relation === "route") return true;
   if (e.relation === "supply") return false;
   // Before `relation` was route/supply it described the corridor; the layer says what the edge is.
   if (e.layer) return e.layer === "backbone" || e.layer === "supplier_access";
   return true;
 }
+
+/** Reverse logistics: sales regions to repair and recycling, and recovered metals back to refineries. */
+export const isReturn = (e: NetworkEdge) => e.purpose === "return";
 
 export function isSupply(e: NetworkEdge, nodes: Map<string, NetworkNode>): boolean {
   if (e.relation === "supply") return true;
@@ -54,11 +59,15 @@ export function isSupply(e: NetworkEdge, nodes: Map<string, NetworkNode>): boole
   return Boolean(from && to && SUPPLIER_KINDS.has(from.kind) && to.kind === "assembly");
 }
 
-/** Drawing strength: the backbone at full strength, other inferred routes thinner, supplier links faint. */
-export type EdgeRank = "backbone" | "inferred" | "supplier";
+/**
+ * Drawing strength: the backbone at full strength, other inferred routes thinner, supplier
+ * links faint. Mineral routes (mining regions to refineries) are dated context, drawn as faint as supplier links.
+ */
+export type EdgeRank = "backbone" | "inferred" | "supplier" | "context";
 
 export function edgeRank(e: NetworkEdge): EdgeRank {
   if (e.layer === "supplier_access" || e.layer === "supplier") return "supplier";
+  if (e.contextLayer === "minerals") return "context";
   if (e.layer && e.layer !== "backbone") return "inferred";
   return "backbone";
 }

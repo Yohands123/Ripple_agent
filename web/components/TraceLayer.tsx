@@ -4,7 +4,7 @@ import { lineGeometry } from "@/lib/georoute";
 import { labelLevel } from "@/lib/layout";
 import { edgeLine, nodeIndex } from "@/lib/routes";
 import type { MoneyLine } from "@/lib/scene";
-import { color, route as R, tierColorOf } from "@/lib/tokens";
+import { color, route as R, tierColor, tierColorOf } from "@/lib/tokens";
 import type { Trace } from "@/lib/trace";
 import type { Network, NetworkEdge, NetworkNode } from "@/lib/types";
 import { useZoom } from "./MapStage";
@@ -23,7 +23,7 @@ interface Line {
   width: number;
   /** Which step of the pulse sequence it belongs to (0 first). */
   step: number;
-  kind: "upstream" | "downstream" | "money";
+  kind: "upstream" | "downstream" | "money" | "return";
 }
 
 /** A supply link has no transport geometry: it is drawn as a straight line between the two places. */
@@ -44,13 +44,24 @@ export default function TraceLayer({ network, trace, money }: { network: Network
   const nodes = nodeIndex(network);
 
   const lines: Line[] = [];
-  // Upstream, furthest hop first, so pulses arrive at the clicked node last.
+  // Upstream, furthest hop first, so pulses arrive at the clicked node last. Many sites share
+  // a position (refineries placed at their country), so each pair of positions is drawn once.
   const up = [...trace.upstreamEdges].reverse();
+  const at = (id: string) => {
+    const n = nodes.get(id);
+    return n ? `${n.lon.toFixed(1)},${n.lat.toFixed(1)}` : id;
+  };
+  const drawn = new Set<string>();
   up.forEach((edges, i) =>
     edges.forEach((e) => {
+      const pair = `${at(e.from)}>${at(e.to)}`;
+      if (drawn.has(pair)) return;
+      drawn.add(pair);
       const d = supplyLine(e, nodes);
       const from = nodes.get(e.from);
-      if (d) lines.push({ key: `up-${e.id}`, d, color: tierColorOf(from?.tier ?? e.carriesTier), dashed: e.status === "inferred", width: 2, step: i, kind: "upstream" });
+      // Mineral links (mining regions to refineries to parts makers) are context: thinner.
+      const width = e.layer === "mineral_supply" ? 1.2 : 2;
+      if (d) lines.push({ key: `up-${e.id}`, d, color: tierColorOf(from?.tier ?? e.carriesTier), dashed: e.status === "inferred", width, step: i, kind: "upstream" });
     }),
   );
   trace.downstreamEdges.forEach((edges, j) =>
@@ -59,7 +70,15 @@ export default function TraceLayer({ network, trace, money }: { network: Network
       if (d) lines.push({ key: `down-${e.id}`, d, color: color.pillLight, dashed: e.status === "inferred", width: e.mode === "air" ? 2.4 : 3.5, step: up.length + j, kind: "downstream" });
     }),
   );
-  const steps = up.length + trace.downstreamEdges.length + (trace.money ? 1 : 0);
+  // Return routes after the forward path, in pink.
+  const back0 = up.length + trace.downstreamEdges.length;
+  trace.returnEdges.forEach((edges, j) =>
+    edges.forEach((e) => {
+      const d = edgeLine(e, nodes)?.d ?? "";
+      if (d) lines.push({ key: `return-${e.id}`, d, color: tierColor[7], dashed: true, width: 2.6, step: back0 + j, kind: "return" });
+    }),
+  );
+  const steps = back0 + trace.returnEdges.length + (trace.money ? 1 : 0);
   if (trace.money) {
     for (const m of money.filter((m) => m.kind === "in" && m.d)) lines.push({ key: `money-${m.id}`, d: m.d, color: color.moneyIn, dashed: false, width: R.moneyInWidth, step: steps - 1, kind: "money" });
   }
