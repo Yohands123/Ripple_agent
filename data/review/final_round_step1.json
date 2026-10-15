@@ -1,0 +1,120 @@
+{
+  "step": "F1",
+  "verifiedOn": "2026-10-14",
+  "reference": "data/reference/supplier_classes.csv",
+  "projectRootCopyPresent": false,
+  "referenceSha256Lf": "bddb92484e79d789b8ffd5905cf986385ed99cb19cb077b3b786c43e01827437",
+  "sourceNames": 550,
+  "matching": "Exact sourceCompany equals company; no fuzzy, case-insensitive, or whitespace-normalized classification matching",
+  "corrections": "Previously approved Unimicron correction retained in a separate sourced override; original CSV preserved",
+  "cohorts": [
+    {
+      "eventId": "covid-china-2020",
+      "supplierSites": 582,
+      "exactCsvMatches": 582,
+      "preservedFilingPartTypes": 137,
+      "nullTiers": 10,
+      "tiers": {
+        "3": 456,
+        "2": 67,
+        "None": 10,
+        "4": 49
+      }
+    },
+    {
+      "eventId": "japan-2011",
+      "supplierSites": 0,
+      "exactCsvMatches": 0,
+      "preservedFilingPartTypes": 0,
+      "nullTiers": 0,
+      "tiers": {}
+    },
+    {
+      "eventId": "kumamoto-2016",
+      "supplierSites": 734,
+      "exactCsvMatches": 734,
+      "preservedFilingPartTypes": 136,
+      "nullTiers": 23,
+      "tiers": {
+        "3": 594,
+        "4": 60,
+        "2": 57,
+        "None": 23
+      }
+    },
+    {
+      "eventId": "red-sea-2023",
+      "supplierSites": 733,
+      "exactCsvMatches": 733,
+      "preservedFilingPartTypes": 250,
+      "nullTiers": 11,
+      "tiers": {
+        "3": 600,
+        "2": 71,
+        "None": 11,
+        "4": 51
+      }
+    },
+    {
+      "eventId": "russia-2022",
+      "supplierSites": 690,
+      "exactCsvMatches": 690,
+      "preservedFilingPartTypes": 205,
+      "nullTiers": 8,
+      "tiers": {
+        "3": 553,
+        "2": 81,
+        "None": 8,
+        "4": 48
+      }
+    },
+    {
+      "eventId": "shanghai-2022",
+      "supplierSites": 690,
+      "exactCsvMatches": 690,
+      "preservedFilingPartTypes": 205,
+      "nullTiers": 8,
+      "tiers": {
+        "3": 553,
+        "2": 81,
+        "None": 8,
+        "4": 48
+      }
+    },
+    {
+      "eventId": "suez-2021",
+      "supplierSites": 704,
+      "exactCsvMatches": 704,
+      "preservedFilingPartTypes": 183,
+      "nullTiers": 12,
+      "tiers": {
+        "3": 549,
+        "4": 69,
+        "2": 74,
+        "None": 12
+      }
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplierSites": 0,
+      "exactCsvMatches": 0,
+      "preservedFilingPartTypes": 0,
+      "nullTiers": 0,
+      "tiers": {}
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "supplierSites": 690,
+      "exactCsvMatches": 690,
+      "preservedFilingPartTypes": 205,
+      "nullTiers": 8,
+      "tiers": {
+        "3": 553,
+        "2": 81,
+        "None": 8,
+        "4": 48
+      }
+    }
+  ],
+  "result": "pass"
+}
