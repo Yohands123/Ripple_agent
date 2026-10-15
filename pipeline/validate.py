@@ -122,6 +122,10 @@ class Validator:
                 if classification.get("tier") is None:
                     self.check(node.get("tier") is None, name + ": empty CSV tier must stay null")
                 self.check(classification.get("reference") == "data/reference/supplier_classes.csv", name + ": classification reference required")
+            elif node.get('contextLayer') == 'returns':
+                from pipeline.returns import TIER_BASIS
+                self.check(node.get('kind') == 'repair' and node.get('tier') == 7 and node.get('tierStatus') == 'inferred' and node.get('tierBasis') == TIER_BASIS, name + ': inferred tier-seven reverse role required')
+                self.check(node.get('status') == 'inferred' and node.get('historicalPresenceAsserted') is False, name + ': return context must remain inferred')
             elif node.get('contextLayer') == 'minerals' and node.get('kind') in {'mine', 'refinery'}:
                 expected_tier = 1 if node['kind'] == 'mine' else 2
                 self.check(node.get('tier') == expected_tier and node.get('tierStatus') == 'inferred' and node.get('tierBasis') == 'mineral extraction or processing role', name + ': mineral stage inference required')
@@ -171,6 +175,14 @@ class Validator:
         # Validate every sea edge, including sample fixtures. The independent
         # pinned mask has no edge-controlled exemption mechanism.
         by_id = {n.get("id"): n for n in nodes if isinstance(n, dict)}
+        for edge in edges:
+            if not isinstance(edge, dict) or edge.get('contextLayer') != 'returns':
+                continue
+            a, b = by_id.get(edge.get('from'), {}), by_id.get(edge.get('to'), {})
+            self.check(edge.get('relation') == 'route' and edge.get('purpose') == 'return' and edge.get('status') == 'inferred', label + ': return context must remain inferred physical routes')
+            self.check(edge.get('modelEligible') is False, label + ': return context cannot enter historical model')
+            if edge.get('returnStage') == 'recovered_material':
+                self.check(a.get('kind') == 'repair' and b.get('kind') == 'refinery' and b.get('tier') == 2 and edge.get('metal') in a.get('recoveredMetals', []) and edge.get('metal') == b.get('metal'), label + ': incompatible recovered metal')
         for edge in edges:
             if not isinstance(edge, dict) or edge.get('layer') != 'mineral_supply':
                 continue

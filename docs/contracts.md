@@ -169,7 +169,7 @@ supply traversal describes potential upstream/downstream association;
 unconnected companies remain null. Route/access/shared-customer edges never
 create model hops.
 
-## Scenarios, predictions and exposures
+## Mineral and return context
 
 Mineral reference context uses `contextLayer: "minerals"` on backbone nodes
 and physical routes, and `layer: "mineral_supply"` on material-compatibility
@@ -213,6 +213,31 @@ disclosure/event year. A scenario-level `predictionScope` explains absence
 of predictions. `shock.mineral` restricts a commodity-specific policy overlay;
 the cobalt suspension does not assert copper prohibitions or physical road
 closures. Empty detour/expedited arrays must not suggest evasion of a ban.
+
+The minimal reverse layer has `contextLayer: "returns"`, `kind: "repair"`,
+inferred tier 7 and status, and basis `reverse logistics role: recycling,
+refurbishment or trade-in collection`. These are separately dated backbone
+references, without historical supplier identities or stock predictions.
+`serviceRole` is `recycling`, `refurbishment` or `trade_in_collection`;
+`facilityScope`, `positionScope`, `operator`, `program`, and `salesRegionKey`
+distinguish documented operations from representative Trade In collection
+stores. `recoveredMetals` lists publicly supported material recovery, not
+measured volumes. A regional/city reference must not imply a precise facility
+address or an undisclosed processing factory at a collection point.
+
+Return edges preserve `relation: "route"` and use `purpose: "return"`, with
+`returnStage` equal to `collection`, `recycling`, `refurbishment`, or
+`recovered_material`. They are inferred, carry tier 7, have sources,
+qualitative confidence and a basis, and are never model-eligible. Recovered
+material routes have `metal` matching a recycler's supported recovered metal
+and the destination tier-2 refinery's metal. Nearest approximate positions
+select minimal illustrative links; actual allocation, shipments, volumes,
+acceptance, intermediate treatment, modes and cross-border permissions remain
+unknown. These edges do not assert legal permission to ship waste.
+`returnReference: {referenceAsOf,scope}` and `coverage.returnNodes` /
+`returnRoutes` record the display layer's date, scope and size.
+
+## Scenarios, predictions and exposures
 
 Scenarios contain `id`, `title`, `type`, `start`, `end`, `snapshotYear`,
 `sampleData`, `shock`, `headline`, `predictions`, `actual`, `options`, `quota`,
@@ -663,6 +688,8 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `coverage.mineralNodes` | integer |
 | `coverage.mineralSupplyLinks` | integer |
 | `coverage.modelEligibleSupplyLinks` | integer |
+| `coverage.returnNodes` | integer |
+| `coverage.returnRoutes` | integer |
 | `coverage.supplierAccessLinks` | integer |
 | `coverage.supplyLinks` | integer |
 | `coverage.tier2SupplyLinks` | integer |
@@ -729,6 +756,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `edges[].referenceAsOf` | string |
 | `edges[].refiningRegion` | string |
 | `edges[].relation` | string |
+| `edges[].returnStage` | string |
 | `edges[].routingVerified` | boolean |
 | `edges[].segmentCount` | integer |
 | `edges[].segmentIndex` | integer |
@@ -785,6 +813,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].attributeSources.size.source` | object |
 | `nodes[].attributeSources.size.source.title` | string |
 | `nodes[].attributeSources.size.source.url` | string |
+| `nodes[].basis` | string |
 | `nodes[].canonicalCompany` | string |
 | `nodes[].city` | null, string |
 | `nodes[].cityPositionNote` | string |
@@ -811,6 +840,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].country` | string |
 | `nodes[].establishedOn` | string |
 | `nodes[].eventId` | string |
+| `nodes[].facilityScope` | string |
 | `nodes[].gatewaySelectionBasis` | string |
 | `nodes[].historicalPresenceAsserted` | boolean |
 | `nodes[].iata` | string |
@@ -826,6 +856,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].minerals[]` | string |
 | `nodes[].mrgid` | integer |
 | `nodes[].name` | string |
+| `nodes[].operator` | string |
 | `nodes[].partType` | null, string |
 | `nodes[].partTypeScope` | string |
 | `nodes[].partTypeStatus` | string |
@@ -843,9 +874,12 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].productEvidence.source.url` | string |
 | `nodes[].products` | array |
 | `nodes[].products[]` | string |
+| `nodes[].program` | string |
 | `nodes[].publishedPosition` | object |
 | `nodes[].publishedPosition.lat` | number |
 | `nodes[].publishedPosition.lon` | number |
+| `nodes[].recoveredMetals` | array |
+| `nodes[].recoveredMetals[]` | string |
 | `nodes[].referenceAsOf` | string |
 | `nodes[].region` | string |
 | `nodes[].regionBasis` | string |
@@ -854,8 +888,10 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].reportEntryName` | string |
 | `nodes[].reportPage` | integer |
 | `nodes[].salesRegion` | string |
+| `nodes[].salesRegionKey` | string |
 | `nodes[].scope` | string |
 | `nodes[].seamId` | string |
+| `nodes[].serviceRole` | string |
 | `nodes[].sourceCompany` | string |
 | `nodes[].sourcePrecisionMeters` | integer, null |
 | `nodes[].sources` | array |
@@ -871,6 +907,9 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].tierStatus` | string |
 | `nodes[].waypoint` | boolean |
 | `nodes[].worldPortIndex` | integer |
+| `returnReference` | object |
+| `returnReference.referenceAsOf` | string |
+| `returnReference.scope` | string |
 | `sampleData` | boolean |
 | `scope` | string |
 | `snapshotYear` | integer |

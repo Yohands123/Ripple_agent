@@ -101,7 +101,7 @@ def test_site_outcomes_preserve_company_scope_and_label_inferred_routes(candidat
         assert scenario["money"]["revenueAtRisk"] is None
         assert all(n["sources"] for n in network["nodes"])
         assert all(n["tier"] is None for n in network["nodes"] if n["partType"] is None)
-        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] in {"mapped from part type", "model classification, see data/reference/supplier_classes.csv", "mineral extraction or processing role"} for n in network["nodes"] if n["partType"] is not None)
+        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] in {"mapped from part type", "model classification, see data/reference/supplier_classes.csv", "mineral extraction or processing role", "reverse logistics role: recycling, refurbishment or trade-in collection"} for n in network["nodes"] if n["partType"] is not None)
         assert all("Company" in p["predictionScope"] for p in scenario["predictions"])
         ids = {n["id"] for n in network["nodes"]}
         assert {a["nodeId"] for a in scenario["actual"]} <= ids

@@ -165,6 +165,11 @@ def build_bundle(root=ROOT):
     documents[mineral_event['networkPath']] = mineral_network
     documents['scenarios/'+mineral_event['id']+'.json'] = mineral_event
     index.append({key:mineral_event[key] for key in ['id','title','type','start']})
+    from pipeline.returns import attach_returns
+    returns = read_json(root / 'data/processed/returns.json')
+    for path, network in documents.items():
+        if path.startswith('networks/'):
+            attach_returns(network, returns)
     default = "suez-2021" if "networks/suez-2021.json" in documents else events[0]["id"]
     documents["network.json"] = documents[f"networks/{default}.json"]
     documents["scenarios/index.json"] = index

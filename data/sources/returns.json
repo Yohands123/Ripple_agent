@@ -1,0 +1,183 @@
+{
+  "checkedOn": "2026-10-15",
+  "referenceAsOf": "2026-10-15",
+  "scope": "Minimal contemporary reverse-logistics context. Documented facilities and representative Apple Trade In collection points; all tier assignments, positions and return links are inferred. No historical presence, actual shipment, recovered volume, recycler-to-refiner commercial relationship or cross-border authorization is asserted.",
+  "datasets": {
+    "apple_environment_2026.pdf": {
+      "file": "apple_environment_2026.pdf",
+      "title": "Apple Environmental Progress Report 2026, pp. 45 and 49-50: reuse, Daisy, Austin MRL and Santa Clara Valley ARC",
+      "url": "https://www.apple.com/environment/pdf/Apple_Environmental_Progress_Report_2026.pdf",
+      "sha256": "294587a989beb1bd2c1688e0bf67d18c601b55dcf582343ca87e917dc2aec38a"
+    },
+    "brabant_robotics.pdf": {
+      "file": "brabant_robotics.pdf",
+      "title": "Brabant Development Agency: Robotics in Brabant, pp. 12-13, Daisy in Breda",
+      "url": "https://www.bom.nl/upload/pdf/whitepaper_Robotics_in_Brabant.pdf",
+      "sha256": "959811c98ec7358a054b25fab6db274eff2acd7841bd9fc4550491c389067eaa"
+    },
+    "california_places_2025.txt": {
+      "file": "california_places_2025.txt",
+      "title": "US Census Bureau 2025 California Places Gazetteer: Elk Grove and Santa Clara city reference points",
+      "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2025_Gazetteer/2025_gaz_place_06.txt",
+      "sha256": "e09eb0ddead086951ef240e2996df55133279d2f3bf1df9bbba959506a429fbb"
+    },
+    "breda_pdok.json": {
+      "file": "breda_pdok.json",
+      "title": "Dutch PDOK official location service: Breda settlement centroid",
+      "url": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Breda&fq=type:woonplaats&rows=5",
+      "sha256": "2a69ab166e33bd2c91bb9f88a73de0e51cf1b7e77914c7af1cd211a1c10457ff"
+    }
+  },
+  "sources": {
+    "tradeIn": {
+      "title": "Apple Trade In: in-store and online collection for reuse or recycling",
+      "url": "https://www.apple.com/shop/trade-in"
+    },
+    "daisyMetals": {
+      "title": "Apple 2019 recycling disclosure: Daisy recovers cobalt and tin for material reuse",
+      "url": "https://www.apple.com/newsroom/2019/04/apple-expands-global-recycling-programs/"
+    },
+    "elkGrove": {
+      "title": "City of Elk Grove 2023 proclamation: Apple campus refurbishment operations",
+      "url": "https://elkgrove.gov/sites/default/files/city-files/City%20Government/City%20Clerk/City%20Council%202023/Attachments/02-08-23_4-1.pdf"
+    }
+  },
+  "facilities": [
+    {
+      "key": "austin-mrl",
+      "name": "Apple Material Recovery Lab / Daisy, Austin",
+      "city": "Austin",
+      "country": "United States",
+      "serviceRole": "recycling",
+      "recoveredMetals": [
+        "cobalt",
+        "tin"
+      ],
+      "sources": [
+        "apple_environment_2026.pdf",
+        "daisyMetals"
+      ],
+      "operator": "Apple",
+      "positionScope": "Austin city reference; not a disclosed lab address"
+    },
+    {
+      "key": "breda-daisy",
+      "name": "Daisy recycling operation, Breda",
+      "city": "Breda",
+      "country": "Netherlands",
+      "serviceRole": "recycling",
+      "recoveredMetals": [
+        "cobalt",
+        "tin"
+      ],
+      "sources": [
+        "brabant_robotics.pdf",
+        "apple_environment_2026.pdf",
+        "daisyMetals"
+      ],
+      "operator": "Sims Lifecycle Services (partner operation, per Brabant Development Agency)",
+      "positionScope": "Breda settlement centroid; not a disclosed recycling-facility address"
+    },
+    {
+      "key": "santa-clara-arc",
+      "name": "Apple Advanced Recovery Center / Cora, Santa Clara Valley",
+      "city": "Santa Clara",
+      "country": "United States",
+      "serviceRole": "recycling",
+      "recoveredMetals": [
+        "tungsten"
+      ],
+      "sources": [
+        "apple_environment_2026.pdf"
+      ],
+      "operator": "Apple",
+      "positionScope": "Santa Clara city point represents the published Santa Clara Valley location; no claim that the undisclosed facility is inside this city"
+    },
+    {
+      "key": "elk-grove-refurbishment",
+      "name": "Apple refurbishment campus, Elk Grove",
+      "city": "Elk Grove",
+      "country": "United States",
+      "serviceRole": "refurbishment",
+      "recoveredMetals": [],
+      "sources": [
+        "elkGrove",
+        "apple_environment_2026.pdf"
+      ],
+      "operator": "Apple",
+      "positionScope": "Elk Grove city reference; not the campus or a specific refurbishment building"
+    }
+  ],
+  "collections": [
+    {
+      "key": "americas",
+      "name": "Apple Trade In collection - Union Square",
+      "city": "San Francisco",
+      "country": "United States",
+      "storeSource": {
+        "title": "Apple Union Square, San Francisco: public store location",
+        "url": "https://www.apple.com/retail/unionsquare/"
+      },
+      "programSource": {
+        "title": "Apple US Trade In: online or at an Apple Store",
+        "url": "https://www.apple.com/shop/trade-in"
+      }
+    },
+    {
+      "key": "europe",
+      "name": "Apple Trade In collection - Regent Street",
+      "city": "London",
+      "country": "United Kingdom",
+      "storeSource": {
+        "title": "Apple Regent Street, London: public store location",
+        "url": "https://www.apple.com/uk/retail/regentstreet/"
+      },
+      "programSource": {
+        "title": "Apple UK Trade In: store collection and recycling program",
+        "url": "https://www.apple.com/uk/shop/trade-in"
+      }
+    },
+    {
+      "key": "greater-china",
+      "name": "Apple Trade In collection - Pudong",
+      "city": "Shanghai",
+      "country": "China",
+      "storeSource": {
+        "title": "Apple Pudong, Shanghai: store and Trade In program",
+        "url": "https://www.apple.com.cn/retail/pudong/"
+      },
+      "programSource": {
+        "title": "Apple China Trade In: in-store reuse and recycling collection",
+        "url": "https://www.apple.com.cn/shop/trade-in"
+      }
+    },
+    {
+      "key": "japan",
+      "name": "Apple Trade In collection - Ginza",
+      "city": "Tokyo",
+      "country": "Japan",
+      "storeSource": {
+        "title": "Apple Ginza, Tokyo: public store location",
+        "url": "https://www.apple.com/jp/retail/ginza/"
+      },
+      "programSource": {
+        "title": "Apple Japan Trade In: available online and in Apple retail stores",
+        "url": "https://www.apple.com/jp/iphone/trade-in/"
+      }
+    },
+    {
+      "key": "rest-apac",
+      "name": "Apple Trade In collection - Orchard Road",
+      "city": "Singapore",
+      "country": "Singapore",
+      "storeSource": {
+        "title": "Apple Orchard Road, Singapore: public store location",
+        "url": "https://www.apple.com/sg/retail/orchardroad/"
+      },
+      "programSource": {
+        "title": "Apple Singapore Trade In: device collection and recycling",
+        "url": "https://www.apple.com/sg/shop/trade-in"
+      }
+    }
+  ]
+}
