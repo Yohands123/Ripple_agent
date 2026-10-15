@@ -6,6 +6,8 @@ Ripple takes the suppliers Apple discloses each year, places them on a world map
 
 It is built only from public data. It is a resilience case study, not a description of Apple's internal operations, and it does not recommend what Apple should do.
 
+**Demo video:** [watch the walkthrough](VIDEO_LINK_TODO)
+
 ![Ripple's default view: Asia-to-Europe sea lane, supplier clusters, air freight, and money flowing back to Apple Park](web/parity/real/free-flow.app.png)
 
 ## What you can do
@@ -56,27 +58,27 @@ Every node and edge carries its own source title and link. The main sources:
 
 ## Results, honestly
 
-The model does **not** beat the simple baselines overall. Pooled across the seven scored events (843 supplier-event rows):
+The model does **not** beat the simple baselines overall. Every prediction for an event comes from models that never saw that event (leave-one-event-out, with early stopping tuned on a different event inside each training fold). Pooled across the seven scored events (843 supplier-event rows), with 95% intervals from 2,000 bootstrap draws over events:
 
 | | AUC (point) | 95% interval |
 |---|---:|---|
-| LightGBM model | 0.45 | 0.39 to 0.55 |
-| Logistic regression | 0.57 | 0.47 to 0.66 |
+| LightGBM model | 0.44 | 0.38 to 0.53 |
+| Logistic regression | 0.53 | 0.46 to 0.62 |
 | Distance only | 0.64 | 0.54 to 0.75 |
 
 An AUC of 0.5 is no better than chance. Distance alone did best overall. By event:
 
 | Event | Companies | Hits | Model | Logistic | Distance |
 |---|---:|---:|---:|---:|---:|
-| Kumamoto earthquake, 2016 | 100 | 4 | 0.69 | 0.67 | 0.66 |
-| COVID containment in China, 2020 | 124 | 8 | 0.65 | 0.63 | 0.44 |
-| Suez Canal blocked, 2021 | 126 | 3 | 0.43 | 0.88 | 0.88 |
-| Russia technology export restrictions, 2022 | 123 | 7 | 0.39 | 0.49 | 0.53 |
-| Shanghai lockdown, 2022 | 123 | 14 | 0.51 | 0.62 | 0.70 |
-| Zhengzhou assembly restrictions, 2022 | 127 | 6 | 0.54 | 0.40 | 0.55 |
-| Red Sea shipping attacks, 2023 | 120 | 3 | 0.78 | 0.37 | 0.63 |
+| Kumamoto earthquake, 2016 | 100 | 4 | 0.65 | 0.67 | 0.66 |
+| COVID containment in China, 2020 | 124 | 8 | 0.60 | 0.53 | 0.44 |
+| Suez Canal blocked, 2021 | 126 | 3 | 0.43 | 0.87 | 0.88 |
+| Russia technology export restrictions, 2022 | 123 | 7 | 0.39 | 0.48 | 0.53 |
+| Shanghai lockdown, 2022 | 123 | 14 | 0.50 | 0.50 | 0.70 |
+| Zhengzhou assembly restrictions, 2022 | 127 | 6 | 0.52 | 0.40 | 0.55 |
+| Red Sea shipping attacks, 2023 | 120 | 3 | 0.68 | 0.36 | 0.63 |
 
-The model did better than distance alone on three events (Kumamoto, COVID, Red Sea) and worse on four, most clearly Suez (0.43 against 0.88). With 3 to 14 hits per event, each AUC is very uncertain. The 2011 Tohoku and Thailand events are left out of the scores because no supplier in them was hit, so an AUC cannot be computed. The interface says all of this in its replay panel, next to each event.
+The model did better than distance alone on two events (COVID and the Red Sea) and worse on five, most clearly Suez (0.43 against 0.88). With 3 to 14 hits per event, each AUC is very uncertain. The 2011 Tohoku and Thailand events are left out of the scores because no supplier in them was hit, so an AUC cannot be computed. The interface says all of this in its replay panel, next to each event. The full evaluation, including a check that the distance baseline does not leak held-out labels, is in [data/review/evaluation_report.md](data/review/evaluation_report.md).
 
 The cost forecasts did better: Chronos-Bolt had a lower error than the seasonal-naive baseline on all four series (MASE 0.77 to 1.54, against 1.59 to 3.39).
 
