@@ -1237,3 +1237,59 @@ button {
   /* The standalone scale property, so it composes with entrance animations on transform. */
   scale: calc(1 / max(1, var(--zoom-k, 1)));
 }
+
+/* Connections chain in the node detail panel. */
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  font-size: 13px;
+}
+
+.chain-part {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chain-arrow {
+  color: var(--text-secondary);
+}
+
+.chain-link {
+  padding: 2px 8px;
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chain-link:hover:not(:disabled) {
+  border-color: var(--tier-4);
+}
+
+.chain-link:disabled {
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+/* Tracing: everything off the trace dims to about 15%. */
+.tracing .map-svg [data-layer="routes"],
+.tracing .mover-layer,
+.tracing .map-overlay .pill,
+.tracing .map-overlay .map-caption,
+.tracing .node:not([data-traced]),
+.tracing .cluster:not([data-traced]) {
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+}
+
+.node[data-traced="self"] {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+  border-radius: 50%;
+}

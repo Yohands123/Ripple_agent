@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { buildTrace } from "@/lib/trace";
 import { loadForecasts, loadMetrics, loadNetwork, loadNetworkAt, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout, withZoomLabels } from "@/lib/layout";
 import { project } from "@/lib/geo";
@@ -18,7 +19,10 @@ import NodeDetailPanel from "./NodeDetailPanel";
 import ForecastSection from "./ForecastSection";
 import FreeFlowPanel from "./FreeFlowPanel";
 import { Pill } from "./Glyphs";
-import MapStage from "./MapStage";
+import MapStage, { type StageApi } from "./MapStage";
+import TraceLayer from "./TraceLayer";
+import type { NodeLook } from "./NodeLayer";
+import type { ChainPart } from "./NodeDetailPanel";
 import MoverLayer from "./MoverLayer";
 import NodeLayer from "./NodeLayer";
 import ReplaySection from "./ReplaySection";
@@ -52,6 +56,7 @@ export default function RippleApp() {
   const [band, setBand] = useState<Band>("world");
   const [layers, setLayers] = useState<Layers>(DEFAULT_LAYERS);
   const [hoverId, setHoverId] = useState<string | null>(null);
+  const stageApi = useRef<StageApi | null>(null);
   const onWorld = useCallback(() => setWorldReady(true), []);
 
   useEffect(() => {
@@ -177,6 +182,25 @@ export default function RippleApp() {
   }, []);
 
   const selectedNode = network?.nodes.find((n) => n.id === selectedId) ?? null;
+
+  // Trace: the selected node's suppliers upstream and its path to customers downstream; the rest dims.
+  const trace = useMemo(() => (network && selectedId ? buildTrace(network, selectedId) : null), [network, selectedId]);
+  const look = useMemo(() => {
+    if (!trace) return undefined;
+    return (id: string): NodeLook | undefined =>
+      id === trace.root ? { traced: "self" } : trace.upstream.has(id) ? { traced: "upstream" } : trace.downstream.has(id) ? { traced: "downstream" } : undefined;
+  }, [trace]);
+  const onChain = (part: ChainPart) => {
+    if (!trace || !network || !scene) return;
+    if (part === "suppliers" && network.nodes.find((n) => n.id === trace.root)?.kind === "assembly") {
+      setStackId(trace.root);
+      return;
+    }
+    const ids =
+      part === "self" ? [trace.root] : part === "money" ? network.nodes.filter((n) => n.kind === "hq").map((n) => n.id) : trace.members[part];
+    const pts = ids.map((id) => scene.layout.points.get(id)).filter((p): p is [number, number] => Boolean(p));
+    stageApi.current?.fit(pts);
+  };
   const stack = useMemo(() => (network && stackId ? buildStack(network, stackId, scenario, disrupted) : null), [network, stackId, scenario, disrupted]);
 
   // Clicking an assembly factory opens its supplier stack as well as its details.
@@ -221,10 +245,11 @@ export default function RippleApp() {
 
   return (
     <div className="app" data-ready={String(ready)} data-mode={disrupted ? "disruption" : "free"}>
-      <div className="map-area">
+      <div className={trace ? "map-area tracing" : "map-area"}>
         <MapStage
           focus={focusPoint}
           onBand={setBand}
+          apiRef={stageApi}
           hud={(stage) => (
             <>
               {scene?.layout.hq?.offMap && !stage.isVisible(scene.layout.hq.anchor, -40) && (
@@ -256,6 +281,7 @@ export default function RippleApp() {
           <svg width={size.mapW} height={size.mapH} viewBox={`0 0 ${size.mapW} ${size.mapH}`} aria-hidden="true" className="map-svg">
             <WorldMap highlight={highlight} onLoaded={onWorld} />
             {scene && <RouteLayer routes={shownRoutes} money={layers.money ? scene.money : []} />}
+            {scene && network && trace && <TraceLayer network={network} trace={trace} money={scene.money} />}
           </svg>
           <div className="map-overlay">
             {scene?.zones?.map((z) => (
@@ -270,6 +296,7 @@ export default function RippleApp() {
                 onSelect={selectNode}
                 onHover={setHoverId}
                 hideSuppliers={!layers.suppliers}
+                look={look}
               />
             )}
             {layers.money && scene?.captions.map((c) => (
@@ -298,7 +325,14 @@ export default function RippleApp() {
       </div>
       <aside className="panel" aria-label="Ripple panel">
         {selectedNode ? (
-          <NodeDetailPanel sample={sample || Boolean(forecasts?.sampleData)} node={selectedNode} scenario={scenario} onClose={() => setSelectedId(null)}>
+          <NodeDetailPanel
+            sample={sample || Boolean(forecasts?.sampleData)}
+            node={selectedNode}
+            scenario={scenario}
+            onClose={() => setSelectedId(null)}
+            trace={trace}
+            onChain={onChain}
+          >
             <ForecastSection forecasts={forecasts} />
           </NodeDetailPanel>
         ) : disrupted ? (

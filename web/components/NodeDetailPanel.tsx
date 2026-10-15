@@ -1,6 +1,7 @@
 "use client";
 
 import { tierColorOf, tierLabel } from "@/lib/tokens";
+import type { Trace } from "@/lib/trace";
 import type { NetworkNode, Scenario } from "@/lib/types";
 import PanelHeader from "./PanelHeader";
 
@@ -44,11 +45,51 @@ interface Props {
   node: NetworkNode;
   scenario: Scenario | null;
   onClose: () => void;
+  /** The node's trace, for the Connections chain. */
+  trace?: Trace | null;
+  /** Clicking a link of the chain. */
+  onChain?: (part: ChainPart) => void;
   children?: React.ReactNode;
 }
 
+export type ChainPart = "suppliers" | "self" | "factories" | "gateways" | "salesRegions" | "money";
+
+const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
+
+/** "12 suppliers → this factory → 2 ports and airports → 3 sales regions → Apple Park", each link clickable. */
+function Connections({ node, trace, onChain }: { node: NetworkNode; trace: Trace; onChain?: (p: ChainPart) => void }) {
+  const c = trace.counts;
+  const self = node.kind === "assembly" ? "this factory" : `this ${KIND_LABEL[node.kind]?.toLowerCase() ?? "site"}`;
+  const parts: { key: ChainPart; text: string; n: number }[] = [
+    { key: "suppliers", text: plural(c.suppliers, "supplier"), n: c.suppliers },
+    { key: "self", text: self, n: 1 },
+  ];
+  if (node.kind !== "assembly") parts.push({ key: "factories", text: plural(c.factories, "factory", "factories"), n: c.factories });
+  parts.push({ key: "gateways", text: plural(c.gateways, "port or airport", "ports and airports"), n: c.gateways });
+  parts.push({ key: "salesRegions", text: plural(c.salesRegions, "sales region"), n: c.salesRegions });
+  if (trace.money) parts.push({ key: "money", text: "Apple Park", n: 1 });
+  return (
+    <section data-section="connections">
+      <h2 className="panel-heading">CONNECTIONS</h2>
+      <div className="chain">
+        {parts.map((p, i) => (
+          <span key={p.key} className="chain-part">
+            {i > 0 && <span className="chain-arrow" aria-hidden="true">→</span>}
+            <button type="button" className="chain-link" disabled={p.n === 0} onClick={() => onChain?.(p.key)} data-chain={p.key}>
+              {p.text}
+            </button>
+          </span>
+        ))}
+      </div>
+      <div className="panel-tiny">
+        Upstream from supply links; downstream along the inferred routes it ships by. {c.suppliers === 0 && "No public source links suppliers to this site."}
+      </div>
+    </section>
+  );
+}
+
 /** A node's details: what it is, its predicted hit with interval, SHAP drivers, and actual CAR. */
-export default function NodeDetailPanel({ sample, node, scenario, onClose, children }: Props) {
+export default function NodeDetailPanel({ sample, node, scenario, onClose, trace, onChain, children }: Props) {
   const pred = scenario?.predictions.find((p) => p.nodeId === node.id);
   const actual = scenario?.actual.find((a) => a.nodeId === node.id);
   const shap = [...(pred?.shap ?? [])].sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
@@ -102,6 +143,8 @@ export default function NodeDetailPanel({ sample, node, scenario, onClose, child
           )}
         </dl>
       </section>
+
+      {trace && <Connections node={node} trace={trace} onChain={onChain} />}
 
       <section>
         <h2 className="panel-heading">{scenario ? `PREDICTED HIT: ${scenario.title}` : "PREDICTED HIT"}</h2>

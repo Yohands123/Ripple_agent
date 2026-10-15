@@ -68,7 +68,7 @@ if (battery) {
   await page.waitForTimeout(600);
   const target = page.locator(`[data-node-id='${battery.id}']`);
   if ((await target.count()) === 1) {
-    await target.click({ force: true });
+    await target.evaluate((el) => el.click());
     await page.waitForTimeout(600);
     const traced = await page.locator("[data-traced='upstream']").evaluateAll((els) => els.map((e) => e.getAttribute("data-node-id")));
     if (traced.length || (await page.locator("[data-trace]").count())) {

@@ -94,8 +94,38 @@ function Bubble({ c, look, onHover }: { c: Cluster; look?: NodeLook; onHover?: (
 }
 
 /** Node symbols (supplier sites clustered until zoomed into a country), label pills, regional group pills, and the Apple Park card. */
+/**
+ * Sites placed at the same point (e.g. several companies at one province's centre) fan out
+ * in a small ring when zoomed into a country, so each can be seen and clicked.
+ */
+function fanOut(nodes: NetworkNode[], points: Map<string, [number, number]>, k: number): Map<string, [number, number]> {
+  const out = new Map<string, [number, number]>();
+  if (k < COUNTRY_K) return out;
+  const at = new Map<string, NetworkNode[]>();
+  for (const n of nodes) {
+    if (!isClusterable(n)) continue;
+    const [x, y] = points.get(n.id)!;
+    const key = `${x.toFixed(1)},${y.toFixed(1)}`;
+    at.set(key, [...(at.get(key) ?? []), n]);
+  }
+  for (const group of at.values()) {
+    if (group.length < 2) continue;
+    // Rings of up to 8, 22 screen px apart.
+    group.forEach((n, i) => {
+      const ring = Math.floor(i / 8) + 1;
+      const inRing = Math.min(8, group.length - (ring - 1) * 8);
+      const a = ((i % 8) / inRing) * 2 * Math.PI;
+      const r = (22 * ring) / k;
+      out.set(n.id, [Math.cos(a) * r, Math.sin(a) * r]);
+    });
+  }
+  return out;
+}
+
 export default function NodeLayer({ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers = false, look }: Props) {
-  const level = labelLevel(useZoom());
+  const k = useZoom();
+  const level = labelLevel(k);
+  const fan = fanOut(network.nodes, layout.points, k);
   const clusters = layout.clusters.get(level) ?? [];
   const bubbles = clusters.filter((c) => c.members.length > 1);
   const inBubble = new Set(bubbles.flatMap((c) => c.members.map((m) => m.id)));
@@ -116,7 +146,9 @@ export default function NodeLayer({ network, layout, onSelect, onHover, selected
   return (
     <>
       {ordered.map((n) => {
-        const [x, y] = layout.points.get(n.id)!;
+        const [px, py] = layout.points.get(n.id)!;
+        const [dx, dy] = fan.get(n.id) ?? [0, 0];
+        const [x, y] = [px + dx, py + dy];
         const s = symbolSize(n.kind);
         const label = `${n.name}, ${n.region}`;
         const l = look?.(n.id);

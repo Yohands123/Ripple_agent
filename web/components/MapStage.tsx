@@ -51,9 +51,17 @@ interface Props {
   focus?: { key: string; point: Pt } | null;
   /** Called with the zoom band (world, region, country) whenever it changes. */
   onBand?: (band: Band) => void;
+  /** Filled with controls for the view, for use outside the map (e.g. the panel). */
+  apiRef?: React.MutableRefObject<StageApi | null>;
 }
 
-export default function MapStage({ children, hud, focus, onBand }: Props) {
+export interface StageApi {
+  goTo: (p: Pt, k?: number) => void;
+  /** Fit the view around content points (map pixels). */
+  fit: (pts: Pt[]) => void;
+}
+
+export default function MapStage({ children, hud, focus, onBand, apiRef }: Props) {
   const outer = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ w: size.mapW, h: size.mapH });
   const [view, setView] = useState<View>(DEFAULT_VIEW);
@@ -104,7 +112,23 @@ export default function MapStage({ children, hud, focus, onBand }: Props) {
   const scale = s * v.k;
   const band = bandOf(v.k);
   useEffect(() => onBand?.(band), [band, onBand]);
-  const stageApi = useMemo(() => ({ goTo: (p: Pt, k?: number) => setView((cur) => clamp({ cx: p[0], cy: p[1], k: k ?? cur.k })) }), [clamp]);
+  const stageApi = useMemo<StageApi>(
+    () => ({
+      goTo: (p, k) => setView((cur) => clamp({ cx: p[0], cy: p[1], k: k ?? cur.k })),
+      fit: (pts) => {
+        if (pts.length === 0) return;
+        const xs = pts.map((p) => p[0]);
+        const ys = pts.map((p) => p[1]);
+        const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+        const k = Math.min(K_MAX, 0.8 * Math.min(box.w / (s * Math.max(60, x1 - x0)), box.h / (s * Math.max(60, y1 - y0))));
+        setView(clamp({ cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, k }));
+      },
+    }),
+    [clamp, box, s],
+  );
+  useEffect(() => {
+    if (apiRef) apiRef.current = stageApi;
+  }, [apiRef, stageApi]);
 
   // Zoom keeping the content point under (sx, sy) fixed.
   const zoomAt = useCallback(
