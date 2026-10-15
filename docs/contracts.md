@@ -190,8 +190,8 @@ of the observed hit labels.
 
 Predictions have `nodeId`, `pHit`, `ciLow`, `ciHigh`, `lowConfidence`, and
 `shap: [{feature,value}]`. Require 0 <= ciLow <= pHit <= ciHigh <= 1.
-`shapBaseValue` plus mean contributions equals `shapMeanRawScore` in log odds,
-not the logit of median probability. `predictionScope` identifies company
+`shapBaseValue` plus contributions equals `shapMeanRawScore`, the explained
+point refit's raw log odds (the legacy field name is retained). `predictionScope` identifies company
 projections shared by sites; `outcomeObservable` indicates a valid label.
 `actual[]` contains `nodeId`, boolean `hit`, numeric `car`, optional `scope`.
 Repeated display-site observations count once per company/event in metrics.
@@ -275,6 +275,72 @@ The inventory below explicitly lists every nested field and observed type.
 Generate it with `python -m pipeline.contract_inventory`; `--check` detects
 undocumented export changes. Variant-specific evidence and assumption
 fields are retained rather than silently discarded by loaders.
+
+## Three-candidate nested model selection
+
+The main `model` may be `distance`, `logistic_regression`, or `lightgbm`.
+`modelReason` explains the fixed selection rule and observed pick count.
+`modelSelection` records the complete seven-event nested procedure:
+
+- `protocolVersion`, `protocolSha256`, and `selectionMetric` identify the
+  frozen protocol. Features, labels and candidate settings are hashed before
+  the new run. Earlier analyses had already been observed.
+- `outerFolds` contains seven records. Each has `eventId`, six
+  `trainingEvents`, `selectedModel`, `innerMeanAuc`, six `innerFolds`,
+  `outerAuc`, `outerAuc95`, and an apparent-training LightGBM diagnostic.
+  Each inner record has `heldOutEvent`, five `trainingEvents`, and `auc`
+  keyed by all three candidates. The outer event is absent from every inner
+  fit, score and stopping decision. Selection maximizes the arithmetic mean
+  of six event AUCs; the frozen tie order is distance, logistic, LightGBM.
+- `selectionCounts` maps candidate names to pick counts totaling seven.
+  `mainModel` is the modal candidate; `mainModelPickCount` is its count.
+  `mainModelReason` explains this choice. The export uses this family for
+  every scenario, with own-event-held-out refits for evaluated events.
+- `nestedAuc` and `nestedAuc95` score the probabilities from each fold's
+  individually selected family. The 95% interval resamples seven event
+  blocks 2,000 times with fixed saved probabilities; it does not retrain
+  or repeat selection inside each bootstrap draw.
+- `candidateOverall` retains each fixed candidate's pooled `auc`, `brier`,
+  and `auc95`. `scoreScope` and `uncertaintyDefinition` distinguish these
+  descriptive comparisons from evaluation of the complete nested selector.
+  Selection of the modal family across all folds is data-dependent; its
+  fixed-family top-level score must not be substituted for a different
+  fold-selected nested score. They coincide when every fold picks it.
+
+`loeo[].auc95` is an object with `auc`, `baselineAuc`, and `distanceAuc`
+95% intervals. Each event uses 10,000 paired stratified company bootstrap
+draws, conditional on its observed hit/non-hit counts. This is not an
+event-cluster interval or a refitting interval. Correlated company returns
+and retrospective cohort/feature uncertainty remain outside these bounds.
+
+`evaluationPolicy.trainingPolicySource` identifies the newer seven-event
+training rule. The two single-class 2011 events enter neither fitting nor
+model selection; their company-only projections fit the modal family on
+all seven eligible events and stay excluded from metrics.
+
+Each prediction may carry `predictionModel` and `explanationMethod`.
+`pHit` now comes from the selected family's full-training point refit.
+`predictionIntervalDefinition` describes 200 event-bootstrap uncertainty
+refits of that family; percentile bounds are conservatively expanded to
+include the point if needed. `ensembleMembersPerFold` counts these refits,
+not averaging in the reported point estimator.
+
+`shap` remains an exact additive raw-score decomposition for that point
+refit. `explanationMethod` distinguishes native TreeSHAP, interventional
+linear SHAP, and exact single-input distance SHAP using the empirical
+training-distance background. Distance log odds are clipped numerically at
+probabilities 1e-12 and 1-1e-12 for finite explanations. The legacy field
+`shapMeanRawScore` now names the explained point refit's raw score; it is not
+a bootstrap mean. Base plus contributions still equals that raw score.
+
+Node `layer` is `supplier` or `backbone`; edge `layer` may be `backbone`,
+`supplier_access`, or `supply`. `relation` distinguishes movement routes
+from possible supply relationships. `laneName` is the label, `corridor` the
+geographic description, `viaNodeIds` the transited nodes, and `alternativeTo`
+the referenced original route. Edge `confidence` is qualitative, with
+`confidenceKind` and `basis` explaining the inference. New reference kinds
+`chokepoint`, `sales_region`, `event_anchor` require the backbone layer;
+they never become observed supplier outcomes.
 
 <!-- BEGIN REAL EXPORT FIELD INVENTORY -->
 ## Complete real-export field inventory
@@ -396,6 +462,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `evaluationPolicy.limitation` | string |
 | `evaluationPolicy.scope` | string |
 | `evaluationPolicy.singleClassEvents` | string |
+| `evaluationPolicy.trainingPolicySource` | string |
 | `evaluationPolicy.userDecision` | string |
 | `events` | integer |
 | `excludedEvents` | array |
@@ -417,6 +484,13 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `loeo` | array |
 | `loeo[]` | object |
 | `loeo[].auc` | number |
+| `loeo[].auc95` | object |
+| `loeo[].auc95.auc` | array |
+| `loeo[].auc95.auc[]` | number |
+| `loeo[].auc95.baselineAuc` | array |
+| `loeo[].auc95.baselineAuc[]` | number |
+| `loeo[].auc95.distanceAuc` | array |
+| `loeo[].auc95.distanceAuc[]` | number |
 | `loeo[].baselineAuc` | number |
 | `loeo[].brier` | number |
 | `loeo[].distanceAuc` | number |
@@ -427,6 +501,62 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `loeo[].rows` | integer |
 | `lowConfidenceRule` | string |
 | `model` | string |
+| `modelReason` | string |
+| `modelSelection` | object |
+| `modelSelection.candidateOverall` | object |
+| `modelSelection.candidateOverall.distance` | object |
+| `modelSelection.candidateOverall.distance.auc` | number |
+| `modelSelection.candidateOverall.distance.auc95` | array |
+| `modelSelection.candidateOverall.distance.auc95[]` | number |
+| `modelSelection.candidateOverall.distance.brier` | number |
+| `modelSelection.candidateOverall.lightgbm` | object |
+| `modelSelection.candidateOverall.lightgbm.auc` | number |
+| `modelSelection.candidateOverall.lightgbm.auc95` | array |
+| `modelSelection.candidateOverall.lightgbm.auc95[]` | number |
+| `modelSelection.candidateOverall.lightgbm.brier` | number |
+| `modelSelection.candidateOverall.logistic_regression` | object |
+| `modelSelection.candidateOverall.logistic_regression.auc` | number |
+| `modelSelection.candidateOverall.logistic_regression.auc95` | array |
+| `modelSelection.candidateOverall.logistic_regression.auc95[]` | number |
+| `modelSelection.candidateOverall.logistic_regression.brier` | number |
+| `modelSelection.mainModel` | string |
+| `modelSelection.mainModelPickCount` | integer |
+| `modelSelection.mainModelReason` | string |
+| `modelSelection.nestedAuc` | number |
+| `modelSelection.nestedAuc95` | array |
+| `modelSelection.nestedAuc95[]` | number |
+| `modelSelection.outerFolds` | array |
+| `modelSelection.outerFolds[]` | object |
+| `modelSelection.outerFolds[].eventId` | string |
+| `modelSelection.outerFolds[].innerFolds` | array |
+| `modelSelection.outerFolds[].innerFolds[]` | object |
+| `modelSelection.outerFolds[].innerFolds[].auc` | object |
+| `modelSelection.outerFolds[].innerFolds[].auc.distance` | number |
+| `modelSelection.outerFolds[].innerFolds[].auc.lightgbm` | number |
+| `modelSelection.outerFolds[].innerFolds[].auc.logistic_regression` | number |
+| `modelSelection.outerFolds[].innerFolds[].heldOutEvent` | string |
+| `modelSelection.outerFolds[].innerFolds[].trainingEvents` | array |
+| `modelSelection.outerFolds[].innerFolds[].trainingEvents[]` | string |
+| `modelSelection.outerFolds[].innerMeanAuc` | object |
+| `modelSelection.outerFolds[].innerMeanAuc.distance` | number |
+| `modelSelection.outerFolds[].innerMeanAuc.lightgbm` | number |
+| `modelSelection.outerFolds[].innerMeanAuc.logistic_regression` | number |
+| `modelSelection.outerFolds[].lightgbmApparentTrainingAuc` | number |
+| `modelSelection.outerFolds[].outerAuc` | number |
+| `modelSelection.outerFolds[].outerAuc95` | array |
+| `modelSelection.outerFolds[].outerAuc95[]` | number |
+| `modelSelection.outerFolds[].selectedModel` | string |
+| `modelSelection.outerFolds[].trainingEvents` | array |
+| `modelSelection.outerFolds[].trainingEvents[]` | string |
+| `modelSelection.protocolSha256` | string |
+| `modelSelection.protocolVersion` | string |
+| `modelSelection.scoreScope` | string |
+| `modelSelection.selectionCounts` | object |
+| `modelSelection.selectionCounts.distance` | integer |
+| `modelSelection.selectionCounts.lightgbm` | integer |
+| `modelSelection.selectionCounts.logistic_regression` | integer |
+| `modelSelection.selectionMetric` | string |
+| `modelSelection.uncertaintyDefinition` | string |
 | `overall` | object |
 | `overall.auc` | array |
 | `overall.auc[]` | number |
@@ -442,6 +572,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `overallPoint.brier` | number |
 | `overallPoint.distanceAuc` | number |
 | `predictionEvents` | integer |
+| `predictionIntervalDefinition` | string |
 | `probabilityDefinition` | string |
 | `rows` | integer |
 | `sampleData` | boolean |
@@ -701,9 +832,11 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `companyPredictions[].ciHigh` | number |
 | `companyPredictions[].ciLow` | number |
 | `companyPredictions[].companyId` | string |
+| `companyPredictions[].explanationMethod` | string |
 | `companyPredictions[].lowConfidence` | boolean |
 | `companyPredictions[].outcomeObservable` | boolean |
 | `companyPredictions[].pHit` | number |
+| `companyPredictions[].predictionModel` | string |
 | `companyPredictions[].predictionScope` | string |
 | `companyPredictions[].shap` | array |
 | `companyPredictions[].shapBaseValue` | number |
@@ -811,10 +944,12 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `predictions[]` | object |
 | `predictions[].ciHigh` | number |
 | `predictions[].ciLow` | number |
+| `predictions[].explanationMethod` | string |
 | `predictions[].lowConfidence` | boolean |
 | `predictions[].nodeId` | string |
 | `predictions[].outcomeObservable` | boolean |
 | `predictions[].pHit` | number |
+| `predictions[].predictionModel` | string |
 | `predictions[].predictionScope` | string |
 | `predictions[].shap` | array |
 | `predictions[].shapBaseValue` | number |

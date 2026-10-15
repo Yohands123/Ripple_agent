@@ -1,0 +1,29 @@
+{
+  "step": "N3",
+  "document": "docs/contracts.md",
+  "fieldPathsByDocument": {
+    "Forecasts": 77,
+    "Metrics": 144,
+    "Network": 206,
+    "Scenario": 223,
+    "Scenario index": 6
+  },
+  "fixtureValidation": "passed",
+  "realValidation": "passed",
+  "focusedExportAndSelectionTests": 20,
+  "selectionValidationTestsIncludingMutations": 9,
+  "newChecks": [
+    "seven outer folds",
+    "six inner events",
+    "five inner training events",
+    "no held-out event leakage",
+    "highest mean inner AUC chosen",
+    "consistent modal pick counts"
+  ],
+  "fixtureExamples": [
+    "chokepoint",
+    "sales_region",
+    "edge layer/corridor/viaNodeIds",
+    "qualitative inferred edge confidence"
+  ]
+}

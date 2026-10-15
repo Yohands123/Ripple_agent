@@ -7,6 +7,7 @@ import pytest
 
 from ml.model_selection import CANDIDATES, FittedCandidate, choose_candidate
 from ml.features import NUMERIC
+from pipeline.validate import Validator
 
 
 def synthetic_events(count=6):
@@ -89,3 +90,20 @@ def test_saved_selection_never_uses_outer_labels_and_exports_the_modal_candidate
         assert fold["innerMeanAuc"][fold["selectedModel"]] == pytest.approx(expected)
     assert counts == selection["selectionCounts"] and sum(counts.values()) == 7
     assert counts[metrics["model"]] == max(counts.values())
+
+
+@pytest.mark.parametrize("mutation, expected", [("count", "total seven"), ("inner_leak", "inner event leakage"), ("wrong_choice", "maximize mean inner AUC")])
+def test_contract_rejects_inconsistent_selection_evidence(mutation, expected):
+    metrics = json.loads(Path("data/processed/metrics.json").read_text(encoding="utf-8"))
+    selection = metrics["modelSelection"]
+    if mutation == "count":
+        selection["selectionCounts"]["distance"] -= 1
+    elif mutation == "inner_leak":
+        fold = selection["outerFolds"][0]
+        fold["innerFolds"][0]["trainingEvents"][0] = fold["eventId"]
+    else:
+        fold = selection["outerFolds"][0]
+        fold["selectedModel"] = min(fold["innerMeanAuc"], key=fold["innerMeanAuc"].get)
+    validator = Validator(Path("."))
+    validator.metrics(metrics)
+    assert any(expected in error for error in validator.errors)

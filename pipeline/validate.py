@@ -364,6 +364,40 @@ class Validator:
             if "rows" in fold and "hits" in fold:
                 self.check(type(fold["rows"]) is int and type(fold["hits"]) is int and 0 < fold["hits"] < fold["rows"], "metrics.loeo: reported event must have both supplier outcome classes")
             self.number(fold.get("brier"), "metrics.loeo.brier", 0, 1)
+            for key, interval in fold.get("auc95", {}).items():
+                self.interval(interval, "metrics.loeo.auc95." + key, 0, 1)
+        if "modelSelection" in document:
+            selection = document["modelSelection"]
+            candidates = {"distance", "logistic_regression", "lightgbm"}
+            folds = selection.get("outerFolds", [])
+            counts = selection.get("selectionCounts", {})
+            self.check(len(folds) == 7 and set(counts) == candidates, "metrics.modelSelection: seven folds and all candidate counts required")
+            self.check(all(type(v) is int and v >= 0 for v in counts.values()) and sum(counts.values()) == 7, "metrics.modelSelection: pick counts must total seven")
+            main = selection.get("mainModel")
+            self.check(main == document.get("model") and main in candidates, "metrics.modelSelection: main model mismatch")
+            if main in counts and counts:
+                self.check(counts[main] == max(counts.values()) == selection.get("mainModelPickCount"), "metrics.modelSelection: main model must have the most picks")
+            self.number(selection.get("nestedAuc"), "metrics.modelSelection.nestedAuc", 0, 1)
+            self.interval(selection.get("nestedAuc95"), "metrics.modelSelection.nestedAuc95", 0, 1)
+            observed = {kind: 0 for kind in candidates}
+            for fold in folds:
+                event = fold.get("eventId")
+                training = set(fold.get("trainingEvents", []))
+                self.check(len(training) == 6 and event not in training, "metrics.modelSelection: outer event leakage or wrong training count")
+                inner = fold.get("innerFolds", [])
+                self.check(len(inner) == 6 and {i.get("heldOutEvent") for i in inner} == training, "metrics.modelSelection: six distinct inner held-out events required")
+                means = fold.get("innerMeanAuc", {})
+                chosen = fold.get("selectedModel")
+                if chosen in observed:
+                    observed[chosen] += 1
+                self.check(set(means) == candidates and chosen in means, "metrics.modelSelection: all three inner candidates required")
+                if chosen in means and all(type(v) in {int, float} for v in means.values()):
+                    self.check(means[chosen] >= max(means.values()) - 1e-12, "metrics.modelSelection: selected model did not maximize mean inner AUC")
+                for item in inner:
+                    self.check(set(item.get("trainingEvents", [])) == training - {item.get("heldOutEvent")}, "metrics.modelSelection: inner event leakage or wrong training set")
+                for kind, value in means.items():
+                    self.number(value, "metrics.modelSelection.innerMeanAuc." + kind, 0, 1)
+            self.check(observed == counts, "metrics.modelSelection: recorded counts disagree with fold choices")
         for key in ["auc", "brier", "baselineAuc"]:
             self.interval(document.get("overall", {}).get(key), "metrics.overall." + key, 0, 1)
         self.check(isinstance(document.get("calibration"), list), "metrics.calibration: array required")
