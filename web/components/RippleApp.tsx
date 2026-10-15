@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { buildTrace } from "@/lib/trace";
+import { buildRipple, HOP_DELAY, riskColor } from "@/lib/ripple";
+import RippleLayer from "./RippleLayer";
 import { loadForecasts, loadMetrics, loadNetwork, loadNetworkAt, loadScenario, loadScenarioIndex } from "@/lib/data";
 import { computeLayout, withZoomLabels } from "@/lib/layout";
 import { project } from "@/lib/geo";
@@ -185,11 +187,24 @@ export default function RippleApp() {
 
   // Trace: the selected node's suppliers upstream and its path to customers downstream; the rest dims.
   const trace = useMemo(() => (network && selectedId ? buildTrace(network, selectedId) : null), [network, selectedId]);
+  // Ripple: when a disruption drops, the wave reaches suppliers hop by hop and they fill with their predicted risk.
+  const ripple = useMemo(() => (network && disrupted ? buildRipple(network, scenario!) : null), [network, disrupted, scenario]);
+  const risk = useMemo(() => new Map((disrupted ? scenario!.predictions : []).map((p) => [p.nodeId, p.pHit])), [disrupted, scenario]);
   const look = useMemo(() => {
-    if (!trace) return undefined;
-    return (id: string): NodeLook | undefined =>
-      id === trace.root ? { traced: "self" } : trace.upstream.has(id) ? { traced: "upstream" } : trace.downstream.has(id) ? { traced: "downstream" } : undefined;
-  }, [trace]);
+    if (trace) {
+      return (id: string): NodeLook | undefined =>
+        id === trace.root ? { traced: "self" } : trace.upstream.has(id) ? { traced: "upstream" } : trace.downstream.has(id) ? { traced: "downstream" } : undefined;
+    }
+    if (!ripple) return undefined;
+    const reached = [...ripple.hops.keys()].map((id) => risk.get(id)).filter((v): v is number => v != null);
+    const [lo, hi] = [Math.min(...reached), Math.max(...reached)];
+    return (id: string): NodeLook | undefined => {
+      const hop = ripple.hops.get(id);
+      if (hop == null) return undefined;
+      const p = risk.get(id);
+      return { className: "ripple", delay: hop * HOP_DELAY, fill: p != null ? riskColor(p, lo, hi) : undefined };
+    };
+  }, [trace, ripple, risk]);
   const onChain = (part: ChainPart) => {
     if (!trace || !network || !scene) return;
     if (part === "suppliers" && network.nodes.find((n) => n.id === trace.root)?.kind === "assembly") {
@@ -281,6 +296,7 @@ export default function RippleApp() {
           <svg width={size.mapW} height={size.mapH} viewBox={`0 0 ${size.mapW} ${size.mapH}`} aria-hidden="true" className="map-svg">
             <WorldMap highlight={highlight} onLoaded={onWorld} />
             {scene && <RouteLayer routes={shownRoutes} money={layers.money ? scene.money : []} />}
+            {scene && network && ripple && !trace && <RippleLayer key={scenario!.id} network={network} ripple={ripple} risk={risk} />}
             {scene && network && trace && <TraceLayer network={network} trace={trace} money={scene.money} />}
           </svg>
           <div className="map-overlay">
@@ -289,6 +305,7 @@ export default function RippleApp() {
             ))}
             {network && scene && (
               <NodeLayer
+                key={disrupted ? `ripple-${scenario!.id}` : "free"}
                 network={network}
                 layout={scene.layout}
                 groupText={scene.groupText}
@@ -336,7 +353,16 @@ export default function RippleApp() {
             <ForecastSection forecasts={forecasts} />
           </NodeDetailPanel>
         ) : disrupted ? (
-          <DisruptionPanel sample={sample} scenario={scenario!} network={network} onClear={clear} showActual={eventOver} onSelectNode={selectNode} picker={picker}>
+          <DisruptionPanel
+            sample={sample}
+            scenario={scenario!}
+            network={network}
+            onClear={clear}
+            showActual={eventOver}
+            onSelectNode={selectNode}
+            picker={picker}
+            hops={ripple?.counts}
+          >
             {lanesNote}
             <LayerToggles layers={layers} onChange={setLayers} />
             <ReplaySection

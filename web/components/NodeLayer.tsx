@@ -73,7 +73,7 @@ function Bubble({ c, look, onHover }: { c: Cluster; look?: NodeLook; onHover?: (
     width: d,
     height: d,
     background: fill,
-    transitionDelay: look?.delay != null ? `${look.delay}s` : undefined,
+    ...(look?.delay != null ? ({ "--ripple-delay": `${look.delay}s` } as CSSProperties) : {}),
   };
   return (
     <button
@@ -133,7 +133,8 @@ export default function NodeLayer({ network, layout, onSelect, onHover, selected
   const bubbleLook = (c: Cluster): NodeLook | undefined => {
     if (!look) return undefined;
     const looks = c.members.map((m) => look(m.id)).filter((l): l is NodeLook => Boolean(l));
-    return looks.find((l) => l.traced) ?? looks.find((l) => l.fill) ?? looks[0];
+    // The highest-risk member's color: on the risk ramp, the lower the green channel, the redder.
+    return looks.find((l) => l.traced) ?? looks.filter((l) => l.fill).sort((a, b) => greenOf(a.fill!) - greenOf(b.fill!))[0] ?? looks[0];
   };
 
   const shown = (n: NetworkNode) => n.kind !== "hq" && !n.waypoint && !inBubble.has(n.id) && !(hideSuppliers && isClusterable(n));
@@ -165,7 +166,7 @@ export default function NodeLayer({ network, layout, onSelect, onHover, selected
             onClick={() => onSelect?.(n.id)}
             onPointerEnter={() => onHover?.(n.id)}
             onPointerLeave={() => onHover?.(null)}
-            style={{ left: x - s / 2, top: y - s / 2, width: s, height: s, transitionDelay: l?.delay != null ? `${l.delay}s` : undefined }}
+            style={{ left: x - s / 2, top: y - s / 2, width: s, height: s, ...(l?.delay != null ? ({ "--ripple-delay": `${l.delay}s` } as CSSProperties) : {}) }}
           >
             <NodeSymbol kind={n.kind} tier={n.tier} size={s} fill={l?.fill} />
           </button>
@@ -192,6 +193,9 @@ export default function NodeLayer({ network, layout, onSelect, onHover, selected
     </>
   );
 }
+
+/** Green channel of an rgb() color: lower is redder on the risk ramp. */
+const greenOf = (c: string) => Number(c.match(/\d+/g)?.[1] ?? 255);
 
 // Sites with a known or inferred tier draw over grey (unknown-tier) sites.
 const known = (t: number | null) => (t == null ? 0 : 1);

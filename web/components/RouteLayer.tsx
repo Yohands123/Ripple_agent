@@ -45,7 +45,7 @@ function RouteBody({ r, w, sc }: { r: RouteDraw; w: number; sc: Scale }) {
 
   if (r.state === "blocked") {
     return (
-      <g data-route={r.id} data-state="blocked" opacity={R.blockedOpacity} className="enter-grey">
+      <g data-route={r.id} data-state="blocked" opacity={R.blockedOpacity} className="enter-grey ripple-red">
         <path
           {...common}
           stroke={color.blocked}

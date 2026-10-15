@@ -1293,3 +1293,66 @@ button {
   outline-offset: 3px;
   border-radius: 50%;
 }
+
+/* Ripple: affected routes flash red, then waves reach suppliers hop by hop and they fill with risk color. */
+.ripple-red > path:first-child {
+  animation: route-red 1.8s ease 0.25s both;
+}
+
+@keyframes route-red {
+  0%,
+  55% {
+    stroke: var(--coin-red);
+  }
+  100% {
+    stroke: var(--route-blocked);
+  }
+}
+
+.ripple-wave {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ripple-wave 1.3s ease-out both;
+}
+
+@keyframes ripple-wave {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0.85;
+  }
+  45% {
+    stroke-dashoffset: 0;
+    opacity: 0.85;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.ripple {
+  animation: ripple-in 0.45s ease-out var(--ripple-delay, 0s) both;
+}
+
+@keyframes ripple-in {
+  from {
+    opacity: 0.35;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple-red > path:first-child,
+  .ripple-wave,
+  .ripple {
+    animation: none;
+  }
+
+  .ripple-wave {
+    display: none;
+  }
+}
