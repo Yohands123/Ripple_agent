@@ -23,7 +23,21 @@
       "missingDistances": 4,
       "companySiteProjections": 414,
       "maxSitesPerCompany": 14,
-      "siteWeightedDistanceAucDiagnostic": 0.4401587041884817
+      "siteWeightedDistanceAucDiagnostic": 0.4401587041884817,
+      "auc95": {
+        "modelAuc": [
+          0.3297279094827586,
+          0.8545393318965515
+        ],
+        "logisticAuc": [
+          0.25862068965517243,
+          0.8006465517241379
+        ],
+        "distanceAuc": [
+          0.2650862068965517,
+          0.6185344827586207
+        ]
+      }
     },
     {
       "eventId": "kumamoto-2016",
@@ -35,7 +49,21 @@
       "missingDistances": 3,
       "companySiteProjections": 463,
       "maxSitesPerCompany": 23,
-      "siteWeightedDistanceAucDiagnostic": 0.6468120805369127
+      "siteWeightedDistanceAucDiagnostic": 0.6468120805369127,
+      "auc95": {
+        "modelAuc": [
+          0.3229166666666667,
+          0.8854166666666666
+        ],
+        "logisticAuc": [
+          0.2630208333333333,
+          0.9635416666666666
+        ],
+        "distanceAuc": [
+          0.3723958333333333,
+          0.9140625
+        ]
+      }
     },
     {
       "eventId": "red-sea-2023",
@@ -47,7 +75,21 @@
       "missingDistances": 0,
       "companySiteProjections": 564,
       "maxSitesPerCompany": 30,
-      "siteWeightedDistanceAucDiagnostic": 0.5932927831662009
+      "siteWeightedDistanceAucDiagnostic": 0.5932927831662009,
+      "auc95": {
+        "modelAuc": [
+          0.36752136752136755,
+          0.9615384615384616
+        ],
+        "logisticAuc": [
+          0.0,
+          0.6253561253561254
+        ],
+        "distanceAuc": [
+          0.2606837606837607,
+          0.9487179487179487
+        ]
+      }
     },
     {
       "eventId": "russia-2022",
@@ -59,7 +101,21 @@
       "missingDistances": 0,
       "companySiteProjections": 510,
       "maxSitesPerCompany": 30,
-      "siteWeightedDistanceAucDiagnostic": 0.5101327742837176
+      "siteWeightedDistanceAucDiagnostic": 0.5101327742837176,
+      "auc95": {
+        "modelAuc": [
+          0.18719211822660098,
+          0.6231527093596059
+        ],
+        "logisticAuc": [
+          0.2715363300492611,
+          0.6687192118226601
+        ],
+        "distanceAuc": [
+          0.30480295566502463,
+          0.750615763546798
+        ]
+      }
     },
     {
       "eventId": "shanghai-2022",
@@ -71,7 +127,21 @@
       "missingDistances": 0,
       "companySiteProjections": 510,
       "maxSitesPerCompany": 30,
-      "siteWeightedDistanceAucDiagnostic": 0.6813122264971071
+      "siteWeightedDistanceAucDiagnostic": 0.6813122264971071,
+      "auc95": {
+        "modelAuc": [
+          0.31716906946264745,
+          0.6733371559633027
+        ],
+        "logisticAuc": [
+          0.3112712975098296,
+          0.7024901703800787
+        ],
+        "distanceAuc": [
+          0.5717562254259502,
+          0.8230668414154653
+        ]
+      }
     },
     {
       "eventId": "suez-2021",
@@ -83,7 +153,21 @@
       "missingDistances": 0,
       "companySiteProjections": 522,
       "maxSitesPerCompany": 15,
-      "siteWeightedDistanceAucDiagnostic": 0.7582727272727272
+      "siteWeightedDistanceAucDiagnostic": 0.7582727272727272,
+      "auc95": {
+        "modelAuc": [
+          0.08943089430894309,
+          0.7073170731707317
+        ],
+        "logisticAuc": [
+          0.7588075880758808,
+          1.0
+        ],
+        "distanceAuc": [
+          0.8102981029810298,
+          0.9417344173441734
+        ]
+      }
     },
     {
       "eventId": "zhengzhou-2022",
@@ -95,7 +179,21 @@
       "missingDistances": 0,
       "companySiteProjections": 519,
       "maxSitesPerCompany": 30,
-      "siteWeightedDistanceAucDiagnostic": 0.7038076152304609
+      "siteWeightedDistanceAucDiagnostic": 0.7038076152304609,
+      "auc95": {
+        "modelAuc": [
+          0.30165289256198347,
+          0.7293560606060603
+        ],
+        "logisticAuc": [
+          0.19972451790633608,
+          0.6046831955922864
+        ],
+        "distanceAuc": [
+          0.2706611570247934,
+          0.8278236914600551
+        ]
+      }
     }
   ],
   "duplicateCompanyEventRows": 0,
@@ -931,5 +1029,112 @@
         "supply-supplier-f839bd2a2788a484-backbone-assembly-bengaluru"
       ]
     }
-  ]
+  ],
+  "perEventIntervalMethod": "10,000 paired stratified company bootstrap draws per event; 2.5/97.5 percentiles, seed 20261015; fixed predictions and observed hit counts",
+  "overallIntervalMethod": "2,000 event-cluster bootstrap draws on the seven eligible events; fixed predictions, no retraining",
+  "pairDecomposition": {
+    "withinEventAuc": 0.5210949764521193,
+    "crossEventAuc": 0.4210748361134549,
+    "crossEventPairShare": 0.8580896686159845,
+    "pooledAuc": 0.4352687273739905,
+    "withinEventPairs": 5096,
+    "crossEventPairs": 30814
+  },
+  "apparentTrainingDiagnostic": {
+    "available": true,
+    "folds": [
+      {
+        "eventId": "covid-china-2020",
+        "trainingCompanies": 836,
+        "trainingHits": 37,
+        "apparentTrainingAuc": 0.8564083482731794,
+        "heldOutAuc": 0.6007543103448276,
+        "rounds": 1
+      },
+      {
+        "eventId": "japan-2011",
+        "trainingCompanies": 902,
+        "trainingHits": 45,
+        "apparentTrainingAuc": 0.8224037339556592,
+        "heldOutAuc": null,
+        "rounds": 1
+      },
+      {
+        "eventId": "kumamoto-2016",
+        "trainingCompanies": 860,
+        "trainingHits": 41,
+        "apparentTrainingAuc": 0.8583787486226511,
+        "heldOutAuc": 0.6549479166666666,
+        "rounds": 5
+      },
+      {
+        "eventId": "red-sea-2023",
+        "trainingCompanies": 840,
+        "trainingHits": 42,
+        "apparentTrainingAuc": 0.8390619405656999,
+        "heldOutAuc": 0.6823361823361823,
+        "rounds": 1
+      },
+      {
+        "eventId": "russia-2022",
+        "trainingCompanies": 837,
+        "trainingHits": 38,
+        "apparentTrainingAuc": 0.8834233581450498,
+        "heldOutAuc": 0.394088669950739,
+        "rounds": 1
+      },
+      {
+        "eventId": "shanghai-2022",
+        "trainingCompanies": 837,
+        "trainingHits": 31,
+        "apparentTrainingAuc": 0.8432722324501721,
+        "heldOutAuc": 0.4950851900393185,
+        "rounds": 4
+      },
+      {
+        "eventId": "suez-2021",
+        "trainingCompanies": 834,
+        "trainingHits": 42,
+        "apparentTrainingAuc": 0.8465758778258777,
+        "heldOutAuc": 0.4268292682926829,
+        "rounds": 1
+      },
+      {
+        "eventId": "thailand-2011",
+        "trainingCompanies": 901,
+        "trainingHits": 45,
+        "apparentTrainingAuc": 0.8324766355140187,
+        "heldOutAuc": null,
+        "rounds": 1
+      },
+      {
+        "eventId": "zhengzhou-2022",
+        "trainingCompanies": 833,
+        "trainingHits": 39,
+        "apparentTrainingAuc": 0.9790092359361882,
+        "heldOutAuc": 0.5151515151515151,
+        "rounds": 400
+      }
+    ],
+    "definition": "Apparent AUC of the actual saved ensemble on its full outer-training pool. Some members omit events, but the ensemble as a whole was fitted to this pool; this is not independent validation."
+  },
+  "preSelectionModel": "lightgbm",
+  "overall95": {
+    "auc": [
+      0.38190547719509116,
+      0.5264889760403811
+    ],
+    "brier": [
+      0.03434808641338068,
+      0.0736334430461032
+    ],
+    "baselineAuc": [
+      0.45524633400527736,
+      0.6245714250967449
+    ],
+    "distanceAuc": [
+      0.5380522763571716,
+      0.7479424754042331
+    ]
+  }
 }
