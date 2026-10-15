@@ -38,7 +38,8 @@ def test_water_mesh_routes_around_land_and_crosses_dateline_by_short_arc():
 def test_all_requested_reference_places_have_sources_and_null_unknown_tiers(bundle):
     network = bundle["network.json"]
     nodes = {n["id"]: n for n in network["nodes"] if n["layer"] == "backbone"}
-    assert len(nodes) == 55
+    assert len([n for n in nodes.values() if not n.get("waypoint")]) == 55
+    assert len([n for n in nodes.values() if n.get("waypoint")]) == 2
     assert {n["salesRegion"] for n in nodes.values() if n["kind"] == "sales_region"} == {"Americas", "Europe", "Greater China", "Japan", "Rest of Asia Pacific"}
     for key in ["apple-park", "assembly-zhengzhou", "assembly-shenzhen", "assembly-chennai", "assembly-bengaluru", "assembly-northern-vietnam", "suez", "panama", "malacca", "bab-el-mandeb", "taiwan-strait"]:
         assert nodes["backbone-" + key]["sources"]
@@ -102,7 +103,7 @@ def test_cape_alternatives_preserve_origins_and_destinations_and_avoid_the_block
 
 def test_geometry_audit_records_no_unexpected_land_crossings():
     report = json.loads((ROOT / "data/review/backbone_audit.json").read_text(encoding="utf-8"))
-    assert len(report["seaRoutes"]) == 24
+    assert len(report["seaRoutes"]) == 30
     assert report["unexpectedLandCrossings"] == 0
     assert all(r["unchangedSinceClassificationCommit"] for r in report["protectedArtifacts"])
 

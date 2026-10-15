@@ -31,8 +31,8 @@ def crosses_land(a, b, land):
     return land.intersects(LineString([a, b]))
 
 
-def audit_geometry(catalog, countries):
-    land = unary_union([shape(f["geometry"]) for f in countries["features"]])
+def audit_geometry(catalog, countries=None):
+    from pipeline.sea_geometry import sea_route_errors
     nodes = {n["id"]: n for n in catalog["nodes"]}
     report = []
     for edge in catalog["edges"]:
@@ -40,30 +40,18 @@ def audit_geometry(catalog, countries):
             continue
         a, b = nodes[edge["from"]], nodes[edge["to"]]
         points = [[a["lon"], a["lat"]], *edge["via"], [b["lon"], b["lat"]]]
-        exempt = set()
-        for passage in edge.get("narrowPassages", []):
-            if nodes[passage["nodeId"]]["kind"] == "canal":
-                for p, q in zip(passage["points"], passage["points"][1:]):
-                    exempt.add((tuple(p), tuple(q)))
-        failures, land_exemptions = [], []
-        for i, (p, q) in enumerate(zip(points, points[1:])):
-            if not crosses_land(p, q, land):
-                continue
-            if i in {0, len(points) - 2} or (tuple(p), tuple(q)) in exempt:
-                land_exemptions.append(i)
-            else:
-                failures.append({"segment": i, "from": p, "to": q})
+        failures = list(sea_route_errors(edge, nodes))
         report.append({"routeId": edge["id"], "waypoints": len(edge["via"]),
                        "schematicLengthKm": round(sum(distance_km(p, q) for p, q in zip(points, points[1:])), 1),
                        "minimumLatitude": min(p[1] for p in points),
-                       "unexpectedLandCrossings": failures, "explicitCanalOrPublishedEndpointLandConnectors": len(land_exemptions)})
+                       "unexpectedLandCrossings": failures, "checks": ["physical land polygons", "smoothed ship path", "date-line split"],
+                       "portToleranceKm": 3, "independentCanalCorridorToleranceKm": 1})
     return report
 
 
 def audit(root=ROOT):
     catalog = read(root / "data/processed/backbone.json")
-    geography = read(root / "data/raw/natural_earth/ne_10m_admin_0_countries.geojson")
-    sea = audit_geometry(catalog, geography)
+    sea = audit_geometry(catalog)
     protected = []
     # Last completed classification/model task, before adding display context.
     for path in ["data/processed/features.csv", "data/processed/labels.csv", "data/processed/metrics.json",
@@ -89,12 +77,12 @@ def audit(root=ROOT):
     report = {"referenceAsOf": catalog["referenceAsOf"], "nodes": len(catalog["nodes"]), "corridors": len(catalog["edges"]),
               "nodeKinds": dict(Counter(n["kind"] for n in catalog["nodes"])), "seaRoutes": sea,
               "unexpectedLandCrossings": failures, "protectedArtifacts": protected, "scenarios": scenarios,
-              "scope": "Coastline checks establish schematic geometry only: no vessel draft, shipping schedule, shipment use, road navigability or disruption capacity is measured. Canal passages and published inland port reference connectors are explicitly exempt from the land mask.",
+              "scope": "Exact Natural Earth physical-land checks include polylines and smoothed ship paths. Only 3 km around port endpoints and a 1 km cartographic corridor around independently pinned canal centerlines are allowed. No arbitrary canal/endpoint segments are exempt. This does not establish navigability or actual shipments.",
               "lengthDefinition": "Great-circle sum of displayed points, not a measured voyage length"}
     folder = root / "data/review"
     (folder / "backbone_audit.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     lines = ["# Sourced backbone audit", "", f"Reference dated {catalog['referenceAsOf']}: {len(catalog['nodes'])} nodes and {len(catalog['edges'])} inferred corridors; {len(sea)} sea paths.",
-             "", f"Unexpected open-water land crossings: {failures}. Explicit canal passages and connectors from published port references to the water mesh are separately recorded.",
+             "", f"Land-crossing failures: {failures}. Both polylines and smoothed ship paths are checked against pinned Natural Earth physical-land polygons; port tolerance is 3 km and independently sourced canal centerline tolerance is 1 km. Route metadata cannot exempt a crossing.",
              "", "| Event | Supplier sites / access links | Reference nodes | Blocked exposure | Detour | Expedited |", "|---|---:|---:|---:|---:|---:|"]
     for row in scenarios:
         routes = row["affectedRoutes"]
@@ -103,7 +91,7 @@ def audit(root=ROOT):
               "", "Both 2011 rosters retain 156 unlocated company predictions each and zero supplier site pins. Backbone context is contemporary and explicitly does not assert historical facility presence (Apple Park, for example, opened in 2017).",
               "", "Suez and Red Sea overlays identify the five inferred Suez corridors, their five Cape alternatives, and eight illustrative air alternatives. Russia has no proposed detour or expedition around export restrictions. All exposure classifications and alternatives are inferred, and no complete gateway closure is inferred from a regional event.",
               "", "Features, company/site predictions, CAR labels, evaluation, forecasts and indexed optimizer outputs are byte-identical after line-ending normalization to classification commit `90caca9`. The backbone is not added to the model or optimizer graph.",
-              "", "Geometry uses a 0.5-degree offshore grid and a 0.05-degree port/strait refinement of pinned Natural Earth polygons. Narrow canal connections are schematic published-reference passages; these paths cannot be used for navigation. Dataset pins and every node/edge's public citations are in the committed catalog and source registry.",
+              "", "Pacific corridors split at paired date-line waypoints so no displayed segment crosses Eurasia/Africa. WPI port references are retained in publishedPosition; offshore display approaches are explicitly inferred. Geometry uses pinned physical-land polygons, fine coastal meshes and published Suez/Panama river/lake centerlines. Dataset hashes and tolerances are in data/processed/sea_geometry.json. These are schematic corridors, not navigation data.",
               "", "Consumer integration notes are in `backbone_integration_notes.md`. Full geometry, source pins, coverage and protected-file hashes are in `backbone_audit.json` and `data/processed/backbone.json`."]
     (folder / "backbone_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     if failures or any(not r["unchangedSinceClassificationCommit"] for r in protected) or any(r["wrongNearestGatewayOrTier"] for r in scenarios):

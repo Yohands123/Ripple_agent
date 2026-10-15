@@ -64,6 +64,8 @@ def load_raw(config, root, offline):
 def build_catalog(root=ROOT, offline=False):
     from pipeline.geocode import load_datasets, centroid, normalize
     from pipeline.sea_routes import WaterRouter
+    from pipeline.sea_geometry import geometry, dense, SOURCES, sea_route_errors
+    from shapely.geometry import LineString, Point
 
     config = read(root / "data/sources/backbone.json")
     if config["approval"].get("approved") is not True:
@@ -196,7 +198,10 @@ def build_catalog(root=ROOT, offline=False):
                      relation="inferred_cargo_corridor", geometryBasis="Geodesic display arc between airport references; may require intermediate flights")
     for origin, destination in [("pvg", "ams"), ("pvg", "jfk"), ("jfk", "lax"), ("fra", "svo"), ("wuh", "fra"), ("kmj", "nrt"), ("sdj", "nrt"), ("bkk", "fra"), ("dmk", "fra"), ("hph", "fra"), ("tpe", "nrt")]:
         add_edge(f"air-{origin}-{destination}", "airport-" + origin, "airport-" + destination, "air", ["cargo"], relation="inferred_cargo_corridor")
-    router = WaterRouter(geo["countries"])
+    physical_land, sea_metadata = geometry()
+    # A modest cartographic coastal margin also keeps rounded display curves
+    # in water between their control points. Canal entrances use a finer mesh.
+    router = WaterRouter(land=physical_land.buffer(.005))
     def pos(key):
         n = by_id[PREFIX + key]
         return [n["lon"], n["lat"]]
@@ -206,17 +211,33 @@ def build_catalog(root=ROOT, offline=False):
 
     malacca_router = local((94, 0, 106, 8.5))
     bab_router = local((41, 11, 46, 16))
-    suez_router = local((31, 24, 36, 32))
-    panama_router = local((-81, 7, -78, 11))
     print("Refining Malacca, Bab-el-Mandeb and the Suez approaches", flush=True)
     malacca_path = malacca_router.route([105, 1], pos("malacca")) + malacca_router.route(pos("malacca"), [96, 6])
     bab_path = bab_router.route([45, 12], pos("bab-el-mandeb")) + bab_router.route(pos("bab-el-mandeb"), [42, 15])
     passage_paths = {
         "malacca": malacca_path,
         "bab-el-mandeb": bab_path,
-        "suez": suez_router.route([35, 25], pos("port-suez-south")) + [pos("port-suez-south"), pos("suez"), pos("port-said"), [32.5, 32]],
-        "panama": panama_router.route([-79.5, 8], pos("port-balboa")) + [pos("port-balboa"), pos("panama"), pos("port-cristobal")] + panama_router.route(pos("port-cristobal"), [-80, 10]),
     }
+    for name, approaches in [("suez", ([35, 25], [32.5, 32])), ("panama", ([-79.5, 8], [-80, 10]))]:
+        centerline = sea_metadata["canalCenterlines"][name]
+        line = LineString(centerline)
+        node = by_id[PREFIX + name]
+        node["publishedPosition"] = {"lon": node["lon"], "lat": node["lat"]}
+        point = line.interpolate(line.project(Point(pos(name))))
+        node.update(lon=round(point.x, 6), lat=round(point.y, 6), precision="city",
+                    positionBasis="Display anchor projected from the published area reference onto the independently sourced Natural Earth canal centerline",
+                    positionStatus="inferred", sources=citations(node["sources"], SOURCES))
+        bounds = (31, 24, 36, 32) if name == "suez" else (-81, 7, -78, 11)
+        # Fine mesh for narrow entrances. The canal itself follows published
+        # river/lake centerlines, never an arbitrary centroid-to-centroid link.
+        fine = WaterRouter(step=.005, bounds=bounds, land=physical_land)
+        def entrance(endpoint, offshore):
+            start = fine.snap(tuple(endpoint))
+            finish = fine.snap(tuple(offshore))
+            return [fine.point(c) for c in fine.path_cells(start, finish)]
+        south = entrance(centerline[0], approaches[0])
+        north = entrance(centerline[-1], approaches[1])
+        passage_paths[name] = list(reversed(south)) + centerline + north
     coastal_routers = {}
 
     def water_leg(a, b):
@@ -236,6 +257,21 @@ def build_catalog(root=ROOT, offline=False):
             x, y = point
             coastal_routers[port_key] = local((round(x - 3, 1), round(y - 3, 1), round(x + 3, 1), round(y + 3, 1)))
         return coastal_routers[port_key].route(point, water_point)
+
+    # WPI positions can identify inland port offices rather than water.
+    # Retain those published references and display an explicitly inferred
+    # coastal approach, so a sea edge never requires a long land connector.
+    for node in nodes:
+        if node["kind"] != "port":
+            continue
+        key = node["id"].removeprefix(PREFIX)
+        original = pos(key)
+        path = coastal_path(key, original)
+        point = path[0]
+        node["publishedPosition"] = {"lon": original[0], "lat": original[1]}
+        node.update(lon=point[0], lat=point[1], precision="city", positionStatus="inferred",
+                    positionBasis="Inferred coastal approach nearest the published port reference on a 0.05-degree Natural Earth water mesh; original reference retained in publishedPosition",
+                    sources=citations(node["sources"], SOURCES))
     # Offshore control points impose the sourced global corridor, rather than
     # shortest paths around a different continent. Their placement is inferred.
     controls = {
@@ -256,11 +292,9 @@ def build_catalog(root=ROOT, offline=False):
                 if gate not in {"suez", "panama"} and distance_km(cursor, canal[-1]) < distance_km(cursor, canal[0]):
                     canal = list(reversed(canal))
                 points.extend(water_leg(cursor, canal[0]))
-                # Canal line is a schematic through published references;
-                # it is deliberately exempt from the coarse open-water mask.
                 points.extend(canal)
                 cursor = canal[-1]
-                passages.append({"nodeId": PREFIX + gate, "points": canal, "scope": "Schematic canal passage, not a surveyed channel centerline" if gate in {"suez", "panama"} else "Inferred strait passage refined on a 0.05-degree water grid"})
+                passages.append({"nodeId": PREFIX + gate, "scope": "Natural Earth published river/lake canal centerline with water-grid approaches" if gate in {"suez", "panama"} else "Inferred strait passage refined on a 0.05-degree water grid"})
                 via_nodes.append(PREFIX + gate)
             else:
                 target = controls[gate] if gate in controls else pos(gate)
@@ -272,9 +306,9 @@ def build_catalog(root=ROOT, offline=False):
         points = [p for i, p in enumerate(points) if not i or p != points[i - 1]]
         edge = add_edge(key, a, b, "sea", source_keys, via=points, viaNodeIds=via_nodes,
                         laneName=by_id[PREFIX + a]["name"] + " to " + by_id[PREFIX + b]["name"] + " — " + corridor,
-                        corridor=corridor, geometryBasis="Inferred Natural Earth water-grid path: 0.5-degree offshore mesh, 0.05-degree port/strait refinement, and explicit schematic canal passages; published port reference to nearest water connector is not a surveyed channel",
-                        geometrySources=[geo_sources["countries"]], narrowPassages=passages)
-        edge["sources"] = citations(edge["sources"], [geo_sources["countries"]], *[by_id[n]["sources"] for n in via_nodes])
+                        corridor=corridor, geometryBasis="Inferred Natural Earth physical-land water-grid path with coastal refinement and independently sourced canal centerlines; a schematic corridor, not a navigable vessel track",
+                        geometrySources=SOURCES, narrowPassages=passages)
+        edge["sources"] = citations(edge["sources"], SOURCES, *[by_id[n]["sources"] for n in via_nodes])
         if alternative:
             edge["alternativeTo"] = PREFIX + "route-" + alternative
         print(f"Built sea corridor {key}: {len(points)} waypoints", flush=True)
@@ -294,6 +328,51 @@ def build_catalog(root=ROOT, offline=False):
         sea(f"sea-{origin}-new-york-panama", "port-" + origin, "port-new-york", gates + ["north-pacific", "east-pacific", "panama", "caribbean"], "Asia-Americas via Panama", ("sea", "straits", "panama"))
     for a, b, gates in [("shanghai", "yantian", ["taiwan-strait"]), ("shanghai", "tokyo", []), ("kaohsiung", "shanghai", ["taiwan-strait"]), ("haiphong", "yantian", []), ("chennai", "singapore", ["malacca", "singapore-approach"]), ("yantian", "singapore", ["south-china-sea", "singapore-approach"]), ("shekou", "singapore", ["south-china-sea", "singapore-approach"]), ("shanghai", "busan", [])]:
         sea(f"sea-{a}-{b}", "port-" + a, "port-" + b, gates, "Inferred regional feeder corridor")
+
+    # Split at the map seam before smoothing: no projected segment may span
+    # from +180 to -180. Paired waypoints denote the same geographic point.
+    geometry_failures = []
+    for edge in list(edges):
+        if edge["mode"] != "sea":
+            continue
+        original = copy.deepcopy(edge)
+        raw_points = [pos(edge["from"].removeprefix(PREFIX)), *edge["via"], pos(edge["to"].removeprefix(PREFIX))]
+        raw_points = [p for i, p in enumerate(raw_points) if not i or p != raw_points[i-1]]
+        parts, current = [], [raw_points[0]]
+        for p, q in zip(raw_points, raw_points[1:]):
+            if abs(p[0] - q[0]) > 180:
+                direction = 1 if p[0] > 0 else -1
+                q_lon = q[0] + 360 * direction
+                latitude = round(p[1] + (q[1] - p[1]) * (direction * 180 - p[0]) / (q_lon - p[0]), 6)
+                current.append([direction * 180, latitude])
+                parts.append(current)
+                current = [[-direction * 180, latitude]]
+            current.append(q)
+        parts.append(current)
+        for i, points in enumerate(parts):
+            segment = edge if i == 0 else copy.deepcopy(original)
+            segment["id"] = original["id"] + (f"-segment-{i+1}" if i else "")
+            segment.update(laneId=original["id"], segmentIndex=i + 1, segmentCount=len(parts),
+                           originId=original["from"], destinationId=original["to"])
+            for endpoint, point in [("from", points[0]), ("to", points[-1])]:
+                if abs(point[0]) != 180:
+                    continue
+                seam = "dateline-" + str(point[1]).replace(".", "p")
+                identifier = seam + ("-east" if point[0] > 0 else "-west")
+                if PREFIX + identifier not in by_id:
+                    node = add_node(identifier, "Pacific date-line waypoint", "border", point, "North Pacific", SOURCES,
+                                    waypoint=True, seamId=seam, positionBasis="Inferred route intersection with the map date line; paired east/west markers are the same geographic point")
+                    by_id[node["id"]] = node
+                segment[endpoint] = PREFIX + identifier
+            points = dense(points)
+            segment["via"] = points[1:-1]
+            errors = sea_route_errors(segment, by_id)
+            if errors:
+                geometry_failures.append(segment["id"] + ": " + "; ".join(errors))
+            if i:
+                edges.append(segment)
+    if geometry_failures:
+        raise ValueError("\n".join(geometry_failures))
 
     return {"referenceAsOf": config["checkedOn"], "scope": config["scope"], "approval": config["approval"],
             "datasets": config["datasets"], "geography": geo_config, "nodes": nodes, "edges": edges,
@@ -406,7 +485,10 @@ def attach_backbone(network, scenario, event, catalog):
     network["scope"] = "Own-year disclosed supplier cohort plus a separately dated contemporary geographic backbone; all shipment and access routes are inferred."
     network["backbone"] = {k: catalog[k] for k in ["referenceAsOf", "scope", "approval", "routeDefinition", "nearestGatewayDefinition"]}
     scenario["shock"]["nodeIds"] = hit_nodes
-    scenario["affectedRoutes"] = {"blocked": sorted(blocked), "detour": sorted(detour), "expedited": sorted(expedited)}
+    def expand_segments(identifiers):
+        lanes = {edge_by_id[i].get("laneId", i) for i in identifiers}
+        return sorted({e["id"] for e in edges if e["id"] in identifiers or e.get("laneId") in lanes})
+    scenario["affectedRoutes"] = {"blocked": expand_segments(blocked), "detour": expand_segments(detour), "expedited": expand_segments(expedited)}
     scenario["affectedRoutesStatus"] = "inferred"
     scenario["affectedRoutesBasis"] = "Scenario exposure overlay inferred from sourced disruption geography and reference corridors. 'Blocked' marks potential disrupted access, not proof that each gateway shut or an Apple shipment stopped. Detour and expedited routes are hypothetical alternatives; no capacity, availability, legality or realized rerouting is measured."
     scenario["affectedRoutesSources"] = scenario["sources"]

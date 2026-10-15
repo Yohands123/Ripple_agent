@@ -1,0 +1,173 @@
+{
+  "before": [
+    {
+      "routeId": "backbone-route-sea-yantian-rotterdam-suez",
+      "failures": [
+        "polyline crosses land near 32.49194, 30.57278",
+        "smoothed ship path crosses land near 27.77441, 35.95801"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-yantian-rotterdam-cape",
+      "failures": [
+        "polyline crosses land near 101.25000, 2.95000",
+        "smoothed ship path crosses land near 4.44414, 51.94258"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-rotterdam-suez",
+      "failures": [
+        "polyline crosses land near 32.49194, 30.57278",
+        "smoothed ship path crosses land near 27.77441, 35.95801"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-rotterdam-cape",
+      "failures": [
+        "polyline crosses land near 101.25000, 2.95000",
+        "smoothed ship path crosses land near 4.44414, 51.94258"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-rotterdam-suez",
+      "failures": [
+        "polyline crosses land near 32.49194, 30.57278",
+        "smoothed ship path crosses land near 27.77441, 35.95801"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-rotterdam-cape",
+      "failures": [
+        "polyline crosses land near 101.25000, 2.95000",
+        "smoothed ship path crosses land near 4.44414, 51.94258"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-chennai-rotterdam-suez",
+      "failures": [
+        "polyline crosses land near 32.49194, 30.57278",
+        "smoothed ship path crosses land near 14.17627, 37.32715"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-chennai-rotterdam-cape",
+      "failures": [
+        "polyline crosses land near 4.28463, 52.11290",
+        "smoothed ship path crosses land near -2.40625, 50.84375"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-singapore-rotterdam-suez",
+      "failures": [
+        "polyline crosses land near 32.49194, 30.57278",
+        "smoothed ship path crosses land near 27.77441, 35.95801"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-singapore-rotterdam-cape",
+      "failures": [
+        "polyline crosses land near 101.25000, 2.95000",
+        "smoothed ship path crosses land near 4.44414, 51.94258"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-yantian-los-angeles-pacific",
+      "failures": [
+        "unsplit date-line crossing would draw across the world"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-yantian-new-york-panama",
+      "failures": [
+        "unsplit date-line crossing would draw across the world"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-los-angeles-pacific",
+      "failures": [
+        "unsplit date-line crossing would draw across the world"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-new-york-panama",
+      "failures": [
+        "unsplit date-line crossing would draw across the world"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-los-angeles-pacific",
+      "failures": [
+        "unsplit date-line crossing would draw across the world"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-new-york-panama",
+      "failures": [
+        "unsplit date-line crossing would draw across the world"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-yantian",
+      "failures": [
+        "polyline crosses land near 121.50000, 31.24362",
+        "smoothed ship path crosses land near 121.49648, 31.27422"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-tokyo",
+      "failures": [
+        "polyline crosses land near 121.50000, 31.39454",
+        "smoothed ship path crosses land near 121.98086, 31.50352"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-kaohsiung-shanghai",
+      "failures": [
+        "polyline crosses land near 121.50000, 31.24362",
+        "smoothed ship path crosses land near 121.49648, 31.27422"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-yantian",
+      "failures": [
+        "polyline crosses land near 106.76180, 20.83820",
+        "smoothed ship path crosses land near 106.78115, 20.81885"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-chennai-singapore",
+      "failures": [
+        "polyline crosses land near 101.25000, 2.95000",
+        "smoothed ship path crosses land near 92.56445, 10.58008"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-yantian-singapore",
+      "failures": [
+        "smoothed ship path crosses land near 114.50000, 22.47500"
+      ]
+    },
+    {
+      "routeId": "backbone-route-sea-shekou-singapore",
+      "failures": []
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-busan",
+      "failures": [
+        "polyline crosses land near 121.50000, 31.24362",
+        "smoothed ship path crosses land near 121.49062, 31.35833"
+      ]
+    }
+  ],
+  "after": {
+    "logicalSeaLanes": 24,
+    "displaySeaSegments": 30,
+    "dateLinePairs": 1,
+    "landCrossingFailures": 0,
+    "focusedTestsPassed": 33
+  },
+  "mask": "Natural Earth 5.1.2 physical land, exact polygon union",
+  "portToleranceKm": 3,
+  "independentlySourcedCanalCorridorToleranceKm": 1,
+  "blockersFilePresent": false
+}

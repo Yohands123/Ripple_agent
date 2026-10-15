@@ -1,20 +1,20 @@
 # Sourced backbone audit
 
-Reference dated 2026-10-14: 55 nodes and 98 inferred corridors; 24 sea paths.
+Reference dated 2026-10-14: 57 nodes and 104 inferred corridors; 30 sea paths.
 
-Unexpected open-water land crossings: 0. Explicit canal passages and connectors from published port references to the water mesh are separately recorded.
+Land-crossing failures: 0. Both polylines and smoothed ship paths are checked against pinned Natural Earth physical-land polygons; port tolerance is 3 km and independently sourced canal centerline tolerance is 1 km. Route metadata cannot exempt a crossing.
 
 | Event | Supplier sites / access links | Reference nodes | Blocked exposure | Detour | Expedited |
 |---|---:|---:|---:|---:|---:|
-| kumamoto-2016 | 734 / 734 | 56 | 1 | 1 | 1 |
-| covid-china-2020 | 582 / 582 | 56 | 1 | 1 | 1 |
-| suez-2021 | 704 / 704 | 55 | 5 | 5 | 8 |
-| shanghai-2022 | 690 / 690 | 55 | 151 | 2 | 2 |
-| zhengzhou-2022 | 690 / 690 | 55 | 2 | 4 | 3 |
-| red-sea-2023 | 733 / 733 | 55 | 5 | 5 | 8 |
-| japan-2011 | 0 / 0 | 56 | 1 | 1 | 1 |
-| thailand-2011 | 0 / 0 | 56 | 1 | 1 | 1 |
-| russia-2022 | 690 / 690 | 56 | 2 | 0 | 0 |
+| kumamoto-2016 | 734 / 734 | 58 | 1 | 1 | 1 |
+| covid-china-2020 | 582 / 582 | 58 | 1 | 1 | 1 |
+| suez-2021 | 704 / 704 | 57 | 5 | 5 | 8 |
+| shanghai-2022 | 690 / 690 | 57 | 153 | 3 | 2 |
+| zhengzhou-2022 | 690 / 690 | 57 | 2 | 4 | 3 |
+| red-sea-2023 | 733 / 733 | 57 | 5 | 5 | 8 |
+| japan-2011 | 0 / 0 | 58 | 1 | 1 | 1 |
+| thailand-2011 | 0 / 0 | 58 | 1 | 1 | 1 |
+| russia-2022 | 690 / 690 | 58 | 1 | 0 | 0 |
 
 Every supplier access link selects the nearest of the curated ports/airports by great-circle reference distance and preserves the site's nullable tier. These are inferred access connectors, not verified continuous roads; actual modal transfers and border crossings are unknown.
 
@@ -24,6 +24,6 @@ Suez and Red Sea overlays identify the five inferred Suez corridors, their five 
 
 Features, company/site predictions, CAR labels, evaluation, forecasts and indexed optimizer outputs are byte-identical after line-ending normalization to classification commit `90caca9`. The backbone is not added to the model or optimizer graph.
 
-Geometry uses a 0.5-degree offshore grid and a 0.05-degree port/strait refinement of pinned Natural Earth polygons. Narrow canal connections are schematic published-reference passages; these paths cannot be used for navigation. Dataset pins and every node/edge's public citations are in the committed catalog and source registry.
+Pacific corridors split at paired date-line waypoints so no displayed segment crosses Eurasia/Africa. WPI port references are retained in publishedPosition; offshore display approaches are explicitly inferred. Geometry uses pinned physical-land polygons, fine coastal meshes and published Suez/Panama river/lake centerlines. Dataset hashes and tolerances are in data/processed/sea_geometry.json. These are schematic corridors, not navigation data.
 
 Consumer integration notes are in `backbone_integration_notes.md`. Full geometry, source pins, coverage and protected-file hashes are in `backbone_audit.json` and `data/processed/backbone.json`.

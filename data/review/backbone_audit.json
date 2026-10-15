@@ -1,7 +1,7 @@
 {
   "referenceAsOf": "2026-10-14",
-  "nodes": 55,
-  "corridors": 98,
+  "nodes": 57,
+  "corridors": 104,
   "nodeKinds": {
     "airport": 22,
     "port": 17,
@@ -9,200 +9,429 @@
     "canal": 2,
     "assembly": 5,
     "sales_region": 5,
-    "hq": 1
+    "hq": 1,
+    "border": 2
   },
   "seaRoutes": [
     {
       "routeId": "backbone-route-sea-yantian-rotterdam-suez",
-      "waypoints": 107,
-      "schematicLengthKm": 19556.0,
+      "waypoints": 4860,
+      "schematicLengthKm": 19650.2,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-yantian-rotterdam-cape",
-      "waypoints": 60,
-      "schematicLengthKm": 26494.2,
+      "waypoints": 5045,
+      "schematicLengthKm": 26481.8,
       "minimumLatitude": -36.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-rotterdam-suez",
-      "waypoints": 120,
-      "schematicLengthKm": 20977.9,
+      "waypoints": 5137,
+      "schematicLengthKm": 21069.7,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-rotterdam-cape",
-      "waypoints": 73,
-      "schematicLengthKm": 27916.0,
+      "waypoints": 5322,
+      "schematicLengthKm": 27901.4,
       "minimumLatitude": -36.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-haiphong-rotterdam-suez",
-      "waypoints": 107,
-      "schematicLengthKm": 19434.4,
+      "waypoints": 4838,
+      "schematicLengthKm": 19525.9,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-haiphong-rotterdam-cape",
-      "waypoints": 60,
-      "schematicLengthKm": 26372.5,
+      "waypoints": 5023,
+      "schematicLengthKm": 26357.5,
       "minimumLatitude": -36.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-chennai-rotterdam-suez",
-      "waypoints": 77,
-      "schematicLengthKm": 13974.6,
+      "waypoints": 3843,
+      "schematicLengthKm": 14089.9,
       "minimumLatitude": 8.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-chennai-rotterdam-cape",
-      "waypoints": 31,
-      "schematicLengthKm": 21434.5,
+      "waypoints": 4123,
+      "schematicLengthKm": 21443.3,
       "minimumLatitude": -36.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-singapore-rotterdam-suez",
-      "waypoints": 101,
-      "schematicLengthKm": 16797.1,
+      "waypoints": 4365,
+      "schematicLengthKm": 16916.5,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-singapore-rotterdam-cape",
-      "waypoints": 54,
-      "schematicLengthKm": 23735.2,
+      "waypoints": 4550,
+      "schematicLengthKm": 23748.1,
       "minimumLatitude": -36.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-yantian-los-angeles-pacific",
-      "waypoints": 20,
-      "schematicLengthKm": 14876.7,
+      "waypoints": 1749,
+      "schematicLengthKm": 8857.5,
       "minimumLatitude": 12.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-yantian-new-york-panama",
-      "waypoints": 40,
-      "schematicLengthKm": 24182.5,
-      "minimumLatitude": 7.0,
+      "waypoints": 1749,
+      "schematicLengthKm": 8857.5,
+      "minimumLatitude": 12.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-los-angeles-pacific",
-      "waypoints": 22,
-      "schematicLengthKm": 11718.3,
+      "waypoints": 1189,
+      "schematicLengthKm": 5708.0,
       "minimumLatitude": 30.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-new-york-panama",
-      "waypoints": 42,
-      "schematicLengthKm": 21024.1,
-      "minimumLatitude": 7.0,
+      "waypoints": 1189,
+      "schematicLengthKm": 5708.0,
+      "minimumLatitude": 30.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-haiphong-los-angeles-pacific",
-      "waypoints": 20,
-      "schematicLengthKm": 14755.1,
+      "waypoints": 1727,
+      "schematicLengthKm": 8733.2,
       "minimumLatitude": 12.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-haiphong-new-york-panama",
-      "waypoints": 40,
-      "schematicLengthKm": 24060.9,
-      "minimumLatitude": 7.0,
+      "waypoints": 1727,
+      "schematicLengthKm": 8733.2,
+      "minimumLatitude": 12.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 6
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-yantian",
-      "waypoints": 28,
-      "schematicLengthKm": 1746.8,
+      "waypoints": 331,
+      "schematicLengthKm": 1686.6,
       "minimumLatitude": 22.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-tokyo",
-      "waypoints": 29,
-      "schematicLengthKm": 2316.0,
-      "minimumLatitude": 31.0,
+      "waypoints": 493,
+      "schematicLengthKm": 2328.2,
+      "minimumLatitude": 30.5,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-kaohsiung-shanghai",
-      "waypoints": 22,
-      "schematicLengthKm": 1440.5,
-      "minimumLatitude": 22.0,
+      "waypoints": 269,
+      "schematicLengthKm": 1369.8,
+      "minimumLatitude": 22.5,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 1
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-haiphong-yantian",
-      "waypoints": 13,
-      "schematicLengthKm": 1342.3,
+      "waypoints": 247,
+      "schematicLengthKm": 1312.4,
       "minimumLatitude": 18.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-chennai-singapore",
-      "waypoints": 36,
-      "schematicLengthKm": 3632.0,
+      "waypoints": 671,
+      "schematicLengthKm": 3609.5,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-yantian-singapore",
-      "waypoints": 15,
-      "schematicLengthKm": 3157.0,
+      "waypoints": 567,
+      "schematicLengthKm": 3113.3,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shekou-singapore",
-      "waypoints": 14,
-      "schematicLengthKm": 3078.5,
+      "waypoints": 555,
+      "schematicLengthKm": 3056.7,
       "minimumLatitude": 1.0,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 1
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     },
     {
       "routeId": "backbone-route-sea-shanghai-busan",
-      "waypoints": 16,
-      "schematicLengthKm": 1109.0,
-      "minimumLatitude": 31.216666666666665,
+      "waypoints": 226,
+      "schematicLengthKm": 1066.3,
+      "minimumLatitude": 31.4,
       "unexpectedLandCrossings": [],
-      "explicitCanalOrPublishedEndpointLandConnectors": 2
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
+    },
+    {
+      "routeId": "backbone-route-sea-yantian-los-angeles-pacific-segment-2",
+      "waypoints": 1271,
+      "schematicLengthKm": 6083.7,
+      "minimumLatitude": 30.0,
+      "unexpectedLandCrossings": [],
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
+    },
+    {
+      "routeId": "backbone-route-sea-yantian-new-york-panama-segment-2",
+      "waypoints": 3268,
+      "schematicLengthKm": 15368.5,
+      "minimumLatitude": 7.0,
+      "unexpectedLandCrossings": [],
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-los-angeles-pacific-segment-2",
+      "waypoints": 1271,
+      "schematicLengthKm": 6083.7,
+      "minimumLatitude": 30.0,
+      "unexpectedLandCrossings": [],
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
+    },
+    {
+      "routeId": "backbone-route-sea-shanghai-new-york-panama-segment-2",
+      "waypoints": 3268,
+      "schematicLengthKm": 15368.5,
+      "minimumLatitude": 7.0,
+      "unexpectedLandCrossings": [],
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-los-angeles-pacific-segment-2",
+      "waypoints": 1271,
+      "schematicLengthKm": 6083.7,
+      "minimumLatitude": 30.0,
+      "unexpectedLandCrossings": [],
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
+    },
+    {
+      "routeId": "backbone-route-sea-haiphong-new-york-panama-segment-2",
+      "waypoints": 3268,
+      "schematicLengthKm": 15368.5,
+      "minimumLatitude": 7.0,
+      "unexpectedLandCrossings": [],
+      "checks": [
+        "physical land polygons",
+        "smoothed ship path",
+        "date-line split"
+      ],
+      "portToleranceKm": 3,
+      "independentCanalCorridorToleranceKm": 1
     }
   ],
   "unexpectedLandCrossings": 0,
@@ -257,7 +486,7 @@
     {
       "eventId": "kumamoto-2016",
       "supplierSites": 734,
-      "backboneNodes": 56,
+      "backboneNodes": 58,
       "supplierAccessLinks": 734,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -273,7 +502,7 @@
     {
       "eventId": "covid-china-2020",
       "supplierSites": 582,
-      "backboneNodes": 56,
+      "backboneNodes": 58,
       "supplierAccessLinks": 582,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -289,7 +518,7 @@
     {
       "eventId": "suez-2021",
       "supplierSites": 704,
-      "backboneNodes": 55,
+      "backboneNodes": 57,
       "supplierAccessLinks": 704,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -305,7 +534,7 @@
     {
       "eventId": "shanghai-2022",
       "supplierSites": 690,
-      "backboneNodes": 55,
+      "backboneNodes": 57,
       "supplierAccessLinks": 690,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -314,15 +543,15 @@
         "backbone-airport-pvg"
       ],
       "affectedRoutes": {
-        "blocked": 151,
-        "detour": 2,
+        "blocked": 153,
+        "detour": 3,
         "expedited": 2
       }
     },
     {
       "eventId": "zhengzhou-2022",
       "supplierSites": 690,
-      "backboneNodes": 55,
+      "backboneNodes": 57,
       "supplierAccessLinks": 690,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -338,7 +567,7 @@
     {
       "eventId": "red-sea-2023",
       "supplierSites": 733,
-      "backboneNodes": 55,
+      "backboneNodes": 57,
       "supplierAccessLinks": 733,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -354,7 +583,7 @@
     {
       "eventId": "japan-2011",
       "supplierSites": 0,
-      "backboneNodes": 56,
+      "backboneNodes": 58,
       "supplierAccessLinks": 0,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 156,
@@ -370,7 +599,7 @@
     {
       "eventId": "thailand-2011",
       "supplierSites": 0,
-      "backboneNodes": 56,
+      "backboneNodes": 58,
       "supplierAccessLinks": 0,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 156,
@@ -386,7 +615,7 @@
     {
       "eventId": "russia-2022",
       "supplierSites": 690,
-      "backboneNodes": 56,
+      "backboneNodes": 58,
       "supplierAccessLinks": 690,
       "wrongNearestGatewayOrTier": [],
       "companyPredictions": 0,
@@ -394,12 +623,12 @@
         "backbone-event-russia-2022"
       ],
       "affectedRoutes": {
-        "blocked": 2,
+        "blocked": 1,
         "detour": 0,
         "expedited": 0
       }
     }
   ],
-  "scope": "Coastline checks establish schematic geometry only: no vessel draft, shipping schedule, shipment use, road navigability or disruption capacity is measured. Canal passages and published inland port reference connectors are explicitly exempt from the land mask.",
+  "scope": "Exact Natural Earth physical-land checks include polylines and smoothed ship paths. Only 3 km around port endpoints and a 1 km cartographic corridor around independently pinned canal centerlines are allowed. No arbitrary canal/endpoint segments are exempt. This does not establish navigability or actual shipments.",
   "lengthDefinition": "Great-circle sum of displayed points, not a measured voyage length"
 }

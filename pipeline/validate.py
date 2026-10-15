@@ -164,6 +164,18 @@ class Validator:
                     if self.check(isinstance(pair, list) and len(pair) == 2, name + ": invalid waypoint"):
                         self.number(pair[0], name + ".via.lon", -180, 180)
                         self.number(pair[1], name + ".via.lat", -90, 90)
+        # Validate every sea edge, including sample fixtures. The independent
+        # pinned mask has no edge-controlled exemption mechanism.
+        by_id = {n.get("id"): n for n in nodes if isinstance(n, dict)}
+        for edge in edges:
+            if not isinstance(edge, dict) or edge.get("mode") != "sea" or edge.get("from") not in by_id or edge.get("to") not in by_id:
+                continue
+            try:
+                from pipeline.sea_geometry import sea_route_errors
+                for error in sea_route_errors(edge, by_id):
+                    self.check(False, f"{label}/edge/{edge.get('id')}: {error}")
+            except (ValueError, TypeError, KeyError, OSError) as exc:
+                self.check(False, f"{label}/edge/{edge.get('id')}: cannot validate sea geometry: {exc}")
         return ids, edge_ids
 
     def scenario(self, scenario, network, node_ids, edge_ids, label):
