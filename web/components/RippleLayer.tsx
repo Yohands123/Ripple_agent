@@ -1,6 +1,7 @@
 "use client";
 
 import { lineGeometry } from "@/lib/georoute";
+import { labelLevel } from "@/lib/layout";
 import { nodeIndex } from "@/lib/routes";
 import { HOP_DELAY, type Ripple } from "@/lib/ripple";
 import { color } from "@/lib/tokens";
@@ -18,7 +19,7 @@ const MAX_WAVES = 220;
  */
 export default function RippleLayer({ network, ripple, risk }: { network: Network; ripple: Ripple; risk: Map<string, number> }) {
   const reduced = useReducedMotion();
-  const z = 1 / Math.max(1, useZoom());
+  const z = 1 / Math.max(1, labelLevel(useZoom()));
   if (reduced) return null;
   const nodes = nodeIndex(network);
   const byHop = new Map<number, typeof ripple.links>();

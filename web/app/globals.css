@@ -1356,3 +1356,8 @@ button {
     display: none;
   }
 }
+
+/* While panning or zooming, land is drawn without its outline (redrawing the coastline stroke is what makes zooming slow). */
+.map-stage[data-moving] [data-layer="world"] path {
+  stroke: none;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useMemo, type CSSProperties } from "react";
 import { bubbleSize, COUNTRY_K, isClusterable, type Cluster } from "@/lib/declutter";
 import type { MapLayout, NodeLabel } from "@/lib/layout";
 import { labelLevel, symbolSize } from "@/lib/layout";
@@ -24,8 +24,7 @@ export interface NodeLook {
  * Node labels keep their screen size while the map zooms, so only the labels that fit at
  * the current zoom show: the biggest clusters when zoomed out, more as you zoom in.
  */
-function NodeLabels({ labels, hidden }: { labels: NodeLabel[]; hidden: (id: string) => boolean }) {
-  const level = labelLevel(useZoom());
+function NodeLabels({ labels, hidden, level }: { labels: NodeLabel[]; hidden: (id: string) => boolean; level: number }) {
   return (
     <>
       {labels
@@ -62,8 +61,7 @@ interface Props {
 const Z: Partial<Record<string, number>> = { mine: -1, port: 0, airport: 0, canal: 0, chokepoint: 0, border: 0, assembly: 2 };
 
 /** A cluster of supplier sites: a bubble with a count, colored by the tier most of them have. Click to zoom in. */
-function Bubble({ c, look, onHover }: { c: Cluster; look?: NodeLook; onHover?: (id: string | null) => void }) {
-  const k = useZoom();
+function Bubble({ c, look, onHover, k }: { c: Cluster; look?: NodeLook; onHover?: (id: string | null) => void; k: number }) {
   const { goTo } = useStage();
   const d = bubbleSize(c.members.length);
   const fill = look?.fill ?? tierColorOf(c.tier);
@@ -122,9 +120,18 @@ function fanOut(nodes: NetworkNode[], points: Map<string, [number, number]>, k: 
   return out;
 }
 
-export default function NodeLayer({ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers = false, look }: Props) {
-  const k = useZoom();
-  const level = labelLevel(k);
+export default function NodeLayer(props: Props) {
+  // Redrawn when the zoom level changes, not on every zoom step.
+  const level = labelLevel(useZoom());
+  const { network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, look } = props;
+  return useMemo(
+    () => <Nodes {...{ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, look }} level={level} />,
+    [network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers, look, level],
+  );
+}
+
+function Nodes({ network, layout, onSelect, onHover, selectedId, groupText, hideSuppliers = false, look, level }: Props & { level: number }) {
+  const k = level;
   const fan = fanOut(network.nodes, layout.points, k);
   const clusters = layout.clusters.get(level) ?? [];
   const bubbles = clusters.filter((c) => c.members.length > 1);
@@ -173,9 +180,9 @@ export default function NodeLayer({ network, layout, onSelect, onHover, selected
         );
       })}
 
-      {!hideSuppliers && bubbles.map((c) => <Bubble key={c.id} c={c} look={bubbleLook(c)} onHover={onHover} />)}
+      {!hideSuppliers && bubbles.map((c) => <Bubble key={c.id} c={c} look={bubbleLook(c)} onHover={onHover} k={k} />)}
 
-      <NodeLabels labels={layout.labels} hidden={hidden} />
+      <NodeLabels labels={layout.labels} hidden={hidden} level={level} />
 
       {layout.groups.map((g) => (
         <Pill key={`group-${g.key}`} bg={tierColor[6]} style={{ left: g.x, top: g.y }}>

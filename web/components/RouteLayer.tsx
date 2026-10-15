@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+import { labelLevel } from "@/lib/layout";
 import type { MoneyLine, RouteDraw } from "@/lib/scene";
 import { color, route as R } from "@/lib/tokens";
 import { useZoom } from "./MapStage";
@@ -108,8 +110,13 @@ function RouteBody({ r, w, sc }: { r: RouteDraw; w: number; sc: Scale }) {
 }
 
 export default function RouteLayer({ routes, money }: { routes: RouteDraw[]; money: MoneyLine[] }) {
-  const k = useZoom();
-  const sc = scaler(1 / Math.max(1, k));
+  // Widths follow the zoom level (not every zoom step), so zooming stays smooth.
+  const level = labelLevel(useZoom());
+  return useMemo(() => <Routes routes={routes} money={money} z={1 / Math.max(1, level)} />, [routes, money, level]);
+}
+
+function Routes({ routes, money, z }: { routes: RouteDraw[]; money: MoneyLine[]; z: number }) {
+  const sc = scaler(z);
   const under = routes.filter((r) => r.state !== "detour");
   const over = routes.filter((r) => r.state === "detour");
   return (

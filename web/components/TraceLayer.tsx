@@ -1,6 +1,7 @@
 "use client";
 
 import { lineGeometry } from "@/lib/georoute";
+import { labelLevel } from "@/lib/layout";
 import { edgeLine, nodeIndex } from "@/lib/routes";
 import type { MoneyLine } from "@/lib/scene";
 import { color, route as R, tierColorOf } from "@/lib/tokens";
@@ -38,8 +39,7 @@ function supplyLine(e: NetworkEdge, nodes: Map<string, NetworkNode>): string {
  * upstream first (from the furthest suppliers in towards the clicked node), then downstream.
  */
 export default function TraceLayer({ network, trace, money }: { network: Network; trace: Trace; money: MoneyLine[] }) {
-  const k = useZoom();
-  const z = 1 / Math.max(1, k);
+  const z = 1 / Math.max(1, labelLevel(useZoom()));
   const reduced = useReducedMotion();
   const nodes = nodeIndex(network);
 

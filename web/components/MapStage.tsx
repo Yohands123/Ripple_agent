@@ -111,6 +111,17 @@ export default function MapStage({ children, hud, focus, onBand, apiRef }: Props
   const v = clamp(view);
   const scale = s * v.k;
   const band = bandOf(v.k);
+  // While the view moves, the costly coastline stroke is left off; it returns once the map settles.
+  const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const viewKey = `${v.cx.toFixed(1)},${v.cy.toFixed(1)},${v.k.toFixed(3)}`;
+  const firstView = useRef(viewKey);
+  useEffect(() => {
+    const el = outer.current;
+    if (!el || viewKey === firstView.current) return;
+    el.dataset.moving = "true";
+    if (settle.current) clearTimeout(settle.current);
+    settle.current = setTimeout(() => delete el.dataset.moving, 180);
+  }, [viewKey]);
   useEffect(() => onBand?.(band), [band, onBand]);
   const stageApi = useMemo<StageApi>(
     () => ({

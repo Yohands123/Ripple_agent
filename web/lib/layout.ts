@@ -18,6 +18,65 @@ const overlaps = (a: Box, b: Box, pad = 2) =>
 
 const inside = (p: Pt, b: Box) => p[0] >= b.x && p[0] <= b.x + b.w && p[1] >= b.y && p[1] <= b.y + b.h;
 
+/** Boxes bucketed on a grid, so "does this pill hit anything?" looks only at nearby boxes. */
+class BoxGrid {
+  private cells = new Map<string, Box[]>();
+  constructor(
+    boxes: Box[] = [],
+    private cell = 40,
+  ) {
+    for (const b of boxes) this.add(b);
+  }
+  private keys(b: Box, pad: number): string[] {
+    const out: string[] = [];
+    const [x0, x1] = [Math.floor((b.x - pad) / this.cell), Math.floor((b.x + b.w + pad) / this.cell)];
+    const [y0, y1] = [Math.floor((b.y - pad) / this.cell), Math.floor((b.y + b.h + pad) / this.cell)];
+    for (let x = x0; x <= x1; x++) for (let y = y0; y <= y1; y++) out.push(`${x},${y}`);
+    return out;
+  }
+  add(b: Box) {
+    for (const k of this.keys(b, 0)) {
+      const list = this.cells.get(k);
+      if (list) list.push(b);
+      else this.cells.set(k, [b]);
+    }
+  }
+  hits(b: Box, pad = 2, skip?: (o: Box) => boolean): boolean {
+    for (const k of this.keys(b, pad)) for (const o of this.cells.get(k) ?? []) if (overlaps(b, o, pad) && !skip?.(o)) return true;
+    return false;
+  }
+}
+
+/** Points bucketed on a grid: is any point inside a box? */
+class PointGrid {
+  private cells = new Map<string, Pt[]>();
+  constructor(
+    pts: Pt[],
+    private cell = 40,
+  ) {
+    for (const p of pts) {
+      const k = `${Math.floor(p[0] / cell)},${Math.floor(p[1] / cell)}`;
+      const list = this.cells.get(k);
+      if (list) list.push(p);
+      else this.cells.set(k, [p]);
+    }
+  }
+  anyInside(b: Box): boolean {
+    for (let x = Math.floor(b.x / this.cell); x <= Math.floor((b.x + b.w) / this.cell); x++)
+      for (let y = Math.floor(b.y / this.cell); y <= Math.floor((b.y + b.h) / this.cell); y++)
+        for (const p of this.cells.get(`${x},${y}`) ?? []) if (inside(p, b)) return true;
+    return false;
+  }
+}
+
+const pointGrids = new WeakMap<Pt[], PointGrid>();
+/** The route-point grid for a layout, built once. */
+const routeGrid = (pts: Pt[]) => {
+  let g = pointGrids.get(pts);
+  if (!g) pointGrids.set(pts, (g = new PointGrid(pts)));
+  return g;
+};
+
 /** Symbol size in px for each node kind (docs/design-spec.md, Node symbols). */
 export function symbolSize(kind: NodeKind): number {
   switch (kind) {
@@ -184,7 +243,7 @@ export function placeBox(candidates: Box[], layout: MapLayout, opts: { ignoreRou
       within(b, frame) &&
       !layout.taken.some((o) => overlaps(b, o)) &&
       !layout.obstacles.boxes.some((o) => overlaps(b, o)) &&
-      (opts.ignoreRoutes || !layout.obstacles.pts.some((p) => inside(p, b))),
+      (opts.ignoreRoutes || !routeGrid(layout.obstacles.pts).anyInside(b)),
   );
   if (pick) layout.taken.push(pick);
   return pick ?? null;
@@ -337,32 +396,39 @@ const labelBoxAt = (l: NodeLabel, L: number): Box => scaleAbout(labelBox(l), [l.
 function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: Box[] = layout.taken): NodeLabel[] {
   const { points, obstacles } = layout;
   const done = new Set(placed.map((l) => l.text));
-  const seen = placed.filter((l) => l.minK <= L).map((l) => labelBoxAt(l, L));
+  const seen = new BoxGrid(placed.filter((l) => l.minK <= L).map((l) => labelBoxAt(l, L)));
   // Cluster bubbles at this zoom: labels sit beside them, never on them.
   const bubbles = bubblesAt(layout, L);
   const bubbleOf = new Map(bubbles.flatMap((b) => b.cluster.members.map((m) => [m.id, b] as const)));
+  const bubbleGrid = new BoxGrid(bubbles.map((b) => b.box));
+  const fixedGrid = new BoxGrid(fixed);
+  // Symbols keep their screen size when zoomed in, so they shrink in map units.
+  const symScale = 1 / Math.max(1, L);
+  const symbolGrid = new BoxGrid(obstacles.boxes.map((o) => ({ ...scaleAbout(o, [o.x + o.w / 2, o.y + o.h / 2], symScale), src: o }) as Box));
+  const pts = routeGrid(obstacles.pts);
   const out: NodeLabel[] = [];
   for (const c of layout.labelCandidates) {
     if (done.has(c.text)) continue;
     for (const n of c.members) {
       const bubble = bubbleOf.get(n.id);
       const [cx, cy] = bubble ? [bubble.cluster.x, bubble.cluster.y] : points.get(n.id)!;
-      // Symbols keep their screen size when zoomed in, so they shrink in map units.
-      const symScale = 1 / Math.max(1, L);
       const r0 = symbolSize(n.kind) / 2;
       const r = bubble ? bubble.box.w / 2 : r0 * symScale;
       const { w, h } = smallPillBox(c.text);
       const frame = frameFor([cx, cy]);
       const pad = 2 / L;
-      const own = (o: Box) => Math.abs(o.x + o.w / 2 - cx) < 0.01 && Math.abs(o.y + o.h / 2 - cy) < 0.01 && Math.abs(o.w - 2 * r0) < 0.01;
-      const symbols = obstacles.boxes.filter((o) => !own(o)).map((o) => scaleAbout(o, [o.x + o.w / 2, o.y + o.h / 2], symScale));
+      // The node's own symbol is not in its label's way.
+      const own = (o: Box) => {
+        const src = (o as Box & { src: Box }).src;
+        return Math.abs(src.x + src.w / 2 - cx) < 0.01 && Math.abs(src.y + src.h / 2 - cy) < 0.01 && Math.abs(src.w - 2 * r0) < 0.01;
+      };
       const fits = (b: Box) =>
         within(b, frame) &&
-        !symbols.some((o) => overlaps(b, o, pad)) &&
-        !fixed.some((o) => overlaps(b, o, pad)) &&
-        !seen.some((o) => overlaps(b, o, pad)) &&
-        !bubbles.some((o) => overlaps(b, o.box, pad)) &&
-        !obstacles.pts.some((p) => inside(p, b));
+        !symbolGrid.hits(b, pad, own) &&
+        !fixedGrid.hits(b, pad) &&
+        !seen.hits(b, pad) &&
+        !bubbleGrid.hits(b, pad) &&
+        !pts.anyInside(b);
       const pick = pillOptions(cx, cy, r, w, h, L).find(fits);
       if (!pick) continue;
       // Keep the zoom-1 box: the pill is counter-scaled about the point nearest its symbol.
@@ -371,7 +437,7 @@ function placeLabels(layout: MapLayout, L: number, placed: NodeLabel[], fixed: B
       const x = L === 1 ? Math.round(base.x) : base.x;
       const y = L === 1 ? Math.round(base.y) : base.y;
       out.push({ nodeId: n.id, text: c.text, x, y, minK: L, origin: [o[0] - x, o[1] - y], weight: c.members.length });
-      seen.push(pick);
+      seen.add(pick);
       break;
     }
   }
