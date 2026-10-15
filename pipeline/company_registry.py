@@ -55,7 +55,7 @@ class CompanyRegistry:
     def classify(self, name, part_type, tier_fields):
         row = self.rows.get(name)
         if row is None:
-            return {"partType": part_type, **tier_fields}
+            return {"partType": part_type, **tier_fields, "partTypeStatus": "sourced" if part_type else "unknown"}
         result = {"partType": part_type or row["partType"] or None,
                   "tier": None if row["tierValue"] is None else tier_fields["tier"] if tier_fields["tier"] is not None else row["tierValue"],
                   "tierStatus": "inferred", "tierBasis": CLASS_BASIS, "confidence": row["confidence"],

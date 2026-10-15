@@ -91,7 +91,7 @@ def audit(root=ROOT, prefix="auc_audit"):
                   "Minimum distance favors firms with more disclosed sites; varying disclosure coverage and coarse centroids may confound it. Straight-line distance to Suez or the Red Sea is not observed route exposure.",
                   "Public shock anchors and retrospective supplier cohorts were analyst-defined, not prospectively preregistered. Code/data checks cannot prove that no analyst selection was influenced by later knowledge.",
                   "The approved removal of single-class events conditions pooled metrics on observed outcomes. Few hits, current-universe survivorship, and repeated companies limit inference.",
-                  "ReplaySection.tsx currently labels baselineAuc as distance alone, but baselineAuc is logistic regression. This is a display-label error, not leakage in the saved distance predictions. Web code was not changed."
+                  "baselineAuc is logistic regression; distanceAuc is the separate distance rule. The report names them separately."
               ]}
     output = root / "data/review"
     with (output / f"{prefix}.csv").open("w", encoding="utf-8", newline="") as handle:
@@ -99,7 +99,7 @@ def audit(root=ROOT, prefix="auc_audit"):
         writer.writeheader()
         writer.writerows(rows)
     (output / f"{prefix}.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    lines = ["# Company-level AUC and distance leakage audit", "", "Saved model, features, labels, and predictions were not changed.", "",
+    lines = ["# Company-level AUC and distance leakage audit", "", "This audit reads saved model results and does not change features, labels, or predictions.", "",
              "| Event | Companies | Hits | Model AUC | Distance AUC | Logistic AUC |", "|---|---:|---:|---:|---:|---:|"]
     lines += [f"| {r['eventId']} | {r['companies']} | {r['hits']} | {r['modelAuc']:.4f} | {r['distanceAuc']:.4f} | {r['logisticAuc']:.4f} |" for r in rows]
     lines += ["", f"Pooled AUC: model {metrics['overallPoint']['auc']:.4f}; distance {metrics['overallPoint']['distanceAuc']:.4f}; logistic {metrics['overallPoint']['baselineAuc']:.4f}.", "",
@@ -108,6 +108,35 @@ def audit(root=ROOT, prefix="auc_audit"):
     lines += ["", f"Distance replay maximum absolute probability error: {replay_error:.3g}. Reconstructed minimum-distance error: {distance_error:.3g} km.", "",
               f"Audit inputs and their SHA-256 hashes are in `{prefix}.json`. `{prefix}.csv` also records missing distances, site projection multiplicity, and hypothetical site-weighted distance AUCs.", "",
               "Evidence: `ml/features.py` builds distances before outcomes are joined; `ml/train.py` joins one-to-one company/event labels, excludes the outer event before fitting, and calibrates the distance rule on training data. `data/events.csv` retains the source and location basis for each shock."]
+    if prefix == "evaluation_report":
+        import subprocess
+        metadata = json.loads((root / "data/processed/feature_metadata.json").read_text(encoding="utf-8"))
+        merged = json.loads((output / "auc_after_merge.json").read_text(encoding="utf-8"))
+        original = json.loads((output / "auc_audit.json").read_text(encoding="utf-8"))
+        previous_manifest = json.loads(subprocess.check_output(["git", "show", "891abce:ml/model_manifest.json"], cwd=root))
+        parameters_unchanged = [f["parameters"] for f in manifest["folds"]] == [f["parameters"] for f in previous_manifest["folds"]]
+        before_labels = subprocess.check_output(["git", "show", "891abce:data/processed/labels.csv"], cwd=root).replace(b"\r\n", b"\n")
+        labels_unchanged = before_labels == (root / "data/processed/labels.csv").read_bytes().replace(b"\r\n", b"\n")
+        assert parameters_unchanged and labels_unchanged
+        report.update(modelSettingsUnchanged=parameters_unchanged, rerunLabelsUnchanged=labels_unchanged, supplyGraphCoverage=metadata["graphs"])
+        lines += ["", "## Rerun and company-identity comparison", "",
+                  "Labels were rerun from cached prices using the merged identities and are unchanged from the previous merged run. The model and logistic regression were refit after replacing disclosure-graph hops with supply-edge hops. Tree hyperparameters, seeds, 200 ensemble members per fold, 2,000 metric bootstrap draws, and the exclusion policy were retained. No settings were tuned to beat the distance baseline.", "",
+                  "550 supplied company spellings resolve to 349 current canonical companies: 201 name variants combined, including 52 additional merges beyond prior normalization. Historical identities resolve to 350 (51 fewer), preserving Mitsumi/Minebea before their merger. The original evaluation already had one company/ticker per event: zero same-event duplicates were removed. Alias matching recovered 32 previously unavailable company-event labels; see company_merge_comparison.md for the earlier counts and baselines.", "",
+                  "Model AUC at each stage (the distance rule is unchanged by replacing hops):", "",
+                  "| Event | Original audit | After canonical merge | After supply hops |", "|---|---:|---:|---:|"]
+        original_rows = {r["eventId"]: r for r in original["evaluatedEvents"]}
+        merged_rows = {r["eventId"]: r for r in merged["evaluatedEvents"]}
+        for row in rows:
+            identifier = row["eventId"]
+            assert np.isclose(row["distanceAuc"], merged_rows[identifier]["distanceAuc"], atol=1e-12)
+            lines.append(f"| {identifier} | {original_rows[identifier]['modelAuc']:.4f} | {merged_rows[identifier]['modelAuc']:.4f} | {row['modelAuc']:.4f} |")
+        lines += ["", "## Supply topology and limitations", "", metadata["definitions"]["hops_from_shock"], "", metadata["classificationScope"], "",
+                  "| Event | Dated inferred supply links | Geographic/assembly seeds | Companies with known hops |", "|---|---:|---:|---:|"]
+        for graph in metadata["graphs"]:
+            lines.append(f"| {graph['eventId']} | {graph['edges']} | {len(graph['shockSeeds'])} | {graph['companiesWithHops']} |")
+        lines += ["", "The supply links are compatibility inferences, not verified purchase orders. Undirected traversal allows possible upstream or downstream association; it does not estimate causal propagation. No geographic access road, airline, sea lane or shared Apple customer node creates a model hop. Public supplier rosters are retrospective, city/province locations are coarse, and the evidence cutoff cannot remove all analyst or survivorship bias.", "",
+                  "In plain words: the model is not established as a reliable predictor of production disruption. Each evaluated event has only a few company stock-response hits. A strong AUC on one event can rest on very few positives, and pooled ranking can differ from individual-event ranking. These are stock-market proxy outcomes, not factory damage, shipment delays, or Apple revenue loss."]
+        (output / f"{prefix}.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     (output / f"{prefix}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     assert hashes == {p: hashlib.sha256((root / p).read_bytes()).hexdigest() for p in protected}
     print(json.dumps({"events": rows, "baselineReplayMaxAbsError": replay_error, "distanceReconstructionMaxAbsKm": distance_error}, indent=2))
@@ -117,5 +146,5 @@ def audit(root=ROOT, prefix="auc_audit"):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--prefix", choices=["auc_audit", "auc_after_merge"], default="auc_audit")
+    parser.add_argument("--prefix", choices=["auc_audit", "auc_after_merge", "evaluation_report"], default="auc_audit")
     audit(prefix=parser.parse_args().prefix)

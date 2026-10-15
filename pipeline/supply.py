@@ -60,6 +60,15 @@ def build_supply_edges(sites, assemblies, event_date, rules):
         candidates = []
         for assembly in assemblies:
             eligible = [(site, compatibility(site["partType"], assembly, rules)) for site in locations]
+            # Filter dated evidence BEFORE ranking nearest hubs. A hub first
+            # evidenced after the event must not crowd out a historical one.
+            filtered = []
+            for site, products in eligible:
+                evidence = site.get("attributeSources", {}).get("partType", {})
+                if site.get("partTypeStatus") == "sourced" and evidence.get("filedOn"):
+                    products = [p for p in products if max(p["availableOn"], assembly["productEvidence"]["availableOn"], evidence["filedOn"]) <= event_date]
+                filtered.append((site, products))
+            eligible = filtered
             eligible = [(site, products) for site, products in eligible if products]
             if not eligible:
                 continue

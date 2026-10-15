@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from ml.features import breadth_first, chokepoint_evidence, disclosed_hhi, haversine, latest_assets, latest_profile, zone_overlap
+from ml.features import breadth_first, chokepoint_evidence, disclosed_hhi, haversine, latest_assets, latest_profile, zone_overlap, supply_graph
 from pipeline.historical_profiles import filing_years
 
 
@@ -22,6 +22,25 @@ def test_disconnected_disclosure_graph_does_not_invent_hops():
     result = breadth_first(graph, "shock")
     assert result["company"] == 2
     assert "unlinked" not in result
+
+
+def test_hops_count_supply_edges_and_leave_unknown_or_future_links_disconnected():
+    source = {"title": "Synthetic dated evidence", "url": "https://example.org/test"}
+    base = {"locationRole": "manufacturing", "tier": 3, "partType": "image sensors", "partTypeStatus": "sourced",
+            "lon": 0, "lat": 0, "sources": [source], "attributeSources": {"partType": {"filedOn": "2010-01-01", "source": source}}}
+    sites = [{**base, "id": n, "companyId": n} for n in ["exposed", "connected", "unverified"]]
+    sites[-1]["partTypeStatus"] = "inferred"
+    assemblies = [{"id": "hub", "products": ["phone"], "lon": 1, "lat": 1, "sources": [source],
+                   "productEvidence": {"availableOn": "2010-01-01", "source": source}}]
+    rules = {"products": {"phone": {"categories": ["sensor"], "availableOn": "2010-01-01", "source": source}}}
+    event = {"id": "test", "start": "2016-01-01"}
+    edges, seeds, hops = supply_graph(sites, assemblies, event, {"exposed": True}, rules)
+    assert seeds == ["exposed"]
+    assert hops == {"exposed": 0, "hub": 1, "connected": 2}
+    assert len(edges) == 2 and all(e["relation"] == "supply" for e in edges)
+    assemblies[0]["productEvidence"]["availableOn"] = "2020-01-01"
+    edges, _, hops = supply_graph(sites, assemblies, event, {"exposed": True}, rules)
+    assert edges == [] and hops == {"exposed": 0}
 
 
 def test_financial_attributes_are_selected_by_publication_before_event():

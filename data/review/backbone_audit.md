@@ -22,7 +22,7 @@ Both 2011 rosters retain 156 unlocated company predictions each and zero supplie
 
 Suez and Red Sea overlays identify the five inferred Suez corridors, their five Cape alternatives, and eight illustrative air alternatives. Russia has no proposed detour or expedition around export restrictions. All exposure classifications and alternatives are inferred, and no complete gateway closure is inferred from a regional event.
 
-Features, company/site predictions, CAR labels, evaluation, forecasts and indexed optimizer outputs are byte-identical after line-ending normalization to classification commit `90caca9`. The backbone is not added to the model or optimizer graph.
+The authorized final-round evaluation replaces disclosure-graph hops with dated inferred supply-edge hops. Feature/prediction/metric changes are reported in evaluation_report.md. CAR labels and forecasts remain unchanged from classification commit 90caca9; optimizer changes are limited to sensitivity display labels. Physical route geometry does not enter either model or optimizer quantities.
 
 Pacific corridors split at paired date-line waypoints so no displayed segment crosses Eurasia/Africa. WPI port references are retained in publishedPosition; offshore display approaches are explicitly inferred. Geometry uses pinned physical-land polygons, fine coastal meshes and published Suez/Panama river/lake centerlines. Dataset hashes and tolerances are in data/processed/sea_geometry.json. These are schematic corridors, not navigation data.
 

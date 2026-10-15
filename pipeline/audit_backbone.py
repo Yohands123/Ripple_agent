@@ -60,7 +60,19 @@ def audit(root=ROOT):
                  "web/public/data/real/metrics.json", "web/public/data/real/forecasts.json"]:
         before = subprocess.check_output(["git", "show", "90caca9:" + path], cwd=root).replace(b"\r\n", b"\n")
         after = (root / path).read_bytes().replace(b"\r\n", b"\n")
-        protected.append({"path": path, "unchangedSinceClassificationCommit": before == after, "sha256Lf": hashlib.sha256(after).hexdigest()})
+        unchanged = before == after
+        invariant = path.endswith(("labels.csv", "forecasts.json", "optimizer_plans.json"))
+        numerical_unchanged = unchanged
+        if path.endswith("optimizer_plans.json"):
+            old, new = json.loads(before), json.loads(after)
+            for document in [old, new]:
+                for scenario in document["scenarios"].values():
+                    for item in scenario["sensitivity"]:
+                        item.pop("label", None)
+            numerical_unchanged = old == new
+        protected.append({"path": path, "unchangedSinceClassificationCommit": unchanged,
+                          "expectedUnchangedExceptDisplayLabels": invariant, "invariantSatisfied": not invariant or numerical_unchanged,
+                          "sha256Lf": hashlib.sha256(after).hexdigest()})
     scenarios = []
     for entry in read(root / "web/public/data/real/scenarios/index.json"):
         scenario = read(root / "web/public/data/real/scenarios" / (entry["id"] + ".json"))
@@ -90,15 +102,15 @@ def audit(root=ROOT):
     lines += ["", "Every supplier access link selects the nearest of the curated ports/airports by great-circle reference distance and preserves the site's nullable tier. These are inferred access connectors, not verified continuous roads; actual modal transfers and border crossings are unknown.",
               "", "Both 2011 rosters retain 156 unlocated company predictions each and zero supplier site pins. Backbone context is contemporary and explicitly does not assert historical facility presence (Apple Park, for example, opened in 2017).",
               "", "Suez and Red Sea overlays identify the five inferred Suez corridors, their five Cape alternatives, and eight illustrative air alternatives. Russia has no proposed detour or expedition around export restrictions. All exposure classifications and alternatives are inferred, and no complete gateway closure is inferred from a regional event.",
-              "", "Features, company/site predictions, CAR labels, evaluation, forecasts and indexed optimizer outputs are byte-identical after line-ending normalization to classification commit `90caca9`. The backbone is not added to the model or optimizer graph.",
+              "", "The authorized final-round evaluation replaces disclosure-graph hops with dated inferred supply-edge hops. Feature/prediction/metric changes are reported in evaluation_report.md. CAR labels and forecasts remain unchanged from classification commit 90caca9; optimizer changes are limited to sensitivity display labels. Physical route geometry does not enter either model or optimizer quantities.",
               "", "Pacific corridors split at paired date-line waypoints so no displayed segment crosses Eurasia/Africa. WPI port references are retained in publishedPosition; offshore display approaches are explicitly inferred. Geometry uses pinned physical-land polygons, fine coastal meshes and published Suez/Panama river/lake centerlines. Dataset hashes and tolerances are in data/processed/sea_geometry.json. These are schematic corridors, not navigation data.",
               "", "Consumer integration notes are in `backbone_integration_notes.md`. Full geometry, source pins, coverage and protected-file hashes are in `backbone_audit.json` and `data/processed/backbone.json`."]
     (folder / "backbone_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    if failures or any(not r["unchangedSinceClassificationCommit"] for r in protected) or any(r["wrongNearestGatewayOrTier"] for r in scenarios):
+    if failures or any(not r["invariantSatisfied"] for r in protected) or any(r["wrongNearestGatewayOrTier"] for r in scenarios):
         raise ValueError("Backbone audit failed; inspect data/review/backbone_audit.json")
     return report
 
 
 if __name__ == "__main__":
     result = audit()
-    print(f"Audited {result['nodes']} nodes, {result['corridors']} corridors, 9 scenario overlays; protected model artifacts unchanged")
+    print(f"Audited {result['nodes']} nodes, {result['corridors']} corridors, 9 scenario overlays; labels, forecasts and optimizer quantities unchanged")

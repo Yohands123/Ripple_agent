@@ -236,7 +236,7 @@ def train(members=200, metric_draws=2000):
                                "FY2019 and FY2024 Supplier Lists are unavailable; Japan-Korea 2019, Taiwan 2024, and Helene 2024 remain excluded",
                                "Stock-market abnormal-return labels are proxies, not causal disruption losses or observed factory damage",
                                "Country concentration uses disclosed location counts, not actual sourcing volumes",
-                               "Transport-route chokepoint dependence is unavailable; graph hops describe disclosure relationships",
+                               "Transport-route chokepoint dependence is unavailable; hops use sparse inferred product-compatible supply links supported by evidence available by the event, with unconnected companies left unknown",
                                "Bootstrap intervals condition on the public-data model and do not quantify unreported routes or location measurement error"]}
     (ROOT / "data/processed/metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
     company_lookup = {(p["eventId"], p["companyId"]): p for p in company_predictions}

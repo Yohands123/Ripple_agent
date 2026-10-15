@@ -105,7 +105,7 @@ def test_geometry_audit_records_no_unexpected_land_crossings():
     report = json.loads((ROOT / "data/review/backbone_audit.json").read_text(encoding="utf-8"))
     assert len(report["seaRoutes"]) == 30
     assert report["unexpectedLandCrossings"] == 0
-    assert all(r["unchangedSinceClassificationCommit"] for r in report["protectedArtifacts"])
+    assert all(r["invariantSatisfied"] for r in report["protectedArtifacts"])
 
 
 @pytest.mark.parametrize("mutation,expected", [

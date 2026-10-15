@@ -438,47 +438,65 @@
   "protectedArtifacts": [
     {
       "path": "data/processed/features.csv",
-      "unchangedSinceClassificationCommit": true,
-      "sha256Lf": "6f4611c588e1ed9cea179f8c424414fc1fa4aabe98c5a921f1a14ca34b1f42d7"
+      "unchangedSinceClassificationCommit": false,
+      "expectedUnchangedExceptDisplayLabels": false,
+      "invariantSatisfied": true,
+      "sha256Lf": "bd736188cbeed28d4e1c3a4fc86397f44a9a4b8d2263082da4d9bf2d647ab709"
     },
     {
       "path": "data/processed/labels.csv",
       "unchangedSinceClassificationCommit": true,
+      "expectedUnchangedExceptDisplayLabels": true,
+      "invariantSatisfied": true,
       "sha256Lf": "dde6fbb89b2de8c27f488687a1614c9b50722ce36853603b888314243cf5f458"
     },
     {
       "path": "data/processed/metrics.json",
-      "unchangedSinceClassificationCommit": true,
-      "sha256Lf": "89c62db50276120579ffc066d6011100616d2741c0ade66c9dc18118d0f5505b"
+      "unchangedSinceClassificationCommit": false,
+      "expectedUnchangedExceptDisplayLabels": false,
+      "invariantSatisfied": true,
+      "sha256Lf": "277a841527e9653c6d5890172f07eb32dd604e832542962bcaa5e38d2904930f"
     },
     {
       "path": "data/processed/site_predictions.json",
-      "unchangedSinceClassificationCommit": true,
-      "sha256Lf": "044a1ceff5dc7aa7e5c53f1dcae84fa24ac3bf5c0ba14adc09f0c08e23c4e970"
+      "unchangedSinceClassificationCommit": false,
+      "expectedUnchangedExceptDisplayLabels": false,
+      "invariantSatisfied": true,
+      "sha256Lf": "ebe689bb8f984df84298667b4c7a40f72e3113adee09e601d5bf83764d0f6c20"
     },
     {
       "path": "data/processed/company_predictions.json",
-      "unchangedSinceClassificationCommit": true,
-      "sha256Lf": "2974b0b3e117c7f4618b196571522f3c4c268303b2d42938594eaf2649d5b1cb"
+      "unchangedSinceClassificationCommit": false,
+      "expectedUnchangedExceptDisplayLabels": false,
+      "invariantSatisfied": true,
+      "sha256Lf": "fe4fa4a37fc818b25f3ec4c9ce7c9ad2d1ae0460d232e9b8794e7f896c1e2af7"
     },
     {
       "path": "data/processed/optimizer_plans.json",
-      "unchangedSinceClassificationCommit": true,
-      "sha256Lf": "62030eeb9832d40585456a176e273e46dce5731164562a75ef61b93043425df3"
+      "unchangedSinceClassificationCommit": false,
+      "expectedUnchangedExceptDisplayLabels": true,
+      "invariantSatisfied": true,
+      "sha256Lf": "9c356bd6788852714ace19fb93950dff75b0d9bd6d0fc0ccba166f61054e7410"
     },
     {
       "path": "data/processed/forecasts.json",
       "unchangedSinceClassificationCommit": true,
+      "expectedUnchangedExceptDisplayLabels": true,
+      "invariantSatisfied": true,
       "sha256Lf": "b0700af9b386952eb9195078c592e7fbf62adda38172eb14159c209673e4cc17"
     },
     {
       "path": "web/public/data/real/metrics.json",
-      "unchangedSinceClassificationCommit": true,
-      "sha256Lf": "56a26b7499385de1f2062b30b422c5ddfee40f09052d3811f3218e9cd6324f8b"
+      "unchangedSinceClassificationCommit": false,
+      "expectedUnchangedExceptDisplayLabels": false,
+      "invariantSatisfied": true,
+      "sha256Lf": "472e4138c1a1334c4f1248074577ed8183fb1122596d5cfcef1145bd8f7a0083"
     },
     {
       "path": "web/public/data/real/forecasts.json",
       "unchangedSinceClassificationCommit": true,
+      "expectedUnchangedExceptDisplayLabels": true,
+      "invariantSatisfied": true,
       "sha256Lf": "b0700af9b386952eb9195078c592e7fbf62adda38172eb14159c209673e4cc17"
     }
   ],
