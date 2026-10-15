@@ -101,7 +101,7 @@ def test_site_outcomes_preserve_company_scope_and_label_inferred_routes(candidat
         assert scenario["money"]["revenueAtRisk"] is None
         assert all(n["sources"] for n in network["nodes"])
         assert all(n["tier"] is None for n in network["nodes"] if n["partType"] is None)
-        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] in {"mapped from part type", "model classification, see data/reference/supplier_classes.csv"} for n in network["nodes"] if n["partType"] is not None)
+        assert all(n["tierStatus"] == "inferred" and n["tierBasis"] in {"mapped from part type", "model classification, see data/reference/supplier_classes.csv", "mineral extraction or processing role"} for n in network["nodes"] if n["partType"] is not None)
         assert all("Company" in p["predictionScope"] for p in scenario["predictions"])
         ids = {n["id"] for n in network["nodes"]}
         assert {a["nodeId"] for a in scenario["actual"]} <= ids
@@ -110,7 +110,8 @@ def test_site_outcomes_preserve_company_scope_and_label_inferred_routes(candidat
 def test_expansion_keeps_company_only_scenarios_and_reports_only_selected_metric_events(candidate):
     metrics = candidate["metrics.json"]
     index = candidate["scenarios/index.json"]
-    assert len(index) == metrics["predictionEvents"] == 9
+    assert len([e for e in index if not candidate[f"scenarios/{e['id']}.json"].get('contextOnly')]) == metrics["predictionEvents"] == 9
+    assert sum(bool(candidate[f"scenarios/{e['id']}.json"].get('contextOnly')) for e in index) == 1
     assert len(metrics["loeo"]) == metrics["events"] == 7
     assert sum(r["rows"] for r in metrics["loeo"]) == metrics["rows"]
     assert sum(r["n"] for r in metrics["calibration"]) == metrics["rows"]

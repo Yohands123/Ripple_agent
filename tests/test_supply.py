@@ -38,7 +38,7 @@ def test_current_model_classes_and_future_assembly_evidence_do_not_enter_histori
     for entry in bundle["scenarios/index.json"]:
         network = bundle[f"networks/{entry['id']}.json"]
         nodes = {n["id"]: n for n in network["nodes"]}
-        edges = [e for e in network["edges"] if e.get("relation") == "supply"]
+        edges = [e for e in network["edges"] if e.get("relation") == "supply" and e.get('layer') == 'supply']
         assert all(count <= 3 for count in Counter(e["companyId"] for e in edges).values())
         for edge in edges:
             a, b = nodes[edge["from"]], nodes[edge["to"]]

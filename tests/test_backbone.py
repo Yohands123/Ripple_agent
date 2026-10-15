@@ -37,7 +37,7 @@ def test_water_mesh_routes_around_land_and_crosses_dateline_by_short_arc():
 
 def test_all_requested_reference_places_have_sources_and_null_unknown_tiers(bundle):
     network = bundle["network.json"]
-    nodes = {n["id"]: n for n in network["nodes"] if n["layer"] == "backbone"}
+    nodes = {n["id"]: n for n in network["nodes"] if n["layer"] == "backbone" and not n.get('contextLayer')}
     assert len([n for n in nodes.values() if not n.get("waypoint")]) == 55
     assert len([n for n in nodes.values() if n.get("waypoint")]) == 2
     assert {n["salesRegion"] for n in nodes.values() if n["kind"] == "sales_region"} == {"Americas", "Europe", "Greater China", "Japan", "Rest of Asia Pacific"}
@@ -81,7 +81,7 @@ def test_every_scenario_has_a_sourced_hit_node_and_nonoverlapping_inferred_expos
         assert routes["blocked"]
         assert not set(routes["blocked"]) & (set(routes["detour"]) | set(routes["expedited"]))
         assert all(edges[e]["mode"] == "air" for e in routes["expedited"])
-        if entry["id"] == "russia-2022":
+        if entry["id"] == "russia-2022" or scenario.get('contextOnly'):
             assert routes["detour"] == routes["expedited"] == []
         else:
             assert routes["detour"] and routes["expedited"]

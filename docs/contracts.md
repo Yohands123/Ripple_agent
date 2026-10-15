@@ -171,6 +171,49 @@ create model hops.
 
 ## Scenarios, predictions and exposures
 
+Mineral reference context uses `contextLayer: "minerals"` on backbone nodes
+and physical routes, and `layer: "mineral_supply"` on material-compatibility
+supply edges. `mineralReference` records `referenceAsOf`, `scope`,
+`sourceChoice` (latest Form SD, available CMR, separate facility list and
+source-selection basis), and `originPolicy` (effective date, metals,
+countries, basis and source). These are separately dated contemporary
+references, never additions to an event's own-year supplier roster or model.
+`coverage.mineralNodes` and `mineralSupplyLinks` count these display records.
+
+Mineral nodes carry `country`, `minerals`, and `appleMineOriginAsserted: false`.
+Mine nodes represent broad producing regions (`regionBasis`), not individual
+mines. Tier 1 for extraction and tier 2 for processing are inferred stage
+conventions with basis `mineral extraction or processing role`. Refineries
+retain `metal`, nullable `city`, `reportEntryName`, `reportCountry`,
+`reportPage`, `listedByApple`, and `cityPositionNote`. Each metal/facility/
+country list entry is distinct; identical names across metals do not establish
+one physical facility. Country-only entries use approximate country positions;
+operator-published cities are retained even where the gazetteer cannot place
+them more precisely. Copper regions do not imply an Apple copper-refinery
+list where none is disclosed.
+
+Mineral supply edges retain `metal`, `modelEligible: false`, and optional
+`appleSourcingStatus`, `appleMineOriginAsserted`. Matching a region's commodity
+or a component category is a compatibility inference, not evidence of a
+named buyer, primary feedstock, volumes or Apple mine sourcing. DRC/Rwanda
+3TG-origin paths carry `appleSourcingStatus:
+"excluded-by-published-origin-policy"`; global producing-region context must
+not imply these are permitted current Apple sources. Refiner-to-component
+display links select at most three nearest distinct compatible companies.
+Actual historical buyer links remain subject to the dated-evidence rules above.
+Mineral routes carry `minerals`, `corridor`, and, for regional sea gateways,
+`refiningRegion`. These aggregate regions and do not identify every refinery's
+actual port or inland shipment. Rail sketches may include feeder transfers;
+they do not assert that proposed new railway extensions already exist.
+
+`contextOnly: true` scenarios/networks have no supplier roster, labels,
+predictions, production assumptions, or evaluation metrics. Their
+`snapshotYearBasis` explains that `snapshotYear` refers to the mineral
+disclosure/event year. A scenario-level `predictionScope` explains absence
+of predictions. `shock.mineral` restricts a commodity-specific policy overlay;
+the cobalt suspension does not assert copper prohibitions or physical road
+closures. Empty detour/expedited arrays must not suggest evasion of a ban.
+
 Scenarios contain `id`, `title`, `type`, `start`, `end`, `snapshotYear`,
 `sampleData`, `shock`, `headline`, `predictions`, `actual`, `options`, `quota`,
 `money`, `affectedRoutes`, and `sensitivity`. Type is `sea`, `sky`, `land`,
@@ -610,12 +653,15 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `cohort.snapshotYear` | integer |
 | `cohort.yearBasis` | string |
 | `cohortBasis` | string |
+| `contextOnly` | boolean |
 | `coverage` | object |
 | `coverage.backboneNodes` | integer |
 | `coverage.backboneRoutes` | integer |
 | `coverage.locationCoverage` | string |
 | `coverage.manufacturingLocations` | integer |
 | `coverage.matchedLocations` | integer |
+| `coverage.mineralNodes` | integer |
+| `coverage.mineralSupplyLinks` | integer |
 | `coverage.modelEligibleSupplyLinks` | integer |
 | `coverage.supplierAccessLinks` | integer |
 | `coverage.supplyLinks` | integer |
@@ -624,6 +670,8 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `edges` | array |
 | `edges[]` | object |
 | `edges[].alternativeTo` | string |
+| `edges[].appleMineOriginAsserted` | boolean |
+| `edges[].appleSourcingStatus` | string |
 | `edges[].assemblyProductEvidence` | object |
 | `edges[].assemblyProductEvidence.availableOn` | string |
 | `edges[].assemblyProductEvidence.basis` | string |
@@ -640,6 +688,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `edges[].componentCategories[]` | string |
 | `edges[].confidence` | string |
 | `edges[].confidenceKind` | string |
+| `edges[].contextLayer` | string |
 | `edges[].corridor` | string |
 | `edges[].destinationId` | string |
 | `edges[].distanceDefinition` | string |
@@ -654,6 +703,9 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `edges[].laneId` | string |
 | `edges[].laneName` | string |
 | `edges[].layer` | string |
+| `edges[].metal` | string |
+| `edges[].minerals` | array |
+| `edges[].minerals[]` | string |
 | `edges[].mode` | null, string |
 | `edges[].modelEligible` | boolean |
 | `edges[].narrowPassages` | array |
@@ -675,6 +727,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `edges[].products[]` | string |
 | `edges[].purpose` | string |
 | `edges[].referenceAsOf` | string |
+| `edges[].refiningRegion` | string |
 | `edges[].relation` | string |
 | `edges[].routingVerified` | boolean |
 | `edges[].segmentCount` | integer |
@@ -692,8 +745,27 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `edges[].via[]` | array |
 | `edges[].via[][]` | number |
 | `eventId` | string |
+| `mineralReference` | object |
+| `mineralReference.originPolicy` | object |
+| `mineralReference.originPolicy.basis` | string |
+| `mineralReference.originPolicy.countries` | array |
+| `mineralReference.originPolicy.countries[]` | string |
+| `mineralReference.originPolicy.effectiveFrom` | string |
+| `mineralReference.originPolicy.metals` | array |
+| `mineralReference.originPolicy.metals[]` | string |
+| `mineralReference.originPolicy.source` | object |
+| `mineralReference.originPolicy.source.title` | string |
+| `mineralReference.originPolicy.source.url` | string |
+| `mineralReference.referenceAsOf` | string |
+| `mineralReference.scope` | string |
+| `mineralReference.sourceChoice` | object |
+| `mineralReference.sourceChoice.basis` | string |
+| `mineralReference.sourceChoice.facilityList` | string |
+| `mineralReference.sourceChoice.latestAvailableCMR` | string |
+| `mineralReference.sourceChoice.latestFormSD` | string |
 | `nodes` | array |
 | `nodes[]` | object |
+| `nodes[].appleMineOriginAsserted` | boolean |
 | `nodes[].appleRevenueShare` | null, number |
 | `nodes[].attributeSources` | object |
 | `nodes[].attributeSources.appleRevenueShare` | object |
@@ -714,6 +786,8 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].attributeSources.size.source.title` | string |
 | `nodes[].attributeSources.size.source.url` | string |
 | `nodes[].canonicalCompany` | string |
+| `nodes[].city` | null, string |
+| `nodes[].cityPositionNote` | string |
 | `nodes[].classification` | object |
 | `nodes[].classification.basis` | string |
 | `nodes[].classification.canonicalCompany` | string |
@@ -733,6 +807,8 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].companyId` | string |
 | `nodes[].confidence` | string |
 | `nodes[].confidenceKind` | string |
+| `nodes[].contextLayer` | string |
+| `nodes[].country` | string |
 | `nodes[].establishedOn` | string |
 | `nodes[].eventId` | string |
 | `nodes[].gatewaySelectionBasis` | string |
@@ -742,8 +818,12 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].kind` | string |
 | `nodes[].lat` | number |
 | `nodes[].layer` | string |
+| `nodes[].listedByApple` | boolean |
 | `nodes[].locationRole` | string |
 | `nodes[].lon` | integer, number |
+| `nodes[].metal` | string |
+| `nodes[].minerals` | array |
+| `nodes[].minerals[]` | string |
 | `nodes[].mrgid` | integer |
 | `nodes[].name` | string |
 | `nodes[].partType` | null, string |
@@ -768,7 +848,11 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `nodes[].publishedPosition.lon` | number |
 | `nodes[].referenceAsOf` | string |
 | `nodes[].region` | string |
+| `nodes[].regionBasis` | string |
 | `nodes[].regionDefinition` | string |
+| `nodes[].reportCountry` | string |
+| `nodes[].reportEntryName` | string |
+| `nodes[].reportPage` | integer |
 | `nodes[].salesRegion` | string |
 | `nodes[].scope` | string |
 | `nodes[].seamId` | string |
@@ -790,6 +874,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `sampleData` | boolean |
 | `scope` | string |
 | `snapshotYear` | integer |
+| `snapshotYearBasis` | string |
 | `supplyDefinition` | string |
 
 ### Scenario
@@ -853,6 +938,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `companyPredictions[].sources[].url` | string |
 | `companyPredictions[].supplier` | string |
 | `companyPredictions[].ticker` | null, string |
+| `contextOnly` | boolean |
 | `dateBasis` | string |
 | `end` | string |
 | `endBasis` | string |
@@ -943,6 +1029,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `options[].unitsRecovered` | array |
 | `options[].unitsRecovered[]` | number |
 | `outcomeDefinition` | string |
+| `predictionScope` | string |
 | `predictions` | array |
 | `predictions[]` | object |
 | `predictions[].ciHigh` | number |
@@ -960,7 +1047,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `predictions[].shap[]` | object |
 | `predictions[].shap[].feature` | string |
 | `predictions[].shap[].value` | number |
-| `quota` | object |
+| `quota` | null, object |
 | `quota.assumption` | boolean |
 | `quota.noAction` | array |
 | `quota.noActionRange` | array |
@@ -1007,6 +1094,7 @@ Every emitted field is enumerated below, including nested evidence and assumptio
 | `shock.location.sources[]` | object |
 | `shock.location.sources[].title` | string |
 | `shock.location.sources[].url` | string |
+| `shock.mineral` | string |
 | `shock.nodeIds` | array |
 | `shock.nodeIds[]` | string |
 | `snapshotYear` | integer |

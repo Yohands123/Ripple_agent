@@ -1,0 +1,157 @@
+{
+  "checkedOn": "2026-10-15",
+  "referenceAsOf": "2025-12-31",
+  "datasets": {
+    "apple_sd_2026.html": {
+      "file": "apple_sd_2026.html",
+      "title": "Apple Form SD filed May 28, 2026 (2025 coverage; no CMR exhibit)",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126023149/ef20073373_sd.htm",
+      "sha256": "0ce11806a35c1b0122afe13314ee4725455563b1c228ce7b3063fdfb7025be8d"
+    },
+    "apple_cmr_2024.html": {
+      "file": "apple_cmr_2024.html",
+      "title": "Apple Conflict Minerals Report 2024, Exhibit 1.01 filed April 4, 2025",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036125012359/ef20046400_ex1-01.htm",
+      "sha256": "3b75921c06369e165d50f549fcd5d89dd9b962992707e72328919248ac201c89"
+    },
+    "apple_ungp_2026.pdf": {
+      "file": "apple_ungp_2026.pdf",
+      "title": "Apple UNGP Mapping 2026, materials annex pp. 28-34, December 31, 2025 smelter/refiner list",
+      "url": "https://s203.q4cdn.com/367071867/files/doc_downloads/gov_docs/2026/Apple-UNGP-Mapping-2026.pdf",
+      "sha256": "2a21b42eebebbdecc8b1bd86f7f411d7ae266bbb6b8127009e4412d9f10b2a40"
+    },
+    "mcs2026-cobalt.pdf": {
+      "file": "mcs2026-cobalt.pdf",
+      "title": "USGS Mineral Commodity Summaries 2026: Cobalt",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf",
+      "sha256": "cdfe86c808872800d8877b8af4a16d67822939a995b73960b419b2ceedb39fb3"
+    },
+    "mcs2026-copper.pdf": {
+      "file": "mcs2026-copper.pdf",
+      "title": "USGS Mineral Commodity Summaries 2026: Copper",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-copper.pdf",
+      "sha256": "c4971f7edfa38feefc51952c5f24889c46f468d936c6620d388233313ae8ae85"
+    },
+    "mcs2026-gold.pdf": {
+      "file": "mcs2026-gold.pdf",
+      "title": "USGS Mineral Commodity Summaries 2026: Gold",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gold.pdf",
+      "sha256": "c2fef62f665d3334302b8b9bd32e2da6f40b3f8136d1ae00ffa102e196943627"
+    },
+    "mcs2026-tantalum.pdf": {
+      "file": "mcs2026-tantalum.pdf",
+      "title": "USGS Mineral Commodity Summaries 2026: Tantalum",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
+      "sha256": "ddcfdf129bf67c2cced06f8476ec24937ac4f0f995d2ac7354a582f35491c1bf"
+    },
+    "mcs2026-tin.pdf": {
+      "file": "mcs2026-tin.pdf",
+      "title": "USGS Mineral Commodity Summaries 2026: Tin",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tin.pdf",
+      "sha256": "659ee022301fcd3eda08f4ac22c8f33030c11ed0dca9851306e18c745d29a017"
+    },
+    "mcs2026-tungsten.pdf": {
+      "file": "mcs2026-tungsten.pdf",
+      "title": "USGS Mineral Commodity Summaries 2026: Tungsten",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf",
+      "sha256": "c33271f3529cc546707c05c7d02c34c9cd321772dbcbb3e787c7715dcb889847"
+    }
+  },
+  "scope": "Contemporary mineral context, separate from historical supplier cohorts and model inputs. Mining nodes describe source regions, never specific mines or verified Apple origins. All commodity-compatible supply and transport links are inferred; recycling, purchases, allocations and actual shipment paths remain unknown.",
+  "sourceChoice": {
+    "latestFormSD": "apple_sd_2026.html",
+    "latestAvailableCMR": "apple_cmr_2024.html",
+    "facilityList": "apple_ungp_2026.pdf",
+    "basis": "The 2026 Form SD explicitly does not file a CMR. The latest CMR (2024, filed 2025) contains a country-of-origin table and refers to a separate facility list. Facility names are therefore parsed from the current Apple-published 2026 materials annex, not invented or misattributed to the SEC exhibit. The older static Apple-Smelter-and-Refiner-List.pdf covers 2022 and is not used."
+  },
+  "refinerTableCounts": {
+    "cobalt": 12,
+    "gold": 92,
+    "tantalum": 32,
+    "tin": 52,
+    "tungsten": 33
+  },
+  "originPolicy": {
+    "effectiveFrom": "2024-06",
+    "metals": [
+      "gold",
+      "tantalum",
+      "tin",
+      "tungsten"
+    ],
+    "countries": [
+      "Democratic Republic of the Congo",
+      "Rwanda"
+    ],
+    "basis": "Apple states that it notified suppliers to cease direct or indirect sourcing of 3TG for Apple parts/products from DRC and Rwanda. Regional mineral-compatibility edges are global context only and must explicitly retain this restriction; they are not current Apple sourcing assertions. Refinery location alone does not identify the origin of its feedstock.",
+    "source": {
+      "title": "Apple Conflict Minerals Report 2024, Exhibit 1.01 filed April 4, 2025",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036125012359/ef20046400_ex1-01.htm"
+    }
+  },
+  "sources": {
+    "central": {
+      "title": "Central Corridor Transit Transport Facilitation Agency: Great Lakes states connected to Dar es Salaam",
+      "url": "https://centralcorridor-ttfa.org/overview/"
+    },
+    "copperbelt": {
+      "title": "USGS Central African Copperbelt assessment: Katanga Basin, DRC and Zambia",
+      "url": "https://pubs.usgs.gov/sir/2010/5090/t/pdf/sir2010-5090T.pdf"
+    },
+    "greatLakes": {
+      "title": "USGS conflict minerals and eastern DRC tin, tantalum, tungsten mining regions",
+      "url": "https://pubs.usgs.gov/fs/2014/3069/pdf/fs2014-3069.pdf"
+    },
+    "lobito": {
+      "title": "Lobito Atlantic Railway: Copperbelt export corridor and Kolwezi-Lobito railway",
+      "url": "https://www.lobitoatlantic.com/about-the-project/"
+    },
+    "tazara": {
+      "title": "TAZARA: Dar es Salaam-New Kapiri Mposhi railway",
+      "url": "https://tazarasite.com/faq"
+    },
+    "walvis": {
+      "title": "Walvis Bay Corridor Group: Ndola-Lubumbashi Development Corridor",
+      "url": "https://www.wbcg.com.na/"
+    },
+    "southern": {
+      "title": "African Development Bank: Zambia road and rail export corridors including Durban",
+      "url": "https://www.afdb.org/sites/default/files/documents/projects-and-operations/development_effectiveness_review_2013_zambia.pdf"
+    },
+    "event": {
+      "title": "IEA: DRC cobalt export suspension February 22-October 15, 2025",
+      "url": "https://www.iea.org/policies/28969-temporary-suspension-of-cobalt-export-from-the-democratic-republic-of-congo"
+    },
+    "quota": {
+      "title": "IEA: DRC cobalt quota system replaces the suspension on October 16, 2025",
+      "url": "https://www.iea.org/policies/29138-drc-arecoms-decision-no-0042025-cobalt-quota-system"
+    },
+    "tungstenUse": {
+      "title": "Apple 2025 Environmental Progress Report: tungsten recovered from Taptic Engine",
+      "url": "https://www.apple.com/mideast/environment/pdf/Apple_Environmental_Progress_Report_2025.pdf"
+    }
+  },
+  "cityEvidence": {
+    "Umicore Finland Oy": {
+      "city": "Kokkola",
+      "source": {
+        "title": "Umicore Finland: Kokkola cobalt refinery location",
+        "url": "https://www.umicore.fi/en/our-site/start"
+      }
+    },
+    "Umicore Olen": {
+      "city": "Olen",
+      "source": {
+        "title": "Umicore public locations: Olen cobalt operations",
+        "url": "https://www.umicore.com/en/locations/all-sites/"
+      }
+    },
+    "Global Advanced Metals Boyertown": {
+      "city": "Boyertown",
+      "source": {
+        "title": "Global Advanced Metals: Boyertown tantalum plant in Pennsylvania",
+        "url": "https://globaladvancedmetals.com/gam-technology/"
+      }
+    }
+  }
+}

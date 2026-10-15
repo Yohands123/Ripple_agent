@@ -1,0 +1,24 @@
+{
+  "refinerRecords": 221,
+  "byMetal": {
+    "cobalt": 12,
+    "gold": 92,
+    "tantalum": 32,
+    "tin": 52,
+    "tungsten": 33
+  },
+  "byPrecision": {
+    "country": 220,
+    "city": 1
+  },
+  "miningRegions": 38,
+  "seaRoutes": 19,
+  "landCrossingFailures": 0,
+  "scope": "Contemporary mineral context, separate from historical supplier cohorts and model inputs. Mining nodes describe source regions, never specific mines or verified Apple origins. All commodity-compatible supply and transport links are inferred; recycling, purchases, allocations and actual shipment paths remain unknown.",
+  "sourceChoice": {
+    "latestFormSD": "apple_sd_2026.html",
+    "latestAvailableCMR": "apple_cmr_2024.html",
+    "facilityList": "apple_ungp_2026.pdf",
+    "basis": "The 2026 Form SD explicitly does not file a CMR. The latest CMR (2024, filed 2025) contains a country-of-origin table and refers to a separate facility list. Facility names are therefore parsed from the current Apple-published 2026 materials annex, not invented or misattributed to the SEC exhibit. The older static Apple-Smelter-and-Refiner-List.pdf covers 2022 and is not used."
+  }
+}

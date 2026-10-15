@@ -122,6 +122,10 @@ class Validator:
                 if classification.get("tier") is None:
                     self.check(node.get("tier") is None, name + ": empty CSV tier must stay null")
                 self.check(classification.get("reference") == "data/reference/supplier_classes.csv", name + ": classification reference required")
+            elif node.get('contextLayer') == 'minerals' and node.get('kind') in {'mine', 'refinery'}:
+                expected_tier = 1 if node['kind'] == 'mine' else 2
+                self.check(node.get('tier') == expected_tier and node.get('tierStatus') == 'inferred' and node.get('tierBasis') == 'mineral extraction or processing role', name + ': mineral stage inference required')
+                self.check(bool(node.get('minerals')) and node.get('appleMineOriginAsserted') is False, name + ': mineral reference cannot assert an Apple mine origin')
             elif "tierStatus" in node:
                 from pipeline.tiers import inferred_tier
                 expected = inferred_tier(node.get("partType"))
@@ -167,6 +171,15 @@ class Validator:
         # Validate every sea edge, including sample fixtures. The independent
         # pinned mask has no edge-controlled exemption mechanism.
         by_id = {n.get("id"): n for n in nodes if isinstance(n, dict)}
+        for edge in edges:
+            if not isinstance(edge, dict) or edge.get('layer') != 'mineral_supply':
+                continue
+            a, b = by_id.get(edge.get('from'), {}), by_id.get(edge.get('to'), {})
+            self.check(edge.get('modelEligible') is False and edge.get('status') == 'inferred', label + ': mineral context cannot enter historical model hops')
+            if a.get('kind') == 'mine':
+                self.check(edge.get('metal') in a.get('minerals', []) and edge.get('metal') == b.get('metal'), label + ': incompatible mine/refinery metal')
+                if a.get('country') in {'Rwanda', 'Democratic Republic of the Congo'} and edge.get('metal') in {'tin', 'tantalum', 'tungsten', 'gold'}:
+                    self.check(edge.get('appleSourcingStatus') == 'excluded-by-published-origin-policy', label + ': published Apple 3TG origin exclusion required')
         for edge in edges:
             if not isinstance(edge, dict) or edge.get("mode") != "sea" or edge.get("from") not in by_id or edge.get("to") not in by_id:
                 continue

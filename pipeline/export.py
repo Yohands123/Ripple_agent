@@ -76,6 +76,9 @@ def build_bundle(root=ROOT):
     plans_path = root / "data/processed/optimizer_plans.json"
     optimization_plans = read_json(plans_path) if plans_path.exists() else None
     backbone = read_json(root / "data/processed/backbone.json")
+    minerals = read_json(root / "data/processed/minerals.json")
+    from pipeline.mineral_routes import attach_minerals
+    from pipeline.mineral_scenario import build_scenario as mineral_scenario
     if optimization_plans is not None and optimization_plans.get("reviewOnly") is not False:
         raise ValueError("Review-only optimizer output cannot be published")
     for event in events:
@@ -154,9 +157,14 @@ def build_bundle(root=ROOT):
                 raise ValueError("Unapproved optimizer assumptions cannot be published")
             documents[f"scenarios/{identifier}.json"].update(plan)
         attach_backbone(documents[network_path], documents[f"scenarios/{identifier}.json"], event, backbone)
+        attach_minerals(documents[network_path], minerals)
         scenario = documents[f"scenarios/{identifier}.json"]
         scenario["unknowns"] = [tier_unknown_text(documents[network_path]["nodes"]) if value.casefold().startswith("production tier") else value for value in scenario["unknowns"]]
         index.append({key: event[key] for key in ["id", "title", "type", "start"]})
+    mineral_network, mineral_event = mineral_scenario(backbone, minerals)
+    documents[mineral_event['networkPath']] = mineral_network
+    documents['scenarios/'+mineral_event['id']+'.json'] = mineral_event
+    index.append({key:mineral_event[key] for key in ['id','title','type','start']})
     default = "suez-2021" if "networks/suez-2021.json" in documents else events[0]["id"]
     documents["network.json"] = documents[f"networks/{default}.json"]
     documents["scenarios/index.json"] = index
