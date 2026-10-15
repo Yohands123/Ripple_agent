@@ -1,12 +1,13 @@
-// Route geometry in map pixels.
+// Route geometry in map pixels. Every route is a lon/lat line drawn through d3's
+// geoPath (lib/georoute.ts), so it follows the globe and splits at the date line.
 
-import { project, type Pt } from "./geo";
-import { sampleQuad, sampleSmooth } from "./polyline";
-import type { Network, NetworkEdge, NetworkNode } from "./types";
+import { type Pt } from "./geo";
+import { lineGeometry, type LineGeometry, type LineStyle } from "./georoute";
+import type { Network, NetworkEdge, NetworkNode, NodeKind } from "./types";
 
 const f = (n: number) => n.toFixed(1);
 
-/** Smooth path through points: uniform Catmull-Rom as cubic Béziers (matches the concept art). */
+/** Smooth path through points: uniform Catmull-Rom as cubic Béziers (matches the concept art). Used for money lines. */
 export function smoothPath(pts: Pt[]): string {
   if (pts.length === 0) return "";
   let d = `M${f(pts[0][0])} ${f(pts[0][1])}`;
@@ -22,19 +23,49 @@ export function smoothPath(pts: Pt[]): string {
   return d;
 }
 
-/** Air routes are a quadratic arc bowing north (up). */
-export function arcControl(a: Pt, b: Pt): Pt {
-  return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - 0.19 * Math.abs(b[0] - a[0])];
-}
-
-export function arcPath(a: Pt, b: Pt): string {
-  const c = arcControl(a, b);
-  return `M${f(a[0])} ${f(a[1])} Q${f(c[0])} ${f(c[1])} ${f(b[0])} ${f(b[1])}`;
-}
-
 export function nodeIndex(network: Network): Map<string, NetworkNode> {
   return new Map(network.nodes.map((n) => [n.id, n]));
 }
+
+// ---------- What an edge is ----------
+
+const SUPPLIER_KINDS = new Set<NodeKind>(["supplier_major", "supplier_minor", "mine", "refinery"]);
+
+/**
+ * `route` edges are transport drawn on the map; `supply` edges say who supplies whom
+ * (used by the supplier stack and the trace, never drawn as transport). Files without
+ * `relation` are read by layer: backbone and supplier-access links are routes. Older
+ * files with neither (the fixtures) draw every edge as a route, and an edge from a
+ * supplier into an assembly site also counts as supply.
+ */
+export function isRoute(e: NetworkEdge): boolean {
+  if (e.relation === "route") return true;
+  if (e.relation === "supply") return false;
+  // Before `relation` was route/supply it described the corridor; the layer says what the edge is.
+  if (e.layer) return e.layer === "backbone" || e.layer === "supplier_access";
+  return true;
+}
+
+export function isSupply(e: NetworkEdge, nodes: Map<string, NetworkNode>): boolean {
+  if (e.relation === "supply") return true;
+  if (e.relation === "route" || e.layer) return false;
+  const from = nodes.get(e.from);
+  const to = nodes.get(e.to);
+  return Boolean(from && to && SUPPLIER_KINDS.has(from.kind) && to.kind === "assembly");
+}
+
+/** Drawing strength: the backbone at full strength, other inferred routes thinner, supplier links faint. */
+export type EdgeRank = "backbone" | "inferred" | "supplier";
+
+export function edgeRank(e: NetworkEdge): EdgeRank {
+  if (e.layer === "supplier_access" || e.layer === "supplier") return "supplier";
+  if (e.layer && e.layer !== "backbone") return "inferred";
+  return "backbone";
+}
+
+export const isSupplierKind = (k: NodeKind) => SUPPLIER_KINDS.has(k);
+
+// ---------- Geometry ----------
 
 /** Lon/lat waypoints of an edge, endpoints included. */
 export function edgeLonLat(edge: NetworkEdge, nodes: Map<string, NetworkNode>): Pt[] | null {
@@ -44,26 +75,31 @@ export function edgeLonLat(edge: NetworkEdge, nodes: Map<string, NetworkNode>): 
   return [[a.lon, a.lat], ...(edge.via ?? []), [b.lon, b.lat]];
 }
 
-export function edgePoints(edge: NetworkEdge, nodes: Map<string, NetworkNode>): Pt[] | null {
+export const styleOf = (edge: NetworkEdge): LineStyle => (edge.mode === "air" ? "arc" : edge.via?.length ? "smooth" : "straight");
+
+const cache = new WeakMap<NetworkEdge, LineGeometry | null>();
+
+/** The edge's line: path data (split at the antimeridian) and its pieces in map pixels. */
+export function edgeLine(edge: NetworkEdge, nodes: Map<string, NetworkNode>): LineGeometry | null {
+  if (cache.has(edge)) return cache.get(edge)!;
   const ll = edgeLonLat(edge, nodes);
-  return ll ? ll.map(([lon, lat]) => project(lon, lat)) : null;
+  const g = ll ? lineGeometry(ll, styleOf(edge)) : null;
+  cache.set(edge, g);
+  return g;
 }
 
-/** SVG path for an edge, and the control points it was drawn through. */
+/** SVG path for an edge, and the points it was drawn through. */
 export function edgeGeometry(edge: NetworkEdge, nodes: Map<string, NetworkNode>): { d: string; pts: Pt[] } | null {
-  const pts = edgePoints(edge, nodes);
-  if (!pts) return null;
-  if (edge.mode === "air") return { d: arcPath(pts[0], pts[pts.length - 1]), pts: [pts[0], pts[pts.length - 1]] };
-  return { d: smoothPath(pts), pts };
+  const g = edgeLine(edge, nodes);
+  return g ? { d: g.d, pts: g.pieces.flat() } : null;
 }
 
-/** Samples a route as a polyline (for movers, hit tests, and label avoidance). */
-export function sampleEdge(edge: NetworkEdge, nodes: Map<string, NetworkNode>, step = 6): Pt[] {
-  const pts = edgePoints(edge, nodes);
-  if (!pts) return [];
-  if (edge.mode === "air") {
-    const [a, b] = [pts[0], pts[pts.length - 1]];
-    return sampleQuad(a, arcControl(a, b), b, step);
-  }
-  return sampleSmooth(pts, step);
+/** The edge in map pixels, one piece per side of the antimeridian. */
+export function edgePieces(edge: NetworkEdge, nodes: Map<string, NetworkNode>): Pt[][] {
+  return edgeLine(edge, nodes)?.pieces ?? [];
+}
+
+/** All sampled points of an edge (for hit tests and label avoidance). */
+export function sampleEdge(edge: NetworkEdge, nodes: Map<string, NetworkNode>): Pt[] {
+  return edgePieces(edge, nodes).flat();
 }

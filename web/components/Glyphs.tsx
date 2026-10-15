@@ -34,9 +34,15 @@ export function NodeSymbol({ kind, tier, size }: { kind: NodeKind; tier: number 
           <path d={TRIANGLE} fill="none" stroke={c} strokeWidth={2} strokeLinejoin="round" />
         </svg>
       );
+    case "sales_region":
+      // One of Apple's reporting regions (not a store): the sales color, whatever the tier.
+      return <div style={{ width: size, height: size, background: tierColor[6], border: `3px solid ${tierColor[6]}`, borderRadius: 3 }} />;
+    case "event_anchor":
+      return <div style={{ width: size, height: size, borderRadius: "50%", background: color.alert, border: `3px solid ${color.ocean}` }} />;
     case "port":
     case "airport":
     case "canal":
+    case "chokepoint":
     case "border":
       return <div style={{ width: size, height: size, borderRadius: "50%", background: shippingDot, border: `3px solid ${color.ocean}` }} />;
     case "carrier":

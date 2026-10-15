@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { WORLD_BOUNDS, type Pt } from "@/lib/geo";
+import { project, WORLD_BOUNDS, type Pt } from "@/lib/geo";
 import { size } from "@/lib/tokens";
 
 /**
@@ -206,6 +206,18 @@ export default function MapStage({ children, hud, focus }: Props) {
     },
     goTo: (p, k = 1) => setView(clamp({ cx: p[0], cy: p[1], k })),
   };
+
+  // A hook for scripted walkthroughs and checks: centre on a lon/lat at a zoom.
+  useEffect(() => {
+    const w = window as unknown as { __rippleGoTo?: (lon: number, lat: number, k: number) => void };
+    w.__rippleGoTo = (lon, lat, k) => {
+      const [x, y] = project(lon, lat);
+      setView(clamp({ cx: x, cy: y, k }));
+    };
+    return () => {
+      delete w.__rippleGoTo;
+    };
+  }, [clamp]);
 
   const isDefault = Math.abs(v.k - 1) < 1e-3 && Math.abs(v.cx - DEFAULT_VIEW.cx) < 0.5 && Math.abs(v.cy - DEFAULT_VIEW.cy) < 0.5;
 

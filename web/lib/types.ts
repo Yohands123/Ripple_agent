@@ -19,7 +19,10 @@ export type NodeKind =
   | "carrier"
   | "retailer"
   | "repair"
-  | "hq";
+  | "hq"
+  | "sales_region"
+  | "chokepoint"
+  | "event_anchor";
 
 export interface NetworkNode {
   id: string;
@@ -41,6 +44,13 @@ export interface NetworkNode {
   companyId?: string;
   locationRole?: string;
   partTypeScope?: string;
+  /** `supplier` for the year's disclosed sites, `backbone` for dated reference geography. */
+  layer?: string;
+  /** Qualitative confidence in an inferred classification (not a probability). */
+  confidence?: string;
+  confidenceKind?: string;
+  canonicalCompany?: string;
+  salesRegion?: string;
   /** Added by the interface (lib/lanes.ts), not from the data files. */
   illustrative?: boolean;
   /** A routing point with no symbol (e.g. where a lane crosses the date line). */
@@ -54,10 +64,25 @@ export interface NetworkEdge {
   from: string;
   to: string;
   mode: Mode;
-  carriesTier: number;
+  /** Null when the tier of what it carries is unknown. */
+  carriesTier: number | null;
   status: "known" | "inferred";
   sources: Source[];
   via?: [number, number][];
+  /** `route` (transport, drawn on the map) or `supply` (who supplies whom). Older files describe the corridor here instead. */
+  relation?: string;
+  /** `backbone` (reference transport), `supplier_access` (a site's link to its gateway), or another inferred layer. */
+  layer?: string;
+  /** Name shared by the edges of one lane, for its label. */
+  laneName?: string;
+  corridor?: string;
+  /** Shipping nodes the route passes through (canals, straits). */
+  viaNodeIds?: string[];
+  /** The route this one replaces when used as a detour. */
+  alternativeTo?: string;
+  basis?: string;
+  /** Confidence in an inferred link, shown on hover. */
+  confidence?: string;
   /** Added by the interface (lib/lanes.ts), not from the data files. */
   illustrative?: boolean;
   /** Drawn only when a scenario uses it as a detour. */
@@ -69,6 +94,8 @@ export interface NetworkEdge {
 }
 
 export interface Network {
+  /** Dated reference geography (backbone): when and what it covers. */
+  backbone?: { referenceAsOf?: string; scope?: string; routeDefinition?: string };
   snapshotYear: number;
   sampleData: boolean;
   nodes: NetworkNode[];
@@ -156,7 +183,9 @@ export interface Scenario {
   /** Things the export states are not known (e.g. "Physical supplier transport routes"). */
   unknowns?: string[];
   affectedRoutes: { blocked: string[]; detour: string[]; expedited: string[] };
-  sensitivity?: { assumption: string; spearman: number }[];
+  affectedRoutesBasis?: string;
+  /** `label` is the plain-language name of the assumption, when the file gives one. */
+  sensitivity?: { assumption: string; spearman: number; label?: string }[];
 }
 
 export interface ScenarioIndexEntry {

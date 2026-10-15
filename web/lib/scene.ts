@@ -4,7 +4,7 @@
 import { DATELINE_EAST, DATELINE_WEST, type Pt } from "./geo";
 import { continentOf, largePillBox, placeBox, smallPillBox, spiral, type MapLayout } from "./layout";
 import { Polyline, sampleSmooth } from "./polyline";
-import { edgeGeometry, nodeIndex, sampleEdge, smoothPath } from "./routes";
+import { edgeGeometry, edgePieces, isRoute, nodeIndex, smoothPath } from "./routes";
 import { color, size, tierColor, type CoinKind } from "./tokens";
 import type { Network, NetworkEdge, NetworkNode, Scenario } from "./types";
 
@@ -100,11 +100,21 @@ export const SHIP_SPEED = 14;
 export const COIN_SPEED = 22;
 export const MONEY_COINS = 3;
 
-/** Edges drawn in free flow: everything except routes that only exist as a scenario's detour. */
+/** Edges drawn in free flow: routes only, except those that exist only as a scenario's detour or alternative. */
 export function freeFlowEdges(network: Network, scenario: Scenario | null): NetworkEdge[] {
   const detourOnly = new Set(scenario?.affectedRoutes.detour ?? []);
-  return network.edges.filter((e) => !detourOnly.has(e.id) && !e.detourOnly);
+  return network.edges.filter((e) => isRoute(e) && !detourOnly.has(e.id) && !e.detourOnly && !e.alternativeTo);
 }
+
+/** Line color for an edge: the tier it carries, or plain light when that is unknown. */
+export const edgeColor = (e: NetworkEdge) => (e.carriesTier != null ? tierColor[e.carriesTier] : undefined) ?? color.pillLight;
+
+/** An edge as polylines in map pixels, one per side of the antimeridian. */
+export function edgePolylines(edge: NetworkEdge, nodes: Map<string, NetworkNode>): Polyline[] {
+  return edgePieces(edge, nodes).map((p) => new Polyline(p));
+}
+
+export const longestOf = (lines: Polyline[]) => lines.reduce<Polyline | null>((a, b) => (!a || b.length > a.length ? b : a), null);
 
 /** Where revenue leaves each regional sales group: its nearest shipping node, or the group's first node. */
 function salesHubs(network: Network, layout: MapLayout): Pt[] {
@@ -263,7 +273,7 @@ export function buildFreeFlowScene(network: Network, layout: MapLayout, scenario
   for (const edge of visibleEdges) {
     const g = edgeGeometry(edge, nodes);
     if (!g) continue;
-    routes.push({ id: edge.id, edge, d: g.d, state: "normal", color: tierColor[edge.carriesTier] ?? color.pillLight });
+    routes.push({ id: edge.id, edge, d: g.d, state: "normal", color: edgeColor(edge) });
   }
   // Air arcs under sea lanes, as in the concept art.
   routes.sort((a, b) => Number(b.edge.mode === "air") - Number(a.edge.mode === "air"));
@@ -275,11 +285,12 @@ export function buildFreeFlowScene(network: Network, layout: MapLayout, scenario
   // Ships on finished-device sea lanes, evenly spaced, sailing from → to.
   for (const r of routes) {
     if (r.edge.mode !== "sea" || r.edge.carriesTier !== 4) continue;
-    const path = new Polyline(sampleEdge(r.edge, nodes));
-    const count = Math.max(1, Math.round(path.length / SHIP_SPACING));
-    for (let i = 0; i < count; i++) {
-      movers.push({ id: `ship-${r.id}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: SHIP_SPEED });
-    }
+    edgePolylines(r.edge, nodes).forEach((path, j) => {
+      const count = Math.max(1, Math.round(path.length / SHIP_SPACING));
+      for (let i = 0; i < count; i++) {
+        movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: SHIP_SPEED });
+      }
+    });
   }
 
   // Money lines and their coins.
@@ -315,7 +326,8 @@ export function routePills(network: Network, layout: MapLayout, routes: RouteDra
       const toC = continentOf(last.lon, last.lat);
       if (fromC === toC) continue;
       const text = `${fromC} TO ${toC} SEA LANE`.toUpperCase();
-      const longest = chain.map((r) => new Polyline(sampleEdge(r.edge, nodes))).reduce((a, b) => (b.length > a.length ? b : a));
+      const longest = longestOf(chain.map((r) => longestOf(edgePolylines(r.edge, nodes))).filter((p): p is Polyline => p !== null));
+      if (!longest) continue;
       const mid = longest.atFraction(0.5);
       const { w, h } = largePillBox(text);
       const near = longest.pts.filter((p) => Math.abs(p[0] - mid[0]) < w / 2 + 10);
@@ -328,7 +340,7 @@ export function routePills(network: Network, layout: MapLayout, routes: RouteDra
   // Air freight: beside the middle of the western-most air arc.
   const air = routes.filter((r) => r.edge.mode === "air" && r.state !== "blocked");
   if (air.length) {
-    const arcs = air.map((r) => new Polyline(sampleEdge(r.edge, nodes)));
+    const arcs = air.map((r) => longestOf(edgePolylines(r.edge, nodes))).filter((p): p is Polyline => p !== null);
     const mids = arcs.map((a) => a.atFraction(0.5));
     const m = mids.reduce((a, b) => (b[1] > a[1] ? b : a));
     const text = disrupted ? `MORE AIR FREIGHT${airDetail ? `, AT ${airDetail}` : ""}`.toUpperCase() : "AIR FREIGHT";

@@ -3,10 +3,14 @@
 import { project, type Pt } from "./geo";
 import { largePillBox, symbolSize, placeBox, smallPillBox, spiral, type MapLayout } from "./layout";
 import { Polyline, sampleSmooth } from "./polyline";
-import { edgeGeometry, edgeLonLat, nodeIndex, sampleEdge, smoothPath } from "./routes";
+import { lineGeometry } from "./georoute";
+import { edgeGeometry, edgeLonLat, isRoute, nodeIndex, smoothPath } from "./routes";
 import {
   cardEdgeDistance,
   COIN_SPEED,
+  edgeColor,
+  edgePolylines,
+  longestOf,
   moneyCoins,
   moneyGeometry,
   routePills,
@@ -40,6 +44,7 @@ const key = ([lon, lat]: Pt) => `${lon.toFixed(2)},${lat.toFixed(2)}`;
  * waypoints shared with other sea routes are trimmed, keeping the branch points.
  */
 export function trimmedDetour(edge: NetworkEdge, network: Network): Pt[] | null {
+  // Returns lon/lat points.
   const nodes = nodeIndex(network);
   const ll = edgeLonLat(edge, nodes);
   if (!ll) return null;
@@ -52,7 +57,7 @@ export function trimmedDetour(edge: NetworkEdge, network: Network): Pt[] | null 
   while (start + 1 < ll.length && shared.has(key(ll[start])) && shared.has(key(ll[start + 1]))) start++;
   let end = ll.length - 1;
   while (end - 1 > start && shared.has(key(ll[end])) && shared.has(key(ll[end - 1]))) end--;
-  return ll.slice(start, end + 1).map(([lon, lat]) => project(lon, lat));
+  return ll.slice(start, end + 1);
 }
 
 function optionMatching(scenario: Scenario, re: RegExp) {
@@ -91,22 +96,25 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
 
   // Routes.
   const routes: RouteDraw[] = [];
-  const paths = new Map<string, Polyline>();
+  // Each route as polylines, one per side of the antimeridian, in travel order.
+  const paths = new Map<string, Polyline[]>();
   for (const edge of network.edges) {
+    if (!isRoute(edge)) continue;
     const state = stateOf(edge.id);
-    if (edge.detourOnly && state !== "detour") continue;
-    const tint = tierColor[edge.carriesTier] ?? color.pillLight;
+    if ((edge.detourOnly || edge.alternativeTo) && state !== "detour") continue;
+    const tint = edgeColor(edge);
     if (state === "detour") {
-      const pts = trimmedDetour(edge, network);
-      if (!pts || pts.length < 2) continue;
-      routes.push({ id: edge.id, edge, d: smoothPath(pts), state, color: tint });
-      paths.set(edge.id, new Polyline(sampleSmooth(pts)));
+      const ll = trimmedDetour(edge, network);
+      if (!ll || ll.length < 2) continue;
+      const g = lineGeometry(ll, "smooth");
+      routes.push({ id: edge.id, edge, d: g.d, state, color: tint });
+      paths.set(edge.id, g.pieces.map((p) => new Polyline(p)));
       continue;
     }
     const g = edgeGeometry(edge, nodes);
     if (!g) continue;
     routes.push({ id: edge.id, edge, d: g.d, state, color: tint });
-    paths.set(edge.id, new Polyline(sampleEdge(edge, nodes)));
+    paths.set(edge.id, edgePolylines(edge, nodes));
   }
   routes.sort((a, b) => Number(b.edge.mode === "air") - Number(a.edge.mode === "air"));
 
@@ -132,27 +140,29 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   let queuedUpstream: string | null = null;
   for (const r of routes) {
     if (r.edge.mode !== "sea" || r.edge.carriesTier !== 4 || r.state === "detour") continue;
-    const path = paths.get(r.id)!;
-    const count = Math.max(1, Math.round(path.length / SHIP_SPACING));
+    const pieces = paths.get(r.id)!;
+    if (pieces.length === 0) continue;
     if (r.state === "blocked") {
-      for (let i = 0; i < count; i++) {
-        movers.push({ id: `ship-${r.id}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: 0, opacity: 0.35 });
-      }
+      pieces.forEach((path, j) => {
+        const count = Math.max(1, Math.round(path.length / SHIP_SPACING));
+        for (let i = 0; i < count; i++) {
+          movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: 0, opacity: 0.35 });
+        }
+      });
       continue;
     }
     const intoShock = shockIds.has(r.edge.to);
-    const queueLen = intoShock ? (QUEUE_SHIPS + 1) * QUEUE_GAP : 0;
-    const travel = path.length - queueLen;
-    for (let i = 0; i < count; i++) {
-      movers.push({
-        id: `ship-${r.id}-${i}`,
-        kind: "ship",
-        path,
-        offset: ((i + 0.5) / count) * travel,
-        speed: SHIP_SPEED,
-        span: [0, travel],
-      });
-    }
+    // Ships queue on the last piece, just before the shock.
+    const path = pieces[pieces.length - 1];
+    pieces.forEach((piece, j) => {
+      const last = j === pieces.length - 1;
+      const queueLen = last && intoShock ? (QUEUE_SHIPS + 1) * QUEUE_GAP : 0;
+      const travel = Math.max(1, piece.length - queueLen);
+      const count = Math.max(1, Math.round(piece.length / SHIP_SPACING));
+      for (let i = 0; i < count; i++) {
+        movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path: piece, offset: ((i + 0.5) / count) * travel, speed: SHIP_SPEED, span: [0, travel] });
+      }
+    });
     if (intoShock) {
       // Ships bunch up before the blockage; the blocked ship lies across the chokepoint.
       const queued = Math.max(1, Math.ceil(QUEUE_SHIPS * p));
@@ -177,12 +187,13 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
     }
   }
   for (const r of routes.filter((r) => r.state === "detour" && r.edge.mode === "sea")) {
-    const path = paths.get(r.id)!;
-    // Fewer ships take the long way round.
-    const count = Math.max(1, Math.round(path.length / (SHIP_SPACING * 3)));
-    for (let i = 0; i < count; i++) {
-      movers.push({ id: `ship-${r.id}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: SHIP_SPEED });
-    }
+    paths.get(r.id)!.forEach((path, j) => {
+      // Fewer ships take the long way round.
+      const count = Math.max(1, Math.round(path.length / (SHIP_SPACING * 3)));
+      for (let i = 0; i < count; i++) {
+        movers.push({ id: `ship-${r.id}-${j}-${i}`, kind: "ship", path, offset: ((i + 0.5) / count) * path.length, speed: SHIP_SPEED });
+      }
+    });
   }
 
   // Money: spend continues; revenue coins split into one on time, delayed, and lost.
@@ -261,7 +272,7 @@ export function buildDisruptionScene(network: Network, layout: MapLayout, scenar
   if (detourText && detourRoute) {
     const text = detourText.toUpperCase();
     const { w, h } = largePillBox(text);
-    const at = paths.get(detourRoute.id)!.atFraction(0.3);
+    const at = (longestOf(paths.get(detourRoute.id)!) ?? new Polyline([[0, 0]])).atFraction(0.3);
     const box = placeBox(spiral(at[0] + 10, at[1] + 40, w, h, 160), layout, { ignoreRoutes: true, anchor: at });
     if (box) pills.push({ key: "detour", text, big: true, bg: tierColor[4], fg: color.ocean, x: box.x, y: box.y });
   }

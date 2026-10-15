@@ -31,7 +31,9 @@ export function symbolSize(kind: NodeKind): number {
     case "port":
     case "airport":
     case "canal":
+    case "chokepoint":
     case "border":
+    case "event_anchor":
       return size.port;
     case "carrier":
       return size.carrier;
@@ -40,8 +42,8 @@ export function symbolSize(kind: NodeKind): number {
   }
 }
 
-export const isSales = (n: NetworkNode) => n.tier === 6 && n.kind !== "hq";
-const isShippingKind = (k: NodeKind) => k === "port" || k === "airport" || k === "canal" || k === "border";
+export const isSales = (n: NetworkNode) => n.kind === "sales_region" || (n.tier === 6 && n.kind !== "hq");
+const isShippingKind = (k: NodeKind) => k === "port" || k === "airport" || k === "canal" || k === "chokepoint" || k === "border";
 
 /** Rough continent for a point, used to name regional groups and sea lanes. */
 export function continentOf(lon: number, lat: number): string {
@@ -203,6 +205,7 @@ function groupText(continent: string, nodes: NetworkNode[]): string {
   if (kinds.has("carrier")) parts.push("CARRIERS");
   if (kinds.has("retailer")) parts.push("RETAILERS");
   if (kinds.has("repair")) parts.push("REPAIR");
+  if (kinds.has("sales_region")) parts.push("SALES REGION");
   return `${continent.toUpperCase()}: ${parts.join(", ")}`;
 }
 
@@ -220,7 +223,7 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
     return { x: x - s / 2, y: y - s / 2, w: s, h: s };
   });
   // Thin dotted air arcs may pass behind labels (as in the concept art); solid lanes may not.
-  const routePts: Pt[] = [...visibleEdges.filter((e) => e.mode !== "air").flatMap((e) => sampleEdge(e, nodes, 6)), ...extraObstaclePts];
+  const routePts: Pt[] = [...visibleEdges.filter((e) => e.mode !== "air").flatMap((e) => sampleEdge(e, nodes)), ...extraObstaclePts];
   const taken: Box[] = [];
 
   // Apple Park card: drawn at its real location; while that is out of view the
@@ -240,7 +243,8 @@ export function computeLayout(network: Network, visibleEdges: NetworkEdge[], ext
   const groups: GroupLabel[] = [];
   const byContinent = new Map<string, NetworkNode[]>();
   for (const n of network.nodes.filter((n) => isSales(n) && onWorld(n))) {
-    const c = continentOf(n.lon, n.lat);
+    // Apple's reporting regions are their own groups; stores and carriers group by continent.
+    const c = n.salesRegion ?? continentOf(n.lon, n.lat);
     byContinent.set(c, [...(byContinent.get(c) ?? []), n]);
   }
   for (const [continent, members] of byContinent) {
