@@ -72,6 +72,7 @@ def build_catalog(root=ROOT, offline=False):
     geo = load_datasets(geo_config, root / "data/raw/natural_earth", offline)
     geo_sources = {r["id"]: {"title": r["title"], "url": geo_config["baseUrl"] + r["file"]} for r in geo_config["datasets"]}
     sources = config["sources"]
+    products = read(root / "data/reference/assembly_products.json")
     nodes, edges = [], []
 
     def add_node(key, name, kind, point, region, evidence, precision="exact", **extra):
@@ -140,10 +141,13 @@ def build_catalog(root=ROOT, offline=False):
     for assembly in config["assemblies"]:
         province = "province" in assembly
         point, evidence = geo_point(assembly.get("province", assembly.get("city")), assembly["iso"], province)
+        product = products["assemblies"][assembly["key"]]
         add_node("assembly-" + assembly["key"], assembly["name"], "assembly", point, assembly.get("province", assembly.get("city")),
-                 [evidence] + [sources[k] for k in assembly["sources"]], precision="province" if province else "city",
+                 [evidence, product["source"]] + [sources[k] for k in assembly["sources"]], precision="province" if province else "city",
                  positionBasis=assembly.get("placementNote", "Regional Natural Earth reference point; not an exact factory pin"),
-                 partTypeScope="Inferred aggregate assembly role from public manufacturing evidence; not product-specific plant throughput")
+                 partTypeScope="Inferred aggregate assembly role from public manufacturing evidence; not product-specific plant throughput",
+                 products=product["products"], productEvidence=product, confidence="medium",
+                 confidenceKind="Qualitative confidence in the regional reference inference; not a calibrated probability")
     for region in config["salesRegions"]:
         point, evidence = geo_point(region["city"], region["iso"])
         add_node("sales-" + region["key"], "Apple sales region: " + region["name"], "sales_region", point, region["definition"],

@@ -1,0 +1,30 @@
+{
+  "scope": "Public observations of product families at regional assembly hubs. These are not current throughput measurements or supplier-specific purchase orders. Publication dates restrict which supply links can enter historical model topology.",
+  "assemblies": {
+    "zhengzhou": {
+      "products": ["phone"], "availableOn": "2022-11-06",
+      "basis": "Apple identifies the Zhengzhou iPhone 14 Pro/Pro Max assembly facility in its dated public update; no earlier availability is assumed from this source.",
+      "source": {"title": "Apple: iPhone assembly in Zhengzhou, November 6, 2022", "url": "https://www.apple.com/newsroom/2022/11/update-on-supply-of-iphone-14-pro-and-iphone-14-pro-max/"}
+    },
+    "shenzhen": {
+      "products": ["phone"], "availableOn": "2012-06-27",
+      "basis": "China Labor Watch's first-hand 2012 investigation, Foxconn factory profile, identifies iPhone production in Longhua, Songgang and Guanlan. Only this evidenced product family is used.",
+      "source": {"title": "China Labor Watch: Shenzhen Foxconn factory investigation, June 27, 2012, factory profile pp. 89-93", "url": "https://chinalaborwatch.org/wp-content/uploads/2021/06/Beyond-Foxconn-Deplorable-Working-Conditions-Characterize-Apples-Entire-Supply-Chain.pdf"}
+    },
+    "chennai": {
+      "products": ["phone"], "availableOn": "2024-07-01",
+      "basis": "India's NHRC names Foxconn's iPhone assembly plant in Sriperumbudur in its July 1, 2024 press release. This source is not backdated to earlier events.",
+      "source": {"title": "NHRC India: Foxconn iPhone assembly plant at Sriperumbudur, July 1, 2024", "url": "https://nhrc.nic.in/media/press-release/nhrc-india-takes-suo-motu-cognizance-reported-discrimination-by-foxconn-a-major-manufacturer-apple-devices-in-excluding-married-women-from-job-at-its-assembly-plant-in-sriperumbudur-tamil-nadu"}
+    },
+    "bengaluru": {
+      "products": ["phone"], "availableOn": "2018-07-23",
+      "basis": "India's Ministry of Commerce and Industry confirms contracted iPhone manufacturing in Bengaluru in its dated parliamentary answer.",
+      "source": {"title": "Government of India: manufacturing iPhones in Bengaluru, parliamentary answer July 23, 2018", "url": "https://sansad.in/getFile/loksabhaquestions/annex/15/AU918.pdf?source=pqals"}
+    },
+    "northern-vietnam": {
+      "products": ["tablet", "laptop"], "availableOn": "2026-10-14",
+      "basis": "Bac Giang's government portal describes Fukang's iPad/MacBook production in the province. This reviewed portal snapshot has no independently verified original publication date; it is conservatively unavailable to all earlier historical model folds.",
+      "source": {"title": "Bac Giang government external-information portal: Fukang iPad and MacBook production, reviewed October 14, 2026", "url": "https://doingoai.bacgiang.gov.vn/vi/02-don-vi/so-tai-chinh?page=13"}
+    }
+  }
+}
