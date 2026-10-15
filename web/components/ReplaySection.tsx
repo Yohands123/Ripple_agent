@@ -51,7 +51,14 @@ export default function ReplaySection({ scenario, metrics, day, totalDays, onDay
       ) : day < totalDays ? (
         <div className="panel-tiny">Actual outcomes appear on the last day.</div>
       ) : null}
-      {metrics && event && (
+      {metrics && event && metrics.model === "distance" && (
+        <div className="model-result" data-result="event">
+          Distance from the shock won the model selection, and scored AUC {f2(event.auc)} on this event without training on it
+          {comparison(event) != null && <>, against {f2(comparison(event)!)} for a simple logistic model</>}. Across {metrics.events} events: AUC{" "}
+          {range(metrics.overall.auc)} (95% interval).
+        </div>
+      )}
+      {metrics && event && metrics.model !== "distance" && (
         <div className="model-result" data-result="event">
           Model tested on this event without training on it: AUC {f2(event.auc)}, against {f2(distance(event))} for distance alone
           {comparison(event) != null && <> and {f2(comparison(event)!)} for a simple logistic model</>}.
@@ -62,8 +69,14 @@ export default function ReplaySection({ scenario, metrics, day, totalDays, onDay
       {metrics && !event && (
         <div className="model-result" data-result="overall">
           {excluded && <>This event is left out of the model results: {excluded.reason.replace(/;.*$/, "")}. </>}
-          Across {metrics.events} past events the model scored AUC {range(metrics.overall.auc)} (95% interval), against {range(overallDistance!)} for
-          distance alone.
+          {metrics.model === "distance" ? (
+            <>Across {metrics.events} past events, distance from the shock (the selected model) scored AUC {range(metrics.overall.auc)} (95% interval).</>
+          ) : (
+            <>
+              Across {metrics.events} past events the model scored AUC {range(metrics.overall.auc)} (95% interval), against {range(overallDistance!)} for
+              distance alone.
+            </>
+          )}
         </div>
       )}
     </section>

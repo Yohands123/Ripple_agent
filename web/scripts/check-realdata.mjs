@@ -59,7 +59,7 @@ for (const entry of index) {
   // Sites drawn on their own plus those inside cluster bubbles.
   const clustered = (await page.locator("[data-cluster]").evaluateAll((els) => els.map((e) => Number(e.getAttribute("data-cluster"))))).reduce((a, b) => a + b, 0);
   const shown = (await page.locator("[data-node-id]").count()) + clustered;
-  const expected = own.nodes.filter((n) => n.kind !== "hq").length;
+  const expected = own.nodes.filter((n) => n.kind !== "hq" && !n.waypoint).length;
   const lanes = own.edges.length === 0 ? (await page.locator("[data-node-id][data-kind='port'], [data-node-id][data-kind='canal'], [data-node-id][data-kind='airport']").count()) : 0;
   check(`${entry.id}: own network`, shown - lanes === expected, `${shown - lanes} sites shown, ${expected} in ${s.networkPath ?? "network.json"}`);
   if (s.predictions.length === 0 && (s.companyPredictions ?? []).length > 0) {
@@ -84,7 +84,8 @@ if (suez) {
   await open("?scenario=suez-2021");
   const text = (await page.locator(".model-result").textContent()) ?? "";
   const distance = (suez.distanceAuc ?? suez.baselineAuc).toFixed(2);
-  check("replay compares with distance alone", text.includes(`${distance} for distance alone`), text.trim().slice(0, 160));
+  if (metrics.model === "distance") check("replay names distance as the selected model", text.includes("Distance from the shock") && text.includes(`AUC ${distance}`), text.trim().slice(0, 160));
+  else check("replay compares with distance alone", text.includes(`${distance} for distance alone`), text.trim().slice(0, 160));
 }
 
 await browser.close();
