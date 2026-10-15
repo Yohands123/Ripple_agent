@@ -48,6 +48,9 @@ def training_diagnostics(root, held, features):
 
 
 def write_report(root=ROOT):
+    current = json.loads((root / "data/processed/metrics.json").read_text(encoding="utf-8"))
+    if "modelSelection" in current:
+        raise ValueError("The pre-selection report is archived. Use the nested selector's report and audit_auc --prefix auc_after_selection for the new model.")
     with contextlib.redirect_stdout(io.StringIO()):
         report = audit(root, prefix="evaluation_report")
     held = pd.read_csv(root / "data/processed/held_out_predictions.csv")

@@ -1,0 +1,853 @@
+{
+  "protocolVersion": "nested-loeo-three-candidates-v1",
+  "protocolSha256": "d6658c3628e8f870e7362b2c26250d7d60c846bc71d8d7f46e3328cd69c575d4",
+  "selectionMetric": "Arithmetic mean of the six inner event AUCs; each event has equal weight",
+  "mainModel": "distance",
+  "mainModelPickCount": 7,
+  "selectionCounts": {
+    "distance": 7,
+    "logistic_regression": 0,
+    "lightgbm": 0
+  },
+  "outerFolds": [
+    {
+      "eventId": "covid-china-2020",
+      "trainingEvents": [
+        "kumamoto-2016",
+        "red-sea-2023",
+        "russia-2022",
+        "shanghai-2022",
+        "suez-2021",
+        "zhengzhou-2022"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.6595977438510436,
+        "logistic_regression": 0.545471760495689,
+        "lightgbm": 0.5601233810982218
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "kumamoto-2016",
+          "trainingEvents": [
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6588541666666665,
+            "logistic_regression": 0.6484374999999999,
+            "lightgbm": 0.7122395833333334
+          }
+        },
+        {
+          "heldOutEvent": "red-sea-2023",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6296296296296297,
+            "logistic_regression": 0.36894586894586895,
+            "lightgbm": 0.5811965811965811
+          }
+        },
+        {
+          "heldOutEvent": "russia-2022",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.5332512315270935,
+            "logistic_regression": 0.5381773399014778,
+            "lightgbm": 0.3805418719211823
+          }
+        },
+        {
+          "heldOutEvent": "shanghai-2022",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.7041284403669724,
+            "logistic_regression": 0.48197903014416765,
+            "lightgbm": 0.518348623853211
+          }
+        },
+        {
+          "heldOutEvent": "suez-2021",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.8807588075880758,
+            "logistic_regression": 0.8482384823848238,
+            "lightgbm": 0.5609756097560976
+          }
+        },
+        {
+          "heldOutEvent": "zhengzhou-2022",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.5509641873278237,
+            "logistic_regression": 0.38705234159779617,
+            "lightgbm": 0.6074380165289256
+          }
+        }
+      ],
+      "outerAuc": 0.44450431034482757,
+      "outerAuc95": [
+        0.2650862068965517,
+        0.6185344827586207
+      ],
+      "lightgbmApparentTrainingAuc": 0.7520805262740746
+    },
+    {
+      "eventId": "kumamoto-2016",
+      "trainingEvents": [
+        "covid-china-2020",
+        "red-sea-2023",
+        "russia-2022",
+        "shanghai-2022",
+        "suez-2021",
+        "zhengzhou-2022"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.6245911586020014,
+        "logistic_regression": 0.5177788878432154,
+        "lightgbm": 0.525388080824737
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "covid-china-2020",
+          "trainingEvents": [
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.4488146551724138,
+            "logistic_regression": 0.5140086206896552,
+            "lightgbm": 0.47467672413793105
+          }
+        },
+        {
+          "heldOutEvent": "red-sea-2023",
+          "trainingEvents": [
+            "covid-china-2020",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6296296296296297,
+            "logistic_regression": 0.3660968660968661,
+            "lightgbm": 0.5569800569800569
+          }
+        },
+        {
+          "heldOutEvent": "russia-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.5332512315270935,
+            "logistic_regression": 0.47167487684729065,
+            "lightgbm": 0.5
+          }
+        },
+        {
+          "heldOutEvent": "shanghai-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "russia-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.7041284403669724,
+            "logistic_regression": 0.4511795543905635,
+            "lightgbm": 0.6756225425950196
+          }
+        },
+        {
+          "heldOutEvent": "suez-2021",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.8807588075880758,
+            "logistic_regression": 0.8753387533875339,
+            "lightgbm": 0.40785907859078585
+          }
+        },
+        {
+          "heldOutEvent": "zhengzhou-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.5509641873278237,
+            "logistic_regression": 0.428374655647383,
+            "lightgbm": 0.5371900826446281
+          }
+        }
+      ],
+      "outerAuc": 0.6588541666666665,
+      "outerAuc95": [
+        0.3723958333333333,
+        0.9140625
+      ],
+      "lightgbmApparentTrainingAuc": 0.754412480022236
+    },
+    {
+      "eventId": "red-sea-2023",
+      "trainingEvents": [
+        "covid-china-2020",
+        "kumamoto-2016",
+        "russia-2022",
+        "shanghai-2022",
+        "suez-2021",
+        "zhengzhou-2022"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.6267230498323122,
+        "logistic_regression": 0.5907378056555753,
+        "lightgbm": 0.4712503091467211
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "covid-china-2020",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.4401939655172413,
+            "logistic_regression": 0.5495689655172413,
+            "lightgbm": 0.5452586206896551
+          }
+        },
+        {
+          "heldOutEvent": "kumamoto-2016",
+          "trainingEvents": [
+            "covid-china-2020",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6510416666666666,
+            "logistic_regression": 0.6848958333333333,
+            "lightgbm": 0.53515625
+          }
+        },
+        {
+          "heldOutEvent": "russia-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.5332512315270935,
+            "logistic_regression": 0.4876847290640394,
+            "lightgbm": 0.32327586206896547
+          }
+        },
+        {
+          "heldOutEvent": "shanghai-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "russia-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.7041284403669724,
+            "logistic_regression": 0.5173656618610747,
+            "lightgbm": 0.6290956749672346
+          }
+        },
+        {
+          "heldOutEvent": "suez-2021",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "russia-2022",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.8807588075880758,
+            "logistic_regression": 0.8861788617886179,
+            "lightgbm": 0.3780487804878049
+          }
+        },
+        {
+          "heldOutEvent": "zhengzhou-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.5509641873278237,
+            "logistic_regression": 0.41873278236914596,
+            "lightgbm": 0.41666666666666663
+          }
+        }
+      ],
+      "outerAuc": 0.6296296296296297,
+      "outerAuc95": [
+        0.2606837606837607,
+        0.9487179487179487
+      ],
+      "lightgbmApparentTrainingAuc": 0.7005104538144186
+    },
+    {
+      "eventId": "russia-2022",
+      "trainingEvents": [
+        "covid-china-2020",
+        "kumamoto-2016",
+        "red-sea-2023",
+        "shanghai-2022",
+        "suez-2021",
+        "zhengzhou-2022"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.642786116182735,
+        "logistic_regression": 0.566124202368599,
+        "lightgbm": 0.5220028924950336
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "covid-china-2020",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.4401939655172413,
+            "logistic_regression": 0.5463362068965517,
+            "lightgbm": 0.48491379310344823
+          }
+        },
+        {
+          "heldOutEvent": "kumamoto-2016",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6510416666666666,
+            "logistic_regression": 0.6770833333333333,
+            "lightgbm": 0.5104166666666666
+          }
+        },
+        {
+          "heldOutEvent": "red-sea-2023",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "shanghai-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6296296296296297,
+            "logistic_regression": 0.3660968660968661,
+            "lightgbm": 0.6153846153846154
+          }
+        },
+        {
+          "heldOutEvent": "shanghai-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.7041284403669724,
+            "logistic_regression": 0.5062254259501966,
+            "lightgbm": 0.6389252948885976
+          }
+        },
+        {
+          "heldOutEvent": "suez-2021",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.8807588075880758,
+            "logistic_regression": 0.8726287262872628,
+            "lightgbm": 0.4078590785907859
+          }
+        },
+        {
+          "heldOutEvent": "zhengzhou-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.5509641873278237,
+            "logistic_regression": 0.4283746556473829,
+            "lightgbm": 0.4745179063360882
+          }
+        }
+      ],
+      "outerAuc": 0.5332512315270935,
+      "outerAuc95": [
+        0.30480295566502463,
+        0.750615763546798
+      ],
+      "lightgbmApparentTrainingAuc": 0.7560580336471678
+    },
+    {
+      "eventId": "shanghai-2022",
+      "trainingEvents": [
+        "covid-china-2020",
+        "kumamoto-2016",
+        "red-sea-2023",
+        "russia-2022",
+        "suez-2021",
+        "zhengzhou-2022"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.6170454463186171,
+        "logistic_regression": 0.47176982975951826,
+        "lightgbm": 0.5125083096497692
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "covid-china-2020",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.4488146551724138,
+            "logistic_regression": 0.3976293103448276,
+            "lightgbm": 0.6012931034482759
+          }
+        },
+        {
+          "heldOutEvent": "kumamoto-2016",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "russia-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6588541666666665,
+            "logistic_regression": 0.24739583333333331,
+            "lightgbm": 0.4934895833333333
+          }
+        },
+        {
+          "heldOutEvent": "red-sea-2023",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "russia-2022",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6296296296296297,
+            "logistic_regression": 0.40028490028490027,
+            "lightgbm": 0.6011396011396011
+          }
+        },
+        {
+          "heldOutEvent": "russia-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "suez-2021",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.5332512315270935,
+            "logistic_regression": 0.43103448275862066,
+            "lightgbm": 0.3257389162561576
+          }
+        },
+        {
+          "heldOutEvent": "suez-2021",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.8807588075880758,
+            "logistic_regression": 0.8997289972899729,
+            "lightgbm": 0.47831978319783197
+          }
+        },
+        {
+          "heldOutEvent": "zhengzhou-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.5509641873278237,
+            "logistic_regression": 0.4545454545454545,
+            "lightgbm": 0.575068870523416
+          }
+        }
+      ],
+      "outerAuc": 0.7041284403669724,
+      "outerAuc95": [
+        0.5717562254259502,
+        0.8230668414154653
+      ],
+      "lightgbmApparentTrainingAuc": 0.7645020834308722
+    },
+    {
+      "eventId": "suez-2021",
+      "trainingEvents": [
+        "covid-china-2020",
+        "kumamoto-2016",
+        "red-sea-2023",
+        "russia-2022",
+        "shanghai-2022",
+        "zhengzhou-2022"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.5848681868392379,
+        "logistic_regression": 0.489044830009006,
+        "lightgbm": 0.5135103965148894
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "covid-china-2020",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.4401939655172413,
+            "logistic_regression": 0.5549568965517242,
+            "lightgbm": 0.5177801724137931
+          }
+        },
+        {
+          "heldOutEvent": "kumamoto-2016",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6510416666666666,
+            "logistic_regression": 0.6588541666666665,
+            "lightgbm": 0.6067708333333333
+          }
+        },
+        {
+          "heldOutEvent": "red-sea-2023",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "russia-2022",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.6296296296296297,
+            "logistic_regression": 0.36609686609686604,
+            "lightgbm": 0.5555555555555556
+          }
+        },
+        {
+          "heldOutEvent": "russia-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "shanghai-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.5332512315270935,
+            "logistic_regression": 0.45812807881773393,
+            "lightgbm": 0.36145320197044334
+          }
+        },
+        {
+          "heldOutEvent": "shanghai-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "zhengzhou-2022"
+          ],
+          "auc": {
+            "distance": 0.7041284403669724,
+            "logistic_regression": 0.5022935779816513,
+            "lightgbm": 0.48165137614678905
+          }
+        },
+        {
+          "heldOutEvent": "zhengzhou-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022"
+          ],
+          "auc": {
+            "distance": 0.5509641873278237,
+            "logistic_regression": 0.3939393939393939,
+            "lightgbm": 0.5578512396694215
+          }
+        }
+      ],
+      "outerAuc": 0.8807588075880758,
+      "outerAuc95": [
+        0.8102981029810298,
+        0.9417344173441734
+      ],
+      "lightgbmApparentTrainingAuc": 0.6979894179894179
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "trainingEvents": [
+        "covid-china-2020",
+        "kumamoto-2016",
+        "red-sea-2023",
+        "russia-2022",
+        "shanghai-2022",
+        "suez-2021"
+      ],
+      "selectedModel": "distance",
+      "innerMeanAuc": {
+        "distance": 0.642572821825142,
+        "logistic_regression": 0.5911952250797654,
+        "lightgbm": 0.573025279635762
+      },
+      "innerFolds": [
+        {
+          "heldOutEvent": "covid-china-2020",
+          "trainingEvents": [
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.4488146551724138,
+            "logistic_regression": 0.6314655172413793,
+            "lightgbm": 0.6438577586206896
+          }
+        },
+        {
+          "heldOutEvent": "kumamoto-2016",
+          "trainingEvents": [
+            "covid-china-2020",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.6588541666666665,
+            "logistic_regression": 0.6822916666666666,
+            "lightgbm": 0.5065104166666667
+          }
+        },
+        {
+          "heldOutEvent": "red-sea-2023",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "russia-2022",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.6296296296296297,
+            "logistic_regression": 0.3717948717948718,
+            "lightgbm": 0.6225071225071225
+          }
+        },
+        {
+          "heldOutEvent": "russia-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "shanghai-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.5332512315270935,
+            "logistic_regression": 0.47660098522167493,
+            "lightgbm": 0.45935960591133
+          }
+        },
+        {
+          "heldOutEvent": "shanghai-2022",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "suez-2021"
+          ],
+          "auc": {
+            "distance": 0.7041284403669724,
+            "logistic_regression": 0.504259501965924,
+            "lightgbm": 0.7113368283093053
+          }
+        },
+        {
+          "heldOutEvent": "suez-2021",
+          "trainingEvents": [
+            "covid-china-2020",
+            "kumamoto-2016",
+            "red-sea-2023",
+            "russia-2022",
+            "shanghai-2022"
+          ],
+          "auc": {
+            "distance": 0.8807588075880758,
+            "logistic_regression": 0.8807588075880759,
+            "lightgbm": 0.49457994579945797
+          }
+        }
+      ],
+      "outerAuc": 0.5509641873278237,
+      "outerAuc95": [
+        0.2706611570247934,
+        0.8278236914600551
+      ],
+      "lightgbmApparentTrainingAuc": 0.8736128470249593
+    }
+  ],
+  "nestedAuc": 0.6391534391534391,
+  "nestedAuc95": [
+    0.5380480633473975,
+    0.7479948459788739
+  ],
+  "candidateOverall": {
+    "distance": {
+      "auc": 0.6391534391534391,
+      "brier": 0.050619148101138337,
+      "auc95": [
+        0.5380480633473975,
+        0.7479948459788739
+      ]
+    },
+    "logistic_regression": {
+      "auc": 0.5276246170983013,
+      "brier": 0.05517996773983387,
+      "auc95": [
+        0.4521891630382197,
+        0.6251548946716232
+      ]
+    },
+    "lightgbm": {
+      "auc": 0.3914926204399889,
+      "brier": 0.05204110482388746,
+      "auc95": [
+        0.32200604923193693,
+        0.5320488285394851
+      ]
+    }
+  },
+  "mainModelReason": "distance was picked in 7 of 7 outer training-only selection contests, the highest frequency, using mean inner-event AUC and the frozen tie rule. Its export choice was not chosen by comparing outer test AUCs.",
+  "scoreScope": "Export own-event-held-out point predictions from the modal family. Its family was selected using the collection of folds, so its fixed-family score is descriptive; the nested fold-selected score is reported separately",
+  "uncertaintyDefinition": "95% percentile event-cluster bootstrap of seven saved outer predictions; no refitting or model reselection inside this uncertainty calculation"
+}

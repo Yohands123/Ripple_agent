@@ -48,9 +48,10 @@ def test_saved_ensembles_exclude_the_event_and_have_200_members():
     for fold in manifest["folds"]:
         assert fold["members"] == 200
         assert fold["heldOutEvent"] not in fold["trainingEvents"]
-        assert fold["innerValidationEvent"] in fold["trainingEvents"]
-        assert fold["parameters"]["max_depth"] == 3
-        assert fold["earlyStoppedRounds"] <= 400
+        if fold.get("model", "lightgbm") == "lightgbm":
+            assert fold["innerValidationEvent"] in fold["trainingEvents"]
+            assert fold["parameters"]["max_depth"] == 3
+            assert fold["earlyStoppedRounds"] <= 400
     sites = json.loads(Path("data/processed/site_predictions.json").read_text(encoding="utf-8"))["predictions"]
     assert len(sites) == manifest["sitePredictions"]
     for record in sites:

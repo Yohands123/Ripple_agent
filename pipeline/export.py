@@ -43,6 +43,7 @@ def unlocated_company(prediction, attributes, label=None):
                   predictionScope="Company stock-response prediction; the roster discloses no manufacturing-site coordinates",
                   outcomeObservable=label is not None,
                   actual={"hit": label["hit"].lower() == "true", "car": float(label["car"])} if label else None)
+    result.update({key: prediction[key] for key in ["predictionModel", "explanationMethod"] if key in prediction})
     return result
 
 
@@ -95,6 +96,7 @@ def build_bundle(root=ROOT):
                 "partTypeScope": "Company product category, not an Apple-specific bill of materials",
             })
             prediction = {k: site[k] for k in ["nodeId", "pHit", "ciLow", "ciHigh", "lowConfidence", "shap", "shapBaseValue", "shapMeanRawScore", "predictionScope", "outcomeObservable"]}
+            prediction.update({key: site[key] for key in ["predictionModel", "explanationMethod"] if key in site})
             predictions.append(prediction)
             if site["actual"] is not None:
                 actual.append({"nodeId": site["nodeId"], **site["actual"], "scope": "Company-level CAR shared by disclosed sites"})

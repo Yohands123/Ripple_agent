@@ -48,6 +48,8 @@ def audit(root=ROOT, prefix="auc_audit"):
         event_id = fold["eventId"]
         frame = data[data["eventId"] == event_id]
         training = data[data["eventId"] != event_id]
+        if "modelSelection" in metrics:
+            training = training[training["eventId"].isin([r["eventId"] for r in metrics["loeo"]])]
         replay = distance_rule(training["distance_km"], training["hit"], frame["distance_km"])
         replay_error = max(replay_error, float(np.max(np.abs(replay - frame["distanceProbability"].to_numpy()))))
         event = events[event_id]
@@ -146,5 +148,5 @@ def audit(root=ROOT, prefix="auc_audit"):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--prefix", choices=["auc_audit", "auc_after_merge", "evaluation_report"], default="auc_audit")
+    parser.add_argument("--prefix", choices=["auc_audit", "auc_after_merge", "auc_after_selection", "evaluation_report"], default="auc_audit")
     audit(prefix=parser.parse_args().prefix)

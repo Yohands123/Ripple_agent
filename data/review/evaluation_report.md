@@ -77,3 +77,67 @@ The two zero-hit 2011 events remain excluded from every metric under the recorde
 The next step fixes a nested training-only choice among distance, logistic regression and LightGBM before running that new procedure. Existing outer scores have already been observed; they cannot be called prospectively unseen. The new selection rule must be frozen and mechanically exclude each outer event from all inner choices. No adjustment will be made based on its new outer results.
 
 Full intervals, replay checks, pair counts, model hashes and diagnostics are in evaluation_report.json. The original per-event audit remains in auc_audit.md and the canonical-merge audit in auc_after_merge.md.
+
+## Model selection
+
+The protocol was committed before this new run in `data/sources/model_selection_protocol.json`; its SHA-256 is recorded in the freeze and selection artifacts. Candidates, features, labels, tie rule and model settings were fixed. Earlier baseline results had already been seen; no claim is made that all earlier analysis was prospectively preregistered.
+
+Exactly seven two-class events enter this procedure. For each outer test event, the other six form six inner leave-one-event-out folds. Each candidate trains on five events and is scored on the sixth. The highest arithmetic mean inner AUC wins, with ties resolved distance, logistic, then LightGBM. The winner is refit on all six and scored once on the held-out outer event. Both 2011 events are excluded from training and selection here, as specified in the new instructions.
+
+| Outer test event | Distance mean inner AUC | Logistic mean inner AUC | LightGBM mean inner AUC | Picked candidate | Outer AUC (95%) |
+|---|---:|---:|---:|---|---:|
+| covid-china-2020 | 0.6596 | 0.5455 | 0.5601 | distance | 0.4445 [0.2651, 0.6185] |
+| kumamoto-2016 | 0.6246 | 0.5178 | 0.5254 | distance | 0.6589 [0.3724, 0.9141] |
+| red-sea-2023 | 0.6267 | 0.5907 | 0.4713 | distance | 0.6296 [0.2607, 0.9487] |
+| russia-2022 | 0.6428 | 0.5661 | 0.5220 | distance | 0.5333 [0.3048, 0.7506] |
+| shanghai-2022 | 0.6170 | 0.4718 | 0.5125 | distance | 0.7041 [0.5718, 0.8231] |
+| suez-2021 | 0.5849 | 0.4890 | 0.5135 | distance | 0.8808 [0.8103, 0.9417] |
+| zhengzhou-2022 | 0.6426 | 0.5912 | 0.5730 | distance | 0.5510 [0.2707, 0.8278] |
+
+Nested pooled AUC: **0.6392 [0.5380, 0.7480]**, 95% event-bootstrap interval from 2,000 draws. The bootstrap resamples the seven saved outer-event prediction blocks, without retraining or rerunning selection; it does not include all uncertainty from model choice, correlated issuers, or retrospective data.
+
+Pick counts: distance: 7/7; logistic_regression: 0/7; lightgbm: 0/7.
+
+distance was picked in 7 of 7 outer training-only selection contests, the highest frequency, using mean inner-event AUC and the frozen tie rule. Its export choice was not chosen by comparing outer test AUCs.
+
+The main export uses the most frequently picked family, with an own-event-held-out refit for each evaluated historical event. Selecting this family from all folds is an additional data-dependent summary. Its fixed-family outer score is descriptive; the nested fold-selected score above is the estimate for the complete training-only selection procedure. If fold choices differ, those are different sets of predictions and must not be conflated.
+
+All three unchanged candidates' outer refits are retained for comparison:
+
+| Event | Companies | Hits | Distance AUC (95%) | Logistic AUC (95%) | LightGBM AUC (95%) |
+|---|---:|---:|---:|---:|---:|
+| covid-china-2020 | 124 | 8 | 0.4445 [0.2651, 0.6185] | 0.5269 [0.2619, 0.8006] | 0.5453 [0.3772, 0.6994] |
+| kumamoto-2016 | 100 | 4 | 0.6589 [0.3724, 0.9141] | 0.6667 [0.2604, 0.9479] | 0.4688 [0.4323, 0.5000] |
+| red-sea-2023 | 120 | 3 | 0.6296 [0.2607, 0.9487] | 0.3604 [0.0000, 0.6254] | 0.5584 [0.3718, 0.8718] |
+| russia-2022 | 123 | 7 | 0.5333 [0.3048, 0.7506] | 0.4778 [0.2685, 0.6687] | 0.3615 [0.1724, 0.5776] |
+| shanghai-2022 | 123 | 14 | 0.7041 [0.5718, 0.8231] | 0.5056 [0.3126, 0.7028] | 0.4912 [0.3562, 0.6284] |
+| suez-2021 | 126 | 3 | 0.8808 [0.8103, 0.9417] | 0.8726 [0.7588, 1.0000] | 0.6260 [0.5813, 0.6707] |
+| zhengzhou-2022 | 127 | 6 | 0.5510 [0.2707, 0.8278] | 0.3994 [0.1990, 0.6047] | 0.5461 [0.3113, 0.7603] |
+
+Candidate pooled outer scores (descriptive comparisons; never used to revise the protocol):
+
+- distance: 0.6392 [0.5380, 0.7480].
+- logistic_regression: 0.5276 [0.4522, 0.6252].
+- lightgbm: 0.3915 [0.3220, 0.5320].
+
+Why the winner won: the pick table shows the training-only criterion directly. Its inner mean AUC was highest in the most outer folds; no outer score selected it within a fold. There are only 3–14 hits per event, and many geographic/financial inputs are coarse or missing. The original fixed-model replay above showed large apparent-training/held-out gaps; the new candidate table provides the relevant new out-of-event results. This is evidence of limited generalization, not proof that sparse positives alone cause overfitting or that the winning family predicts physical production losses.
+
+LightGBM retains its original shallow-tree settings. Training length is chosen using a further stopping event inside each candidate's training pool, followed by refitting the whole pool; neither inner-scoring nor outer-test labels supply stopping decisions. Logistic preprocessing and distance calibration are fitted on training companies only. Company/site duplicates never enter these metrics.
+
+Point probabilities come from the full-training refit. Per-site bounds come from 200 event-bootstrap refits of the exported family, with percentile limits conservatively expanded to include the point estimate if necessary. These are conditional model bounds, not calibrated limits on physical disruption. Feature explanations describe the full-training refit: native TreeSHAP for trees, interventional linear SHAP for logistic regression, and exact single-input SHAP for the distance rule, on numerically clipped log odds.
+
+The first table in this report is the archived pre-selection model. The new tables use exactly the seven-event training population and full-training point refits required for selection. The archived LightGBM model used an event-bootstrap median; comparisons therefore reflect both the specified population change and point-refit statistic. Features and CAR labels are byte-identical to their frozen inputs.
+
+New LightGBM point-refit diagnostic, using the same already fitted outer models:
+
+| Outer event | Apparent training AUC | Held-out AUC |
+|---|---:|---:|
+| covid-china-2020 | 0.7521 | 0.5453 |
+| kumamoto-2016 | 0.7544 | 0.4688 |
+| red-sea-2023 | 0.7005 | 0.5584 |
+| russia-2022 | 0.7561 | 0.3615 |
+| shanghai-2022 | 0.7645 | 0.4912 |
+| suez-2021 | 0.6980 | 0.6260 |
+| zhengzhou-2022 | 0.8736 | 0.5461 |
+
+The new training/test gaps also support limited generalization under these fixed settings. Training AUC is apparent fit quality, not independent evidence; the inner means, rather than this diagnostic or outer test scores, made every selection.

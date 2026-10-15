@@ -178,7 +178,7 @@ def fit_fold(training, prediction, event_id, members=200):
     return result, manifest
 
 
-def train(members=200, metric_draws=2000):
+def legacy_train(members=200, metric_draws=2000):
     features = pd.read_csv(ROOT / "data/processed/features.csv", keep_default_na=True)
     features["part_type"] = features["part_type"].fillna("unknown")
     labels = pd.read_csv(ROOT / "data/processed/labels.csv")
@@ -260,6 +260,11 @@ def train(members=200, metric_draws=2000):
     (ROOT / "ml/model_manifest.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"events": metrics["events"], "rows": metrics["rows"], "overall": metrics["overall"], "sites": len(site_predictions)}, indent=2))
     return metrics
+
+
+def train(members=200, metric_draws=2000):
+    from ml.model_selection import train_selected
+    return train_selected(members, metric_draws)
 
 
 if __name__ == "__main__":
