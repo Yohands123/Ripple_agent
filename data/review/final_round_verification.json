@@ -1,0 +1,39 @@
+{
+  "stepsComplete": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "validationCommand": "bash autopilot/checks/ml.sh",
+  "testsPassed": 133,
+  "fixtureValidation": "passed",
+  "realExportValidation": "passed",
+  "contractFieldInventory": "matched",
+  "seaDisplaySegments": 30,
+  "logicalSeaLanes": 24,
+  "seaLandCrossingFailures": 0,
+  "mainCheckedBeforeCompletion": true,
+  "blockersFilePresent": false,
+  "unresolvedTaskBlockers": [],
+  "evaluation": {
+    "auc": 0.4352687273739905,
+    "brier": 0.052988330585955215,
+    "baselineAuc": 0.5306042884990254,
+    "distanceAuc": 0.63895850737956
+  },
+  "evaluatedCompanyEvents": 843,
+  "evaluatedEvents": 7,
+  "evaluationReport": "data/review/evaluation_report.md",
+  "mineralLayer": "Requested next; begins after this commit",
+  "protectedFileSha256": {
+    "data/processed/labels.csv": "dde6fbb89b2de8c27f488687a1614c9b50722ce36853603b888314243cf5f458",
+    "data/processed/forecasts.json": "b0700af9b386952eb9195078c592e7fbf62adda38172eb14159c209673e4cc17",
+    "data/processed/metrics.json": "277a841527e9653c6d5890172f07eb32dd604e832542962bcaa5e38d2904930f"
+  }
+}
