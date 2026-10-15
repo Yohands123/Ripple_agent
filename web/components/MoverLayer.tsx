@@ -97,7 +97,12 @@ export default function MoverLayer({ movers }: { movers: Mover[] }) {
   const [mask, setMask] = useState<LandMask | null>(null);
   useEffect(() => {
     let live = true;
-    loadLandMask().then((m) => live && setMask(m));
+    loadLandMask().then((m) => {
+      if (!live) return;
+      setMask(m);
+      // For checks: is a map-pixel point on land?
+      if (m) (window as unknown as { __rippleIsLand?: LandMask["isLand"] }).__rippleIsLand = m.isLand;
+    });
     return () => {
       live = false;
     };

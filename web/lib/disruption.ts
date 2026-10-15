@@ -220,7 +220,8 @@ export function buildDisruptionScene(
       const box = placeBox(spiral(stackX + 16, top - 5, w, h, 80), layout);
       if (box) pills.push({ key: "delayed", text, big: false, bg: color.textSecondary, fg: color.ocean, x: box.x, y: box.y });
     }
-    const from = path.atFraction(0.4);
+    // Lost coins fall from the visible stretch of the line (before the pinned Apple Park card).
+    const from = path.at(end * 0.4);
     const fall = new Polyline(sampleSmooth([from, [from[0] - 8, from[1] + FALL_DISTANCE * 0.33], [from[0] + 6, from[1] + FALL_DISTANCE * 0.66], [from[0] - 6, from[1] + FALL_DISTANCE]]));
     for (let k = 0; k < risk.lost; k++) {
       const turn = [0, 25, -30, 40][k % 4] || 30;

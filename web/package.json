@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/check-default.mjs --serve",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "shots": "node scripts/screenshot.mjs"
+    "shots": "node scripts/screenshot.mjs",
+    "check:default": "node scripts/check-default.mjs"
   },
   "dependencies": {
     "d3-geo": "^3.1.1",
