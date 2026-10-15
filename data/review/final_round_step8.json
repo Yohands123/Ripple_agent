@@ -1,0 +1,13 @@
+{
+  "document": "docs/contracts.md",
+  "fieldPathsByDocument": {
+    "Forecasts": 77,
+    "Metrics": 79,
+    "Network": 206,
+    "Scenario": 219,
+    "Scenario index": 6
+  },
+  "fixtureSupplyEdges": 3,
+  "focusedTestsPassed": 18,
+  "fixtureValues": "Existing sample scenario and sample forecast contents preserved during format migration"
+}

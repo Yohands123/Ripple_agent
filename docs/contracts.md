@@ -1,482 +1,896 @@
-# Data contract
+# Ripple data contract
 
-The pipeline writes these files to `web/public/data/real/`. The interface
-reads `web/public/data/real/` when it exists and otherwise falls back to
-`web/public/data/fixtures/`, a copy of `contracts/fixtures/`. Only the human
-edits this contract; it stays frozen while the autopilot runs.
+This contract describes `web/public/data/real/`, written only by
+`pipeline/export.py`, and fictional examples in `contracts/fixtures/`.
+The user approved nullable values, company-only predictions, backbone
+extensions, and this complete contract update. Validate using
+`python -m pipeline.validate <folder>`. `--frozen` diagnoses incompatibility
+with the original numeric-only contract; it is not the current acceptance mode.
 
-This version describes what the real export contains (updated 2026-10-14,
-with the human's approval). The fixtures in `contracts/fixtures/` are an
-older, smaller subset of the same shapes, and they remain valid.
+Ripple is a public-data resilience case study. Stock-response predictions do
+not measure factory damage, production loss, Apple revenue, or recommended
+operational actions. Inferences and assumptions must remain visible.
 
-Conventions for every file:
+## Files and shared rules
 
-- Ranges are always `[low, high]`.
-- Field marked **nullable** may be `null`, meaning "not known from public
-  data". The interface shows it as unknown and never fills in a number.
-- Field marked **optional** may be left out entirely.
-- `sources` is always a list of `{ "title": "...", "url": "https://..." }`.
-- `assumption: true` marks a value that is assumed, not measured. The
-  interface labels it as an assumption and shows it as a range.
-- `sampleData: true` marks illustrative values. The interface shows a
-  "Sample data" tag whenever any loaded file has it.
-- Free-text `...Definition`, `...Basis`, `scope`, and `note` fields explain
-  how a value was made. The interface may show them as fine print, and must
-  not drop a caveat that changes the meaning of a number.
+- `network.json`: default network, currently Suez 2021.
+- `networks/<eventId>.json`: own-year supplier cohort and separately dated
+  reference geography for one event.
+- `scenarios/index.json`: array of `{id,title,type,start}`.
+- `scenarios/<eventId>.json`: shock, projections, route exposure and planning.
+- `metrics.json`: company-level leave-one-event-out evaluation.
+- `forecasts.json`: optional public input-cost histories and forecasts.
 
-## Files
+IDs are nonempty strings, unique within their document. Edge endpoints,
+transit nodes, shock nodes, predictions and affected-route IDs reference the
+event's network. `networkPath` is relative to the export folder, without
+absolute paths or parent traversal. Its absence selects `network.json` for
+legacy fixtures. Scenario and network `snapshotYear` must agree.
 
-| File | What it holds |
+Dates use ISO `YYYY-MM-DD`; `establishedOn` may use `YYYY-MM`. Coordinates are
+finite WGS84 longitude/latitude, within [-180,180]/[-90,90]. Waypoints always
+use `[longitude,latitude]`. `precision` is `exact`, `city`, `province`, or
+`country`; shock locations also allow `sea-area`. Exact describes a published
+reference, not necessarily a surveyed factory or cargo terminal.
+
+A `source` has descriptive `title` and absolute public HTTP(S) `url`.
+`sources` is an array of these records. Real nodes/edges require sources;
+empty arrays are permitted only for explicit sample fixtures. Some source
+records add a `basis` explaining their interpretation. Local classification
+references are separate provenance, not public source URLs.
+
+`sampleData: true` must produce a visible sample-data indication. A scenario
+can have a real historical event and still be sample data because its plan
+is illustrative. Assumed quantities have `assumption: true`, ranges, and
+definitions. Unknown values remain `null`; they must never become zero.
+
+Link `status` is `known` only if a public source states the relationship;
+otherwise it is `inferred`. Inferred edges have `confidence` and `basis`.
+Confidence is qualitative `high`, `medium`, `low`, or `unknown`, not a
+calibrated probability. `confidenceKind` explains the interpretation.
+
+## Networks, cohorts and reference geography
+
+Networks contain `snapshotYear`, `sampleData`, `nodes`, `edges`, plus optional
+`eventId`, `asOfDate`, `scope`, `cohort`, `cohortBasis`, `coverage`, `backbone`,
+and `supplyDefinition`.
+
+`cohort` records snapshot/event/publication years, `yearBasis`,
+`locationCoverage`, selection `basis`, and boolean `assumption`,
+`proxyApproved`, `companyOnlyExportApproved`. Missing own-year rosters remain
+gaps unless an approximation is explicitly approved. `coverage` counts
+matched/manufacturing supplier locations, unlocated companies, backbone
+nodes, supplier access links, backbone routes, supply links, model-eligible
+supply links and tier-2 supply links. `locationCoverage: "undisclosed"` forbids
+invented supplier coordinates. The 2011 company-only scenarios may still
+contain separately dated backbone context.
+
+`backbone` carries `referenceAsOf`, `scope`, `approval`, `routeDefinition`, and
+`nearestGatewayDefinition`. Approval records the user decision, node kinds,
+nullable carried tiers and proposal path. Contemporary reference geography
+does not establish historical facility presence or Apple shipments.
+
+Every node has `id`, `name`, `kind`, nullable `tier`, `lon`, `lat`, `precision`,
+`region`, nullable `ticker`, nullable `partType`, nullable `appleRevenueShare`,
+and `sources`. Known revenue shares lie in [0,1]. Node kinds are `mine`,
+`refinery`, `supplier_major`, `supplier_minor`, `assembly`, `port`, `airport`,
+`canal`, `border`, `apple_store`, `carrier`, `retailer`, `repair`, `hq`,
+`chokepoint`, `sales_region`, `event_anchor`. Current layers are `supplier`
+and `backbone`.
+
+`companyId` groups a canonical supplier's sites and stock label. Backbone
+context has no historical supplier company ID. `sourceCompany`,
+`canonicalCompany`, and `supplierAliases` preserve identity provenance.
+`locationRole` is `manufacturing` or `headquarters` when supplied.
+
+`tier` is integer 1–7 or null. `tierStatus` is `known`, `inferred`, or
+`unknown`; `tierBasis` explains it. Exact CSV matches fill null fields while
+retaining filing-derived part types. Their status is `inferred`, basis is
+`model classification, see data/reference/supplier_classes.csv`, and
+confidence comes from the row. Empty CSV tiers stay null. For unmatched
+names, materials/adhesives/glass/chemicals map to inferred tier 2; components
+and other parts to tier 3; EMS/assembly to tier 4. Their basis is
+`mapped from part type`. A missing part type leaves tier null.
+
+`partTypeStatus` is `sourced`, `inferred`, or `unknown`. `partTypeScope`
+distinguishes a company category from an Apple-specific bill of materials.
+`attributeSources` contains evidence for `partType`, `appleRevenueShare`,
+`size`, or `chokepoint_dependence`: `source`/`sources`, `filedOn`, and, for
+size, `periodEnd` and `assetsUsd`.
+
+`classification` retains matched company, canonical name, nullable tier/part
+type, confidence, status, basis, classifier and local reference. An approved
+`correction` has its own source, basis and reference. It does not silently
+rewrite the supplied CSV.
+
+Reference nodes may include `referenceAsOf`, `historicalPresenceAsserted`,
+`status`, `scope`, `eventId`, `establishedOn`, `iata`, `worldPortIndex`, `mrgid`,
+nullable `sourcePrecisionMeters`, `salesRegion`, `regionDefinition`, and
+`gatewaySelectionBasis`. These describe a reference, not observed shipments.
+`positionBasis`, `positionScope`, `positionStatus`, and
+`publishedPosition: {lon,lat}` distinguish original coordinates from inferred
+coastal/canal display anchors.
+
+Assembly `products` lists evidenced product families. `productEvidence`
+preserves products, public source, `availableOn`, basis, and publication-date
+uncertainty notes. Conservative availability does not establish the site's
+complete historical product mix.
+
+`waypoint: true` marks an unlabelled route control node. Paired date-line
+waypoints use `kind: "border"` and shared `seamId`: +180 and -180 represent the
+same position on opposite map edges, not a real border facility. Never draw
+a connector across the whole map between the pair.
+
+## Edges: routes and supply relationships
+
+Edges have `id`, `from`, `to`, `mode`, `carriesTier`, `status`, `sources`.
+Current real edges also have `relation`, `confidence`, `basis`.
+`carriesTier` is 1–7 or null for unknown originating tiers. Optional `layer`,
+`referenceAsOf`, `purpose`, `confidenceKind`, `routingVerified`, `distanceKm`
+and `distanceDefinition` state the inference. All current routes have
+`routingVerified: false`; passing a geometry test does not establish actual
+use, navigability, capacity, schedule, border permission or legality.
+
+`relation: "route"` describes physical movement. Mode is `sea`, `air`, `road`,
+or `rail`. Supplier roads choose the nearest curated port/airport by
+great-circle reference distance, not driving distance or the nearest gateway
+worldwide. Straight road connectors do not establish continuous roads or
+viable crossings. Air arcs are illustrative, not documented flight paths.
+
+Sea routes have `via` and `laneName`. `laneId` groups one lane's display
+segments; `segmentIndex`/`segmentCount` are 1-based position/count.
+`originId`/`destinationId` retain complete lane endpoints. Label each lane
+once. `corridor`, `geometryBasis`, `geometrySources`, and
+`narrowPassages: [{nodeId,scope}]` explain geometry. `viaNodeIds` identifies
+transited chokepoints; `alternativeTo` references the original route.
+
+Pacific lanes cross the North Pacific and split at the date line. Every sea
+route must pass `pipeline/sea_geometry.py`, including the sampled curved ship
+path, against exact pinned Natural Earth physical-land polygons. Allowances
+are limited to 3 km around port endpoints and a 1 km cartographic corridor
+around independently sourced Suez/Panama centerlines. Edge metadata cannot
+bypass checks. Pins and offline geometry are in
+`data/processed/sea_geometry.json` and `sea_land.wkb.gz`. Tolerances do not
+describe surveyed channel widths or navigable water depths.
+
+`relation: "supply"` describes who could supply whom, with null `mode`.
+Tier-3 links require product compatibility and select at most three nearest
+qualifying assembly hubs per company, one representative site per hub.
+Tier-2 buyer links require public support. Optional `companyId`, `partType`,
+`products`, `componentCategories`, `productUseEvidence`,
+`assemblyProductEvidence`, `availableOn`, `supplierCategoryInferred`, and
+`modelEligible` retain the inference and temporal eligibility.
+
+Only model-eligible supply links enter historical hops. Dated evidence is
+filtered before nearest-hub selection; current unsourced categories and
+future assembly evidence cannot create predictive hops. Geographic supplier
+exposure or an explicitly shocked assembly hub seeds zero hops. Undirected
+supply traversal describes potential upstream/downstream association;
+unconnected companies remain null. Route/access/shared-customer edges never
+create model hops.
+
+## Scenarios, predictions and exposures
+
+Scenarios contain `id`, `title`, `type`, `start`, `end`, `snapshotYear`,
+`sampleData`, `shock`, `headline`, `predictions`, `actual`, `options`, `quota`,
+`money`, `affectedRoutes`, and `sensitivity`. Type is `sea`, `sky`, `land`,
+`policy`, or `demand`. Optional extensions are `networkPath`, `cohort`,
+`dateBasis`, `endBasis`, `sources`, `outcomeDefinition`, `unknowns`,
+`companyPredictions`, `optimization`, and route-exposure provenance.
+
+Date bases describe onset, announcement, report cutoff or reopening; `end`
+does not automatically mean full recovery. The outcome is company
+market-model CAR on trading days 0 through +10, hit when t < -1.96.
+`unknowns` lists unmeasured quantities, never zeros.
+
+`shock.nodeIds` identifies sourced backbone shock locations and may be empty
+if no node represents the event. `capacityLoss` is nullable or in [0,1].
+`shock.location` has `lon`, `lat`, `precision`, `basis`, `sources`, independent
+of the observed hit labels.
+
+Predictions have `nodeId`, `pHit`, `ciLow`, `ciHigh`, `lowConfidence`, and
+`shap: [{feature,value}]`. Require 0 <= ciLow <= pHit <= ciHigh <= 1.
+`shapBaseValue` plus mean contributions equals `shapMeanRawScore` in log odds,
+not the logit of median probability. `predictionScope` identifies company
+projections shared by sites; `outcomeObservable` indicates a valid label.
+`actual[]` contains `nodeId`, boolean `hit`, numeric `car`, optional `scope`.
+Repeated display-site observations count once per company/event in metrics.
+
+`companyPredictions[]` supports unlocated rosters: `companyId`, `supplier`,
+nullable `ticker`, `sources`, the probability/SHAP/scope fields above, and
+nullable `actual: {hit,car}`. No coordinates are invented for these companies.
+
+`affectedRoutes` has `blocked`, `detour`, `expedited` arrays of physical route
+IDs. Supply-edge IDs are invalid. A blocked route cannot also be available
+as a detour or expedition. Real overlays carry `affectedRoutesStatus`,
+`affectedRoutesBasis`, `affectedRoutesSources`, `affectedRoutesScope`.
+Blocked means inferred potential exposure, not proof a gateway completely
+closed or an Apple shipment stopped. Alternatives do not establish capacity,
+permissions, use, or evasion of policy restrictions.
+
+## Illustrative planning and sensitivity
+
+Options may be empty; quota may be null. Each modeled option has `id`,
+`label`, `detail`, range `unitsRecovered`, range `extraCostUsd`,
+`daysToEffect`, `defaultOn`, `assumption`, optional `daysToEffectRange` and
+`inputRanges`. Recoveries cannot be added independently across options.
+
+Quota has matching arrays `weeks`, `target`, `noAction`, `withPlan`, and
+`recoverySentence`. Optional per-week ranges are `noActionRange` and
+`withPlanRange`. `optionPlans` gives every exact switch combination via
+`optionIds`, `withPlan`, `withPlanRange`, `extraCostUsd`. `unit`, `scope`,
+`assumption` remain visible: current quantities are assumed indexed demand,
+not actual devices, shipments or Apple output.
+
+Money has positive `coinUsd`, nullable range `revenueAtRisk`, nullable [0,1]
+`delayedShare`, and `assumption`. Unknown money must not create estimated
+coins or revenue claims. Each sensitivity item has code `assumption`,
+plain-English `label`, and `spearman` in [-1,1], sorted by absolute value.
+Positive correlation means more unmet indexed demand in the default plan.
+
+Optimization preserves solver/runtime versions, seed, draws, paired
+combination count, base-capacity ranges, default extra-cost range,
+`inputRanges`, `scope`, `assumption`, `costDefinition`, `rangeDefinition`,
+`sensitivityDefinition`. Input ranges retain explicit user approval, horizon,
+demand/capacity/recovery/cost-penalty ranges, and option capacity/lead/ramp/
+cost ranges. Current uniform ranges are illustrative; their percentile
+intervals are not empirical confidence intervals.
+
+## Metrics and forecasts
+
+Metrics have `model`, `sampleData`, `events`, `loeo`, `overall`, `calibration`,
+and the extensions enumerated below. `events` counts evaluated events;
+`predictionEvents` also includes excluded events. `rows` counts company-event
+observations. Per-event results have `eventId`, `rows`, `hits`, model
+`auc`/`brier`, logistic `baselineAuc`/`logisticBrier`, distance
+`distanceAuc`/`distanceBrier`. Never label `baselineAuc` as distance.
+
+`overall` gives event-bootstrap [low,high] intervals; `overallPoint` pooled
+point estimates. Calibration has `binMid`, mean `predicted`, `observed`, `n`.
+`cohorts`, `excludedEvents`, `excludedFromMetrics`, `evaluationPolicy` explain
+gaps and inclusion. The approved single-class policy excludes such events
+from per-event and pooled metrics/calibration, while retaining predictions
+and observations. Bootstrap draw/member counts, definition strings,
+`lowConfidenceRule`, and `limitations` preserve methodological uncertainty.
+
+Forecasts contain `sampleData`, optional `asOf`, model metadata, evaluation
+and interval definitions, limitations, series. Model metadata includes
+identity/title/public URL, revision, weights hash, release date, device,
+runtime version, quantiles and rearrangement definition.
+
+Series contain identity/label/unit/source, optional `definitionSource`,
+`availabilityNote`, `historyThrough`, `forecastStatus`, and `history`,
+`forecast`, `baseline`, `metrics`. History is `{date,value}` with optional
+`weeklyObservations`; forecasts are `{date,q10,q50,q90}`, with ordered
+quantiles; baseline is `{date,value}`. The archived freight series is a
+particular regional route, not a current global rate.
+
+Forecast metrics include MASE, baseline MASE, interval coverage, baseline
+coverage, pinball losses, origins, horizon months, scored predictions,
+first/last targets and aggregation. `afterPublicReleaseOneMonth` repeats
+metrics for the release-aware subset and includes a note. A pre-release
+backtest is not a contemporaneously available forecast.
+
+The inventory below explicitly lists every nested field and observed type.
+Generate it with `python -m pipeline.contract_inventory`; `--check` detects
+undocumented export changes. Variant-specific evidence and assumption
+fields are retained rather than silently discarded by loaders.
+
+<!-- BEGIN REAL EXPORT FIELD INVENTORY -->
+## Complete real-export field inventory
+
+Every emitted field is enumerated below, including nested evidence and assumption records. Types describe observed JSON values; the semantic rules above define allowed nulls and ranges. Variant-specific fields are optional. `[]` denotes array elements; `$` denotes the root. Integer is a subtype of number. Qualitative confidence is never a probability.
+
+### Forecasts
+
+| Field | Observed JSON types |
 |---|---|
-| `network.json` | The default network: the most recent event's Supplier List year |
-| `networks/<eventId>.json` | The network for one event, from that event's own Supplier List year |
-| `scenarios/index.json` | The list of scenarios for the picker |
-| `scenarios/<id>.json` | One past or hypothetical disruption |
-| `metrics.json` | Backtest results for the model |
-| `forecasts.json` | Input cost forecasts (phase 2; may be missing) |
+| `$` | object |
+| `asOf` | string |
+| `baselineIntervalDefinition` | string |
+| `evaluationDefinition` | string |
+| `intervalDefinition` | string |
+| `limitations` | array |
+| `limitations[]` | string |
+| `model` | object |
+| `model.device` | string |
+| `model.id` | string |
+| `model.quantileRearrangement` | string |
+| `model.quantiles` | array |
+| `model.quantiles[]` | number |
+| `model.releasedOn` | string |
+| `model.revision` | string |
+| `model.title` | string |
+| `model.torchVersion` | string |
+| `model.url` | string |
+| `model.weightsSha256` | string |
+| `sampleData` | boolean |
+| `series` | array |
+| `series[]` | object |
+| `series[].availabilityNote` | string |
+| `series[].baseline` | array |
+| `series[].baseline[]` | object |
+| `series[].baseline[].date` | string |
+| `series[].baseline[].value` | number |
+| `series[].definitionSource` | object |
+| `series[].definitionSource.basis` | string |
+| `series[].definitionSource.title` | string |
+| `series[].definitionSource.url` | string |
+| `series[].forecast` | array |
+| `series[].forecastStatus` | string |
+| `series[].forecast[]` | object |
+| `series[].forecast[].date` | string |
+| `series[].forecast[].q10` | number |
+| `series[].forecast[].q50` | number |
+| `series[].forecast[].q90` | number |
+| `series[].history` | array |
+| `series[].historyThrough` | string |
+| `series[].history[]` | object |
+| `series[].history[].date` | string |
+| `series[].history[].value` | number |
+| `series[].history[].weeklyObservations` | integer |
+| `series[].id` | string |
+| `series[].label` | string |
+| `series[].metrics` | object |
+| `series[].metrics.afterPublicReleaseOneMonth` | object |
+| `series[].metrics.afterPublicReleaseOneMonth.aggregation` | string |
+| `series[].metrics.afterPublicReleaseOneMonth.baselineCoverage80` | number |
+| `series[].metrics.afterPublicReleaseOneMonth.baselineMase` | number |
+| `series[].metrics.afterPublicReleaseOneMonth.baselinePinballLoss` | number |
+| `series[].metrics.afterPublicReleaseOneMonth.coverage80` | number |
+| `series[].metrics.afterPublicReleaseOneMonth.firstTarget` | string |
+| `series[].metrics.afterPublicReleaseOneMonth.horizonMonths` | integer |
+| `series[].metrics.afterPublicReleaseOneMonth.lastTarget` | string |
+| `series[].metrics.afterPublicReleaseOneMonth.mase` | number |
+| `series[].metrics.afterPublicReleaseOneMonth.note` | string |
+| `series[].metrics.afterPublicReleaseOneMonth.origins` | integer |
+| `series[].metrics.afterPublicReleaseOneMonth.pinballLoss` | number |
+| `series[].metrics.afterPublicReleaseOneMonth.scoredPredictions` | integer |
+| `series[].metrics.aggregation` | string |
+| `series[].metrics.baselineCoverage80` | number |
+| `series[].metrics.baselineMase` | number |
+| `series[].metrics.baselinePinballLoss` | number |
+| `series[].metrics.coverage80` | number |
+| `series[].metrics.firstTarget` | string |
+| `series[].metrics.horizonMonths` | integer |
+| `series[].metrics.lastTarget` | string |
+| `series[].metrics.mase` | number |
+| `series[].metrics.origins` | integer |
+| `series[].metrics.pinballLoss` | number |
+| `series[].metrics.scoredPredictions` | integer |
+| `series[].source` | object |
+| `series[].source.title` | string |
+| `series[].source.url` | string |
+| `series[].unit` | string |
 
-## `network.json` and `networks/<eventId>.json`: the supply chain for one Supplier List year
+### Metrics
 
-Both files have the same shape. A scenario names its own network in
-`networkPath`.
+| Field | Observed JSON types |
+|---|---|
+| `$` | object |
+| `baselineDefinition` | string |
+| `bootstrapEventDraws` | integer |
+| `calibration` | array |
+| `calibration[]` | object |
+| `calibration[].binMid` | number |
+| `calibration[].n` | integer |
+| `calibration[].observed` | number |
+| `calibration[].predicted` | number |
+| `cohorts` | array |
+| `cohorts[]` | object |
+| `cohorts[].assumption` | boolean |
+| `cohorts[].basis` | string |
+| `cohorts[].companyOnlyExportApproved` | boolean |
+| `cohorts[].eventId` | string |
+| `cohorts[].eventYear` | integer |
+| `cohorts[].locationCoverage` | string |
+| `cohorts[].proxyApproved` | boolean |
+| `cohorts[].publicationYear` | integer |
+| `cohorts[].snapshotYear` | integer |
+| `cohorts[].yearBasis` | string |
+| `ensembleMembersPerFold` | integer |
+| `evaluationDefinition` | string |
+| `evaluationPolicy` | object |
+| `evaluationPolicy.approvalDate` | string |
+| `evaluationPolicy.approved` | boolean |
+| `evaluationPolicy.limitation` | string |
+| `evaluationPolicy.scope` | string |
+| `evaluationPolicy.singleClassEvents` | string |
+| `evaluationPolicy.userDecision` | string |
+| `events` | integer |
+| `excludedEvents` | array |
+| `excludedEvents[]` | object |
+| `excludedEvents[].eventId` | string |
+| `excludedEvents[].reason` | string |
+| `excludedEvents[].snapshotYear` | integer |
+| `excludedEvents[].source` | object |
+| `excludedEvents[].source.title` | string |
+| `excludedEvents[].source.url` | string |
+| `excludedFromMetrics` | array |
+| `excludedFromMetrics[]` | object |
+| `excludedFromMetrics[].eventId` | string |
+| `excludedFromMetrics[].hits` | integer |
+| `excludedFromMetrics[].reason` | string |
+| `excludedFromMetrics[].rows` | integer |
+| `limitations` | array |
+| `limitations[]` | string |
+| `loeo` | array |
+| `loeo[]` | object |
+| `loeo[].auc` | number |
+| `loeo[].baselineAuc` | number |
+| `loeo[].brier` | number |
+| `loeo[].distanceAuc` | number |
+| `loeo[].distanceBrier` | number |
+| `loeo[].eventId` | string |
+| `loeo[].hits` | integer |
+| `loeo[].logisticBrier` | number |
+| `loeo[].rows` | integer |
+| `lowConfidenceRule` | string |
+| `model` | string |
+| `overall` | object |
+| `overall.auc` | array |
+| `overall.auc[]` | number |
+| `overall.baselineAuc` | array |
+| `overall.baselineAuc[]` | number |
+| `overall.brier` | array |
+| `overall.brier[]` | number |
+| `overall.distanceAuc` | array |
+| `overall.distanceAuc[]` | number |
+| `overallPoint` | object |
+| `overallPoint.auc` | number |
+| `overallPoint.baselineAuc` | number |
+| `overallPoint.brier` | number |
+| `overallPoint.distanceAuc` | number |
+| `predictionEvents` | integer |
+| `probabilityDefinition` | string |
+| `rows` | integer |
+| `sampleData` | boolean |
+| `shapDefinition` | string |
 
-```json
-{
-  "snapshotYear": 2021,
-  "sampleData": false,
-  "eventId": "suez-2021",
-  "asOfDate": "2021-03-23",
-  "scope": "Disclosed supplier locations. Physical transport links and production tiers are unavailable.",
-  "cohort": {
-    "snapshotYear": 2021,
-    "eventYear": 2021,
-    "publicationYear": 2022,
-    "yearBasis": "explicit fiscal year",
-    "locationCoverage": "disclosed locations",
-    "basis": "Own-year procurement coverage, published retrospectively",
-    "assumption": false,
-    "proxyApproved": false,
-    "companyOnlyExportApproved": false
-  },
-  "cohortBasis": "Supplier lists were published retrospectively. ...",
-  "coverage": { "matchedLocations": 704, "manufacturingLocations": 704 },
-  "nodes": [
-    {
-      "id": "location-0003eb8a1f66c95b",
-      "companyId": "supplier-5313be216c8bb1fc",
-      "name": "Jabil Incorporated — Maharashtra",
-      "kind": "supplier_major",
-      "locationRole": "manufacturing",
-      "tier": 4,
-      "tierStatus": "inferred",
-      "tierBasis": "mapped from part type",
-      "lon": 76.1,
-      "lat": 19.44,
-      "precision": "province",
-      "region": "Maharashtra",
-      "ticker": "JBL",
-      "partType": "electronics manufacturing services",
-      "partTypeScope": "Company product category, not an Apple-specific bill of materials",
-      "appleRevenueShare": 0.2,
-      "sources": [{ "title": "Apple Supplier List FY2021", "url": "https://..." }],
-      "attributeSources": {
-        "partType": { "source": { "title": "Jabil annual report FY2020", "url": "https://..." }, "filedOn": "2020-10-22" },
-        "appleRevenueShare": { "source": { "title": "Jabil annual report FY2020", "url": "https://..." }, "filedOn": "2020-10-22" },
-        "size": {
-          "source": { "title": "SEC company facts: total assets in USD", "url": "https://..." },
-          "filedOn": "2021-01-08",
-          "periodEnd": "2020-11-30",
-          "assetsUsd": 15269478000
-        }
-      }
-    }
-  ],
-  "edges": [
-    {
-      "id": "e-0001",
-      "from": "tsmc-hsinchu",
-      "to": "foxconn-zhengzhou",
-      "mode": "air",
-      "carriesTier": 3,
-      "status": "inferred",
-      "sources": []
-    }
-  ]
-}
-```
+### Network
 
-Top level:
+| Field | Observed JSON types |
+|---|---|
+| `$` | object |
+| `asOfDate` | string |
+| `backbone` | object |
+| `backbone.approval` | object |
+| `backbone.approval.approved` | boolean |
+| `backbone.approval.decision` | string |
+| `backbone.approval.nodeKinds` | array |
+| `backbone.approval.nodeKinds[]` | string |
+| `backbone.approval.nullableCarriesTier` | boolean |
+| `backbone.approval.proposal` | string |
+| `backbone.nearestGatewayDefinition` | string |
+| `backbone.referenceAsOf` | string |
+| `backbone.routeDefinition` | string |
+| `backbone.scope` | string |
+| `cohort` | object |
+| `cohort.assumption` | boolean |
+| `cohort.basis` | string |
+| `cohort.companyOnlyExportApproved` | boolean |
+| `cohort.eventYear` | integer |
+| `cohort.locationCoverage` | string |
+| `cohort.proxyApproved` | boolean |
+| `cohort.publicationYear` | integer |
+| `cohort.snapshotYear` | integer |
+| `cohort.yearBasis` | string |
+| `cohortBasis` | string |
+| `coverage` | object |
+| `coverage.backboneNodes` | integer |
+| `coverage.backboneRoutes` | integer |
+| `coverage.locationCoverage` | string |
+| `coverage.manufacturingLocations` | integer |
+| `coverage.matchedLocations` | integer |
+| `coverage.modelEligibleSupplyLinks` | integer |
+| `coverage.supplierAccessLinks` | integer |
+| `coverage.supplyLinks` | integer |
+| `coverage.tier2SupplyLinks` | integer |
+| `coverage.unlocatedCompanies` | integer |
+| `edges` | array |
+| `edges[]` | object |
+| `edges[].alternativeTo` | string |
+| `edges[].assemblyProductEvidence` | object |
+| `edges[].assemblyProductEvidence.availableOn` | string |
+| `edges[].assemblyProductEvidence.basis` | string |
+| `edges[].assemblyProductEvidence.products` | array |
+| `edges[].assemblyProductEvidence.products[]` | string |
+| `edges[].assemblyProductEvidence.source` | object |
+| `edges[].assemblyProductEvidence.source.title` | string |
+| `edges[].assemblyProductEvidence.source.url` | string |
+| `edges[].availableOn` | string |
+| `edges[].basis` | string |
+| `edges[].carriesTier` | integer, null |
+| `edges[].companyId` | string |
+| `edges[].componentCategories` | array |
+| `edges[].componentCategories[]` | string |
+| `edges[].confidence` | string |
+| `edges[].confidenceKind` | string |
+| `edges[].corridor` | string |
+| `edges[].destinationId` | string |
+| `edges[].distanceDefinition` | string |
+| `edges[].distanceKm` | number |
+| `edges[].from` | string |
+| `edges[].geometryBasis` | string |
+| `edges[].geometrySources` | array |
+| `edges[].geometrySources[]` | object |
+| `edges[].geometrySources[].title` | string |
+| `edges[].geometrySources[].url` | string |
+| `edges[].id` | string |
+| `edges[].laneId` | string |
+| `edges[].laneName` | string |
+| `edges[].layer` | string |
+| `edges[].mode` | null, string |
+| `edges[].modelEligible` | boolean |
+| `edges[].narrowPassages` | array |
+| `edges[].narrowPassages[]` | object |
+| `edges[].narrowPassages[].nodeId` | string |
+| `edges[].narrowPassages[].scope` | string |
+| `edges[].originId` | string |
+| `edges[].partType` | string |
+| `edges[].productUseEvidence` | array |
+| `edges[].productUseEvidence[]` | object |
+| `edges[].productUseEvidence[].availableOn` | string |
+| `edges[].productUseEvidence[].categories` | array |
+| `edges[].productUseEvidence[].categories[]` | string |
+| `edges[].productUseEvidence[].product` | string |
+| `edges[].productUseEvidence[].source` | object |
+| `edges[].productUseEvidence[].source.title` | string |
+| `edges[].productUseEvidence[].source.url` | string |
+| `edges[].products` | array |
+| `edges[].products[]` | string |
+| `edges[].purpose` | string |
+| `edges[].referenceAsOf` | string |
+| `edges[].relation` | string |
+| `edges[].routingVerified` | boolean |
+| `edges[].segmentCount` | integer |
+| `edges[].segmentIndex` | integer |
+| `edges[].sources` | array |
+| `edges[].sources[]` | object |
+| `edges[].sources[].title` | string |
+| `edges[].sources[].url` | string |
+| `edges[].status` | string |
+| `edges[].supplierCategoryInferred` | boolean |
+| `edges[].to` | string |
+| `edges[].via` | array |
+| `edges[].viaNodeIds` | array |
+| `edges[].viaNodeIds[]` | string |
+| `edges[].via[]` | array |
+| `edges[].via[][]` | number |
+| `eventId` | string |
+| `nodes` | array |
+| `nodes[]` | object |
+| `nodes[].appleRevenueShare` | null, number |
+| `nodes[].attributeSources` | object |
+| `nodes[].attributeSources.appleRevenueShare` | object |
+| `nodes[].attributeSources.appleRevenueShare.filedOn` | string |
+| `nodes[].attributeSources.appleRevenueShare.source` | object |
+| `nodes[].attributeSources.appleRevenueShare.source.title` | string |
+| `nodes[].attributeSources.appleRevenueShare.source.url` | string |
+| `nodes[].attributeSources.partType` | object |
+| `nodes[].attributeSources.partType.filedOn` | string |
+| `nodes[].attributeSources.partType.source` | object |
+| `nodes[].attributeSources.partType.source.title` | string |
+| `nodes[].attributeSources.partType.source.url` | string |
+| `nodes[].attributeSources.size` | object |
+| `nodes[].attributeSources.size.assetsUsd` | integer |
+| `nodes[].attributeSources.size.filedOn` | string |
+| `nodes[].attributeSources.size.periodEnd` | string |
+| `nodes[].attributeSources.size.source` | object |
+| `nodes[].attributeSources.size.source.title` | string |
+| `nodes[].attributeSources.size.source.url` | string |
+| `nodes[].canonicalCompany` | string |
+| `nodes[].classification` | object |
+| `nodes[].classification.basis` | string |
+| `nodes[].classification.canonicalCompany` | string |
+| `nodes[].classification.classifiedBy` | string |
+| `nodes[].classification.company` | string |
+| `nodes[].classification.confidence` | string |
+| `nodes[].classification.correction` | object |
+| `nodes[].classification.correction.basis` | string |
+| `nodes[].classification.correction.reference` | string |
+| `nodes[].classification.correction.source` | object |
+| `nodes[].classification.correction.source.title` | string |
+| `nodes[].classification.correction.source.url` | string |
+| `nodes[].classification.partType` | null, string |
+| `nodes[].classification.reference` | string |
+| `nodes[].classification.status` | string |
+| `nodes[].classification.tier` | integer, null |
+| `nodes[].companyId` | string |
+| `nodes[].confidence` | string |
+| `nodes[].confidenceKind` | string |
+| `nodes[].establishedOn` | string |
+| `nodes[].eventId` | string |
+| `nodes[].gatewaySelectionBasis` | string |
+| `nodes[].historicalPresenceAsserted` | boolean |
+| `nodes[].iata` | string |
+| `nodes[].id` | string |
+| `nodes[].kind` | string |
+| `nodes[].lat` | number |
+| `nodes[].layer` | string |
+| `nodes[].locationRole` | string |
+| `nodes[].lon` | integer, number |
+| `nodes[].mrgid` | integer |
+| `nodes[].name` | string |
+| `nodes[].partType` | null, string |
+| `nodes[].partTypeScope` | string |
+| `nodes[].partTypeStatus` | string |
+| `nodes[].positionBasis` | string |
+| `nodes[].positionScope` | string |
+| `nodes[].positionStatus` | string |
+| `nodes[].precision` | string |
+| `nodes[].productEvidence` | object |
+| `nodes[].productEvidence.availableOn` | string |
+| `nodes[].productEvidence.basis` | string |
+| `nodes[].productEvidence.products` | array |
+| `nodes[].productEvidence.products[]` | string |
+| `nodes[].productEvidence.source` | object |
+| `nodes[].productEvidence.source.title` | string |
+| `nodes[].productEvidence.source.url` | string |
+| `nodes[].products` | array |
+| `nodes[].products[]` | string |
+| `nodes[].publishedPosition` | object |
+| `nodes[].publishedPosition.lat` | number |
+| `nodes[].publishedPosition.lon` | number |
+| `nodes[].referenceAsOf` | string |
+| `nodes[].region` | string |
+| `nodes[].regionDefinition` | string |
+| `nodes[].salesRegion` | string |
+| `nodes[].scope` | string |
+| `nodes[].seamId` | string |
+| `nodes[].sourceCompany` | string |
+| `nodes[].sourcePrecisionMeters` | integer, null |
+| `nodes[].sources` | array |
+| `nodes[].sources[]` | object |
+| `nodes[].sources[].title` | string |
+| `nodes[].sources[].url` | string |
+| `nodes[].status` | string |
+| `nodes[].supplierAliases` | array |
+| `nodes[].supplierAliases[]` | string |
+| `nodes[].ticker` | null, string |
+| `nodes[].tier` | integer, null |
+| `nodes[].tierBasis` | string |
+| `nodes[].tierStatus` | string |
+| `nodes[].waypoint` | boolean |
+| `nodes[].worldPortIndex` | integer |
+| `sampleData` | boolean |
+| `scope` | string |
+| `snapshotYear` | integer |
+| `supplyDefinition` | string |
 
-- `snapshotYear`: the Supplier List year the nodes come from.
-- `eventId`, `asOfDate` (optional): the event this network was built for,
-  and the date it describes. The default `network.json` has them too.
-- `scope` (optional): one sentence on what the network does and does not
-  cover. The interface shows it as fine print.
-- `cohort` (optional): how the Supplier List year was chosen for the event.
-  - `snapshotYear`, `eventYear`, `publicationYear`: numbers.
-  - `yearBasis`, `basis`, `locationCoverage`: free text.
-  - `assumption`: true when the year match is approximate, for example the
-    2011 events, which use the January 2012 company roster.
-  - `proxyApproved`, `companyOnlyExportApproved`: true when the human
-    approved a proxy list or a company-only export for this event.
-- `cohortBasis` (optional): free text explaining the cohort rules.
-- `coverage` (optional): how many locations were matched.
-  - `matchedLocations`, `manufacturingLocations`: counts.
-  - `unlocatedCompanies` (optional): companies with no disclosed site.
-  - `locationCoverage` (optional): `"undisclosed"` when the list gives
-    companies only. Such a network has no nodes; its scenario uses
-    `companyPredictions` instead (see below).
-- `edges` may be empty. The real export has no edges yet, because physical
-  transport routes are not public. While `edges` is empty, the interface
-  draws typical lanes from public geography, labeled as typical and not
-  supplier-specific. Those lanes exist only in the interface and are never
-  written to these files.
+### Scenario
 
-Nodes:
+| Field | Observed JSON types |
+|---|---|
+| `$` | object |
+| `actual` | array |
+| `actual[]` | object |
+| `actual[].car` | number |
+| `actual[].hit` | boolean |
+| `actual[].nodeId` | string |
+| `actual[].scope` | string |
+| `affectedRoutes` | object |
+| `affectedRoutes.blocked` | array |
+| `affectedRoutes.blocked[]` | string |
+| `affectedRoutes.detour` | array |
+| `affectedRoutes.detour[]` | string |
+| `affectedRoutes.expedited` | array |
+| `affectedRoutes.expedited[]` | string |
+| `affectedRoutesBasis` | string |
+| `affectedRoutesScope` | string |
+| `affectedRoutesSources` | array |
+| `affectedRoutesSources[]` | object |
+| `affectedRoutesSources[].title` | string |
+| `affectedRoutesSources[].url` | string |
+| `affectedRoutesStatus` | string |
+| `cohort` | object |
+| `cohort.assumption` | boolean |
+| `cohort.basis` | string |
+| `cohort.companyOnlyExportApproved` | boolean |
+| `cohort.eventYear` | integer |
+| `cohort.locationCoverage` | string |
+| `cohort.proxyApproved` | boolean |
+| `cohort.publicationYear` | integer |
+| `cohort.snapshotYear` | integer |
+| `cohort.yearBasis` | string |
+| `companyPredictions` | array |
+| `companyPredictions[]` | object |
+| `companyPredictions[].actual` | null, object |
+| `companyPredictions[].actual.car` | number |
+| `companyPredictions[].actual.hit` | boolean |
+| `companyPredictions[].ciHigh` | number |
+| `companyPredictions[].ciLow` | number |
+| `companyPredictions[].companyId` | string |
+| `companyPredictions[].lowConfidence` | boolean |
+| `companyPredictions[].outcomeObservable` | boolean |
+| `companyPredictions[].pHit` | number |
+| `companyPredictions[].predictionScope` | string |
+| `companyPredictions[].shap` | array |
+| `companyPredictions[].shapBaseValue` | number |
+| `companyPredictions[].shapMeanRawScore` | number |
+| `companyPredictions[].shap[]` | object |
+| `companyPredictions[].shap[].feature` | string |
+| `companyPredictions[].shap[].value` | number |
+| `companyPredictions[].sources` | array |
+| `companyPredictions[].sources[]` | object |
+| `companyPredictions[].sources[].title` | string |
+| `companyPredictions[].sources[].url` | string |
+| `companyPredictions[].supplier` | string |
+| `companyPredictions[].ticker` | null, string |
+| `dateBasis` | string |
+| `end` | string |
+| `endBasis` | string |
+| `headline` | string |
+| `id` | string |
+| `money` | object |
+| `money.assumption` | boolean |
+| `money.coinUsd` | integer |
+| `money.delayedShare` | null |
+| `money.revenueAtRisk` | null |
+| `networkPath` | string |
+| `optimization` | object |
+| `optimization.assumption` | boolean |
+| `optimization.baseCapacityRange` | array |
+| `optimization.baseCapacityRange[]` | array |
+| `optimization.baseCapacityRange[][]` | number |
+| `optimization.costDefinition` | string |
+| `optimization.defaultExtraCostUsd` | array |
+| `optimization.defaultExtraCostUsd[]` | number |
+| `optimization.draws` | integer |
+| `optimization.inputRanges` | object |
+| `optimization.inputRanges.approval` | object |
+| `optimization.inputRanges.approval.basis` | string |
+| `optimization.inputRanges.approval.date` | string |
+| `optimization.inputRanges.approval.decision` | string |
+| `optimization.inputRanges.approved` | boolean |
+| `optimization.inputRanges.assumption` | boolean |
+| `optimization.inputRanges.baseRecoveryWeeks` | array |
+| `optimization.inputRanges.baseRecoveryWeeks[]` | integer |
+| `optimization.inputRanges.costPenaltyUnitsPerUsd` | array |
+| `optimization.inputRanges.costPenaltyUnitsPerUsd[]` | number |
+| `optimization.inputRanges.demandPerWeek` | array |
+| `optimization.inputRanges.demandPerWeek[]` | integer |
+| `optimization.inputRanges.distribution` | string |
+| `optimization.inputRanges.draws` | integer |
+| `optimization.inputRanges.initialCapacityFraction` | array |
+| `optimization.inputRanges.initialCapacityFraction[]` | number |
+| `optimization.inputRanges.options` | array |
+| `optimization.inputRanges.options[]` | object |
+| `optimization.inputRanges.options[].assumption` | boolean |
+| `optimization.inputRanges.options[].capacityPerWeek` | array |
+| `optimization.inputRanges.options[].capacityPerWeek[]` | integer |
+| `optimization.inputRanges.options[].costUsdPerIndexUnit` | array |
+| `optimization.inputRanges.options[].costUsdPerIndexUnit[]` | integer |
+| `optimization.inputRanges.options[].defaultOn` | boolean |
+| `optimization.inputRanges.options[].id` | string |
+| `optimization.inputRanges.options[].label` | string |
+| `optimization.inputRanges.options[].leadWeeks` | array |
+| `optimization.inputRanges.options[].leadWeeks[]` | integer |
+| `optimization.inputRanges.options[].rampWeeks` | array |
+| `optimization.inputRanges.options[].rampWeeks[]` | integer |
+| `optimization.inputRanges.scope` | string |
+| `optimization.inputRanges.seed` | integer |
+| `optimization.inputRanges.unit` | string |
+| `optimization.inputRanges.weeks` | integer |
+| `optimization.ortoolsVersion` | string |
+| `optimization.pairedOptionCombinations` | integer |
+| `optimization.rangeDefinition` | string |
+| `optimization.scope` | string |
+| `optimization.seed` | integer |
+| `optimization.sensitivityDefinition` | string |
+| `optimization.solver` | string |
+| `options` | array |
+| `options[]` | object |
+| `options[].assumption` | boolean |
+| `options[].daysToEffect` | number |
+| `options[].daysToEffectRange` | array |
+| `options[].daysToEffectRange[]` | number |
+| `options[].defaultOn` | boolean |
+| `options[].detail` | string |
+| `options[].extraCostUsd` | array |
+| `options[].extraCostUsd[]` | number |
+| `options[].id` | string |
+| `options[].inputRanges` | object |
+| `options[].inputRanges.assumption` | boolean |
+| `options[].inputRanges.capacityPerWeek` | array |
+| `options[].inputRanges.capacityPerWeek[]` | integer |
+| `options[].inputRanges.costUsdPerIndexUnit` | array |
+| `options[].inputRanges.costUsdPerIndexUnit[]` | integer |
+| `options[].inputRanges.defaultOn` | boolean |
+| `options[].inputRanges.id` | string |
+| `options[].inputRanges.label` | string |
+| `options[].inputRanges.leadWeeks` | array |
+| `options[].inputRanges.leadWeeks[]` | integer |
+| `options[].inputRanges.rampWeeks` | array |
+| `options[].inputRanges.rampWeeks[]` | integer |
+| `options[].label` | string |
+| `options[].unitsRecovered` | array |
+| `options[].unitsRecovered[]` | number |
+| `outcomeDefinition` | string |
+| `predictions` | array |
+| `predictions[]` | object |
+| `predictions[].ciHigh` | number |
+| `predictions[].ciLow` | number |
+| `predictions[].lowConfidence` | boolean |
+| `predictions[].nodeId` | string |
+| `predictions[].outcomeObservable` | boolean |
+| `predictions[].pHit` | number |
+| `predictions[].predictionScope` | string |
+| `predictions[].shap` | array |
+| `predictions[].shapBaseValue` | number |
+| `predictions[].shapMeanRawScore` | number |
+| `predictions[].shap[]` | object |
+| `predictions[].shap[].feature` | string |
+| `predictions[].shap[].value` | number |
+| `quota` | object |
+| `quota.assumption` | boolean |
+| `quota.noAction` | array |
+| `quota.noActionRange` | array |
+| `quota.noActionRange[]` | array |
+| `quota.noActionRange[][]` | number |
+| `quota.noAction[]` | number |
+| `quota.optionPlans` | array |
+| `quota.optionPlans[]` | object |
+| `quota.optionPlans[].extraCostUsd` | array |
+| `quota.optionPlans[].extraCostUsd[]` | number |
+| `quota.optionPlans[].optionIds` | array |
+| `quota.optionPlans[].optionIds[]` | string |
+| `quota.optionPlans[].withPlan` | array |
+| `quota.optionPlans[].withPlanRange` | array |
+| `quota.optionPlans[].withPlanRange[]` | array |
+| `quota.optionPlans[].withPlanRange[][]` | number |
+| `quota.optionPlans[].withPlan[]` | number |
+| `quota.recoverySentence` | string |
+| `quota.scope` | string |
+| `quota.target` | array |
+| `quota.target[]` | number |
+| `quota.unit` | string |
+| `quota.weeks` | array |
+| `quota.weeks[]` | string |
+| `quota.withPlan` | array |
+| `quota.withPlanRange` | array |
+| `quota.withPlanRange[]` | array |
+| `quota.withPlanRange[][]` | number |
+| `quota.withPlan[]` | number |
+| `sampleData` | boolean |
+| `sensitivity` | array |
+| `sensitivity[]` | object |
+| `sensitivity[].assumption` | string |
+| `sensitivity[].label` | string |
+| `sensitivity[].spearman` | number |
+| `shock` | object |
+| `shock.capacityLoss` | null |
+| `shock.location` | object |
+| `shock.location.basis` | string |
+| `shock.location.lat` | number |
+| `shock.location.lon` | number |
+| `shock.location.precision` | string |
+| `shock.location.sources` | array |
+| `shock.location.sources[]` | object |
+| `shock.location.sources[].title` | string |
+| `shock.location.sources[].url` | string |
+| `shock.nodeIds` | array |
+| `shock.nodeIds[]` | string |
+| `snapshotYear` | integer |
+| `sources` | array |
+| `sources[]` | object |
+| `sources[].title` | string |
+| `sources[].url` | string |
+| `start` | string |
+| `title` | string |
+| `type` | string |
+| `unknowns` | array |
+| `unknowns[]` | string |
 
-- `kind`: `mine`, `refinery`, `supplier_major`, `supplier_minor`, `assembly`,
-  `port`, `airport`, `canal`, `border`, `apple_store`, `carrier`, `retailer`,
-  `repair`, `hq`. The real export currently uses `supplier_major` only.
-- `companyId` (optional): groups the sites of one company. Company-level
-  values (`ticker`, `appleRevenueShare`, predictions) are shared by all its
-  sites.
-- `locationRole` (optional): `manufacturing` or `headquarters`.
-- `tier` (**nullable**): 1 to 7, matching the tier colors in
-  `design-spec.md`. `null` means unknown, and the interface draws the node in
-  neutral grey.
-- `tierStatus` (optional): `known` (stated in a source), `inferred` (mapped
-  from `partType`), or `unknown` (`tier` is `null`). An inferred tier is never
-  presented as known.
-- `tierBasis` (optional): free text, for example `"mapped from part type"`
-  or `"part type unavailable"`.
-- `precision`: `exact`, `city`, `province`, `country`.
-- `ticker`, `partType`, `appleRevenueShare` are **nullable**.
-- `partTypeScope` (optional): what `partType` describes. In the real export it
-  is the company's product category, not an Apple bill of materials.
-- `attributeSources` (optional): a source for each company attribute, keyed
-  by attribute: `partType`, `appleRevenueShare`, `size`. Each entry has
-  `source`, `filedOn`, and, for `size`, `periodEnd` and `assetsUsd`.
+### Scenario index
 
-Edges:
+| Field | Observed JSON types |
+|---|---|
+| `$` | array |
+| `[]` | object |
+| `[].id` | string |
+| `[].start` | string |
+| `[].title` | string |
+| `[].type` | string |
 
-- `mode`: `sea`, `air`, `road`, `rail`.
-- `status`: `known` or `inferred`. The interface draws inferred edges dashed.
-- `via` (optional): waypoints as `[[lon, lat], ...]` between `from` and `to`,
-  so sea routes follow real lanes instead of straight lines. Air routes omit
-  it and are drawn as arcs.
-
-## `scenarios/<id>.json`: one past or hypothetical disruption
-
-```json
-{
-  "id": "suez-2021",
-  "title": "Suez Canal blocked",
-  "type": "sea",
-  "start": "2021-03-23",
-  "end": "2021-03-29",
-  "dateBasis": "Ever Given grounding and canal reopening",
-  "endBasis": "Canal reopened; subsequent shipping backlog continued",
-  "snapshotYear": 2021,
-  "networkPath": "networks/suez-2021.json",
-  "cohort": { "snapshotYear": 2021, "eventYear": 2021, "publicationYear": 2022, "...": "as in the network" },
-  "sampleData": true,
-  "sources": [{ "title": "Reuters: traffic resumes after Ever Given refloated, March 29, 2021", "url": "https://..." }],
-  "shock": {
-    "nodeIds": [],
-    "capacityLoss": null,
-    "location": {
-      "lon": 32.55,
-      "lat": 30.0,
-      "precision": "city",
-      "basis": "Natural Earth city point; not an exact disrupted-facility coordinate",
-      "sources": [{ "title": "...", "url": "https://..." }]
-    }
-  },
-  "headline": "Suez Canal blocked. Supplier stock responses are shown; production losses are unknown.",
-  "outcomeDefinition": "Company market-model CAR over trading days 0 to +10; hit when t < -1.96. Not a measurement of factory damage or production loss.",
-  "unknowns": ["Apple production capacity loss", "Physical supplier transport routes"],
-  "predictions": [
-    {
-      "nodeId": "location-0003eb8a1f66c95b",
-      "pHit": 0.044,
-      "ciLow": 0.027,
-      "ciHigh": 0.070,
-      "lowConfidence": true,
-      "shap": [{ "feature": "sourcing_hhi", "value": 0.033 }],
-      "shapBaseValue": -3.13,
-      "shapMeanRawScore": -3.06,
-      "predictionScope": "Company-level market-response projection shared by disclosed sites; not a site-specific damage observation",
-      "outcomeObservable": true
-    }
-  ],
-  "companyPredictions": [],
-  "actual": [
-    { "nodeId": "location-0003eb8a1f66c95b", "hit": false, "car": -0.071, "scope": "Company-level CAR shared by disclosed sites" }
-  ],
-  "options": [
-    {
-      "id": "assumed-detour",
-      "label": "Assumed detour reserve",
-      "detail": "Illustrative indexed capacity and costs; individual recovery is not additive with other options",
-      "unitsRecovered": [17.6, 74.0],
-      "extraCostUsd": [26.0, 176.2],
-      "daysToEffect": 14,
-      "daysToEffectRange": [14, 14],
-      "defaultOn": true,
-      "assumption": true,
-      "inputRanges": { "capacityPerWeek": [8, 18], "leadWeeks": [1, 2], "rampWeeks": [1, 3], "costUsdPerIndexUnit": [1, 3] }
-    }
-  ],
-  "quota": {
-    "weeks": ["2021-03-23"],
-    "target": [100],
-    "noAction": [59.6],
-    "withPlan": [59.6],
-    "noActionRange": [[45.7, 74.3]],
-    "withPlanRange": [[45.7, 74.3]],
-    "optionPlans": [{ "optionIds": ["assumed-detour"], "withPlan": [59.6], "withPlanRange": [[45.7, 74.3]], "extraCostUsd": [26.0, 176.2] }],
-    "recoverySentence": "Median indexed plan reaches the assumed weekly target from week 4",
-    "unit": "indexed demand units; 100 is an assumed weekly reference, not a count of devices",
-    "scope": "Illustrative indexed planning exercise; not estimated Apple production, shipping capacity, or actual procurement",
-    "assumption": true
-  },
-  "money": { "coinUsd": 500000000, "revenueAtRisk": null, "delayedShare": null, "assumption": false },
-  "affectedRoutes": { "blocked": [], "detour": [], "expedited": [] },
-  "sensitivity": [{ "assumption": "initialCapacityFraction", "spearman": -0.95 }],
-  "optimization": { "solver": "OR-Tools GLOP", "draws": 1000, "assumption": true, "scope": "...", "...": "see below" }
-}
-```
-
-Identity and dates:
-
-- `type`: `sea`, `sky`, `land`, `policy`, `demand`.
-- `dateBasis`, `endBasis` (optional): what the `start` and `end` dates
-  observe. For most real events, `end` is the onset or announcement window,
-  not the end of the disruption.
-- `networkPath` (optional): the network file for this event, relative to
-  the data folder. When it is missing, the interface uses `network.json`.
-  Each historical event uses the Supplier List from its own year, so the
-  interface loads this file for the scenario.
-- `cohort` (optional): as in the network.
-- `sources` (optional): sources for the event itself.
-
-Shock:
-
-- `shock.nodeIds` may be empty when no node is the shock itself.
-- `shock.capacityLoss` (**nullable**): share of capacity lost, 0 to 1.
-- `shock.location` (optional): where the event happened.
-  - `lon`, `lat`, `precision`.
-  - `basis`: free text.
-  - `sources`.
-
-  The interface draws the shock zone here when `shock.nodeIds` is empty. For
-  a sea event it closes the nearest typical chokepoint, and for a port city
-  it closes that port.
-
-Text:
-
-- `headline`: one sentence for the panel.
-- `outcomeDefinition` (optional): what `hit`, `car`, and `pHit` measure. In
-  the real export these are company stock responses, not factory damage.
-  The interface shows it next to predictions and actual results.
-- `unknowns` (optional): things the data does not know for this event, shown
-  in the panel as a list.
-
-Predictions and outcomes:
-
-- `predictions[]`: one per node.
-  - `pHit`, `ciLow`, `ciHigh`: probabilities, 0 to 1.
-  - `lowConfidence`: boolean.
-  - `shap`: `[{ "feature", "value" }]`, contributions to the log odds.
-  - Optional: `shapBaseValue` and `shapMeanRawScore` (numbers); `predictionScope` (free
-    text on what the prediction covers); `outcomeObservable` (false when no
-    actual outcome can exist for that node).
-- `companyPredictions` (optional): for events whose network has company names
-  but no locations (the 2011 events). Each entry has:
-  - the same probability and SHAP fields as `predictions[]`, plus
-    `predictionScope` and `outcomeObservable`;
-  - `companyId`, `supplier` (the company name), `ticker` (**nullable**), and
-    `sources`;
-  - `actual` (**nullable**): `{ "hit", "car" }`.
-- `actual[]`: `{ "nodeId", "hit", "car" }`, plus an optional `scope` (free
-  text). It is empty for hypothetical scenarios.
-
-Recovery plan:
-
-- `options[]`: recovery options.
-  - `unitsRecovered` and `extraCostUsd` are ranges.
-  - `daysToEffectRange` (optional) is a range around `daysToEffect`.
-  - `inputRanges` (optional) is the assumed input for the optimizer, with
-    ranges `capacityPerWeek`, `leadWeeks`, `rampWeeks`, and
-    `costUsdPerIndexUnit`.
-- `options` may be empty when no plan is modeled.
-- `quota` (**nullable**): `null` when production is not modeled. When
-  present:
-  - `weeks`, `target`, `noAction`, `withPlan`, and `recoverySentence` as
-    before.
-  - Optional:
-    - `noActionRange`, `withPlanRange`: per-week ranges.
-    - `optionPlans`: the result for each combination of options, as
-      `optionIds`, `withPlan`, `withPlanRange`, and `extraCostUsd`. The
-      interface uses the plan matching the chosen options when it exists.
-    - `unit`: what the numbers count. The real export uses an index, where
-      100 is an assumed weekly reference, not a count of devices.
-    - `scope`, `assumption`.
-
-Money and routes:
-
-- `money.revenueAtRisk` (**nullable**, range) and `money.delayedShare`
-  (**nullable**, 0 to 1). When either is `null`, the interface draws no
-  at-risk coins and says the amount is unknown.
-- `affectedRoutes`: edge ids. All three lists may be empty.
-
-Model notes:
-
-- `sensitivity` (filled by the optimizer, may be empty):
-  `[{ "assumption": "initialCapacityFraction", "spearman": -0.95 }]`, sorted
-  by absolute value, largest first.
-- `optimization` (optional): how the plan was computed.
-  - `solver`, `ortoolsVersion`, `seed`, `draws`, `pairedOptionCombinations`.
-  - `baseCapacityRange`: per-week ranges.
-  - `defaultExtraCostUsd`: a range.
-  - `inputRanges`: the assumed ranges and their `approval` record.
-  - `scope`, `assumption`, and free-text `costDefinition`, `rangeDefinition`,
-    and `sensitivityDefinition`.
-
-## `scenarios/index.json`
-
-```json
-[{ "id": "suez-2021", "title": "Suez Canal blocked", "type": "sea", "start": "2021-03-23" }]
-```
-
-## `metrics.json`: model results for the backtest panel
-
-```json
-{
-  "model": "lightgbm",
-  "sampleData": false,
-  "events": 7,
-  "predictionEvents": 9,
-  "rows": 820,
-  "loeo": [
-    {
-      "eventId": "suez-2021",
-      "rows": 121,
-      "hits": 8,
-      "auc": 0.53,
-      "brier": 0.06,
-      "baselineAuc": 0.64,
-      "logisticBrier": 0.07,
-      "distanceAuc": 0.88,
-      "distanceBrier": 0.06
-    }
-  ],
-  "overall": { "auc": [0.40, 0.56], "brier": [0.03, 0.07], "baselineAuc": [0.49, 0.68], "distanceAuc": [0.53, 0.74] },
-  "overallPoint": { "auc": 0.45, "brier": 0.05, "baselineAuc": 0.58, "distanceAuc": 0.63 },
-  "calibration": [{ "binMid": 0.05, "predicted": 0.04, "observed": 0.05, "n": 811 }],
-  "cohorts": [{ "eventId": "suez-2021", "snapshotYear": 2021, "...": "as in the network cohort" }],
-  "excludedEvents": [
-    { "eventId": "taiwan-2024", "snapshotYear": 2024, "reason": "No verified own-year Supplier List", "source": { "title": "...", "url": "https://..." } }
-  ],
-  "excludedFromMetrics": [{ "eventId": "japan-2011", "rows": 54, "hits": 0, "reason": "Single observed supplier outcome class" }],
-  "evaluationPolicy": {
-    "approved": true,
-    "approvalDate": "2026-10-14",
-    "singleClassEvents": "exclude-from-metrics",
-    "userDecision": "Exclude single-class events from metrics",
-    "scope": "...",
-    "limitation": "..."
-  },
-  "bootstrapEventDraws": 2000,
-  "ensembleMembersPerFold": 200,
-  "probabilityDefinition": "...",
-  "baselineDefinition": "...",
-  "evaluationDefinition": "...",
-  "shapDefinition": "...",
-  "lowConfidenceRule": "...",
-  "limitations": ["..."]
-}
-```
-
-- `events`: events in the metrics. `predictionEvents`: events with exported
-  predictions (it includes events excluded from the metrics).
-- `loeo[]`: leave-one-event-out results.
-  - `baselineAuc` is the logistic-regression baseline, and `distanceAuc` and
-    `distanceBrier` are the distance-only baseline.
-  - `logisticBrier`, `distanceAuc`, `distanceBrier`, `rows`, and `hits` are
-    optional.
-- `overall`: `[low, high]` 95% bootstrap intervals. `distanceAuc` is optional.
-- `overallPoint` (optional): the point estimates for the same metrics.
-- `calibration[].predicted` (optional): the mean predicted probability in the
-  bin.
-- `cohorts`, `excludedEvents`, `excludedFromMetrics`, `evaluationPolicy`
-  (optional): which events count and why. The interface lists excluded
-  events with their reasons rather than hiding them.
-- `bootstrapEventDraws`, `ensembleMembersPerFold` (optional): numbers.
-- `...Definition`, `lowConfidenceRule`, `limitations` (optional): free text.
-
-## `forecasts.json`: input cost forecasts (phase 2; may be missing)
-
-```json
-{
-  "sampleData": false,
-  "asOf": "2026-10-14",
-  "model": {
-    "id": "amazon/chronos-bolt-small",
-    "title": "Amazon Chronos-Bolt small pretrained forecasting model",
-    "url": "https://huggingface.co/amazon/chronos-bolt-small",
-    "revision": "772f3d2...",
-    "weightsSha256": "06a6a19...",
-    "releasedOn": "2024-11-26",
-    "device": "cpu",
-    "torchVersion": "2.14.1+cpu",
-    "quantiles": [0.1, 0.5, 0.9],
-    "quantileRearrangement": "Sorted independently at each forecast step"
-  },
-  "evaluationDefinition": "...",
-  "intervalDefinition": "...",
-  "baselineIntervalDefinition": "...",
-  "limitations": ["..."],
-  "series": [
-    {
-      "id": "copper",
-      "label": "Copper",
-      "unit": "USD per tonne",
-      "source": { "title": "World Bank commodity prices", "url": "https://..." },
-      "definitionSource": { "title": "...", "url": "https://...", "basis": "..." },
-      "availabilityNote": "...",
-      "historyThrough": "2026-09-01",
-      "forecastStatus": "latest verified vintage",
-      "history": [{ "date": "2026-01-01", "value": 0, "weeklyObservations": 4 }],
-      "forecast": [{ "date": "2026-11-01", "q10": 0, "q50": 0, "q90": 0 }],
-      "baseline": [{ "date": "2026-11-01", "value": 0 }],
-      "metrics": {
-        "mase": 0.0,
-        "baselineMase": 1.0,
-        "coverage80": 0.0,
-        "baselineCoverage80": 0.0,
-        "pinballLoss": 0.0,
-        "baselinePinballLoss": 0.0,
-        "origins": 24,
-        "horizonMonths": 6,
-        "scoredPredictions": 144,
-        "firstTarget": "2024-05-01",
-        "lastTarget": "2026-09-01",
-        "aggregation": "...",
-        "afterPublicReleaseOneMonth": { "...": "the same metric fields, plus note" }
-      }
-    }
-  ]
-}
-```
-
-- Top level: `asOf`, `model`, the three `...Definition` fields, and
-  `limitations` are optional.
-- Per series, these are optional:
-  - `definitionSource`, `availabilityNote`: notes on the data. The freight
-    series is archived and is a regional route, not a global rate.
-  - `historyThrough`: the last month of history.
-  - `forecastStatus`: `latest verified vintage` or `archived`.
-  - `history[].weeklyObservations`: weekly points averaged into the month.
-- `metrics` must have `mase`, `baselineMase`, and `coverage80`; every other
-  metric field is optional.
+<!-- END REAL EXPORT FIELD INVENTORY -->

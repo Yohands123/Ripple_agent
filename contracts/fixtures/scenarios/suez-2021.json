@@ -6,26 +6,179 @@
   "end": "2021-03-29",
   "snapshotYear": 2021,
   "sampleData": true,
-  "shock": {"nodeIds": ["suez-canal"], "capacityLoss": 1.0},
+  "shock": {
+    "nodeIds": [
+      "suez-canal"
+    ],
+    "capacityLoss": 1.0
+  },
   "headline": "Suez Canal blocked. Asia to Europe sea freight has stopped.",
   "predictions": [
-    {"nodeId": "store-london", "pHit": 0.86, "ciLow": 0.74, "ciHigh": 0.93, "lowConfidence": false, "shap": [{"feature": "depends_on_shocked_chokepoint", "value": 0.34}, {"feature": "hops_from_shock", "value": 0.12}]},
-    {"nodeId": "retailer-madrid", "pHit": 0.62, "ciLow": 0.38, "ciHigh": 0.81, "lowConfidence": true, "shap": [{"feature": "depends_on_shocked_chokepoint", "value": 0.21}]}
+    {
+      "nodeId": "store-london",
+      "pHit": 0.86,
+      "ciLow": 0.74,
+      "ciHigh": 0.93,
+      "lowConfidence": false,
+      "shap": [
+        {
+          "feature": "depends_on_shocked_chokepoint",
+          "value": 0.34
+        },
+        {
+          "feature": "hops_from_shock",
+          "value": 0.12
+        }
+      ]
+    },
+    {
+      "nodeId": "retailer-madrid",
+      "pHit": 0.62,
+      "ciLow": 0.38,
+      "ciHigh": 0.81,
+      "lowConfidence": true,
+      "shap": [
+        {
+          "feature": "depends_on_shocked_chokepoint",
+          "value": 0.21
+        }
+      ]
+    }
   ],
   "actual": [],
   "options": [
-    {"id": "detour-cape", "label": "Detour around Africa", "detail": "+10 to 14 days", "unitsRecovered": [0, 0], "extraCostUsd": [0, 0], "daysToEffect": 12, "defaultOn": true, "assumption": true},
-    {"id": "air", "label": "Shift to air freight", "detail": "higher cost", "unitsRecovered": [0, 0], "extraCostUsd": [0, 0], "daysToEffect": 2, "defaultOn": true, "assumption": true},
-    {"id": "inventory", "label": "Use Europe inventory", "detail": "covers [N] days", "unitsRecovered": [0, 0], "extraCostUsd": [0, 0], "daysToEffect": 0, "defaultOn": true, "assumption": true},
-    {"id": "wait", "label": "Wait it out", "detail": "6 days, then backlog", "unitsRecovered": [0, 0], "extraCostUsd": [0, 0], "daysToEffect": 6, "defaultOn": false, "assumption": true}
+    {
+      "id": "detour-cape",
+      "label": "Detour around Africa",
+      "detail": "+10 to 14 days",
+      "unitsRecovered": [
+        0,
+        0
+      ],
+      "extraCostUsd": [
+        0,
+        0
+      ],
+      "daysToEffect": 12,
+      "defaultOn": true,
+      "assumption": true
+    },
+    {
+      "id": "air",
+      "label": "Shift to air freight",
+      "detail": "higher cost",
+      "unitsRecovered": [
+        0,
+        0
+      ],
+      "extraCostUsd": [
+        0,
+        0
+      ],
+      "daysToEffect": 2,
+      "defaultOn": true,
+      "assumption": true
+    },
+    {
+      "id": "inventory",
+      "label": "Use Europe inventory",
+      "detail": "covers [N] days",
+      "unitsRecovered": [
+        0,
+        0
+      ],
+      "extraCostUsd": [
+        0,
+        0
+      ],
+      "daysToEffect": 0,
+      "defaultOn": true,
+      "assumption": true
+    },
+    {
+      "id": "wait",
+      "label": "Wait it out",
+      "detail": "6 days, then backlog",
+      "unitsRecovered": [
+        0,
+        0
+      ],
+      "extraCostUsd": [
+        0,
+        0
+      ],
+      "daysToEffect": 6,
+      "defaultOn": false,
+      "assumption": true
+    }
   ],
   "quota": {
-    "weeks": ["2021-03-22", "2021-03-29", "2021-04-05", "2021-04-12", "2021-04-19"],
-    "target": [100, 100, 100, 100, 100],
-    "noAction": [99, 40, 30, 55, 95],
-    "withPlan": [99, 70, 78, 98, 100],
+    "weeks": [
+      "2021-03-22",
+      "2021-03-29",
+      "2021-04-05",
+      "2021-04-12",
+      "2021-04-19"
+    ],
+    "target": [
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "noAction": [
+      99,
+      40,
+      30,
+      55,
+      95
+    ],
+    "withPlan": [
+      99,
+      70,
+      78,
+      98,
+      100
+    ],
     "recoverySentence": "Back on target in weeks 3 to 4"
   },
-  "money": {"coinUsd": 500000000, "revenueAtRisk": [0, 0], "delayedShare": 0.6, "assumption": true},
-  "affectedRoutes": {"blocked": ["e-sea-europe"], "detour": ["e-sea-cape"], "expedited": ["e-air-zhengzhou", "e-air-chennai"]}
+  "money": {
+    "coinUsd": 500000000,
+    "revenueAtRisk": [
+      0,
+      0
+    ],
+    "delayedShare": 0.6,
+    "assumption": true
+  },
+  "affectedRoutes": {
+    "blocked": [
+      "e-sea-europe"
+    ],
+    "detour": [
+      "e-sea-cape"
+    ],
+    "expedited": [
+      "e-air-zhengzhou",
+      "e-air-chennai"
+    ]
+  },
+  "sensitivity": [
+    {
+      "assumption": "airFreightCapacity",
+      "label": "Air freight capacity",
+      "spearman": -0.58
+    },
+    {
+      "assumption": "europeInventoryDays",
+      "label": "Europe inventory days",
+      "spearman": -0.41
+    },
+    {
+      "assumption": "detourTransitDays",
+      "label": "Detour transit days",
+      "spearman": 0.22
+    }
+  ]
 }
