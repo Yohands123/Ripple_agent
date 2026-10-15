@@ -10,6 +10,13 @@ from pipeline.validate import validate_folder
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_tier_unknown_percentage_counts_supplier_sites_and_handles_undisclosed_rosters():
+    nodes = [{"layer": "supplier", "tier": 3}, {"layer": "supplier", "tier": None},
+             {"layer": "supplier", "tier": 4}, {"layer": "backbone", "tier": None}]
+    assert exporter.tier_unknown_text(nodes) == "Production tier for 33.3% of sites"
+    assert "unknown share" in exporter.tier_unknown_text([nodes[-1]])
+
+
 @pytest.fixture(scope="module")
 def candidate():
     return exporter.build_bundle()

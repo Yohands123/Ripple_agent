@@ -181,7 +181,10 @@ Scenarios contain `id`, `title`, `type`, `start`, `end`, `snapshotYear`,
 Date bases describe onset, announcement, report cutoff or reopening; `end`
 does not automatically mean full recovery. The outcome is company
 market-model CAR on trading days 0 through +10, hit when t < -1.96.
-`unknowns` lists unmeasured quantities, never zeros.
+`unknowns` lists unmeasured quantities, never substituted zeros. Its production
+tier entry gives the percentage of disclosed supplier sites with null tiers,
+excluding backbone context. Company-only rosters have no site denominator and
+say the share is unknown rather than inventing a percentage.
 
 `shock.nodeIds` identifies sourced backbone shock locations and may be empty
 if no node represents the event. `capacityLoss` is nullable or in [0,1].

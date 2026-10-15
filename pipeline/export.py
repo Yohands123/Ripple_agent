@@ -36,6 +36,15 @@ def citations(*groups):
     return list({(s["title"], s["url"]): {"title": s["title"], "url": s["url"]} for group in groups for s in group}.values())
 
 
+def tier_unknown_text(nodes):
+    sites = [n for n in nodes if n.get("layer") == "supplier"]
+    if not sites:
+        return "Production tier for an unknown share of sites (supplier locations undisclosed)"
+    missing = sum(n.get("tier") is None for n in sites)
+    percent = f"{100 * missing / len(sites):.1f}".rstrip("0").rstrip(".")
+    return f"Production tier for {percent}% of sites"
+
+
 def unlocated_company(prediction, attributes, label=None):
     result = {k: prediction[k] for k in ["companyId", "supplier", "pHit", "ciLow", "ciHigh", "lowConfidence", "shap", "shapBaseValue", "shapMeanRawScore"]}
     result.update(ticker=attributes["ticker"] or None,
@@ -145,6 +154,8 @@ def build_bundle(root=ROOT):
                 raise ValueError("Unapproved optimizer assumptions cannot be published")
             documents[f"scenarios/{identifier}.json"].update(plan)
         attach_backbone(documents[network_path], documents[f"scenarios/{identifier}.json"], event, backbone)
+        scenario = documents[f"scenarios/{identifier}.json"]
+        scenario["unknowns"] = [tier_unknown_text(documents[network_path]["nodes"]) if value.casefold().startswith("production tier") else value for value in scenario["unknowns"]]
         index.append({key: event[key] for key in ["id", "title", "type", "start"]})
     default = "suez-2021" if "networks/suez-2021.json" in documents else events[0]["id"]
     documents["network.json"] = documents[f"networks/{default}.json"]

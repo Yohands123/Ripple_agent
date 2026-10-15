@@ -1,0 +1,68 @@
+{
+  "definition": "Null-tier share of disclosed supplier sites only; backbone nodes excluded. No percentage is defined for company-only rosters.",
+  "events": [
+    {
+      "eventId": "covid-china-2020",
+      "supplierSites": 582,
+      "sitesWithoutTier": 10,
+      "missingTierPercent": 1.7182130584192439,
+      "unknownsText": "Production tier for 1.7% of sites"
+    },
+    {
+      "eventId": "japan-2011",
+      "supplierSites": 0,
+      "sitesWithoutTier": 0,
+      "missingTierPercent": null,
+      "unknownsText": "Production tier for an unknown share of sites (supplier locations undisclosed)"
+    },
+    {
+      "eventId": "kumamoto-2016",
+      "supplierSites": 734,
+      "sitesWithoutTier": 23,
+      "missingTierPercent": 3.1335149863760217,
+      "unknownsText": "Production tier for 3.1% of sites"
+    },
+    {
+      "eventId": "red-sea-2023",
+      "supplierSites": 733,
+      "sitesWithoutTier": 11,
+      "missingTierPercent": 1.500682128240109,
+      "unknownsText": "Production tier for 1.5% of sites"
+    },
+    {
+      "eventId": "russia-2022",
+      "supplierSites": 690,
+      "sitesWithoutTier": 8,
+      "missingTierPercent": 1.1594202898550725,
+      "unknownsText": "Production tier for 1.2% of sites"
+    },
+    {
+      "eventId": "shanghai-2022",
+      "supplierSites": 690,
+      "sitesWithoutTier": 8,
+      "missingTierPercent": 1.1594202898550725,
+      "unknownsText": "Production tier for 1.2% of sites"
+    },
+    {
+      "eventId": "suez-2021",
+      "supplierSites": 704,
+      "sitesWithoutTier": 12,
+      "missingTierPercent": 1.7045454545454546,
+      "unknownsText": "Production tier for 1.7% of sites"
+    },
+    {
+      "eventId": "thailand-2011",
+      "supplierSites": 0,
+      "sitesWithoutTier": 0,
+      "missingTierPercent": null,
+      "unknownsText": "Production tier for an unknown share of sites (supplier locations undisclosed)"
+    },
+    {
+      "eventId": "zhengzhou-2022",
+      "supplierSites": 690,
+      "sitesWithoutTier": 8,
+      "missingTierPercent": 1.1594202898550725,
+      "unknownsText": "Production tier for 1.2% of sites"
+    }
+  ]
+}
